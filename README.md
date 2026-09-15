@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# St Hugh's College Vientiane — Digital Campus
 
-## Getting Started
+Production-grade public website + CMS for St Hugh's College Vientiane (SHV), an NCUK Study Centre
+in Lao PDR. Built from `St_Hughs_College_Ultimate_Master_Prompt.txt`.
 
-First, run the development server:
+**Read first:** `docs/DESIGN_SYSTEM.md` (creative direction + tokens), `docs/ARCHITECTURE.md`
+(conventions, routes, rules), `docs/CMS_GUIDE.md` (for staff), `docs/SECURITY.md`, `docs/TESTING.md`.
+
+## Quick start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+export PATH="$HOME/.local/node/bin:$PATH"   # Node 22 is installed user-locally on this Mac
+pnpm install
+cp .env.example .env                        # then set AUTH_SECRET (openssl rand -base64 32)
+pnpm db:reset                               # creates dev.db and seeds verified content
+pnpm dev                                    # http://localhost:3000  ·  CMS at /admin
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Seeded staff logins (change on first login): see the `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`
+values in `.env`; demo role accounts `content@`, `editor@`, `admissions@`, `marketing@` share the
+same password.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
+| Command | Purpose |
+|---|---|
+| `pnpm dev` | Turbopack dev server |
+| `pnpm typecheck` / `pnpm lint` / `pnpm test` | quality gates |
+| `pnpm build` / `pnpm start` | production |
+| `pnpm db:push` / `pnpm db:seed` / `pnpm db:reset` | schema + seed |
+| `pnpm check` | typecheck + lint + test + build |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Content rule
+Nothing on the public site is invented. Every partner, programme, destination and metric carries a
+`verificationStatus` and `sourceNote`. Unverified items stay `IN_REVIEW` (hidden) or show a
+"Verification pending" badge until SHV approves them in the CMS. Statistics render as "—" until a
+verified value is entered.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Production notes
+- Do not run `pnpm build` while `pnpm dev` is running: Next 15.5 shares the `.next` directory and the
+  build removes the dev server's static manifests (restart `pnpm dev` if that happens).
+- Switch `prisma/schema.prisma` datasource to `postgresql` and set `DATABASE_URL`; run
+  `prisma migrate deploy`.
+- Media uploads write to `public/uploads` locally; set the `STORAGE_*` variables and swap the
+  storage adapter in `src/app/api/admin/media` for S3-compatible storage + CDN.
+- Replace the in-memory rate limiter with Redis for multi-instance deployments.
+- Configure `EMAIL_API_KEY`, `ADMISSIONS_NOTIFY_EMAIL`, `CRM_WEBHOOK_URL` to activate
+  notifications and CRM forwarding (see `docs/CRM_INTEGRATION.md`).

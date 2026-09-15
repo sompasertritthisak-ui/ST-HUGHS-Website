@@ -1,0 +1,612 @@
+// St Hugh's College Vientiane — Digital Campus data model
+//
+// Provider note: local development uses SQLite so the project runs with zero
+// infrastructure. Production target is PostgreSQL: change `provider` to
+// "postgresql" and set DATABASE_URL. No SQLite-only or Postgres-only features
+// are used. Enumerations are stored as strings and validated in
+// `src/lib/enums.ts` (Zod) so the schema is portable across both providers.
+// JSON-shaped fields are stored as strings suffixed `Json` and parsed with Zod.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────── Identity & access ───────────────────────────
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String
+  passwordHash String
+  role         String    @default("VIEWER") // SUPER_ADMIN | CONTENT_ADMIN | EDITOR | ADMISSIONS | MARKETING | VIEWER
+  isActive     Boolean   @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  auditLogs         AuditLog[]
+  revisions         Revision[]
+  assignedEnquiries Enquiry[]     @relation("AssignedCounsellor")
+  ownedProgrammes   Programme[]   @relation("ProgrammeOwner")
+  ownedPathways     Pathway[]     @relation("PathwayOwner")
+  newsArticles      NewsArticle[]
+}
+
+// ───────────────────────────────── Media & documents ─────────────────────────
+
+model Media {
+  id            String   @id @default(cuid())
+  kind          String   @default("IMAGE") // IMAGE | VIDEO | PDF | LOGO | DOCUMENT
+  url           String
+  filename      String
+  mimeType      String
+  sizeBytes     Int      @default(0)
+  width         Int?
+  height        Int?
+  alt           String   @default("")
+  caption       String?
+  credit        String?
+  focalX        Float    @default(0.5)
+  focalY        Float    @default(0.5)
+  tagsJson      String   @default("[]")
+  usageStatus   String   @default("INTERNAL") // APPROVED | INTERNAL | RESTRICTED | EXPIRED
+  consentStatus String   @default("NOT_REQUIRED") // NOT_REQUIRED | PENDING | GRANTED | WITHDRAWN
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  programmesHero   Programme[]    @relation("ProgrammeHero")
+  destinationsHero Destination[]  @relation("DestinationHero")
+  universityLogos  University[]   @relation("UniversityLogo")
+  partnerLogos     Partner[]      @relation("PartnerLogo")
+  storyPhotos      StudentStory[] @relation("StoryPhoto")
+  facultyPhotos    Faculty[]      @relation("FacultyPhoto")
+  facilityPhotos   Facility[]     @relation("FacilityPhoto")
+  newsHero         NewsArticle[]  @relation("NewsHero")
+  eventHero        Event[]        @relation("EventHero")
+  documents        Document[]
+  pageOgImages     Page[]         @relation("PageOg")
+}
+
+model Document {
+  id           String    @id @default(cuid())
+  title        String
+  slug         String    @unique
+  category     String    @default("BROCHURE") // PROSPECTUS | BROCHURE | ENTRY_REQUIREMENTS | APPLICATION | HANDBOOK | CALENDAR | POLICY | GUIDE
+  description  String?
+  version      String    @default("1.0")
+  documentDate DateTime?
+  visibility   String    @default("PUBLIC") // PUBLIC | INTERNAL
+  status       String    @default("DRAFT")
+  mediaId      String?
+  media        Media?    @relation(fields: [mediaId], references: [id])
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+// ───────────────────────────────── Pages & blocks ────────────────────────────
+
+model Page {
+  id                 String         @id @default(cuid())
+  slug               String         @unique
+  title              String
+  template           String         @default("STANDARD") // HOME | STANDARD | LANDING
+  locale             String         @default("en")
+  status             String         @default("DRAFT")
+  publishAt          DateTime?
+  seoTitle           String?
+  seoDescription     String?
+  canonical          String?
+  ogTitle            String?
+  ogDescription      String?
+  ogImageId          String?
+  ogImage            Media?         @relation("PageOg", fields: [ogImageId], references: [id])
+  noIndex            Boolean        @default(false)
+  structuredDataJson String?
+  blocks             ContentBlock[]
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+}
+
+model ContentBlock {
+  id        String  @id @default(cuid())
+  pageId    String
+  page      Page    @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  type      String // HERO | RICH_TEXT | IMAGE | VIDEO | STATISTICS | PROGRAMME_GRID | UNIVERSITY_GRID | PATHWAY_TIMELINE | MAP | TESTIMONIAL | STUDENT_STORY | FAQ | CTA | GALLERY | COMPARISON_TABLE | LOGO_WALL | QUOTE | MEDIA
+  order     Int     @default(0)
+  dataJson  String  @default("{}")
+  isVisible Boolean @default(true)
+
+  @@index([pageId, order])
+}
+
+// ───────────────────────────────── Academic catalogue ────────────────────────
+
+model Programme {
+  id                 String    @id @default(cuid())
+  slug               String    @unique
+  code               String?
+  title              String
+  shortTitle         String?
+  type               String    @default("FOUNDATION") // FOUNDATION | YEAR_ONE | BACHELOR_PATHWAY | LANGUAGE | SHORT_COURSE
+  awardingBody       String?
+  level              String?
+  summary            String
+  description        String    @default("")
+  whoFor             String?
+  studyLocation      String    @default("St Hugh's College Vientiane")
+  durationLabel      String?
+  durationMonths     Int?
+  intakesJson        String    @default("[]")
+  subjectRoutesJson  String    @default("[]")
+  entryRequirements  String?
+  englishRequirement String?
+  assessment         String?
+  qualification      String?
+  progression        String?
+  whatNext           String?
+  applicationNotes   String?
+  heroMediaId        String?
+  heroMedia          Media?    @relation("ProgrammeHero", fields: [heroMediaId], references: [id])
+  featured           Boolean   @default(false)
+  sortOrder          Int       @default(0)
+  status             String    @default("DRAFT")
+  verificationStatus String    @default("PENDING") // VERIFIED | PENDING | UNVERIFIED
+  sourceNote         String?
+  ownerId            String?
+  owner              User?     @relation("ProgrammeOwner", fields: [ownerId], references: [id])
+  effectiveDate      DateTime?
+  reviewDate         DateTime?
+  publishAt          DateTime?
+  seoTitle           String?
+  seoDescription     String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  modules   ProgrammeModule[]
+  pathways  Pathway[]
+  faqs      Faq[]
+  stories   StudentStory[]
+  news      NewsArticle[]
+  enquiries Enquiry[]
+}
+
+model ProgrammeModule {
+  id          String    @id @default(cuid())
+  programmeId String
+  programme   Programme @relation(fields: [programmeId], references: [id], onDelete: Cascade)
+  title       String
+  kind        String    @default("CORE") // CORE | SUBJECT | SKILLS | ENGLISH
+  description String?
+  credits     Int?
+  order       Int       @default(0)
+
+  @@index([programmeId, order])
+}
+
+model Destination {
+  id                 String    @id @default(cuid())
+  slug               String    @unique
+  country            String
+  isoCode            String
+  region             String?
+  lat                Float
+  lng                Float
+  summary            String    @default("")
+  pathwayTypes       String    @default("")
+  durationNotes      String?
+  requirements       String?
+  progressionNotes   String?
+  officialLink       String?
+  heroMediaId        String?
+  heroMedia          Media?    @relation("DestinationHero", fields: [heroMediaId], references: [id])
+  featured           Boolean   @default(false)
+  sortOrder          Int       @default(0)
+  status             String    @default("DRAFT")
+  verificationStatus String    @default("PENDING")
+  sourceNote         String?
+  reviewDate         DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  universities University[]
+  pathways     Pathway[]
+  stories      StudentStory[]
+  enquiries    Enquiry[]
+}
+
+model University {
+  id                 String       @id @default(cuid())
+  slug               String       @unique
+  name               String
+  city               String?
+  destinationId      String?
+  destination        Destination? @relation(fields: [destinationId], references: [id])
+  website            String?
+  logoMediaId        String?
+  logo               Media?       @relation("UniversityLogo", fields: [logoMediaId], references: [id])
+  partnershipType    String       @default("NCUK_NETWORK") // NCUK_NETWORK | DIRECT_PARTNER | ARTICULATION | PLANNED
+  summary            String       @default("")
+  programmesOffered  String?
+  progressionInfo    String?
+  transferPoint      String?
+  featured           Boolean      @default(false)
+  sortOrder          Int          @default(0)
+  status             String       @default("DRAFT")
+  verificationStatus String       @default("PENDING")
+  sourceNote         String?
+  reviewDate         DateTime?
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+
+  pathways Pathway[]
+  stories  StudentStory[]
+  news     NewsArticle[]
+}
+
+model Partner {
+  id                 String   @id @default(cuid())
+  slug               String   @unique
+  name               String
+  type               String   @default("EDUCATION") // AWARDING_BODY | UNIVERSITY | EDUCATION | INDUSTRY | GOVERNMENT
+  website            String?
+  logoMediaId        String?
+  logo               Media?   @relation("PartnerLogo", fields: [logoMediaId], references: [id])
+  description        String   @default("")
+  featured           Boolean  @default(false)
+  sortOrder          Int      @default(0)
+  status             String   @default("DRAFT")
+  verificationStatus String   @default("PENDING")
+  sourceNote         String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model Pathway {
+  id                      String       @id @default(cuid())
+  slug                    String       @unique
+  code                    String?
+  title                   String
+  summary                 String       @default("")
+  startLocation           String       @default("Vientiane, Lao PDR")
+  programmeId             String?
+  programme               Programme?   @relation(fields: [programmeId], references: [id])
+  subjectArea             String?
+  destinationId           String?
+  destination             Destination? @relation(fields: [destinationId], references: [id])
+  universityId            String?
+  university              University?  @relation(fields: [universityId], references: [id])
+  partnerName             String?
+  qualification           String?
+  field                   String?
+  structureLabel          String?
+  totalDurationLabel      String?
+  transferPoint           String?
+  progressionRequirements String?
+  careerDirections        String?
+  applicationNotes        String?
+  featured                Boolean      @default(false)
+  sortOrder               Int          @default(0)
+  status                  String       @default("DRAFT")
+  verificationStatus      String       @default("PENDING")
+  sourceNote              String?
+  ownerId                 String?
+  owner                   User?        @relation("PathwayOwner", fields: [ownerId], references: [id])
+  effectiveDate           DateTime?
+  reviewDate              DateTime?
+  createdAt               DateTime     @default(now())
+  updatedAt               DateTime     @updatedAt
+
+  steps   PathwayStep[]
+  stories StudentStory[]
+}
+
+model PathwayStep {
+  id          String  @id @default(cuid())
+  pathwayId   String
+  pathway     Pathway @relation(fields: [pathwayId], references: [id], onDelete: Cascade)
+  order       Int     @default(0)
+  label       String
+  location    String?
+  institution String?
+  duration    String?
+  description String?
+  lat         Float?
+  lng         Float?
+
+  @@index([pathwayId, order])
+}
+
+// ───────────────────────────────── People & proof ────────────────────────────
+
+model StudentStory {
+  id                  String       @id @default(cuid())
+  slug                String       @unique
+  studentName         String
+  programmeId         String?
+  programme           Programme?   @relation(fields: [programmeId], references: [id])
+  pathwayId           String?
+  pathway             Pathway?     @relation(fields: [pathwayId], references: [id])
+  previousEducation   String?
+  journey             String       @default("")
+  destinationId       String?
+  destination         Destination? @relation(fields: [destinationId], references: [id])
+  universityId        String?
+  university          University?  @relation(fields: [universityId], references: [id])
+  outcome             String?
+  quote               String?
+  photoMediaId        String?
+  photo               Media?       @relation("StoryPhoto", fields: [photoMediaId], references: [id])
+  videoUrl            String?
+  progressionEvidence String?
+  consentStatus       String       @default("PENDING") // PENDING | GRANTED | WITHDRAWN
+  featured            Boolean      @default(false)
+  status              String       @default("DRAFT")
+  verificationStatus  String       @default("PENDING")
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+}
+
+model Faculty {
+  id             String   @id @default(cuid())
+  slug           String   @unique
+  name           String
+  role           String
+  department     String?
+  biography      String   @default("")
+  qualifications String?
+  expertise      String?
+  linkedin       String?
+  achievements   String?
+  photoMediaId   String?
+  photo          Media?   @relation("FacultyPhoto", fields: [photoMediaId], references: [id])
+  isLeadership   Boolean  @default(false)
+  sortOrder      Int      @default(0)
+  status         String   @default("DRAFT")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Facility {
+  id                 String   @id @default(cuid())
+  slug               String   @unique
+  name               String
+  category           String   @default("LEARNING") // ARRIVAL | LEARNING | STUDY | SOCIAL | OUTDOOR
+  description        String   @default("")
+  photoMediaId       String?
+  photo              Media?   @relation("FacilityPhoto", fields: [photoMediaId], references: [id])
+  sortOrder          Int      @default(0)
+  status             String   @default("DRAFT")
+  verificationStatus String   @default("PENDING")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model OutcomeMetric {
+  id                 String    @id @default(cuid())
+  key                String    @unique
+  label              String
+  value              String?
+  unit               String?
+  asOfDate           DateTime?
+  sourceNote         String?
+  verificationStatus String    @default("PENDING")
+  sortOrder          Int       @default(0)
+  status             String    @default("DRAFT")
+  updatedAt          DateTime  @updatedAt
+}
+
+// ───────────────────────────────── Editorial ─────────────────────────────────
+
+model NewsArticle {
+  id                  String      @id @default(cuid())
+  slug                String      @unique
+  title               String
+  excerpt             String      @default("")
+  body                String      @default("")
+  category            String      @default("ANNOUNCEMENTS") // STUDENT_SUCCESS | ACADEMIC | PARTNERSHIPS | EVENTS | CAMPUS | INTERNATIONAL | CAREERS | ANNOUNCEMENTS
+  authorId            String?
+  author              User?       @relation(fields: [authorId], references: [id])
+  authorName          String?
+  publishedAt         DateTime?
+  heroMediaId         String?
+  heroMedia           Media?      @relation("NewsHero", fields: [heroMediaId], references: [id])
+  relatedProgrammeId  String?
+  relatedProgramme    Programme?  @relation(fields: [relatedProgrammeId], references: [id])
+  relatedUniversityId String?
+  relatedUniversity   University? @relation(fields: [relatedUniversityId], references: [id])
+  tagsJson            String      @default("[]")
+  seoTitle            String?
+  seoDescription      String?
+  visibility          String      @default("PUBLIC")
+  status              String      @default("DRAFT")
+  publishAt           DateTime?
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+}
+
+model Event {
+  id              String    @id @default(cuid())
+  slug            String    @unique
+  title           String
+  description     String    @default("")
+  startsAt        DateTime
+  endsAt          DateTime?
+  location        String?
+  isOnline        Boolean   @default(false)
+  registrationUrl String?
+  heroMediaId     String?
+  heroMedia       Media?    @relation("EventHero", fields: [heroMediaId], references: [id])
+  status          String    @default("DRAFT")
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Faq {
+  id          String     @id @default(cuid())
+  question    String
+  answer      String
+  category    String     @default("ADMISSIONS") // ADMISSIONS | PROGRAMMES | PATHWAYS | INTERNATIONAL | FEES | CAMPUS | STUDENT_LIFE | PROGRESSION | APPLICATIONS | ENGLISH
+  programmeId String?
+  programme   Programme? @relation(fields: [programmeId], references: [id])
+  sortOrder   Int        @default(0)
+  status      String     @default("DRAFT")
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+// ───────────────────────────────── Enquiries & CRM-ready ─────────────────────
+
+model Campaign {
+  id          String    @id @default(cuid())
+  name        String
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?   @unique
+  landingPage String?
+  startsAt    DateTime?
+  endsAt      DateTime?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  enquiries   Enquiry[]
+}
+
+model Enquiry {
+  id                   String       @id @default(cuid())
+  type                 String       @default("ENQUIRY") // ENQUIRY | CONSULTATION | BROCHURE | VISIT
+  name                 String
+  email                String
+  phone                String?
+  country              String?
+  audience             String       @default("STUDENT") // STUDENT | PARENT | PARTNER | EMPLOYER | OTHER
+  currentQualification String?
+  programmeId          String?
+  programme            Programme?   @relation(fields: [programmeId], references: [id])
+  destinationId        String?
+  destination          Destination? @relation(fields: [destinationId], references: [id])
+  message              String?
+  source               String?
+  referrer             String?
+  utmSource            String?
+  utmMedium            String?
+  utmCampaign          String?
+  campaignId           String?
+  campaign             Campaign?    @relation(fields: [campaignId], references: [id])
+  status               String       @default("NEW") // NEW | CONTACTED | CONSULTATION_BOOKED | QUALIFIED | APPLICATION_STARTED | APPLICATION_SUBMITTED | CONVERTED | NOT_PROCEEDING | ARCHIVED
+  assignedToId         String?
+  assignedTo           User?        @relation("AssignedCounsellor", fields: [assignedToId], references: [id])
+  followUpAt           DateTime?
+  consentMarketing     Boolean      @default(false)
+  createdAt            DateTime     @default(now())
+  updatedAt            DateTime     @updatedAt
+
+  consultation Consultation?
+  notes        EnquiryNote[]
+
+  @@index([status, createdAt])
+}
+
+model Consultation {
+  id            String    @id @default(cuid())
+  enquiryId     String    @unique
+  enquiry       Enquiry   @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+  preferredDate DateTime?
+  preferredTime String?
+  mode          String    @default("IN_PERSON") // IN_PERSON | ONLINE | PHONE | WHATSAPP
+  confirmedAt   DateTime?
+  calendarRef   String?
+  createdAt     DateTime  @default(now())
+}
+
+model EnquiryNote {
+  id        String   @id @default(cuid())
+  enquiryId String
+  enquiry   Enquiry  @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+  authorId  String?
+  body      String
+  createdAt DateTime @default(now())
+}
+
+// ───────────────────────────────── Site structure & settings ─────────────────
+
+model NavigationItem {
+  id          String           @id @default(cuid())
+  menu        String           @default("HEADER") // HEADER | FOOTER | LEGAL | AUDIENCE
+  label       String
+  href        String
+  order       Int              @default(0)
+  parentId    String?
+  parent      NavigationItem?  @relation("NavTree", fields: [parentId], references: [id])
+  children    NavigationItem[] @relation("NavTree")
+  description String?
+  isVisible   Boolean          @default(true)
+  locale      String           @default("en")
+
+  @@index([menu, order])
+}
+
+model SiteSetting {
+  key       String   @id
+  valueJson String
+  updatedAt DateTime @updatedAt
+}
+
+model Translation {
+  id     String @id @default(cuid())
+  locale String
+  key    String
+  value  String
+
+  @@unique([locale, key])
+}
+
+// ───────────────────────────────── Governance ────────────────────────────────
+
+model Revision {
+  id           String   @id @default(cuid())
+  entityType   String
+  entityId     String
+  version      Int
+  snapshotJson String
+  note         String?
+  authorId     String?
+  author       User?    @relation(fields: [authorId], references: [id])
+  createdAt    DateTime @default(now())
+
+  @@index([entityType, entityId, version])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  actor      User?    @relation(fields: [actorId], references: [id])
+  action     String // CREATE | UPDATE | DELETE | PUBLISH | UNPUBLISH | LOGIN | ROLLBACK | UPLOAD
+  entityType String
+  entityId   String?
+  beforeJson String?
+  afterJson  String?
+  ip         String?
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@index([createdAt])
+}
+
+model AnalyticsEvent {
+  id          String   @id @default(cuid())
+  name        String
+  path        String?
+  propsJson   String   @default("{}")
+  sessionId   String?
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+  referrer    String?
+  createdAt   DateTime @default(now())
+
+  @@index([name, createdAt])
+}
