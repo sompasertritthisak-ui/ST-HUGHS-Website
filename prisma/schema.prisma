@@ -8,7 +8,8 @@
 // JSON-shaped fields are stored as strings suffixed `Json` and parsed with Zod.
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {

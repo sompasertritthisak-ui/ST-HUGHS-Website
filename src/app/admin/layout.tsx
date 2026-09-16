@@ -18,6 +18,9 @@ export const dynamic = "force-dynamic";
  * (middleware redirects every other admin route), so they get the bare light
  * wrapper; signed-in users get the sidebar + top bar.
  */
+/** Allow slow cold starts (Prisma connect + Neon wake) without a gateway timeout. */
+export const maxDuration = 60;
+
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const user = await currentUser();
   if (!user) {
