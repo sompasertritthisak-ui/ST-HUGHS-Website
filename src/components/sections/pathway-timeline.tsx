@@ -29,7 +29,7 @@ export function PathwayTimeline({ steps, orientation = "vertical", className, ar
         <Reveal key={step.id} as="li" delay={i * 40} className={cn("relative pb-10 pl-12 last:pb-0", horizontal && "lg:pb-0 lg:pl-0 lg:pt-10")}>
           <Node active={i === 0} className={cn("absolute left-0 top-0", horizontal && "lg:left-0 lg:top-0")} />
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <span className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-gold-soft">{step.label}</span>
+            <span className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-brand-soft">{step.label}</span>
             {step.duration ? <span className="font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-fg-subtle">{step.duration}</span> : null}
           </div>
           {step.institution ? <p className="mt-2 text-[1.0625rem] font-medium leading-snug text-fg">{step.institution}</p> : null}

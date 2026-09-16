@@ -145,7 +145,7 @@ function VideoBlock({ data }: { data: BlockData["VIDEO"] }) {
             <iframe src={src} title={data.title || "Video"} loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="absolute inset-0 h-full w-full" />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
-              <a href={data.url} target="_blank" rel="noopener noreferrer" className="text-gold-soft underline underline-offset-4">
+              <a href={data.url} target="_blank" rel="noopener noreferrer" className="text-brand-soft underline underline-offset-4">
                 {data.title || "Watch the video"}
               </a>
             </div>
@@ -347,7 +347,7 @@ function ComparisonTableBlock({ data }: { data: BlockData["COMPARISON_TABLE"] })
                 <span className="sr-only">Criterion</span>
               </th>
               {data.columns.map((c) => (
-                <th key={c} scope="col" className="border-b border-line py-3 pr-4 text-left font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-gold-soft">
+                <th key={c} scope="col" className="border-b border-line py-3 pr-4 text-left font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-soft">
                   {c}
                 </th>
               ))}
@@ -435,7 +435,7 @@ async function MediaBlock({ data }: { data: BlockData["MEDIA"] }) {
   if (media.kind === "PDF" || media.kind === "DOCUMENT") {
     return (
       <section className="container-x py-8">
-        <Link href={media.url} className="inline-flex items-center gap-2 text-gold-soft underline underline-offset-4" target="_blank" rel="noopener noreferrer">
+        <Link href={media.url} className="inline-flex items-center gap-2 text-brand-soft underline underline-offset-4" target="_blank" rel="noopener noreferrer">
           {data.caption || media.filename}
         </Link>
       </section>

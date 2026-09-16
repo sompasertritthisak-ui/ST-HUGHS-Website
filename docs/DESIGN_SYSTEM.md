@@ -15,8 +15,8 @@ reasons to trust. A university partner arrives asking "is this institution serio
 **Intended emotion** — *Assured momentum.* The feeling of standing at a departure gate with a
 confirmed ticket.
 
-**Visual language** — Deep midnight and obsidian surfaces, ivory type, one refined gold used like
-a gilt edge (thin rules, small marks, the active node), never as fills or gradients. Editorial
+**Visual language** — Deep brand-blue surfaces, white type, and the brand red used like a signature stroke
+(thin rules, small marks, the active node, the primary button), never as large washes. Editorial
 serif display set large and quiet; institutional sans for everything readable; mono for
 wayfinding labels (route codes, durations, statuses). Materiality: dark glass and brushed metal,
 restrained. Imagery: real SHV photography only; where none exists yet, a structured placeholder
@@ -33,9 +33,9 @@ Destination (the university) → Future (career) → Return (the CTA back to the
 routes extend outward to the nine approved destinations, then the globe resolves into the
 Pathway Explorer.
 
-**The MEMORY moment** — The thin gold route line that runs through the whole site: it appears in
-the hero, in the pathway timeline, under the active nav item, and as the page-load progress bar.
-The same line, everywhere. "The gold line from Laos to the world."
+**The MEMORY moment** — The thin red route line that runs through the whole site: it is the red rule
+under the wordmark in the logo, extended. It appears in the hero, in the pathway timeline, under the
+active nav item, and as the page-load progress bar. "The red line from Laos to the world."
 
 **Primary conversion** — Book a free consultation (talk to an advisor). Secondary: explore your
 pathway. Tertiary: apply.
@@ -45,28 +45,31 @@ pathway. Tertiary: apply.
 All tokens are CSS custom properties in `src/app/globals.css` and exposed to Tailwind v4 via
 `@theme`. Components must use semantic tokens, never raw hex.
 
-### Colour
+### Colour — SHV brand guideline: deep blue · red · white
+Sampled from the official logo files in `public/brand/` (wordmark blue #103090, mark gradient to #141858,
+rule red #CC1814).
+
 | Token | Hex | Role |
 |---|---|---|
-| `--color-midnight` | `#06090F` | page ground (dark) |
-| `--color-obsidian` | `#0B1120` | raised surfaces |
-| `--color-navy` | `#111D36` | cards, panels |
-| `--color-navy-2` | `#182A4D` | hover surfaces, borders on dark |
-| `--color-gold` | `#C6A45C` | the route line, marks, active states |
-| `--color-gold-deep` | `#8F7434` | gold on light backgrounds (contrast safe) |
-| `--color-gold-soft` | `#E4CE93` | gold text on midnight (≥ 7:1) |
-| `--color-ivory` | `#F4EFE4` | primary text on dark, light page ground |
-| `--color-platinum` | `#B9BFCB` | secondary text on dark |
-| `--color-slate` | `#6B7385` | tertiary text / placeholders |
-| `--color-ink` | `#0B1120` | primary text on light |
-| `--color-accent` | `#3E63DD` | restrained brand accent: focus ring, links on light, info |
-| `--color-success` | `#2F9E6B` | published / verified |
-| `--color-warning` | `#D08A1F` | in review / needs verification |
-| `--color-danger` | `#D64545` | destructive, errors |
+| `--color-midnight` | `#0B1350` | deepest ground (public site) |
+| `--color-obsidian` | `#101A5E` | raised surfaces |
+| `--color-navy` | `#142478` | cards, panels (logo mark) |
+| `--color-navy-2` | `#1B3499` | hover surfaces |
+| `--color-blue` | `#103090` | primary brand blue: links and focus on white, wordmark |
+| `--color-brand` | `#CF1B18` | brand red: the route line, nodes, primary CTA fill |
+| `--color-brand-deep` | `#A3120F` | red on white (≥ 4.5:1) |
+| `--color-brand-soft` | `#FF8E8B` | red-tinted text on deep blue (≥ 6:1) |
+| `--color-ivory` | `#FFFFFF` | white: primary text on blue, light page ground |
+| `--color-ivory-2` | `#EEF2FA` | cool off-white |
+| `--color-platinum` | `#C7D1EC` | secondary text on blue |
+| `--color-slate` | `#7D8AAE` | tertiary text |
+| `--color-ink` | `#0B1350` | text on white |
+| `--color-success` / `warning` / `danger` | `#2F9E6B` / `#D08A1F` / `#D64545` | status |
 
-Semantic aliases: `--bg`, `--bg-raised`, `--fg`, `--fg-muted`, `--line`, `--line-strong`,
-`--ring`. Public site is dark-first. Admin CMS is light (ivory ground, ink text) so it reads as a
-working tool, not a brochure; it shares the same tokens.
+Semantic aliases: `--bg`, `--bg-raised`, `--fg`, `--fg-muted`, `--line`, `--line-strong`, `--ring`,
+`--route`. Public site is deep-blue-first; `.theme-light` (admin CMS and any white public section) flips
+to white ground, ink text and deep red. Red is never a large fill except the primary button; it lives in
+the 1px route line, nodes, badges and the logo rule.
 
 ### Type
 | Role | Family | Notes |
@@ -92,14 +95,14 @@ Stagger 40ms. Route-line draw: 900–1400ms with `--ease-out`.
 `@media (prefers-reduced-motion: reduce)` disables all transforms/draws; content is visible.
 
 ## Signature components
-- **RouteLine** — the gold line. SVG path with `stroke-dasharray` draw-on. Used in hero, timelines,
+- **RouteLine** — the red line (from the logo rule). SVG path with `stroke-dasharray` draw-on. Used in hero, timelines,
   section dividers, nav underline, page progress.
-- **Node** — 8px gold dot with a 24px ring on active. Represents a place/step.
+- **Node** — 8px red dot with a 24px ring on active. Represents a place/step.
 - **Plate** — image container with 1px line, mono caption, focal-point object-position from CMS.
-- **Eyebrow** — mono uppercase label with a 24px gold rule to the left.
+- **Eyebrow** — mono uppercase label with a 24px red rule to the left.
 - **Stat** — number in display face, label in mono; renders "—" with "Verified data pending" when
   no verified value exists. Never invents numbers.
-- **Button** — `primary` (gold fill, ink text), `secondary` (ivory outline), `ghost` (text + arrow).
+- **Button** — `primary` (red fill, white text), `secondary` (white outline), `ghost` (text + arrow).
   Only one primary per viewport.
 
 ## Anti-patterns (hard rules)

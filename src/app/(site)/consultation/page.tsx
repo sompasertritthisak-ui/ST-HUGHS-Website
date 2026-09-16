@@ -61,7 +61,7 @@ export default async function ConsultationPage({ searchParams }: { searchParams:
               <ul className="space-y-6">
                 {BENEFITS.map(({ Icon, title, body }) => (
                   <li key={title} className="flex gap-4">
-                    <Icon aria-hidden className="mt-1 size-5 shrink-0 text-gold" strokeWidth={1.5} />
+                    <Icon aria-hidden className="mt-1 size-5 shrink-0 text-brand" strokeWidth={1.5} />
                     <div>
                       <h2 className="text-base font-medium text-fg">{title}</h2>
                       <p className="mt-1 text-sm leading-relaxed text-fg-muted">{body}</p>
@@ -76,10 +76,10 @@ export default async function ConsultationPage({ searchParams }: { searchParams:
                   {contact.phones.length ? (
                     <div className="flex gap-3">
                       <dt className="sr-only">Phone</dt>
-                      <Phone aria-hidden className="mt-0.5 size-4 shrink-0 text-gold-soft" strokeWidth={1.5} />
+                      <Phone aria-hidden className="mt-0.5 size-4 shrink-0 text-brand-soft" strokeWidth={1.5} />
                       <dd className="flex flex-col gap-1">
                         {contact.phones.map((p) => (
-                          <a key={p} href={`tel:${p.replace(/\s+/g, "")}`} className="text-fg hover:text-gold-soft">
+                          <a key={p} href={`tel:${p.replace(/\s+/g, "")}`} className="text-fg hover:text-brand-soft">
                             {p}
                           </a>
                         ))}
@@ -89,14 +89,14 @@ export default async function ConsultationPage({ searchParams }: { searchParams:
                   {contact.officeHours.length ? (
                     <div className="flex gap-3">
                       <dt className="sr-only">{t("consultation.contact.hours")}</dt>
-                      <Clock aria-hidden className="mt-0.5 size-4 shrink-0 text-gold-soft" strokeWidth={1.5} />
+                      <Clock aria-hidden className="mt-0.5 size-4 shrink-0 text-brand-soft" strokeWidth={1.5} />
                       <dd className="text-fg-muted">{contact.officeHours.join(" · ")}</dd>
                     </div>
                   ) : null}
                   {contact.addressLines.length ? (
                     <div className="flex gap-3">
                       <dt className="sr-only">Address</dt>
-                      <MapPin aria-hidden className="mt-0.5 size-4 shrink-0 text-gold-soft" strokeWidth={1.5} />
+                      <MapPin aria-hidden className="mt-0.5 size-4 shrink-0 text-brand-soft" strokeWidth={1.5} />
                       <dd className="text-fg-muted">{contact.addressLines.join(", ")}</dd>
                     </div>
                   ) : null}

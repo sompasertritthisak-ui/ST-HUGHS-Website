@@ -54,7 +54,7 @@ export default async function PathwayPage({ params }: { params: Params }) {
             <dl className="grid grid-cols-2 gap-6 border-t border-line pt-6 font-mono text-[0.6875rem] uppercase tracking-[0.14em]">
               <div>
                 <dt className="text-fg-subtle">Structure</dt>
-                <dd className="font-display mt-2 text-[2.75rem] normal-case tracking-normal text-gold-soft tabular">{pathway.structureLabel ? pathway.structureLabel.replace(/\s+/g, "") : "—"}</dd>
+                <dd className="font-display mt-2 text-[2.75rem] normal-case tracking-normal text-brand-soft tabular">{pathway.structureLabel ? pathway.structureLabel.replace(/\s+/g, "") : "—"}</dd>
               </div>
               <div>
                 <dt className="text-fg-subtle">Total duration</dt>
@@ -162,7 +162,7 @@ export default async function PathwayPage({ params }: { params: Params }) {
         {pathway.destination?.officialLink ? (
           <p className="mt-3 text-sm text-fg-subtle">
             Official source:{" "}
-            <Link href={pathway.destination.officialLink} target="_blank" rel="noopener noreferrer" className="text-gold-soft underline underline-offset-4">
+            <Link href={pathway.destination.officialLink} target="_blank" rel="noopener noreferrer" className="text-brand-soft underline underline-offset-4">
               {pathway.destination.officialLink.replace(/^https?:\/\//, "")}
             </Link>
           </p>

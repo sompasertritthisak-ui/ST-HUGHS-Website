@@ -24,7 +24,7 @@ export default async function ResourcesPage() {
     <>
       <PageHero
         eyebrow="Resource centre"
-        title={<>Documents, <span className="italic text-gold-soft">as approved.</span></>}
+        title={<>Documents, <span className="italic text-brand-soft">as approved.</span></>}
         lede="Prospectus, brochures, entry requirements, application guides, handbooks and calendars. Every document carries a version and a date, and appears here only once approved."
         aside={
           <dl className="grid grid-cols-2 gap-6 border-t border-line pt-6 font-mono text-[0.6875rem] uppercase tracking-[0.14em]">
@@ -56,7 +56,7 @@ export default async function ResourcesPage() {
                   </p>
                   <div className="sm:col-span-2 sm:text-right">
                     {d.media?.url ? (
-                      <a href={d.media.url} target="_blank" rel="noopener noreferrer" data-analytics="brochure_download" className="inline-flex items-center gap-2 text-sm text-gold-soft underline underline-offset-4">
+                      <a href={d.media.url} target="_blank" rel="noopener noreferrer" data-analytics="brochure_download" className="inline-flex items-center gap-2 text-sm text-brand-soft underline underline-offset-4">
                         <Download aria-hidden className="size-4" strokeWidth={1.5} />
                         Download
                       </a>

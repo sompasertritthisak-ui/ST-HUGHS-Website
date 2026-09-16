@@ -21,6 +21,7 @@ export const InstitutionSettingsSchema = z.object({
   ncukStudyCentre: z.boolean().optional().default(false),
   ncukSince: z.string().optional().default(""),
   sisterInstitution: z.string().optional().default(""),
+  partnersNote: z.string().optional().default(""),
   vision: z.string().optional().default(""),
   mission: z.string().optional().default(""),
   history: z.string().optional().default(""),

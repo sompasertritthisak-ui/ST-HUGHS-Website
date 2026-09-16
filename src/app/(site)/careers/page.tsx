@@ -39,7 +39,7 @@ export default async function CareersPage() {
         eyebrow="Careers and employability"
         title={
           <>
-            From education <span className="italic text-gold-soft">to opportunity.</span>
+            From education <span className="italic text-brand-soft">to opportunity.</span>
           </>
         }
         lede="The route does not end at a degree. This page shows what we can verify today about outcomes and employability, and is honest about what is still being confirmed."
@@ -72,7 +72,7 @@ export default async function CareersPage() {
             <ul className="mt-10 divide-y divide-line border-y border-line">
               {fieldsByDirection.map((p) => (
                 <li key={p.id} className="grid gap-2 py-4 sm:grid-cols-12 sm:gap-6">
-                  <Link href={`/pathways/${p.slug}`} className="text-[0.9375rem] font-medium text-fg hover:text-gold-soft sm:col-span-6">
+                  <Link href={`/pathways/${p.slug}`} className="text-[0.9375rem] font-medium text-fg hover:text-brand-soft sm:col-span-6">
                     {p.title}
                   </Link>
                   <p className="text-sm text-fg-muted sm:col-span-6">{p.careerDirections}</p>
@@ -89,7 +89,7 @@ export default async function CareersPage() {
         <dl className="divide-y divide-line border-y border-line">
           {pillars.map((p) => (
             <div key={p.label} className="grid gap-2 py-5 sm:grid-cols-12 sm:gap-6">
-              <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-gold-soft sm:col-span-4">{p.label}</dt>
+              <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-soft sm:col-span-4">{p.label}</dt>
               <dd className="sm:col-span-8">
                 <Prose text={p.text} pending="Published as confirmed" className="text-[0.9375rem]" />
               </dd>

@@ -32,7 +32,7 @@ export default async function StudentLifePage() {
         eyebrow="Student life"
         title={
           <>
-            A small college, <span className="italic text-gold-soft">a serious year.</span>
+            A small college, <span className="italic text-brand-soft">a serious year.</span>
           </>
         }
         lede="The year in Vientiane is where the route begins. Student life at SHV is shown here with real photography and confirmed activity — nothing staged, nothing borrowed."
@@ -41,15 +41,15 @@ export default async function StudentLifePage() {
       <Section eyebrow="Learning" title="How you learn" lede="What the published programmes tell us about the way teaching is structured.">
         <ul className="divide-y divide-line border-y border-line">
           <li className="grid gap-2 py-5 sm:grid-cols-12 sm:gap-6">
-            <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-gold-soft sm:col-span-4">Academic English</span>
+            <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-soft sm:col-span-4">Academic English</span>
             <p className="text-[0.9375rem] leading-relaxed text-fg-muted sm:col-span-8">{englishModules ? "English for Academic Purposes is built into each published programme and is accepted by NCUK University Partners in place of IELTS for progression." : "Confirmed by the admissions team."}</p>
           </li>
           <li className="grid gap-2 py-5 sm:grid-cols-12 sm:gap-6">
-            <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-gold-soft sm:col-span-4">Teaching spaces</span>
+            <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-soft sm:col-span-4">Teaching spaces</span>
             <p className="text-[0.9375rem] leading-relaxed text-fg-muted sm:col-span-8">{facilities.filter((f) => f.category === "LEARNING").map((f) => f.name).join(", ") || "Confirmed by the admissions team."}</p>
           </li>
           <li className="grid gap-2 py-5 sm:grid-cols-12 sm:gap-6">
-            <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-gold-soft sm:col-span-4">Study support</span>
+            <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-soft sm:col-span-4">Study support</span>
             <p className="text-[0.9375rem] leading-relaxed text-fg-muted sm:col-span-8">{facilities.some((f) => f.category === "STUDY") ? facilities.filter((f) => f.category === "STUDY").map((f) => `${f.name} — ${f.description}`).join(" ") : "Confirmed by the admissions team."}</p>
           </li>
         </ul>
@@ -74,7 +74,7 @@ export default async function StudentLifePage() {
           <ul className="divide-y divide-line border-y border-line">
             {events.map((e) => (
               <li key={e.id} className="grid gap-2 py-5 sm:grid-cols-12 sm:gap-6">
-                <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-gold-soft sm:col-span-3">{formatDate(e.startsAt)}</span>
+                <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-soft sm:col-span-3">{formatDate(e.startsAt)}</span>
                 <div className="sm:col-span-6">
                   <p className="text-[1.0625rem] font-medium text-fg">{e.title}</p>
                   {e.description ? <p className="mt-1 text-sm leading-relaxed text-fg-muted">{e.description}</p> : null}

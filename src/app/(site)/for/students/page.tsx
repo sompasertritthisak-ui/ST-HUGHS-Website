@@ -28,7 +28,7 @@ export default async function ForStudentsPage() {
 
   return (
     <>
-      <PageHero eyebrow="I'm a student" title={<>Start in Vientiane. <span className="italic text-gold-soft">Finish abroad.</span></>} lede="You want a degree from a university abroad and you are starting in Laos. SHV is the first year of that route: an internationally recognised programme completed close to home, then progression to a partner university." />
+      <PageHero eyebrow="I'm a student" title={<>Start in Vientiane. <span className="italic text-brand-soft">Finish abroad.</span></>} lede="You want a degree from a university abroad and you are starting in Laos. SHV is the first year of that route: an internationally recognised programme completed close to home, then progression to a partner university." />
 
       <Section eyebrow="Your four steps" title="How to move from here" layout="full">
         <StepRail steps={steps} />

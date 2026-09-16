@@ -36,7 +36,7 @@ export function ProgressionTimeline({ pathway, className }: { pathway: PathwayWi
                 aria-hidden
                 className={cn("absolute left-3 top-0 z-10 size-[11px] -translate-x-1/2 rounded-full border border-route", i === 0 ? "bg-route shadow-[0_0_10px_var(--route)]" : isCareer ? "bg-transparent" : "bg-bg")}
               />
-              <span className="mt-5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-gold-soft">{s.label}</span>
+              <span className="mt-5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-soft">{s.label}</span>
               <span className="mt-1 text-sm font-medium text-fg">{s.institution ?? s.location ?? ""}</span>
               {s.institution && s.location ? <span className="text-xs text-fg-muted">{s.location}</span> : null}
               {s.duration ? <span className="mt-1 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-fg-subtle tabular">{s.duration}</span> : null}

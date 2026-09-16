@@ -31,7 +31,7 @@ export default async function ContactPage() {
     <>
       <PageHero
         eyebrow="Contact"
-        title={<>Start with a <span className="italic text-gold-soft">conversation.</span></>}
+        title={<>Start with a <span className="italic text-brand-soft">conversation.</span></>}
         lede="Two ways in: book a free consultation with an advisor, or send an enquiry and the admissions team will respond. The details below are the published contact points for the college."
         aside={
           <div className="flex flex-col gap-3 border-t border-line pt-6">
@@ -67,7 +67,7 @@ export default async function ContactPage() {
                 <ul>
                   {contact.phones.map((p) => (
                     <li key={p}>
-                      <a href={`tel:${p.replace(/\s+/g, "")}`} className="hover:text-gold-soft">
+                      <a href={`tel:${p.replace(/\s+/g, "")}`} className="hover:text-brand-soft">
                         {p}
                       </a>
                     </li>
@@ -81,7 +81,7 @@ export default async function ContactPage() {
                 <ul>
                   {contact.emails.map((e) => (
                     <li key={e}>
-                      <a href={`mailto:${e}`} className="hover:text-gold-soft">
+                      <a href={`mailto:${e}`} className="hover:text-brand-soft">
                         {e}
                       </a>
                     </li>
@@ -90,7 +90,7 @@ export default async function ContactPage() {
               ) : null,
               pending: "Confirmed by the admissions team — use the enquiry form meanwhile",
             },
-            { label: "WhatsApp", value: whatsapp ? <a href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="hover:text-gold-soft">{whatsapp}</a> : null, pending: "Published when confirmed" },
+            { label: "WhatsApp", value: whatsapp ? <a href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="hover:text-brand-soft">{whatsapp}</a> : null, pending: "Published when confirmed" },
             { label: "Office hours", value: contact.officeHours.length ? contact.officeHours.join("; ") : null },
             { label: "Admissions contact", value: contact.admissionsContact || null },
             { label: "Press contact", value: contact.pressContact || null, pending: "Published when confirmed" },
@@ -127,7 +127,7 @@ export default async function ContactPage() {
                     {contact.mapLat.toFixed(4)}, {contact.mapLng.toFixed(4)}
                   </dd>
                   <dd className="mt-3 normal-case tracking-normal">
-                    <a href={`https://www.openstreetmap.org/?mlat=${contact.mapLat}&mlon=${contact.mapLng}#map=16/${contact.mapLat}/${contact.mapLng}`} target="_blank" rel="noopener noreferrer" className="text-gold-soft underline underline-offset-4">
+                    <a href={`https://www.openstreetmap.org/?mlat=${contact.mapLat}&mlon=${contact.mapLng}#map=16/${contact.mapLat}/${contact.mapLng}`} target="_blank" rel="noopener noreferrer" className="text-brand-soft underline underline-offset-4">
                       Open in OpenStreetMap ↗
                     </a>
                   </dd>

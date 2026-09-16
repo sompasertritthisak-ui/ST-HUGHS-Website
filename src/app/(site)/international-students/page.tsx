@@ -28,7 +28,7 @@ export default async function InternationalStudentsPage() {
         eyebrow="International students"
         title={
           <>
-            Vientiane as a <span className="italic text-gold-soft">starting point.</span>
+            Vientiane as a <span className="italic text-brand-soft">starting point.</span>
           </>
         }
         lede="A dedicated journey for students joining SHV from outside Laos. Where official information exists we publish it; where it does not, we say so and point you to the people who can confirm it."
@@ -80,7 +80,7 @@ export default async function InternationalStudentsPage() {
         {visaLink ? (
           <p className="text-[1.0625rem] leading-relaxed text-fg-muted">
             Official source:{" "}
-            <a href={visaLink} target="_blank" rel="noopener noreferrer" className="text-gold-soft underline underline-offset-4">
+            <a href={visaLink} target="_blank" rel="noopener noreferrer" className="text-brand-soft underline underline-offset-4">
               {visaLink.replace(/^https?:\/\//, "").replace(/\/$/, "")} ↗
             </a>
           </p>
@@ -100,7 +100,7 @@ export default async function InternationalStudentsPage() {
             { label: "Costs", text: institution.costs },
           ].map((row) => (
             <div key={row.label} className="grid gap-2 py-5 sm:grid-cols-12 sm:gap-6">
-              <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-gold-soft sm:col-span-4">{row.label}</dt>
+              <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-soft sm:col-span-4">{row.label}</dt>
               <dd className="sm:col-span-8">
                 <Prose text={row.text} className="text-[0.9375rem]" />
               </dd>
@@ -113,8 +113,8 @@ export default async function InternationalStudentsPage() {
         <ul className="flex flex-wrap gap-3">
           {destinations.map((d) => (
             <li key={d.id}>
-              <Link href={`/destinations/${d.slug}`} className="inline-flex h-11 items-center gap-3 rounded-[var(--radius-sm)] border border-line-strong px-4 text-[0.9375rem] text-fg transition-colors hover:border-route hover:text-gold-soft">
-                <span className="font-mono text-[0.6875rem] tracking-[0.14em] text-gold-soft">{d.isoCode}</span>
+              <Link href={`/destinations/${d.slug}`} className="inline-flex h-11 items-center gap-3 rounded-[var(--radius-sm)] border border-line-strong px-4 text-[0.9375rem] text-fg transition-colors hover:border-route hover:text-brand-soft">
+                <span className="font-mono text-[0.6875rem] tracking-[0.14em] text-brand-soft">{d.isoCode}</span>
                 {d.country}
               </Link>
             </li>

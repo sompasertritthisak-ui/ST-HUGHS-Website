@@ -17,7 +17,7 @@ export function ProgrammeJourney({ stations, className }: { stations: JourneySta
           <Reveal key={s.question} as="li" delay={i * 40} className="relative">
             <Link href={s.href} className="group block border-t border-line pt-5 transition-colors hover:border-route">
               <span aria-hidden className={cn("absolute -top-[3px] left-0 size-[7px] rounded-full", i === 0 ? "bg-route shadow-[0_0_10px_var(--route)]" : "bg-fg-subtle group-hover:bg-route")} />
-              <span className="flex items-baseline gap-3 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-gold-soft">
+              <span className="flex items-baseline gap-3 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-brand-soft">
                 <span className="tabular text-fg-subtle">{String(i + 1).padStart(2, "0")}</span>
                 {s.question}
               </span>

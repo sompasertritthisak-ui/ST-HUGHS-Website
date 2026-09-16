@@ -19,7 +19,7 @@ export default async function PathwayExplorerPage() {
         eyebrow="Pathway Explorer"
         title={
           <>
-            Draw your route <span className="italic text-gold-soft">from Laos</span> to the world.
+            Draw your route <span className="italic text-brand-soft">from Laos</span> to the world.
           </>
         }
         lede="Start in Vientiane. Choose a programme, a subject and a destination, and the route to your degree appears step by step — with the university, the qualification and where it can lead."

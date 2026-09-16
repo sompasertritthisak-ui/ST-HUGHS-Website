@@ -21,7 +21,7 @@ export default async function ForPartnersPage() {
     <>
       <PageHero
         eyebrow="I'm a partner"
-        title={<>Is this institution <span className="italic text-gold-soft">serious?</span></>}
+        title={<>Is this institution <span className="italic text-brand-soft">serious?</span></>}
         lede="A short, factual layer for universities, education partners and investors. Everything here is on record or clearly marked as not yet published; nothing is decorated."
         aside={
           <div className="border-t border-line pt-6">
@@ -61,7 +61,7 @@ export default async function ForPartnersPage() {
             { label: "Future direction", text: institution.futureDirection },
           ].map((row) => (
             <div key={row.label} className="grid gap-2 py-5 sm:grid-cols-12 sm:gap-6">
-              <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-gold-soft sm:col-span-4">{row.label}</dt>
+              <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-soft sm:col-span-4">{row.label}</dt>
               <dd className="sm:col-span-8">
                 <Prose text={row.text} pending="Published as approved" className="text-[0.9375rem]" />
               </dd>
@@ -93,7 +93,7 @@ export default async function ForPartnersPage() {
               <li key={p.id} className="grid gap-2 py-5 sm:grid-cols-12 sm:gap-6">
                 <div className="sm:col-span-5">
                   {p.website ? (
-                    <a href={p.website} target="_blank" rel="noopener noreferrer" data-analytics="outbound_partner_click" className="text-[1.0625rem] font-medium text-fg hover:text-gold-soft">
+                    <a href={p.website} target="_blank" rel="noopener noreferrer" data-analytics="outbound_partner_click" className="text-[1.0625rem] font-medium text-fg hover:text-brand-soft">
                       {p.name} ↗
                     </a>
                   ) : (

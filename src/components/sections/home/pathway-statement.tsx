@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Reveal } from "@/components/ui/reveal";
 import { RouteLine } from "@/components/ui/route-line";
 import type { DestinationWithRelations } from "@/lib/content";
@@ -20,8 +21,19 @@ function formatDisjunction(items: string[]) {
 /** Act II — the whole proposition in one sentence. Origin → destination → future. */
 export function PathwayStatement({ destinations }: { destinations: DestinationWithRelations[] }) {
   const list = formatDisjunction(destinations.map((d) => withArticle(d.country)));
+  const linkClass =
+    "relative inline-block text-brand-soft transition-colors duration-[var(--dur)] hover:text-fg after:absolute after:bottom-[0.06em] after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-route after:transition-transform after:duration-[var(--dur)] after:ease-[var(--ease-out)] hover:after:scale-x-100 focus-visible:after:scale-x-100";
+  void list;
+  const linked = destinations.map((d, i) => (
+    <span key={d.id}>
+      <Link href={`/destinations/${d.slug}`} className={linkClass}>
+        {withArticle(d.country)}
+      </Link>
+      {i < destinations.length - 2 ? ", " : i === destinations.length - 2 ? " or " : ""}
+    </span>
+  ));
   return (
-    <section aria-labelledby="statement-title" className="relative">
+    <section aria-labelledby="statement-title" className="theme-light bg-bg text-fg relative">
       <div className="container-x section-y">
         <RouteLine node="start" className="mb-14 lg:mb-20" />
         <div className="grid grid-cols-12 gap-y-10">
@@ -33,7 +45,7 @@ export function PathwayStatement({ destinations }: { destinations: DestinationWi
               <span className="text-fg-muted">A foundation year in</span> Vientiane.{" "}
               {list ? (
                 <>
-                  <span className="text-fg-muted">A degree in</span> <span className="text-gold-soft">{list}</span>.{" "}
+                  <span className="text-fg-muted">A degree in</span> {linked}.{" "}
                 </>
               ) : (
                 <>
@@ -43,7 +55,7 @@ export function PathwayStatement({ destinations }: { destinations: DestinationWi
               <span className="text-fg-muted">A career</span> anywhere.
             </h2>
             <p className="mt-8 max-w-xl text-lg leading-relaxed text-fg-muted text-pretty">
-              Every route on this site begins at the same node. The list of destinations is drawn from the pathways SHV has published, and it grows only as
+              Every destination above is a link. Every route on this site begins at the same node. The list of destinations is drawn from the pathways SHV has published, and it grows only as
               partnerships are confirmed.
             </p>
           </Reveal>

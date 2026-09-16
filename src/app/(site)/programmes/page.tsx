@@ -46,7 +46,7 @@ export default async function ProgrammesPage() {
         eyebrow="Programmes"
         title={
           <>
-            The programme is the <span className="italic text-gold-soft">first step</span> of the route.
+            The programme is the <span className="italic text-brand-soft">first step</span> of the route.
           </>
         }
         lede="We do not simply list programmes. Every programme at SHV is the Vientiane leg of a longer journey to a university abroad — so each page answers where you start, what you study, how long it takes and where it leads."

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { PathwayCard } from "@/components/cards/pathway-card";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -62,20 +63,22 @@ export function ExplorerTeaser({ pathways }: { pathways: PathwayWithRelations[] 
             return (
               <li
                 key={step.label}
-                className="shv-chain-step relative flex gap-4 md:flex-col md:gap-0"
+                className="shv-chain-step relative"
                 style={{ "--d": `${200 + i * 140}ms` } as React.CSSProperties}
               >
+                <Link href="/pathway-explorer" className="group flex gap-4 rounded-[var(--radius-sm)] md:flex-col md:gap-0" aria-label={`${step.label}: ${step.hint} — open the Pathway Explorer`}>
                 <span
                   aria-hidden
-                  className={`relative z-10 mt-[1px] size-[13px] shrink-0 rounded-full border ${terminal ? "border-route bg-route shadow-[0_0_14px_var(--route)]" : "border-route bg-bg"}`}
+                  className={`relative z-10 mt-[1px] size-[13px] shrink-0 rounded-full border transition-transform duration-[var(--dur)] ease-[var(--ease-out)] group-hover:scale-150 ${terminal ? "border-route bg-route shadow-[0_0_14px_var(--route)]" : "border-route bg-bg group-hover:bg-route"}`}
                 />
                 <div className="md:mt-5">
-                  <span className="block font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-gold-soft">
+                  <span className="block font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-brand-soft">
                     <span className="mr-2 text-fg-subtle tabular">{String(i + 1).padStart(2, "0")}</span>
                     {step.label}
                   </span>
-                  <span className="mt-1 block text-sm text-fg-muted">{step.hint}</span>
+                  <span className="mt-1 block text-sm text-fg-muted transition-colors group-hover:text-fg">{step.hint}</span>
                 </div>
+                </Link>
               </li>
             );
           })}

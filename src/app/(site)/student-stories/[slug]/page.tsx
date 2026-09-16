@@ -61,11 +61,11 @@ export default async function StoryPage({ params }: { params: Params }) {
       <Section eyebrow="Facts" title="Route at a glance">
         <FactsTable
           rows={[
-            { label: "Programme", value: story.programme ? <Link href={`/programmes/${story.programme.slug}`} className="underline decoration-route underline-offset-4 hover:text-gold-soft">{story.programme.title}</Link> : null },
-            { label: "Pathway", value: story.pathway ? <Link href={`/pathways/${story.pathway.slug}`} className="underline decoration-route underline-offset-4 hover:text-gold-soft">{story.pathway.title}</Link> : null, pending: "Published as confirmed" },
+            { label: "Programme", value: story.programme ? <Link href={`/programmes/${story.programme.slug}`} className="underline decoration-route underline-offset-4 hover:text-brand-soft">{story.programme.title}</Link> : null },
+            { label: "Pathway", value: story.pathway ? <Link href={`/pathways/${story.pathway.slug}`} className="underline decoration-route underline-offset-4 hover:text-brand-soft">{story.pathway.title}</Link> : null, pending: "Published as confirmed" },
             { label: "Previous education", value: story.previousEducation, pending: "Published as approved" },
-            { label: "Destination", value: story.destination ? <Link href={`/destinations/${story.destination.slug}`} className="underline decoration-route underline-offset-4 hover:text-gold-soft">{story.destination.country}</Link> : null, pending: "Published as confirmed" },
-            { label: "University", value: story.university ? <Link href={`/universities/${story.university.slug}`} className="underline decoration-route underline-offset-4 hover:text-gold-soft">{story.university.name}</Link> : null, pending: "Published as confirmed" },
+            { label: "Destination", value: story.destination ? <Link href={`/destinations/${story.destination.slug}`} className="underline decoration-route underline-offset-4 hover:text-brand-soft">{story.destination.country}</Link> : null, pending: "Published as confirmed" },
+            { label: "University", value: story.university ? <Link href={`/universities/${story.university.slug}`} className="underline decoration-route underline-offset-4 hover:text-brand-soft">{story.university.name}</Link> : null, pending: "Published as confirmed" },
             { label: "Outcome", value: story.outcome, pending: "Published with progression evidence" },
           ]}
         />
@@ -74,7 +74,7 @@ export default async function StoryPage({ params }: { params: Params }) {
 
       {story.videoUrl ? (
         <Section eyebrow="Video" title="Watch">
-          <a href={story.videoUrl} target="_blank" rel="noopener noreferrer" className="text-gold-soft underline underline-offset-4">
+          <a href={story.videoUrl} target="_blank" rel="noopener noreferrer" className="text-brand-soft underline underline-offset-4">
             Watch {story.studentName}&apos;s story ↗
           </a>
         </Section>

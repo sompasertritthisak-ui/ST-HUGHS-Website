@@ -70,7 +70,7 @@ export default async function DestinationPage({ params }: { params: Params }) {
             {
               label: "Official source",
               value: destination.officialLink ? (
-                <a href={destination.officialLink} target="_blank" rel="noopener noreferrer" data-analytics="outbound_partner_click" className="underline decoration-route underline-offset-4 hover:text-gold-soft">
+                <a href={destination.officialLink} target="_blank" rel="noopener noreferrer" data-analytics="outbound_partner_click" className="underline decoration-route underline-offset-4 hover:text-brand-soft">
                   {official} ↗
                 </a>
               ) : null,

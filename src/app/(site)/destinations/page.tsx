@@ -47,7 +47,7 @@ function DestinationIndex({ destinations }: { destinations: { slug: string; coun
           return (
             <a key={d.slug} href={`/destinations/${d.slug}`} aria-label={`${d.country} — view destination`}>
               <circle cx={p.x} cy={p.y} r="3.5" fill="var(--route)" />
-              <text x={p.x + (right ? 8 : -8)} y={p.y + 3.5} textAnchor={right ? "start" : "end"} fontFamily="var(--font-mono)" fontSize="10" letterSpacing="1.5" fill="var(--color-gold-soft)">
+              <text x={p.x + (right ? 8 : -8)} y={p.y + 3.5} textAnchor={right ? "start" : "end"} fontFamily="var(--font-mono)" fontSize="10" letterSpacing="1.5" fill="var(--color-brand-soft)">
                 {d.isoCode}
               </text>
             </a>
@@ -61,7 +61,7 @@ function DestinationIndex({ destinations }: { destinations: { slug: string; coun
       </svg>
       <figcaption className="flex flex-wrap items-center justify-between gap-3 border-t border-line px-4 py-3 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-subtle">
         <span>Solid line: verified route · Dashed: verification pending</span>
-        <Link href="/pathway-explorer" className="text-gold-soft hover:text-fg">
+        <Link href="/pathway-explorer" className="text-brand-soft hover:text-fg">
           Interactive map in the Pathway Explorer →
         </Link>
       </figcaption>
@@ -79,7 +79,7 @@ export default async function DestinationsPage() {
         eyebrow="Destinations"
         title={
           <>
-            From Vientiane <span className="italic text-gold-soft">outward.</span>
+            From Vientiane <span className="italic text-brand-soft">outward.</span>
           </>
         }
         lede="Every destination below has at least one pathway attached, or is being confirmed. We show only the routes that actually lead to each country — no programme leads everywhere."

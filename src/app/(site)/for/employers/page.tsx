@@ -25,7 +25,7 @@ export default async function ForEmployersPage() {
     <>
       <PageHero
         eyebrow="I'm an employer"
-        title={<>Talent with a <span className="italic text-gold-soft">route.</span></>}
+        title={<>Talent with a <span className="italic text-brand-soft">route.</span></>}
         lede="SHV students begin international degrees in Vientiane and progress to partner universities abroad. Employers can shape that journey — internships, industry projects and mentoring — and meet graduates who return with international qualifications."
         aside={
           <div className="border-t border-line pt-6">
@@ -68,7 +68,7 @@ export default async function ForEmployersPage() {
             { label: "Networking", text: institution.networking },
           ].map((row) => (
             <div key={row.label} className="grid gap-2 py-5 sm:grid-cols-12 sm:gap-6">
-              <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-gold-soft sm:col-span-4">{row.label}</dt>
+              <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-soft sm:col-span-4">{row.label}</dt>
               <dd className="sm:col-span-8">
                 <Prose text={row.text} pending="Published as confirmed" className="text-[0.9375rem]" />
               </dd>

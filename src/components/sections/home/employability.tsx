@@ -7,7 +7,7 @@ import { Stat } from "@/components/ui/stat";
 export function Employability({ metrics }: { metrics: OutcomeMetric[] }) {
   const shown = metrics.length > 0 ? metrics.slice(0, 4) : [{ id: "pending", label: "Graduate outcomes", value: null, unit: null, sourceNote: null, verificationStatus: "PENDING" }];
   return (
-    <section aria-labelledby="future-title" className="border-t border-line">
+    <section aria-labelledby="future-title" className="theme-light bg-bg text-fg border-t border-line">
       <div className="container-x section-y grid grid-cols-12 gap-x-8 gap-y-14">
         <Reveal className="col-span-12 lg:col-span-5">
           <p className="eyebrow eyebrow-rule">Future</p>

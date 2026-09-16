@@ -37,7 +37,7 @@ export default async function AdmissionsPage() {
         eyebrow="Admissions"
         title={
           <>
-            Seven steps, <span className="italic text-gold-soft">one advisor.</span>
+            Seven steps, <span className="italic text-brand-soft">one advisor.</span>
           </>
         }
         lede="Admissions at SHV is a guided journey rather than a form. The steps below are the real sequence, and each one links to the tool or person that helps you complete it."
@@ -62,7 +62,7 @@ export default async function AdmissionsPage() {
         <div className="grid gap-10 lg:grid-cols-2">
           {programmes.map((p) => (
             <div key={p.id}>
-              <Link href={`/programmes/${p.slug}`} className="font-display text-[1.75rem] leading-tight text-fg hover:text-gold-soft">
+              <Link href={`/programmes/${p.slug}`} className="font-display text-[1.75rem] leading-tight text-fg hover:text-brand-soft">
                 {p.shortTitle ?? p.title}
               </Link>
               <FactsTable
@@ -89,7 +89,7 @@ export default async function AdmissionsPage() {
                   {d.description ? <p className="mt-1 text-sm text-fg-muted">{d.description}</p> : null}
                 </div>
                 {d.media?.url ? (
-                  <a href={d.media.url} target="_blank" rel="noopener noreferrer" data-analytics="brochure_download" className="shrink-0 text-sm text-gold-soft underline underline-offset-4">
+                  <a href={d.media.url} target="_blank" rel="noopener noreferrer" data-analytics="brochure_download" className="shrink-0 text-sm text-brand-soft underline underline-offset-4">
                     Download
                   </a>
                 ) : null}

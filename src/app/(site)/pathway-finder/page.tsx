@@ -18,7 +18,7 @@ export default async function PathwayFinderPage() {
         eyebrow="Pathway Finder"
         title={
           <>
-            Seven questions. <span className="italic text-gold-soft">A clearer next step.</span>
+            Seven questions. <span className="italic text-brand-soft">A clearer next step.</span>
           </>
         }
         lede="Tell us where you are today and where you would like to be. We match your answers against the published routes and give you a short list to bring to your consultation."

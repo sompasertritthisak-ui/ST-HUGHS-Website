@@ -1,4 +1,5 @@
 import type { Facility, Media } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import { Button } from "@/components/ui/button";
 import { Plate } from "@/components/ui/plate";
 import { Reveal } from "@/components/ui/reveal";
@@ -12,12 +13,16 @@ const POINTS = [
 ];
 
 /** Act VII — the student experience. Editorial, asymmetric; plates name the photography still to come. */
-export function StudentExperience({ facilities }: { facilities: FacilityWithPhoto[] }) {
+export async function StudentExperience({ facilities }: { facilities: FacilityWithPhoto[] }) {
   const learning = facilities.find((f) => f.category === "LEARNING") ?? facilities[0];
   const social = facilities.find((f) => f.category === "SOCIAL" || f.category === "STUDY") ?? facilities[1];
+  // Prefer real student photography from the media library (tag "students"), fall back to facility plates.
+  const photos = await prisma.media.findMany({ where: { kind: "IMAGE", usageStatus: "APPROVED", tagsJson: { contains: '"students"' } }, orderBy: { createdAt: "asc" }, take: 2 });
+  const primary = photos[0] ?? learning?.photo ?? null;
+  const secondary = photos[1] ?? social?.photo ?? null;
 
   return (
-    <section aria-labelledby="experience-title" className="relative overflow-hidden">
+    <section aria-labelledby="experience-title" className="theme-light bg-bg text-fg relative overflow-hidden">
       <div className="container-x section-y grid grid-cols-12 gap-x-8 gap-y-14">
         <div className="col-span-12 lg:col-span-5">
           <Reveal>
@@ -51,20 +56,20 @@ export function StudentExperience({ facilities }: { facilities: FacilityWithPhot
         <div className="relative col-span-12 lg:col-span-6 lg:col-start-7">
           <Reveal className="lg:ml-[18%]">
             <Plate
-              media={learning?.photo}
+              media={primary}
               slot={learning ? `Student life — ${learning.name}` : "Student life — teaching"}
               aspect="3/4"
               sizes="(min-width:1024px) 34vw, 90vw"
-              caption={learning ? learning.name : undefined}
+              caption={primary?.caption ?? primary?.alt ?? learning?.name}
             />
           </Reveal>
           <Reveal delay={120} className="-mt-10 w-[68%] lg:absolute lg:-bottom-8 lg:left-0 lg:mt-0 lg:w-[52%]">
             <Plate
-              media={social?.photo}
+              media={secondary}
               slot={social ? `Student life — ${social.name}` : "Student life — community"}
               aspect="4/3"
               sizes="(min-width:1024px) 24vw, 60vw"
-              caption={social ? social.name : undefined}
+              caption={secondary?.caption ?? secondary?.alt ?? social?.name}
               className="[&>div]:bg-bg"
             />
           </Reveal>

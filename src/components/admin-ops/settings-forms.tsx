@@ -168,6 +168,9 @@ export function InstitutionSettingsForm({ value, canEdit }: { value: Institution
       <Field label="Sister institution" htmlFor="sisterInstitution" error={err.sisterInstitution} className="md:col-span-2">
         <Input id="sisterInstitution" name="sisterInstitution" defaultValue={value.sisterInstitution} className={compact} readOnly={ro} />
       </Field>
+      <Field label="Partners note" htmlFor="partnersNote" error={err.partnersNote} className="md:col-span-2">
+        <Textarea id="partnersNote" name="partnersNote" defaultValue={value.partnersNote} className="min-h-20 text-sm" readOnly={ro} />
+      </Field>
       <Field label="Vision" htmlFor="vision" error={err.vision}>
         <Textarea id="vision" name="vision" defaultValue={value.vision} className="min-h-24 text-sm" readOnly={ro} />
       </Field>

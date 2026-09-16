@@ -40,9 +40,11 @@ export function Hero({
 
   return (
     <section aria-labelledby="hero-title" className="relative overflow-hidden">
-      {/* Globe — behind and to the right on large screens; a map band on small screens */}
-      <div className="pointer-events-none absolute inset-y-0 right-[-3vw] hidden w-[56vw] max-w-[960px] items-center lg:flex" aria-hidden>
-        <div className="absolute inset-y-0 left-0 z-10 w-1/3 bg-linear-to-r from-bg to-transparent" />
+      {/* Globe — the visual centre: ~60vw, right-anchored, vertically centred, bleeding ~8vw past the edge.
+          Interactive (drag / click) wherever the copy column does not sit above it. */}
+      <div className="absolute inset-y-0 right-[-8vw] z-[1] hidden w-[min(60vw,calc(100dvh-72px))] items-center lg:flex" aria-hidden>
+        {/* Left-third fade keeps the headline ≥ 4.5:1 over the globe */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-1/3 bg-linear-to-r from-bg to-transparent" />
         <GlobeStage destinations={destinations} className="aspect-square w-full" />
       </div>
 
@@ -53,7 +55,8 @@ export function Hero({
           </p>
           <h1 id="hero-title" className="font-display mt-8 text-[clamp(2.75rem,9.2vw,8.5rem)] leading-[0.94] text-fg">
             <Words text={messaging.heroLine1} className="block" />
-            <Words text={messaging.heroLine2} offset={line1Words} className="block text-gold-soft" />
+            <Words text={messaging.heroLine2} offset={line1Words} className="block" />
+            <span aria-hidden className="anim-fade-up mt-5 block h-[3px] w-28 origin-left bg-route" style={{ animationDelay: `${supportDelay}ms` }} />
           </h1>
           <p className="anim-fade-up mt-8 max-w-xl text-lg leading-relaxed text-fg-muted text-pretty md:text-xl" style={{ animationDelay: `${supportDelay}ms` }}>
             {messaging.heroSupport}
@@ -69,6 +72,9 @@ export function Hero({
               Explore programmes
             </Button>
           </div>
+          <p className="anim-fade-up mt-6 hidden font-mono text-[0.625rem] uppercase tracking-[0.16em] text-fg-subtle lg:block" style={{ animationDelay: `${supportDelay + 240}ms` }}>
+            Drag the globe · Click a destination
+          </p>
         </div>
 
         {/* Small-screen map */}
@@ -85,7 +91,7 @@ export function Hero({
           <span>
             {destinations.length} destination{destinations.length === 1 ? "" : "s"} · {routeCount} published route{routeCount === 1 ? "" : "s"}
           </span>
-          <span className="ml-auto hidden text-gold-soft sm:inline">{messaging.tagline}</span>
+          <span className="ml-auto hidden text-brand-soft sm:inline">{messaging.tagline}</span>
         </div>
       </div>
     </section>

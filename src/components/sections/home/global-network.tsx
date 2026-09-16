@@ -49,9 +49,9 @@ export function GlobalNetwork({ destinations, universities }: { destinations: De
                         href={`/destinations/${d.slug}`}
                         className="group grid grid-cols-[4rem_1fr_9rem_10rem] items-center gap-x-6 py-4 transition-colors hover:bg-bg-hover/30 md:grid-cols-[5rem_1fr_10rem_11rem] md:py-5"
                       >
-                        <span className="font-mono text-[0.8125rem] tracking-[0.16em] text-gold-soft">{d.isoCode}</span>
+                        <span className="font-mono text-[0.8125rem] tracking-[0.16em] text-brand-soft">{d.isoCode}</span>
                         <span className="flex min-w-0 flex-wrap items-baseline gap-x-4">
-                          <span className="font-display text-[clamp(1.5rem,2.4vw,2.125rem)] leading-none text-fg group-hover:text-gold-soft">{d.country}</span>
+                          <span className="font-display text-[clamp(1.5rem,2.4vw,2.125rem)] leading-none text-fg group-hover:text-brand-soft">{d.country}</span>
                           {d.region ? <span className="font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-fg-subtle">{d.region}</span> : null}
                         </span>
                         <span className="text-right font-mono text-[0.75rem] uppercase tracking-[0.12em] text-fg-muted tabular">

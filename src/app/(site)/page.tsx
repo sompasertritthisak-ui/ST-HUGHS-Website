@@ -17,6 +17,8 @@ import {
   WhyStHughs,
 } from "@/components/sections/home";
 import { getHomeData, toGlobeDestinations } from "@/components/sections/home/data";
+import { LifeMosaic } from "@/components/sections/home/life-mosaic";
+import { Milestones } from "@/components/sections/home/milestones";
 
 const TITLE = "St Hugh's College Vientiane — International university pathways from Laos";
 const DESCRIPTION =
@@ -71,10 +73,12 @@ export default async function HomePage() {
       <Hero messaging={messaging} destinations={globeDestinations} routeCount={data.routeCount} established={institution.established} />
 
       {/* 3 — the route in one sentence */}
+      <LifeMosaic />
       <PathwayStatement destinations={data.destinations} />
 
       {/* 4 — evidence */}
       <WhyStHughs institution={institution} />
+      <Milestones />
 
       {/* 5 — Pathway */}
       <ExplorerTeaser pathways={data.pathways} />

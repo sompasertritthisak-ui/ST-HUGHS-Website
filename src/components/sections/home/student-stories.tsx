@@ -9,7 +9,7 @@ type Story = Awaited<ReturnType<typeof getStudentStories>>[number];
 /** Act X — proof, with consent. No testimonials are ever invented. */
 export function StudentStories({ stories }: { stories: Story[] }) {
   return (
-    <section aria-labelledby="stories-title" className="border-t border-line">
+    <section aria-labelledby="stories-title" className="theme-light bg-bg text-fg border-t border-line">
       <div className="container-x section-y">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
           <Reveal>

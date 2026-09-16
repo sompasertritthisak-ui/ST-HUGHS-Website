@@ -24,7 +24,7 @@ export default async function StudentStoriesPage() {
     <>
       <PageHero
         eyebrow="Student stories"
-        title={<>Real routes, <span className="italic text-gold-soft">real people.</span></>}
+        title={<>Real routes, <span className="italic text-brand-soft">real people.</span></>}
         lede="Every story here is a real student, photographed with permission and published with consent. Where a story names a destination or outcome, the evidence sits behind it in the CMS."
         aside={
           <dl className="grid grid-cols-2 gap-6 border-t border-line pt-6 font-mono text-[0.6875rem] uppercase tracking-[0.14em]">

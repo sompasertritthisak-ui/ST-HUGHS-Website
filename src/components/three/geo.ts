@@ -10,6 +10,8 @@ export type GlobeDestination = {
   lat: number;
   lng: number;
   verified: boolean;
+  /** Number of published routes to this destination (shown on hover). */
+  routes: number;
 };
 
 /** St Hugh's College Vientiane — the single origin node. */

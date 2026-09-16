@@ -66,7 +66,7 @@ function buildEvidence(inst: InstitutionSettings): Evidence[] {
 export function WhyStHughs({ institution }: { institution: InstitutionSettings }) {
   const evidence = buildEvidence(institution);
   return (
-    <section aria-labelledby="why-title" className="border-y border-line bg-bg-raised">
+    <section aria-labelledby="why-title" className="theme-light bg-bg text-fg border-y border-line">
       <div className="container-x section-y grid grid-cols-12 gap-x-8 gap-y-12">
         <div className="col-span-12 lg:col-span-4">
           <div className="lg:sticky lg:top-28">
@@ -99,7 +99,7 @@ export function WhyStHughs({ institution }: { institution: InstitutionSettings }
                 <h3 className="mt-4 text-[1.375rem] font-medium leading-snug text-fg text-balance md:text-[1.5rem]">{item.title}</h3>
                 <p className="mt-3 max-w-prose text-[1.0625rem] leading-relaxed text-fg-muted">{item.body}</p>
                 {item.href ? (
-                  <span className="mt-4 inline-flex items-center gap-2 text-sm text-gold-soft">
+                  <span className="mt-4 inline-flex items-center gap-2 text-sm text-brand-soft">
                     More
                     <ArrowRight aria-hidden className="size-4 transition-transform duration-[var(--dur-fast)] group-hover:translate-x-1" strokeWidth={1.5} />
                   </span>

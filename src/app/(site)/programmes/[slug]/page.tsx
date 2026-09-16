@@ -135,7 +135,7 @@ export default async function ProgrammePage({ params }: { params: Params }) {
           <ul className="flex flex-wrap gap-3">
             {routes.map((r) => (
               <li key={r}>
-                <Link href={`/pathways?programme=${programme.slug}&subject=${encodeURIComponent(r)}`} className="inline-flex h-11 items-center rounded-[var(--radius-sm)] border border-line-strong px-4 text-[0.9375rem] text-fg transition-colors hover:border-route hover:text-gold-soft">
+                <Link href={`/pathways?programme=${programme.slug}&subject=${encodeURIComponent(r)}`} className="inline-flex h-11 items-center rounded-[var(--radius-sm)] border border-line-strong px-4 text-[0.9375rem] text-fg transition-colors hover:border-route hover:text-brand-soft">
                   {r}
                 </Link>
               </li>

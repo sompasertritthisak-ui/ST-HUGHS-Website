@@ -127,7 +127,7 @@ export function CompareTool({ programmes, pathways, disclaimer }: { programmes: 
           <p className="eyebrow eyebrow-rule">Pick up to three</p>
           <p className="mt-4 text-fg-muted">Choose programmes, pathways, or a mix. Your selection is saved in the link so you can share it.</p>
           <p className="mt-3 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-subtle" aria-live="polite">
-            <span className="text-gold-soft tabular">{selected.length}</span> of {COMPARE_MAX} selected
+            <span className="text-brand-soft tabular">{selected.length}</span> of {COMPARE_MAX} selected
           </p>
           {selected.length > 0 ? (
             <button type="button" onClick={() => commit([])} className="mt-3 min-h-11 text-sm text-fg-muted underline decoration-route/60 underline-offset-4 hover:text-fg">
@@ -192,8 +192,8 @@ export function CompareTool({ programmes, pathways, disclaimer }: { programmes: 
                     </th>
                     {selected.map((item) => (
                       <th key={item.slug} scope="col" className="border-b border-line-strong px-4 py-4 text-left align-bottom">
-                        <span className="block font-mono text-[0.625rem] uppercase tracking-[0.14em] text-gold-soft">{item.kind}</span>
-                        <Link href={item.href} className="mt-1 block font-display text-[1.5rem] leading-tight text-fg hover:text-gold-soft">
+                        <span className="block font-mono text-[0.625rem] uppercase tracking-[0.14em] text-brand-soft">{item.kind}</span>
+                        <Link href={item.href} className="mt-1 block font-display text-[1.5rem] leading-tight text-fg hover:text-brand-soft">
                           {item.label}
                         </Link>
                       </th>
@@ -221,9 +221,9 @@ export function CompareTool({ programmes, pathways, disclaimer }: { programmes: 
             <div className="grid gap-6 md:hidden">
               {selected.map((item) => (
                 <article key={item.slug} className="surface-raised rounded-[var(--radius)] p-5">
-                  <span className="block font-mono text-[0.625rem] uppercase tracking-[0.14em] text-gold-soft">{item.kind}</span>
+                  <span className="block font-mono text-[0.625rem] uppercase tracking-[0.14em] text-brand-soft">{item.kind}</span>
                   <h3 className="mt-1 font-display text-[1.75rem] leading-tight text-fg">
-                    <Link href={item.href} className="hover:text-gold-soft">
+                    <Link href={item.href} className="hover:text-brand-soft">
                       {item.label}
                     </Link>
                   </h3>

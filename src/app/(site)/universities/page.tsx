@@ -29,7 +29,7 @@ export default async function UniversitiesPage() {
         eyebrow="Universities"
         title={
           <>
-            The institutions at the <span className="italic text-gold-soft">end of the line.</span>
+            The institutions at the <span className="italic text-brand-soft">end of the line.</span>
           </>
         }
         lede="Two kinds of destination appear here: the NCUK university network that receives International Foundation Year and International Year One students, and the named institutions referenced in SHV's own pathway routes. Each carries its partnership type and a verification status — trust is shown, not claimed."
@@ -90,10 +90,10 @@ export default async function UniversitiesPage() {
                   <div className="flex h-12 items-center">
                     {logo ? <Image src={logo.url} alt={logo.alt || p.name} width={logo.width ?? 160} height={logo.height ?? 48} className="max-h-10 w-auto object-contain" /> : <span className="font-display text-[1.5rem] leading-tight text-fg">{p.name}</span>}
                   </div>
-                  <p className="mt-4 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-gold-soft">{PARTNER_TYPE_LABELS[p.type as PartnerType] ?? p.type}</p>
+                  <p className="mt-4 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-soft">{PARTNER_TYPE_LABELS[p.type as PartnerType] ?? p.type}</p>
                   {p.description ? <p className="mt-3 text-sm leading-relaxed text-fg-muted">{p.description}</p> : null}
                   <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
-                    {p.website ? <span className="text-gold-soft">{p.website.replace(/^https?:\/\//, "").replace(/\/$/, "")} ↗</span> : <PendingLine>Website published when confirmed</PendingLine>}
+                    {p.website ? <span className="text-brand-soft">{p.website.replace(/^https?:\/\//, "").replace(/\/$/, "")} ↗</span> : <PendingLine>Website published when confirmed</PendingLine>}
                     {p.verificationStatus !== "VERIFIED" ? <VerificationBadge status={p.verificationStatus} /> : null}
                   </div>
                 </>

@@ -9,7 +9,7 @@ export function Field({ label, htmlFor, hint, error, required, children, classNa
     <div className={cn("flex flex-col gap-1.5", className)}>
       <label htmlFor={htmlFor} className="text-sm font-medium text-fg">
         {label}
-        {required ? <span aria-hidden className="ml-1 text-gold-soft">*</span> : null}
+        {required ? <span aria-hidden className="ml-1 text-brand-soft">*</span> : null}
       </label>
       {children}
       {error ? (
@@ -42,5 +42,5 @@ export function Select({ className, children, ...props }: ComponentPropsWithoutR
 }
 
 export function Checkbox({ className, ...props }: ComponentPropsWithoutRef<"input">) {
-  return <input type="checkbox" className={cn("size-5 shrink-0 rounded-[3px] border border-line-strong bg-transparent accent-[var(--color-gold)] focus-visible:ring-2 focus-visible:ring-ring/60", className)} {...props} />;
+  return <input type="checkbox" className={cn("size-5 shrink-0 rounded-[3px] border border-line-strong bg-transparent accent-[var(--color-brand)] focus-visible:ring-2 focus-visible:ring-ring/60", className)} {...props} />;
 }

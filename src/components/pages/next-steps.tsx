@@ -13,7 +13,7 @@ export function NextSteps({ items, className }: { items: NextStep[]; className?:
             <span className="flex items-start gap-5">
               <span className="mt-1 font-mono text-[0.6875rem] tabular text-fg-subtle">{String(i + 1).padStart(2, "0")}</span>
               <span>
-                <span className="block text-[1.0625rem] font-medium text-fg group-hover:text-gold-soft">{item.label}</span>
+                <span className="block text-[1.0625rem] font-medium text-fg group-hover:text-brand-soft">{item.label}</span>
                 {item.description ? <span className="mt-1 block text-sm text-fg-muted">{item.description}</span> : null}
               </span>
             </span>

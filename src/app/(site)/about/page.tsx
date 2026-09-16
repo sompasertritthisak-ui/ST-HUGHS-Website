@@ -92,7 +92,7 @@ export default async function AboutPage() {
               <li key={p.id} className="grid gap-2 py-5 sm:grid-cols-12 sm:gap-6">
                 <div className="sm:col-span-5">
                   {p.website ? (
-                    <a href={p.website} target="_blank" rel="noopener noreferrer" data-analytics="outbound_partner_click" className="text-[1.0625rem] font-medium text-fg hover:text-gold-soft">
+                    <a href={p.website} target="_blank" rel="noopener noreferrer" data-analytics="outbound_partner_click" className="text-[1.0625rem] font-medium text-fg hover:text-brand-soft">
                       {p.name} ↗
                     </a>
                   ) : (

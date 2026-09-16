@@ -9,7 +9,7 @@ type Article = NewsArticle & { heroMedia?: Media | null };
 /** Act XI — News & insights. Three most recent public articles. */
 export function NewsSection({ news }: { news: Article[] }) {
   return (
-    <section aria-labelledby="news-title" className="border-t border-line bg-bg-raised">
+    <section aria-labelledby="news-title" className="theme-light bg-bg text-fg border-t border-line">
       <div className="container-x section-y grid grid-cols-12 gap-x-8 gap-y-12">
         <div className="col-span-12 lg:col-span-3">
           <Reveal>

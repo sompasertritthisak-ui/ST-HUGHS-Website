@@ -19,7 +19,7 @@ export default async function ComparePage() {
         eyebrow="Compare your options"
         title={
           <>
-            Two or three routes, <span className="italic text-gold-soft">side by side.</span>
+            Two or three routes, <span className="italic text-brand-soft">side by side.</span>
           </>
         }
         lede="Put programmes and pathways next to each other to see how the duration, the destination, the requirements and the transfer point differ before you talk to an advisor."

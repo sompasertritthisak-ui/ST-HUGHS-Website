@@ -54,6 +54,7 @@ export function toGlobeDestinations(destinations: DestinationWithRelations[]): G
     lat: d.lat,
     lng: d.lng,
     verified: d.verificationStatus === "VERIFIED",
+    routes: d.pathways.length,
   }));
 }
 

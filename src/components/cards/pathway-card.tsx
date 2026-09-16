@@ -17,7 +17,7 @@ export function PathwayCard({ pathway, className }: { pathway: PathwayWithRelati
           <h3 className="mt-3 text-[1.25rem] font-medium leading-snug text-fg text-balance">{pathway.title}</h3>
         </div>
         {pathway.structureLabel ? (
-          <span className="shrink-0 font-display text-[2.25rem] leading-none text-gold-soft tabular">{pathway.structureLabel.replace(/\s+/g, "")}</span>
+          <span className="shrink-0 font-display text-[2.25rem] leading-none text-brand-soft tabular">{pathway.structureLabel.replace(/\s+/g, "")}</span>
         ) : null}
       </div>
 
@@ -37,7 +37,7 @@ export function PathwayCard({ pathway, className }: { pathway: PathwayWithRelati
           {pathway.destination?.country ?? "Destination to be confirmed"}
           {pathway.university ? <span className="text-fg-subtle"> · {pathway.university.name}</span> : null}
         </span>
-        {pathway.verificationStatus !== "VERIFIED" ? <VerificationBadge status={pathway.verificationStatus} /> : <span className="text-gold-soft">View route →</span>}
+        {pathway.verificationStatus !== "VERIFIED" ? <VerificationBadge status={pathway.verificationStatus} /> : <span className="text-brand-soft">View route →</span>}
       </div>
     </Link>
   );

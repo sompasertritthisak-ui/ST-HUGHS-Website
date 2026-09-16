@@ -11,7 +11,7 @@ export function FactsTable({ rows, columns = 2, className }: { rows: Fact[]; col
         const empty = row.value === null || row.value === undefined || row.value === "";
         return (
           <div key={row.label} className="grid gap-2 border-b border-line py-4">
-            <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-gold-soft">{row.label}</dt>
+            <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-soft">{row.label}</dt>
             <dd className={cn("text-[1rem] leading-relaxed", empty ? "text-fg-subtle" : "text-fg")}>{empty ? row.pending ?? "Confirmed by the admissions team" : row.value}</dd>
           </div>
         );

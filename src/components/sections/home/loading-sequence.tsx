@@ -6,7 +6,7 @@ const SESSION_KEY = "shv:intro-seen";
 const TOTAL_MS = 900;
 
 /**
- * Brand reveal on first visit per session: the gold route line draws across,
+ * Brand reveal on first visit per session: the red route line draws across,
  * the two hero lines appear, then the whole plate dissolves. ≤ 900ms total,
  * pure CSS, pointer-events none — it never blocks the page beneath it.
  *
@@ -57,7 +57,7 @@ export function LoadingSequence({ line1, line2 }: { line1: string; line2: string
           <div className="shv-intro-line h-px w-full bg-route" />
           <p className="font-display flex flex-wrap items-baseline gap-x-[0.35em] text-[clamp(2rem,5vw,4rem)] leading-none text-fg">
             <span className="shv-intro-w1 inline-block">{line1}</span>
-            <span className="shv-intro-w2 inline-block text-gold-soft">{line2}</span>
+            <span className="shv-intro-w2 inline-block">{line2}</span>
           </p>
         </div>
       </div>

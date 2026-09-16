@@ -154,10 +154,10 @@ export function PathwayExplorer({ data }: { data: Omit<ExplorerData, "messaging"
               <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t border-line px-4 py-3 sm:px-5">
                 <p className="min-w-0 break-words font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-muted" aria-hidden>
                   {resolution.matched.length === 1 ? (
-                    <span className="text-gold-soft">{resolution.matched[0].code ?? resolution.matched[0].title}</span>
+                    <span className="text-brand-soft">{resolution.matched[0].code ?? resolution.matched[0].title}</span>
                   ) : (
                     <>
-                      <span className="text-gold-soft tabular">{resolution.matched.length}</span> routes from {origin?.label ?? "the origin"}
+                      <span className="text-brand-soft tabular">{resolution.matched.length}</span> routes from {origin?.label ?? "the origin"}
                     </>
                   )}
                 </p>
@@ -216,11 +216,11 @@ export function PathwayExplorer({ data }: { data: Omit<ExplorerData, "messaging"
                 const changeable = step.options.length > 1;
                 return (
                   <li key={step.key} className="flex items-center gap-4 py-4">
-                    <span className="font-mono text-[0.6875rem] tracking-[0.14em] text-gold-soft tabular">{index}</span>
+                    <span className="font-mono text-[0.6875rem] tracking-[0.14em] text-brand-soft tabular">{index}</span>
                     <div className="min-w-0 flex-1">
                       <p className="font-mono text-[0.625rem] uppercase tracking-[0.14em] text-fg-subtle">{step.label}</p>
                       <p className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.9375rem] font-medium text-fg">
-                        <Check aria-hidden className="size-3.5 text-gold-soft" strokeWidth={2} />
+                        <Check aria-hidden className="size-3.5 text-brand-soft" strokeWidth={2} />
                         <span>{step.chosen!.label}</span>
                         {step.chosen!.verification !== "VERIFIED" ? <VerificationBadge status={step.chosen!.verification} /> : null}
                         {!changeable ? <span className="text-xs font-normal text-fg-subtle">Only option on this route</span> : null}
@@ -238,7 +238,7 @@ export function PathwayExplorer({ data }: { data: Omit<ExplorerData, "messaging"
               return (
                 <li key={step.key} className="py-6">
                   <div className="flex items-baseline gap-4">
-                    <span className="font-mono text-[0.6875rem] tracking-[0.14em] text-gold-soft tabular">{index}</span>
+                    <span className="font-mono text-[0.6875rem] tracking-[0.14em] text-brand-soft tabular">{index}</span>
                     <div>
                       <p className="font-mono text-[0.625rem] uppercase tracking-[0.14em] text-fg-subtle">{step.label}</p>
                       <h3 ref={currentHeading} tabIndex={-1} className="font-display mt-1 text-[clamp(1.5rem,2.4vw,2rem)] text-fg outline-none">

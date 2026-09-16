@@ -116,6 +116,7 @@ export async function saveInstitutionSettings(_prev: ActionState, formData: Form
     ncukStudyCentre: bool(formData, "ncukStudyCentre"),
     ncukSince: str(formData, "ncukSince"),
     sisterInstitution: str(formData, "sisterInstitution"),
+    partnersNote: str(formData, "partnersNote"),
     vision: str(formData, "vision"),
     mission: str(formData, "mission"),
     governanceNote: str(formData, "governanceNote"),

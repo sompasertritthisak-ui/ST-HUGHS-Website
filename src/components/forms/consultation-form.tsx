@@ -73,7 +73,7 @@ export function ConsultationForm({ programmes, destinations, defaults, context, 
       <Honeypot form={form} />
       <input type="hidden" name="pathwaySlug" value={String(form.values.pathwaySlug ?? "")} />
       {context ? (
-        <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-l border-gold pl-4">
+        <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-l border-brand pl-4">
           <span className="eyebrow">{context.label}</span>
           <span className="text-fg">{context.title}</span>
         </p>

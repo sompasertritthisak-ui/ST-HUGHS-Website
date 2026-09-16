@@ -43,7 +43,7 @@ export default async function WhyPage() {
           {acts.map((act, i) => (
             <Reveal key={act.title} as="li" delay={i * 40} className="relative border-t border-line pt-6">
               <Node active={i === 0} className="absolute -top-3 left-0" />
-              <span className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-gold-soft">{act.code}</span>
+              <span className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-brand-soft">{act.code}</span>
               <h2 className="font-display mt-3 text-[clamp(1.75rem,2.6vw,2.25rem)] text-fg">{act.title}</h2>
               <p className="mt-4 text-[0.9375rem] leading-relaxed text-fg-muted">{act.body}</p>
             </Reveal>

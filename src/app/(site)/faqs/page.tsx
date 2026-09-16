@@ -24,7 +24,7 @@ export default async function FaqsPage() {
     <>
       <PageHero
         eyebrow="FAQ"
-        title={<>Straight <span className="italic text-gold-soft">answers.</span></>}
+        title={<>Straight <span className="italic text-brand-soft">answers.</span></>}
         lede="Grouped by topic. If a question is not answered here, an advisor will answer it in a free consultation."
         aside={
           groups.length ? (

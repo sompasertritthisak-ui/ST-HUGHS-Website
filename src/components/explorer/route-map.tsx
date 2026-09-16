@@ -124,7 +124,7 @@ export function RouteMap({
                 fontSize={9.5}
                 letterSpacing="1.2"
                 fontFamily="var(--font-mono)"
-                fill={isSelected ? "var(--color-gold-soft)" : "var(--fg-muted)"}
+                fill={isSelected ? "var(--color-brand-soft)" : "var(--fg-muted)"}
               >
                 {d.isoCode}
               </text>
@@ -148,7 +148,7 @@ export function RouteMap({
             />
             <circle cx={o.x} cy={o.y} r={4.5} fill="var(--route)" />
             <circle cx={o.x} cy={o.y} r={2} fill="var(--color-ivory)" />
-            <text x={o.x} y={o.y + 22} textAnchor="middle" fontSize={10} letterSpacing="1.6" fontFamily="var(--font-mono)" fill="var(--color-gold-soft)">
+            <text x={o.x} y={o.y + 22} textAnchor="middle" fontSize={10} letterSpacing="1.6" fontFamily="var(--font-mono)" fill="var(--color-brand-soft)">
               {origin!.label.toUpperCase()}
             </text>
           </g>

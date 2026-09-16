@@ -30,7 +30,7 @@ export function FocalPointPicker({ url, alt, initialX, initialY, disabled }: { u
       >
         {/* eslint-disable-next-line @next/next/no-img-element -- local upload, intrinsic size unknown */}
         <img src={url} alt={alt} className="block max-h-[28rem] w-full object-contain" draggable={false} />
-        <span aria-hidden className="pointer-events-none absolute size-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-gold shadow-[0_0_0_2px_rgb(11_17_32/0.5)]" style={{ left: `${x * 100}%`, top: `${y * 100}%` }} />
+        <span aria-hidden className="pointer-events-none absolute size-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-brand shadow-[0_0_0_2px_rgb(11_17_32/0.5)]" style={{ left: `${x * 100}%`, top: `${y * 100}%` }} />
       </button>
       <p className="mt-1.5 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-fg-subtle">
         Focal point {Math.round(x * 100)}% / {Math.round(y * 100)}% · click or use arrow keys

@@ -14,7 +14,7 @@ export async function FinalCta() {
           <div className="lg:col-span-8">
             <p className="eyebrow eyebrow-rule">Start here</p>
             <h2 id="final-cta" className="font-display mt-6 text-[clamp(3rem,8vw,7.5rem)] leading-[0.95] text-fg text-balance">
-              <span className="italic text-gold-soft">{first}</span> {rest.join(" ")}
+              <span className="italic text-brand-soft">{first}</span> {rest.join(" ")}
             </h2>
           </div>
           <div className="lg:col-span-4">

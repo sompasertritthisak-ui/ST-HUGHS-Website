@@ -33,14 +33,14 @@ export async function SiteFooter() {
             <ul className="mt-4 space-y-1 text-sm">
               {contact.phones.map((p) => (
                 <li key={p}>
-                  <a href={`tel:${p.replace(/\s+/g, "")}`} className="text-fg hover:text-gold-soft">
+                  <a href={`tel:${p.replace(/\s+/g, "")}`} className="text-fg hover:text-brand-soft">
                     {p}
                   </a>
                 </li>
               ))}
               {contact.emails.map((e) => (
                 <li key={e}>
-                  <a href={`mailto:${e}`} className="text-fg hover:text-gold-soft">
+                  <a href={`mailto:${e}`} className="text-fg hover:text-brand-soft">
                     {e}
                   </a>
                 </li>

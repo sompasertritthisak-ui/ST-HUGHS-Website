@@ -30,7 +30,7 @@ export default async function CampusPage() {
         eyebrow="Campus"
         title={
           <>
-            Where the route <span className="italic text-gold-soft">begins.</span>
+            Where the route <span className="italic text-brand-soft">begins.</span>
           </>
         }
         lede="A walk through the campus in the order a visitor experiences it — arrival, learning spaces, study, social and outdoor. Only current, confirmed facilities are listed."

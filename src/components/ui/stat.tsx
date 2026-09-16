@@ -9,7 +9,7 @@ export function Stat({ label, value, unit, sourceNote, verified, className }: { 
         {show ? (
           <>
             {value}
-            {unit ? <span className="ml-1 text-[0.5em] text-gold-soft">{unit}</span> : null}
+            {unit ? <span className="ml-1 text-[0.5em] text-brand-soft">{unit}</span> : null}
           </>
         ) : (
           <span className="text-fg-subtle">—</span>

@@ -51,7 +51,7 @@ export function Plate({
               <line x1="0" y1="100%" x2="100%" y2="0" stroke="var(--route)" strokeWidth="0.75" />
             </svg>
             <span className="relative font-mono text-[0.625rem] uppercase tracking-[0.16em] text-fg-subtle">Photography plate</span>
-            <span className="relative font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-gold-soft">{slot}</span>
+            <span className="relative font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-soft">{slot}</span>
           </div>
         )}
       </div>

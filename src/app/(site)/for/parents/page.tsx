@@ -24,7 +24,7 @@ export default async function ForParentsPage() {
 
   return (
     <>
-      <PageHero eyebrow="I'm a parent" title={<>Reasons to <span className="italic text-gold-soft">trust</span>, not adjectives.</>} lede="You are weighing whether a degree abroad is realistic and whether this college is serious. This page sets out what can be verified today — authorisation, the awarding body, the people responsible — and what the first conversation costs: nothing." />
+      <PageHero eyebrow="I'm a parent" title={<>Reasons to <span className="italic text-brand-soft">trust</span>, not adjectives.</>} lede="You are weighing whether a degree abroad is realistic and whether this college is serious. This page sets out what can be verified today — authorisation, the awarding body, the people responsible — and what the first conversation costs: nothing." />
 
       <Section eyebrow="Trust signals" title="What is on record" lede="Each line is sourced. Where SHV has not yet published something, the line says so.">
         <FactsTable

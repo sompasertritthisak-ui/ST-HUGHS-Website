@@ -47,13 +47,13 @@ function FilterGroup({ label, param, options, current, base }: { label: string; 
       <p className="mb-3 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-subtle">{label}</p>
       <ul className="flex flex-wrap gap-2">
         <li>
-          <Link href={hrefFor()} className={cn(chip, !current ? "border-route text-gold-soft" : "border-line-strong text-fg-muted hover:border-fg hover:text-fg")} aria-current={!current ? "true" : undefined}>
+          <Link href={hrefFor()} className={cn(chip, !current ? "border-route text-brand-soft" : "border-line-strong text-fg-muted hover:border-fg hover:text-fg")} aria-current={!current ? "true" : undefined}>
             All
           </Link>
         </li>
         {options.map((o) => (
           <li key={o.value}>
-            <Link href={hrefFor(o.value)} className={cn(chip, current === o.value ? "border-route text-gold-soft" : "border-line-strong text-fg-muted hover:border-fg hover:text-fg")} aria-current={current === o.value ? "true" : undefined}>
+            <Link href={hrefFor(o.value)} className={cn(chip, current === o.value ? "border-route text-brand-soft" : "border-line-strong text-fg-muted hover:border-fg hover:text-fg")} aria-current={current === o.value ? "true" : undefined}>
               {o.label}
             </Link>
           </li>
@@ -79,7 +79,7 @@ export default async function PathwaysPage({ searchParams }: { searchParams: Sea
         eyebrow="Pathways"
         title={
           <>
-            One start. <span className="italic text-gold-soft">Many routes.</span>
+            One start. <span className="italic text-brand-soft">Many routes.</span>
           </>
         }
         lede="A pathway is the whole journey: the programme you complete in Vientiane, the point you transfer, the partner that receives you and the degree you finish with. Every route below is published only once its structure is confirmed."
@@ -103,7 +103,7 @@ export default async function PathwaysPage({ searchParams }: { searchParams: Sea
           {ANATOMY.map(([label, body], i) => (
             <Reveal key={label} as="li" delay={i * 40} className="relative grid gap-1 pb-7 pl-12 last:pb-0 sm:grid-cols-12 sm:gap-6">
               <Node active={i === 0} className="absolute left-0 top-0" />
-              <span className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-gold-soft sm:col-span-4">{label}</span>
+              <span className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-brand-soft sm:col-span-4">{label}</span>
               <span className="text-[0.9375rem] leading-relaxed text-fg-muted sm:col-span-8">{body}</span>
             </Reveal>
           ))}

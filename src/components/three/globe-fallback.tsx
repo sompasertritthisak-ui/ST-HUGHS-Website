@@ -1,4 +1,5 @@
 import { ORIGIN, angularDistance, project, type GlobeDestination } from "./geo";
+import { LAND_DOTS } from "./data/land-dots";
 import { cn } from "@/lib/utils";
 
 /**
@@ -13,6 +14,16 @@ const H = 360;
 /** Equirectangular projection re-centred on 40°E so the origin (Vientiane) and every destination sit inside the frame. */
 const CENTRE_LNG = 40;
 const px = (lat: number, lng: number): [number, number] => project(lat, ((((lng - CENTRE_LNG + 180) % 360) + 360) % 360) - 180, W, H);
+
+/** Land as one path of zero-length round-capped segments (every 2nd dot keeps the SSR payload small). */
+const LAND_PATH = (() => {
+  const parts: string[] = [];
+  for (let i = 0; i + 1 < LAND_DOTS.length; i += 4) {
+    const [x, y] = px(LAND_DOTS[i] / 100, LAND_DOTS[i + 1] / 100);
+    parts.push(`M${x.toFixed(1)} ${y.toFixed(1)}h.01`);
+  }
+  return parts.join("");
+})();
 
 export function GlobeFallback({ destinations, className, animate = true }: { destinations: GlobeDestination[]; className?: string; animate?: boolean }) {
   const [ox, oy] = px(ORIGIN.lat, ORIGIN.lng);
@@ -66,6 +77,9 @@ export function GlobeFallback({ destinations, className, animate = true }: { des
           })}
         </g>
 
+        {/* Land — the same dotted world as the globe */}
+        <path d={LAND_PATH} fill="none" stroke="var(--fg)" strokeOpacity="0.5" strokeWidth="1.25" strokeLinecap="round" />
+
         {/* Routes */}
         <g fill="none" strokeLinecap="round">
           {destinations.map((d, i) => {
@@ -79,7 +93,7 @@ export function GlobeFallback({ destinations, className, animate = true }: { des
                 className="shv-gf-arc"
                 pathLength={1}
                 d={`M ${ox} ${oy} Q ${mx} ${my} ${dx} ${dy}`}
-                stroke="var(--color-gold)"
+                stroke="var(--color-brand)"
                 strokeOpacity={d.verified ? 0.7 : 0.38}
                 strokeWidth="0.9"
                 style={{ animationDelay: `${500 + i * 140}ms` }}
@@ -95,8 +109,8 @@ export function GlobeFallback({ destinations, className, animate = true }: { des
             const labelRight = dx < W - 60;
             return (
               <g key={d.slug} className="shv-gf-dot" style={{ animationDelay: `${1600 + i * 140}ms` }}>
-                <circle cx={dx} cy={dy} r="2.4" fill={d.verified ? "var(--color-gold-soft)" : "var(--fg-muted)"} />
-                <circle cx={dx} cy={dy} r="6" fill="none" stroke="var(--color-gold)" strokeOpacity="0.35" strokeWidth="0.6" />
+                <circle cx={dx} cy={dy} r="2.4" fill={d.verified ? "var(--color-brand-soft)" : "var(--fg-muted)"} />
+                <circle cx={dx} cy={dy} r="6" fill="none" stroke="var(--color-brand)" strokeOpacity="0.35" strokeWidth="0.6" />
                 <text
                   x={labelRight ? dx + 10 : dx - 10}
                   y={dy + 3.5}
@@ -115,9 +129,9 @@ export function GlobeFallback({ destinations, className, animate = true }: { des
 
         {/* Origin — Vientiane */}
         <g>
-          <circle className="shv-gf-pulse" cx={ox} cy={oy} r="9" fill="none" stroke="var(--color-gold)" strokeWidth="0.8" />
-          <circle cx={ox} cy={oy} r="3.4" fill="var(--color-gold-soft)" />
-          <text x={ox} y={oy + 20} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="9.5" letterSpacing="1.8" fill="var(--color-gold-soft)">
+          <circle className="shv-gf-pulse" cx={ox} cy={oy} r="9" fill="none" stroke="var(--color-brand)" strokeWidth="0.8" />
+          <circle cx={ox} cy={oy} r="3.4" fill="var(--color-brand-soft)" />
+          <text x={ox} y={oy + 20} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="9.5" letterSpacing="1.8" fill="var(--color-brand-soft)">
             {ORIGIN.label.toUpperCase()}
           </text>
         </g>

@@ -5,26 +5,28 @@
    Source of truth: docs/DESIGN_SYSTEM.md. Components use semantic tokens only.
    ───────────────────────────────────────────────────────────────────────────── */
 
+/* Brand: St Hugh's College Vientiane — deep blue · red · white (from the official logo). */
 :root {
   /* palette */
-  --color-midnight: #06090f;
-  --color-obsidian: #0b1120;
-  --color-navy: #111d36;
-  --color-navy-2: #182a4d;
-  --color-gold: #c6a45c;
-  --color-gold-deep: #8f7434;
-  --color-gold-soft: #e4ce93;
-  --color-ivory: #f4efe4;
-  --color-ivory-2: #ece6d8;
-  --color-platinum: #b9bfcb;
-  --color-slate: #6b7385;
-  --color-ink: #0b1120;
-  --color-accent: #3e63dd;
+  --color-midnight: #0b1350;   /* deepest ground — logo gradient dark end */
+  --color-obsidian: #101a5e;   /* raised surfaces */
+  --color-navy: #142478;       /* cards, panels — logo mark */
+  --color-navy-2: #1b3499;     /* hover surfaces */
+  --color-blue: #103090;       /* primary brand blue — wordmark */
+  --color-brand: #cf1b18;      /* brand red — the route line, marks, primary CTA */
+  --color-brand-deep: #a3120f; /* red on white (contrast safe) */
+  --color-brand-soft: #ff8a85; /* red-tinted text on deep blue (≥ 6:1) */
+  --color-ivory: #ffffff;      /* white */
+  --color-ivory-2: #eef2fa;    /* cool off-white */
+  --color-platinum: #c7d1ec;   /* secondary text on deep blue */
+  --color-slate: #7d8aae;      /* tertiary text */
+  --color-ink: #0b1350;        /* text on white */
+  --color-accent: #103090;     /* links / focus on white = brand blue */
   --color-success: #2f9e6b;
   --color-warning: #d08a1f;
   --color-danger: #d64545;
 
-  /* semantic — dark (public site default) */
+  /* semantic — deep blue (public site default) */
   --bg: var(--color-midnight);
   --bg-raised: var(--color-obsidian);
   --bg-panel: var(--color-navy);
@@ -32,10 +34,10 @@
   --fg: var(--color-ivory);
   --fg-muted: var(--color-platinum);
   --fg-subtle: var(--color-slate);
-  --line: rgb(244 239 228 / 0.1);
-  --line-strong: rgb(244 239 228 / 0.22);
-  --ring: var(--color-gold);
-  --route: var(--color-gold);
+  --line: rgb(255 255 255 / 0.12);
+  --line-strong: rgb(255 255 255 / 0.26);
+  --ring: var(--color-ivory);
+  --route: var(--color-brand);
 
   /* radius */
   --radius-sm: 4px;
@@ -57,21 +59,21 @@
   color-scheme: dark;
 }
 
-/* Light theme surface — used by the admin CMS and any `.theme-light` region */
+/* White theme surface — the admin CMS and any `.theme-light` public section */
 .theme-light {
   --bg: var(--color-ivory);
   --bg-raised: #ffffff;
   --bg-panel: #ffffff;
   --bg-hover: var(--color-ivory-2);
   --fg: var(--color-ink);
-  --fg-muted: #3d465c;
+  --fg-muted: #3a4675;
   --fg-subtle: var(--color-slate);
-  --line: rgb(11 17 32 / 0.1);
-  --line-strong: rgb(11 17 32 / 0.22);
-  --ring: var(--color-accent);
-  --route: var(--color-gold-deep);
-  /* gold text on light ground must be the deep variant to keep ≥ 4.5:1 */
-  --color-gold-soft: var(--color-gold-deep);
+  --line: rgb(11 19 80 / 0.12);
+  --line-strong: rgb(11 19 80 / 0.28);
+  --ring: var(--color-blue);
+  --route: var(--color-brand);
+  /* red text on white must be the deep variant to keep ≥ 4.5:1 */
+  --color-brand-soft: var(--color-brand-deep);
   color-scheme: light;
 }
 
@@ -80,9 +82,9 @@
   --color-obsidian: var(--color-obsidian);
   --color-navy: var(--color-navy);
   --color-navy-2: var(--color-navy-2);
-  --color-gold: var(--color-gold);
-  --color-gold-deep: var(--color-gold-deep);
-  --color-gold-soft: var(--color-gold-soft);
+  --color-brand: var(--color-brand);
+  --color-brand-deep: var(--color-brand-deep);
+  --color-brand-soft: var(--color-brand-soft);
   --color-ivory: var(--color-ivory);
   --color-ivory-2: var(--color-ivory-2);
   --color-platinum: var(--color-platinum);
@@ -137,7 +139,7 @@ body {
 }
 
 ::selection {
-  background: var(--color-gold);
+  background: var(--color-brand);
   color: var(--color-ink);
 }
 
@@ -186,7 +188,7 @@ video {
   font-size: 0.6875rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-gold-soft);
+  color: var(--fg-muted);
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
@@ -209,7 +211,7 @@ video {
 }
 
 @utility glass-nav {
-  background: color-mix(in oklab, var(--bg) 72%, transparent);
+  background: color-mix(in oklab, var(--color-midnight) 90%, transparent);
   backdrop-filter: blur(14px) saturate(120%);
   -webkit-backdrop-filter: blur(14px) saturate(120%);
 }
@@ -263,7 +265,7 @@ video {
 }
 .prose-shv table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; margin-block: 1.5em; }
 .prose-shv th, .prose-shv td { text-align: left; padding: 0.75em 0.5em; border-bottom: 1px solid var(--line); vertical-align: top; }
-.prose-shv th { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-gold-soft); }
+.prose-shv th { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-brand-soft); }
 
 /* ───────────────────────────── motion ───────────────────────────── */
 

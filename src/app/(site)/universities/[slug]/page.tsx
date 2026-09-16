@@ -84,11 +84,11 @@ export default async function UniversityPage({ params }: { params: Params }) {
             { label: "Partnership type", value: <Badge tone="gold">{partnership}</Badge> },
             { label: "Transfer point", value: university.transferPoint, pending: "Confirmed before publication" },
             { label: "City", value: university.city },
-            { label: "Country", value: university.destination ? <Link href={`/destinations/${university.destination.slug}`} className="underline decoration-route underline-offset-4 hover:text-gold-soft">{university.destination.country}</Link> : null },
+            { label: "Country", value: university.destination ? <Link href={`/destinations/${university.destination.slug}`} className="underline decoration-route underline-offset-4 hover:text-brand-soft">{university.destination.country}</Link> : null },
             {
               label: "Official website",
               value: university.website ? (
-                <a href={university.website} target="_blank" rel="noopener noreferrer" data-analytics="outbound_partner_click" className="underline decoration-route underline-offset-4 hover:text-gold-soft">
+                <a href={university.website} target="_blank" rel="noopener noreferrer" data-analytics="outbound_partner_click" className="underline decoration-route underline-offset-4 hover:text-brand-soft">
                   {website} ↗
                 </a>
               ) : null,

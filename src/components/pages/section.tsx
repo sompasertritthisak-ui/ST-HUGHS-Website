@@ -5,7 +5,8 @@ import type { ReactNode } from "react";
 
 /**
  * Editorial section on a 12-column grid: a sticky label column (4) and an
- * offset content column (7, starting at 6). Every section opens on the gold
+ * offset content column (7, starting at 6). Sections render as full-bleed white
+ * bands (brand: deep blue hero, white body) and every section opens on the red
  * route line so the page reads as one continuous journey.
  */
 export function Section({
@@ -32,7 +33,8 @@ export function Section({
 }) {
   const headingId = id ? `${id}-title` : undefined;
   return (
-    <section id={id} aria-labelledby={headingId} className={cn("container-x scroll-mt-24", className)}>
+    <section id={id} aria-labelledby={headingId} className={cn("theme-light bg-bg text-fg scroll-mt-24", className)}>
+      <div className="container-x">
       {divider ? <RouteLine node="start" /> : null}
       {layout === "split" ? (
         <div className="grid gap-10 py-14 md:py-20 lg:grid-cols-12 lg:gap-8">
@@ -67,6 +69,7 @@ export function Section({
           <div className="mt-12">{children}</div>
         </div>
       )}
+      </div>
     </section>
   );
 }
