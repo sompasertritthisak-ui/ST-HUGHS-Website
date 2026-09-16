@@ -16,6 +16,9 @@ export type ShowcaseItem = {
   durationLabel: string | null;
   englishRequirement: string | null;
   qualification: string | null;
+  /** Concise "what you study": module or year titles, max 6. */
+  modules: string[];
+  assessment: string | null;
   image: { url: string; alt: string; focalX: number; focalY: number } | null;
 };
 
@@ -154,6 +157,19 @@ export function ProgrammeShowcase({ items }: { items: ShowcaseItem[] }) {
             ) : null}
           </dl>
         </div>
+        {current.modules.length > 0 ? (
+          <div className="mt-6 border-t border-line pt-5">
+            <p className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-subtle">What you study</p>
+            <ul className="mt-3 flex flex-wrap gap-2" aria-label="Curriculum at a glance">
+              {current.modules.map((m) => (
+                <li key={m} className="rounded-[var(--radius-sm)] border border-line px-3 py-1.5 text-sm text-fg">
+                  {m}
+                </li>
+              ))}
+            </ul>
+            {current.assessment ? <p className="mt-3 text-sm text-fg-muted">{current.assessment}</p> : null}
+          </div>
+        ) : null}
         <div className="mt-6 flex flex-wrap gap-4">
           <Link href={`/programmes/${current.slug}`} className="group inline-flex h-12 items-center gap-2 rounded-[var(--radius-sm)] bg-brand px-6 text-[0.9375rem] font-medium text-white hover:bg-brand-deep">
             View programme

@@ -1,4 +1,5 @@
 import type { Media, Programme } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import { PROGRAMME_TYPE_LABELS, type ProgrammeType } from "@/lib/enums";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -8,8 +9,20 @@ import { ProgrammeShowcase, type ShowcaseItem } from "./programme-showcase";
 type ProgrammeWithHero = Programme & { heroMedia?: Media | null };
 
 /** Act V — Foundation. An interactive showcase of the programmes taught at the origin node. */
-export function FeaturedProgrammes({ programmes }: { programmes: ProgrammeWithHero[] }) {
+/** First sentence only — the landing page shows the essentials, the programme page carries the detail. */
+function firstSentence(text: string | null) {
+  if (!text) return null;
+  const m = text.match(/^[^.!?]+[.!?]/);
+  return (m ? m[0] : text).trim();
+}
+
+export async function FeaturedProgrammes({ programmes }: { programmes: ProgrammeWithHero[] }) {
+  const modules = programmes.length
+    ? await prisma.programmeModule.findMany({ where: { programmeId: { in: programmes.map((p) => p.id) } }, orderBy: { order: "asc" }, select: { programmeId: true, title: true } })
+    : [];
   const items: ShowcaseItem[] = programmes.map((p) => ({
+    modules: modules.filter((m) => m.programmeId === p.id).map((m) => m.title.replace(/\s*\([^)]*\)\s*$/, "").trim()).slice(0, 6),
+    assessment: firstSentence(p.assessment),
     slug: p.slug,
     title: p.shortTitle ?? p.title,
     typeLabel: PROGRAMME_TYPE_LABELS[p.type as ProgrammeType] ?? p.type,

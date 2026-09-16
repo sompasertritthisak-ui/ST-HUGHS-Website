@@ -7,6 +7,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Logo } from "./logo";
+import { TranslateMenu } from "./translate-menu";
 
 export type NavItem = { id: string; label: string; href: string; description?: string | null };
 
@@ -83,6 +84,7 @@ export function HeaderNav({ items, audience }: { items: NavItem[]; audience: Nav
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
+          <TranslateMenu />
           <div ref={audienceRef} className="relative">
             <button
               type="button"
@@ -155,6 +157,7 @@ export function HeaderNav({ items, audience }: { items: NavItem[]; audience: Nav
               ))}
             </ul>
           </div>
+          <TranslateMenu variant="drawer" />
           <div className="mt-auto grid gap-3 pb-[env(safe-area-inset-bottom)]">
             <Button href="/consultation" size="lg">
               Talk to an advisor

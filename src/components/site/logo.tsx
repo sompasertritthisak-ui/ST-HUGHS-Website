@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 export function Logo({ className, compact = false, tone = "light", priority = false }: { className?: string; compact?: boolean; tone?: "light" | "dark"; priority?: boolean }) {
   const src = compact ? "/brand/shv-mark.png" : tone === "light" ? "/brand/shv-lockup-white.png" : "/brand/shv-lockup.png";
   return (
-    <Link href="/" className={cn("inline-flex items-center", className)} aria-label="St Hugh's College Vientiane — home">
+    <Link href="/" className={cn("notranslate inline-flex shrink-0 items-center", className)} translate="no" aria-label="St Hugh's College Vientiane — home">
       {compact ? (
         <Image src={src} alt="St Hugh's College Vientiane" width={40} height={40} priority={priority} className="size-10 rounded-[3px]" />
       ) : (

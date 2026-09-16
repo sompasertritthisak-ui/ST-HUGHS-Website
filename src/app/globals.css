@@ -157,10 +157,13 @@ summary {
   touch-action: manipulation;
 }
 
-img,
-video {
-  max-width: 100%;
-  height: auto;
+/* Layered so Tailwind utilities (h-9, size-10, …) can override the auto height. */
+@layer base {
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 /* ───────────────────────────── utilities ───────────────────────────── */
@@ -317,4 +320,34 @@ video {
 
 @supports (scrollbar-color: auto) {
   * { scrollbar-color: var(--color-navy-2) transparent; scrollbar-width: thin; }
+}
+
+/* ───────────────────────────── Google Translate chrome ───────────────────────────── */
+/* We drive translation from our own menu; hide Google's banner, tooltips and highlights. */
+body > .skiptranslate,
+.goog-te-banner-frame.skiptranslate,
+iframe.VIpgJd-ZVi9od-ORHb-OEVmcd,
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover,
+iframe.goog-te-banner-frame {
+  display: none !important;
+}
+body {
+  top: 0 !important;
+  position: static !important;
+}
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}
+#google_translate_element,
+.goog-te-gadget {
+  display: none !important;
+}
+font[style] {
+  background: transparent !important;
+  box-shadow: none !important;
 }
