@@ -50,3 +50,6 @@ public/uploads/*
 !.env.example
 # playwright review captures
 screenshots/
+
+# build-time schema copy (provider chosen from DATABASE_URL)
+prisma/.schema.build.prisma

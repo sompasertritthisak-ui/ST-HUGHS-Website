@@ -19,9 +19,10 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [400, 640, 768, 1024, 1280, 1536, 1920],
     // Add the media CDN host here when STORAGE_PUBLIC_URL is configured.
-    remotePatterns: process.env.STORAGE_PUBLIC_URL
-      ? [{ protocol: "https", hostname: new URL(process.env.STORAGE_PUBLIC_URL).hostname }]
-      : [],
+    remotePatterns: [
+      { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
+      ...(process.env.STORAGE_PUBLIC_URL ? [{ protocol: "https" as const, hostname: new URL(process.env.STORAGE_PUBLIC_URL).hostname }] : []),
+    ],
   },
   experimental: {
     serverActions: { bodySizeLimit: "30mb" },

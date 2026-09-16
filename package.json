@@ -15,12 +15,15 @@
     "db:migrate": "prisma migrate dev",
     "db:seed": "tsx prisma/seed.ts",
     "db:reset": "prisma db push --force-reset && tsx prisma/seed.ts",
-    "check": "pnpm typecheck && pnpm lint && pnpm test && pnpm build"
+    "check": "pnpm typecheck && pnpm lint && pnpm test && pnpm build",
+    "db:prepare": "node scripts/db-prepare.mjs",
+    "vercel-build": "node scripts/db-prepare.mjs && next build --turbopack"
   },
   "dependencies": {
     "@prisma/client": "6",
     "@react-three/drei": "^10.7.8",
     "@react-three/fiber": "^9.7.0",
+    "@vercel/blob": "^2.8.0",
     "bcryptjs": "^3.0.3",
     "clsx": "^2.1.1",
     "gsap": "^3.15.0",
@@ -60,5 +63,9 @@
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
+  },
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": ">=20.9"
   }
 }

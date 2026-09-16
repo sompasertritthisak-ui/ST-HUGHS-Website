@@ -1,5 +1,3 @@
-import { mkdir, writeFile } from "node:fs/promises";
-import path from "node:path";
 import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
@@ -9,6 +7,7 @@ import { recordAudit } from "@/lib/audit";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { MEDIA_KINDS } from "@/lib/enums";
 import { imageDimensions } from "./dimensions";
+import { putObject } from "@/lib/storage";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -71,16 +70,14 @@ export async function POST(request: Request) {
   if (!sniffMatches(bytes, file.type)) return NextResponse.json({ error: "File contents do not match its type." }, { status: 415 });
 
   const name = `${randomUUID()}.${spec.ext}`;
-  const dir = path.join(process.cwd(), "public", "uploads");
-  await mkdir(dir, { recursive: true });
-  await writeFile(path.join(dir, name), bytes, { flag: "wx" });
+  const stored = await putObject(name, bytes, file.type);
 
   const dims = spec.kind === "IMAGE" ? imageDimensions(bytes, file.type) : null;
   const originalName = file.name.replace(/[^\w.\- ]+/g, "").slice(0, 120) || name;
   const media = await prisma.media.create({
     data: {
       kind: spec.kind,
-      url: `/uploads/${name}`,
+      url: stored.url,
       filename: originalName,
       mimeType: file.type,
       sizeBytes: file.size,

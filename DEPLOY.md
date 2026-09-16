@@ -1,34 +1,67 @@
-# Deploying SHV Digital Campus from GitHub
+# Deploying SHV Digital Campus
 
-## 1. Push
-```bash
-git remote add origin git@github.com:<your-org>/shv-digital-campus.git
-git push -u origin main
-```
-CI (`.github/workflows/ci.yml`) runs typecheck, lint, tests and a production build on every push.
+The code lives on GitHub (https://github.com/sompasertritthisak-ui/ST-HUGHS-Website). Vercel runs it.
+Three external pieces are needed because Vercel's servers have no persistent disk:
 
-## 2. Database (production)
-Provision PostgreSQL (Neon, Supabase, Railway, RDS…). In `prisma/schema.prisma` change
-`provider = "sqlite"` to `provider = "postgresql"`, then:
-```bash
-pnpm exec prisma migrate dev --name init   # creates prisma/migrations locally
-git add prisma/migrations && git commit -m "Add initial migration"
-```
-On the host run `pnpm exec prisma migrate deploy` and `pnpm db:seed` once.
+| Piece | Service (free tier) | Why |
+|---|---|---|
+| Database | Neon PostgreSQL | programmes, pages, enquiries, users |
+| File storage | Vercel Blob | photos, logos and PDFs uploaded through the CMS |
+| Hosting | Vercel | runs the Next.js site, CMS and APIs |
 
-## 3. Host
-**Vercel (recommended for Next.js):** import the GitHub repo, framework preset Next.js, build
-command `pnpm build`, install command `pnpm install`. Add the environment variables from
-`.env.example` (at minimum `DATABASE_URL`, `AUTH_SECRET`, `APPLICATION_URL`, `AUTH_TRUST_HOST=true`,
-`SEED_ADMIN_EMAIL`, `SEED_ADMIN_PASSWORD`). Media uploads need S3-compatible storage on Vercel
-(set the `STORAGE_*` variables and swap the disk adapter in `src/app/api/admin/media/route.ts`);
-on a VPS/Docker host the local `public/uploads` directory works as-is with a persistent volume.
+## 1. Create the database (Neon)
+1. Go to https://neon.tech and sign up (GitHub login works).
+2. Create a project, name it `shv-website`, region Singapore (closest to Laos).
+3. On the project dashboard click **Connect**, choose **Prisma** if offered, and copy the connection
+   string. It starts with `postgresql://` and ends with `?sslmode=require`. Keep it for step 3.
 
-**Docker / VPS:** `pnpm install && pnpm build && pnpm start` behind a reverse proxy with HTTPS.
+## 2. Import the repository into Vercel
+1. Go to https://vercel.com and sign up with your GitHub account.
+2. Click **Add New… → Project**, find `ST-HUGHS-Website`, click **Import**.
+3. Leave Framework Preset = Next.js and Root Directory = `./`.
+4. Open **Build and Output Settings** and set **Build Command** to:
+   `pnpm vercel-build`
+   (Install Command stays `pnpm install`.)
+5. Do **not** click Deploy yet — add the environment variables first (step 3).
 
-## 4. After first deploy
-1. Sign in at `/admin/login` with the seed admin and change the password in `/admin/users`.
-2. Fill `/admin/settings` (contact, messaging, institution).
-3. Upload photography in `/admin/media`, approve usage/consent, attach to facilities and programmes.
-4. Review the IN_REVIEW routes and PENDING partners; publish or archive.
-5. Run Lighthouse and an accessibility audit against the live URL.
+## 3. Environment variables (Vercel → Project → Settings → Environment Variables)
+Add each of these for Production (and Preview if you like):
+
+| Name | Value |
+|---|---|
+| `DATABASE_URL` | the Neon connection string from step 1 |
+| `AUTH_SECRET` | a long random string — run `openssl rand -base64 32` in Terminal, or use any 40+ character password |
+| `AUTH_TRUST_HOST` | `true` |
+| `APPLICATION_URL` | `https://<your-project>.vercel.app` (update to `https://www.sthughs.edu.la` when the domain is connected) |
+| `SEED_ADMIN_EMAIL` | the first admin's email, e.g. `admissions@sthughs.edu.la` |
+| `SEED_ADMIN_PASSWORD` | a strong temporary password (change it after first login) |
+| `SEED_ON_BUILD` | `true` — **first deploy only**, remove it afterwards |
+
+Optional later: `EMAIL_API_KEY`, `ADMISSIONS_NOTIFY_EMAIL`, `CRM_WEBHOOK_URL`, `WHATSAPP_NUMBER`.
+
+## 4. File storage (Vercel Blob)
+1. In the Vercel project open the **Storage** tab, click **Create Database → Blob**, name it `shv-media`.
+2. Connect it to the project. Vercel adds `BLOB_READ_WRITE_TOKEN` automatically. Uploads from the CMS
+   now go to Blob; nothing else to configure.
+
+## 5. Deploy
+Click **Deploy** (or Deployments → Redeploy). The build runs `scripts/db-prepare.mjs`, which
+creates the tables in Neon, seeds the verified content, then builds the site. Expect 3–4 minutes.
+
+When it finishes:
+1. Open the site URL. Check the homepage, a programme page and `/resources`.
+2. Sign in at `/admin/login` with the seed admin, go to **Users**, and change the password.
+3. In Vercel remove the `SEED_ON_BUILD` variable and redeploy once, so later builds never reset content.
+
+## 6. Custom domain
+Vercel → Project → Settings → Domains → add `www.sthughs.edu.la` and follow the DNS record it shows
+(a CNAME at your domain registrar). HTTPS is automatic. Update `APPLICATION_URL` to match and redeploy.
+
+## Every later update
+Push to `main` on GitHub (or merge a pull request). Vercel builds and publishes automatically; each
+pull request gets its own preview URL. The database is untouched by builds unless the schema changed,
+in which case `prisma db push` adds the new tables/columns and fails loudly rather than dropping data.
+
+## Local development
+Unchanged: `pnpm dev` with the SQLite `dev.db`. The build script picks PostgreSQL only when
+`DATABASE_URL` starts with `postgresql://`.

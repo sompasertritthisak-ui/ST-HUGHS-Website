@@ -1,13 +1,12 @@
 "use server";
 
-import { unlink } from "node:fs/promises";
-import path from "node:path";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { CONSENT_STATUSES, USAGE_STATUSES } from "@/lib/enums";
 import { createRevision, recordAudit } from "@/lib/audit";
 import { prisma } from "@/lib/prisma";
+import { deleteObject } from "@/lib/storage";
 import { actionUser, requestIp } from "./session";
 import { DENIED, NOT_FOUND, friendlyDbError } from "./workflow";
 import type { ActionState } from "./types";
@@ -88,10 +87,7 @@ export async function deleteMedia(id: string, _prev: ActionState): Promise<Actio
   try {
     await createRevision({ entityType: "Media", entityId: id, snapshot: record, authorId: user.id, note: "Before delete" });
     await prisma.media.delete({ where: { id } });
-    if (record.url.startsWith("/uploads/")) {
-      const file = path.join(process.cwd(), "public", "uploads", path.basename(record.url));
-      await unlink(file).catch(() => undefined);
-    }
+    await deleteObject(record.url);
     await recordAudit({ actorId: user.id, action: "DELETE", entityType: "Media", entityId: id, beforeJson: JSON.stringify(record), ip: await requestIp() });
   } catch (error) {
     return friendlyDbError(error);
