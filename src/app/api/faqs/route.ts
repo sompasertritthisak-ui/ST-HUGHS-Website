@@ -1,5 +1,5 @@
 import { getFaqs } from "@/lib/content";
-import { FaqCategorySchema } from "@/lib/enums";
+import { FaqCategorySchema } from "@/lib/enum-schemas";
 import { listResponse, queryParam } from "../_lib/respond";
 
 /** GET /api/faqs?category=&programme= — published FAQs grouped by category order. */

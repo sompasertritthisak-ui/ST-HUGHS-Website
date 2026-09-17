@@ -2,7 +2,7 @@ import "server-only";
 import { z } from "zod";
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { AudienceSchema, EnquiryStatusSchema, EnquiryTypeSchema } from "@/lib/enums";
+import { AudienceSchema, EnquiryStatusSchema, EnquiryTypeSchema } from "@/lib/enum-schemas";
 import { sp, spInt } from "./form";
 
 export const ENQUIRY_PAGE_SIZE = 25;

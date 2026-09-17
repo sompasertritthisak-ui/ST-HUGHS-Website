@@ -2,7 +2,7 @@ import "server-only";
 import { z } from "zod";
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { AuditActionSchema } from "@/lib/enums";
+import { AuditActionSchema } from "@/lib/enum-schemas";
 import { sp, spInt } from "./form";
 
 export const AUDIT_PAGE_SIZE = 50;

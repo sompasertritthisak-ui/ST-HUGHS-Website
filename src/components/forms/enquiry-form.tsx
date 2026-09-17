@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { EnquirySchema } from "@/lib/schemas/enquiry";
-import { AudienceSchema } from "@/lib/enums";
+import { AudienceSchema } from "@/lib/enum-schemas";
 import { t } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { useLeadForm } from "./use-lead-form";

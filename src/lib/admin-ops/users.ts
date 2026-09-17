@@ -3,7 +3,7 @@ import { randomBytes } from "node:crypto";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
-import { RoleSchema } from "@/lib/enums";
+import { RoleSchema } from "@/lib/enum-schemas";
 import { can } from "@/lib/rbac";
 import type { AdminUser } from "./guard";
 

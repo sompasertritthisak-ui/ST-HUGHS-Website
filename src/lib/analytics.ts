@@ -1,7 +1,7 @@
 import "server-only";
 import { prisma } from "./prisma";
 import { z } from "zod";
-import { AnalyticsEventSchema } from "./enums";
+import { AnalyticsEventSchema } from "./enum-schemas";
 
 export const TrackEventSchema = z.object({
   name: AnalyticsEventSchema,

@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { Field, Input, Select } from "@/components/ui/field";
-import { CONSULTATION_MODES, CONSULTATION_MODE_LABELS, AudienceSchema, ConsultationModeSchema } from "@/lib/enums";
+import { CONSULTATION_MODES, CONSULTATION_MODE_LABELS, AudienceSchema, ConsultationModeSchema } from "@/lib/enum-schemas";
 import { ConsultationSchema, CONSULTATION_TIME_SLOTS, todayIsoDate } from "@/lib/schemas/enquiry";
 import { t } from "@/lib/i18n";
 import { cn } from "@/lib/utils";

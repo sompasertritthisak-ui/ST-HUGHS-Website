@@ -4,7 +4,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { recordAudit } from "@/lib/audit";
-import { EnquiryStatusSchema } from "@/lib/enums";
+import { EnquiryStatusSchema } from "@/lib/enum-schemas";
 import { guard, requestIp } from "./guard";
 import { ASSIGNABLE_ROLES } from "./enquiries";
 import { dateOrNull, str, zodErrors } from "./form";

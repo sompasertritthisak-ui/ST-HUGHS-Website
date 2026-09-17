@@ -4,7 +4,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { recordAudit, createRevision } from "@/lib/audit";
-import { NavMenuSchema } from "@/lib/enums";
+import { NavMenuSchema } from "@/lib/enum-schemas";
 import { guard, requestIp } from "./guard";
 import { HrefSchema, bool, str, zodErrors } from "./form";
 import { fail, succeed, type ActionState } from "./types";

@@ -1,5 +1,5 @@
 import { getNews } from "@/lib/content";
-import { NewsCategorySchema } from "@/lib/enums";
+import { NewsCategorySchema } from "@/lib/enum-schemas";
 import { listResponse, queryParam } from "../_lib/respond";
 
 /** GET /api/news?category=&take= — published, PUBLIC-visibility articles. */

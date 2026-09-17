@@ -1,5 +1,5 @@
 import { getDocuments } from "@/lib/content";
-import { DocumentCategorySchema } from "@/lib/enums";
+import { DocumentCategorySchema } from "@/lib/enum-schemas";
 import { listResponse, queryParam } from "../_lib/respond";
 
 /** GET /api/documents?category= — published, PUBLIC-visibility documents with their media. */

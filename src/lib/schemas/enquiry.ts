@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AudienceSchema, ConsultationModeSchema } from "@/lib/enums";
+import { AudienceSchema, ConsultationModeSchema } from "@/lib/enum-schemas";
 
 /**
  * Lead schemas shared by the public forms (client) and the write APIs (server).

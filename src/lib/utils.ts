@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import slugifyLib from "slugify";
-import { z } from "zod";
+import type { z } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -22,10 +22,15 @@ export function parseJson<T>(raw: string | null | undefined, schema: z.ZodType<T
   }
 }
 
-export const StringArraySchema = z.array(z.string());
-
+/** Parse a JSON string column into a string array without pulling a validator into client bundles. */
 export function parseStringArray(raw: string | null | undefined): string[] {
-  return parseJson(raw, StringArraySchema, []);
+  if (!raw) return [];
+  try {
+    const value: unknown = JSON.parse(raw);
+    return Array.isArray(value) && value.every((v) => typeof v === "string") ? (value as string[]) : [];
+  } catch {
+    return [];
+  }
 }
 
 export function formatDate(date: Date | string | null | undefined, opts: Intl.DateTimeFormatOptions = {}) {

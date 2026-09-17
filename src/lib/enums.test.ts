@@ -15,7 +15,7 @@ import {
   ANALYTICS_EVENTS,
   AnalyticsEventSchema,
   type ContentStatus,
-} from "./enums";
+} from "./enum-schemas";
 
 describe("STATUS_TRANSITIONS", () => {
   it("defines transitions for every content status and only to valid statuses", () => {

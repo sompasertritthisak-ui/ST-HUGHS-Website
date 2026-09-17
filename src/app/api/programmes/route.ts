@@ -1,5 +1,5 @@
 import { getProgrammes } from "@/lib/content";
-import { ProgrammeTypeSchema } from "@/lib/enums";
+import { ProgrammeTypeSchema } from "@/lib/enum-schemas";
 import { listResponse, queryParam } from "../_lib/respond";
 
 /** GET /api/programmes?type=&featured=1 — published programmes only. */
