@@ -12,17 +12,26 @@ const securityHeaders = [
   },
 ];
 
+/** Public host of the R2 media bucket (uploads), when configured. */
+function mediaHost(): string | undefined {
+  try {
+    return process.env.MEDIA_PUBLIC_URL ? new URL(process.env.MEDIA_PUBLIC_URL).hostname : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // Prisma's generated client must stay external so OpenNext can patch it for Workers.
+  serverExternalPackages: ["@prisma/client", ".prisma/client"],
   images: {
-    formats: ["image/avif", "image/webp"],
+    // Cloudflare has no built-in optimiser; see src/lib/image-loader.ts.
+    loader: "custom",
+    loaderFile: "./src/lib/image-loader.ts",
     deviceSizes: [400, 640, 768, 1024, 1280, 1536, 1920],
-    // Add the media CDN host here when STORAGE_PUBLIC_URL is configured.
-    remotePatterns: [
-      { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
-      ...(process.env.STORAGE_PUBLIC_URL ? [{ protocol: "https" as const, hostname: new URL(process.env.STORAGE_PUBLIC_URL).hostname }] : []),
-    ],
+    remotePatterns: mediaHost() ? [{ protocol: "https", hostname: mediaHost()! }] : [],
   },
   experimental: {
     serverActions: { bodySizeLimit: "30mb" },

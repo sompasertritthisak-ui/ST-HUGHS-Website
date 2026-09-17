@@ -7,9 +7,6 @@ import { AnalyticsDelegation } from "@/components/site/analytics-delegation";
 /** Public pages are CMS-driven: on-demand revalidation from admin actions plus a 5-minute safety net. */
 export const revalidate = 300;
 
-/** Allow slow cold starts (Prisma connect + Neon wake) without a gateway timeout. */
-export const maxDuration = 60;
-
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <>

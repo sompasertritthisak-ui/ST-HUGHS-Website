@@ -1,0 +1,7 @@
+# Local values for `pnpm cf:preview` (wrangler). Copy to .dev.vars and fill in.
+NEXTJS_ENV=development
+DATABASE_URL=
+AUTH_SECRET=
+AUTH_TRUST_HOST=true
+APPLICATION_URL=http://localhost:8787
+MEDIA_PUBLIC_URL=

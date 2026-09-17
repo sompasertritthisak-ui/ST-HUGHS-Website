@@ -1,95 +1,94 @@
-# Deploying SHV Digital Campus
+# Deploying SHV Digital Campus (Cloudflare Workers)
 
-The code lives on GitHub (https://github.com/sompasertritthisak-ui/ST-HUGHS-Website). Vercel runs it.
-Three external pieces are needed because Vercel's servers have no persistent disk:
+The site runs on **Cloudflare Workers** through the OpenNext adapter and is built automatically from
+GitHub. This guide is for the person with access to the college's Cloudflare account (the IT
+director) and for whoever maintains the code. No terminal is needed on the Cloudflare side.
 
-| Piece | Service (free tier) | Why |
+| Part | Service | Why |
 |---|---|---|
-| Database | Neon PostgreSQL | programmes, pages, enquiries, users |
-| File storage | Vercel Blob | photos, logos and PDFs uploaded through the CMS |
-| Hosting | Vercel | runs the Next.js site, CMS and APIs |
+| Web app, CMS, APIs | Cloudflare Workers (Paid plan, USD 5/month) | Reachable from Lao networks; the college's DNS is already on Cloudflare |
+| Database | Neon PostgreSQL, region Singapore (free tier) | Serverless Postgres, closest region to Laos |
+| Uploaded media | Cloudflare R2 bucket `shv-media` (free tier) | Object storage served from `media.sthughs.edu.la` |
+| Page cache | Cloudflare R2 bucket `shv-next-cache` + Durable Objects | Incremental static regeneration and instant refresh after publishing |
+| Source code | GitHub `sompasertritthisak-ui/ST-HUGHS-Website` | Every push to `main` deploys |
 
-## 1. Create the database (Neon)
-1. Go to https://neon.tech and sign up (GitHub login works).
-2. Create a project, name it `shv-website`, region Singapore (closest to Laos).
-3. On the project dashboard click **Connect**, choose **Prisma** if offered, and copy the connection
-   string. It starts with `postgresql://` and ends with `?sslmode=require`. Keep it for step 3.
+Why not Vercel: on 17 Sept 2026 we measured from Vientiane (Lao Telecom) that HTTPS to any
+`*.vercel.app` name stalls during the TLS handshake, while Cloudflare answers in under 0.1 s.
 
-## 2. Import the repository into Vercel
-1. Go to https://vercel.com and sign up with your GitHub account.
-2. Click **Add New… → Project**, find `ST-HUGHS-Website`, click **Import**. The repository's
-   `vercel.json` already pins the functions to Singapore to sit next to the Neon database.
-3. Leave Framework Preset = Next.js and Root Directory = `./`.
-4. Open **Build and Output Settings** and set **Build Command** to:
-   `pnpm vercel-build`
-   (Install Command stays `pnpm install`.)
-5. Do **not** click Deploy yet — add the environment variables first (step 3).
+## 1. Database (Neon)
+Already created for the earlier Vercel attempt; reuse it. If starting fresh:
+1. https://neon.tech → New project → name `shv-website`, region **Singapore**.
+2. Dashboard → **Connect** → copy the **pooled** connection string (host contains `-pooler`).
+   It starts with `postgresql://` and ends with `?sslmode=require`. Treat it as a password.
 
-## 3. Environment variables (Vercel → Project → Settings → Environment Variables)
-Add each of these for Production (and Preview if you like):
+## 2. Cloudflare account prerequisites (IT director)
+1. Dashboard → **Workers & Pages → Plans** → enable **Workers Paid**. The free plan's 3 MB bundle
+   and 10 ms CPU limits are too small for a Next.js app with a database and password login.
+2. **R2 Object Storage → Create bucket** `shv-media`. Then bucket → **Settings → Custom Domains →
+   Connect domain** `media.sthughs.edu.la` (Cloudflare adds the DNS record itself). Create a second
+   bucket `shv-next-cache` with no public access.
+3. Optional, for automatic image resizing: **Images → Transformations** → enable for the zone
+   `sthughs.edu.la`, then set `NEXT_PUBLIC_CF_IMAGE_TRANSFORMS` to `"1"` in `wrangler.jsonc`.
+
+## 3. Create the Worker from GitHub
+1. **Workers & Pages → Create → Import a repository** and authorise Cloudflare's GitHub app for
+   `ST-HUGHS-Website`. The app only reads the repository; no personal tokens are involved.
+2. Build settings:
+   - Worker name: `shv-website` (must match `name` in `wrangler.jsonc`)
+   - Build command: `pnpm cf:build`
+   - Deploy command: `pnpm exec opennextjs-cloudflare deploy`
+   - Root directory: `/`
+3. **Build variables** (used while building: schema push and page pre-rendering):
+   `DATABASE_URL`, `AUTH_SECRET`, `APPLICATION_URL=https://www.sthughs.edu.la`,
+   `MEDIA_PUBLIC_URL=https://media.sthughs.edu.la`. For the very first build only, also
+   `SEED_ON_BUILD=true`, `SEED_ADMIN_EMAIL`, `SEED_ADMIN_PASSWORD` (skip these if the Neon database
+   already holds the content from the Vercel deployment).
+4. **Save and Deploy**. The first build takes 4–6 minutes. The R2 and Durable Object bindings are
+   created from `wrangler.jsonc` on the first deploy.
+
+## 4. Runtime variables and secrets
+Worker → **Settings → Variables and Secrets** → add as **Secret**:
 
 | Name | Value |
 |---|---|
-| `DATABASE_URL` | the Neon connection string from step 1 |
-| `AUTH_SECRET` | a long random string — run `openssl rand -base64 32` in Terminal, or use any 40+ character password |
-| `AUTH_TRUST_HOST` | `true` |
-| `APPLICATION_URL` | `https://<your-project>.vercel.app` (update to `https://www.sthughs.edu.la` when the domain is connected) |
-| `SEED_ADMIN_EMAIL` | the first admin's email, e.g. `admissions@sthughs.edu.la` |
-| `SEED_ADMIN_PASSWORD` | a strong temporary password (change it after first login) |
-| `SEED_ON_BUILD` | `true` — **first deploy only**, remove it afterwards |
+| `DATABASE_URL` | the Neon pooled connection string |
+| `AUTH_SECRET` | 32+ random characters (`openssl rand -base64 32`) |
 
-Optional later: `EMAIL_API_KEY`, `ADMISSIONS_NOTIFY_EMAIL`, `CRM_WEBHOOK_URL`, `WHATSAPP_NUMBER`.
+Plain variables (`APPLICATION_URL`, `MEDIA_PUBLIC_URL`, `AUTH_TRUST_HOST`,
+`NEXT_PUBLIC_CF_IMAGE_TRANSFORMS`) are preset in `wrangler.jsonc`; change them in the file so the
+repository and the dashboard never disagree. Optional: `EMAIL_API_KEY`, `ADMISSIONS_NOTIFY_EMAIL`,
+`CRM_WEBHOOK_URL` (see `docs/CRM_INTEGRATION.md`).
 
-## 4. File storage (Vercel Blob)
-1. In the Vercel project open the **Storage** tab, click **Create Database → Blob**, name it `shv-media`.
-2. Connect it to the project. Vercel adds `BLOB_READ_WRITE_TOKEN` automatically. Uploads from the CMS
-   now go to Blob; nothing else to configure.
+After the first successful build, **remove `SEED_ON_BUILD`** from the build variables. The seed
+resets navigation, pathways and FAQs to the seed content on every build while it is set.
 
-## 5. Deploy
-Click **Deploy** (or Deployments → Redeploy). The build runs `scripts/db-prepare.mjs`, which
-creates the tables in Neon, seeds the verified content, then builds the site. Expect 3–4 minutes.
+## 5. Domain
+Worker → **Settings → Domains & Routes → Add → Custom domain** → `www.sthughs.edu.la`.
+Because the zone is already on Cloudflare, the DNS record and certificate are created automatically
+and the old `www` record is replaced. To preview before replacing the current site, add
+`new.sthughs.edu.la` first and switch later. Keep `APPLICATION_URL` equal to the public address (it
+drives absolute links, the sitemap and login redirects).
 
-When it finishes:
-1. Open the site URL. Check the homepage, a programme page and `/resources`.
-2. Sign in at `/admin/login` with the seed admin, go to **Users**, and change the password.
-3. In Vercel remove the `SEED_ON_BUILD` variable and redeploy once, so later builds never reset content.
+Disable the `*.workers.dev` preview address (Settings → Domains & Routes) once the domain works.
 
-## 6. Custom domain (required for visitors in Laos)
-Do this before sharing the site. On 17 Sept 2026 we measured, from a Lao Telecom connection in
-Vientiane, that HTTPS connections to any `*.vercel.app` name silently stall (the TCP connection
-opens, the TLS handshake never completes), while the same Vercel edge servers answer instantly for
-sites on their own domain. The filtering keys on the `vercel.app` name, so the fix is to serve the
-site from the college's domain:
+## 6. First login
+Open `https://www.sthughs.edu.la/admin/login`, sign in with the seed admin, go to **Users**, change
+the password and create accounts for the team.
 
-1. Vercel → Project → Settings → **Domains** → add `www.sthughs.edu.la` (and `sthughs.edu.la` if the
-   registrar supports an ALIAS/ANAME or A record).
-2. At the domain registrar add the record Vercel shows: `www` → CNAME `cname.vercel-dns.com`, and for
-   the bare domain an A record to `76.76.21.21`.
-3. Wait for Vercel to show a green tick (minutes to an hour). HTTPS is automatic.
-4. Set `APPLICATION_URL=https://www.sthughs.edu.la` in Environments → Production and redeploy.
+## Every later update
+Push to `main` on GitHub. Workers Builds runs `pnpm cf:build` (Prisma `db push` adds new tables or
+columns and refuses destructive changes, then builds) and deploys. Pull requests get preview builds.
 
-Until the domain is attached, staff on Lao networks can reach the `vercel.app` preview only through a
-VPN or a mobile network that routes differently. This is a network issue, not an application error.
-
-## 7. Function region
-`vercel.json` pins server functions to Singapore (`sin1`) so every database query stays in the same
-region as the Neon database created in step 1. If the Neon project was created elsewhere, change the
-region in `vercel.json` to the matching Vercel region (or move the Neon project to Singapore); a
-mismatch adds roughly a quarter of a second to every query and makes CMS actions feel sluggish.
+## Local development
+Unchanged: `pnpm dev` with SQLite. To run the real Worker locally: copy `.dev.vars.example` to
+`.dev.vars`, fill in a Postgres `DATABASE_URL`, then `pnpm cf:build && pnpm cf:preview`.
 
 ## Troubleshooting
 | Symptom | Likely cause | Check |
 |---|---|---|
-| Page never loads, spinner forever, "Application error: a client-side exception" | `*.vercel.app` blocked on the visitor's network (see step 6) | Open `https://www.vercel.com` (works) vs the site (stalls); a US uptime checker shows 200 |
-| Buttons do nothing but the page is visible | JavaScript chunks failed to download over the stalled connection | Browser console shows `ChunkLoadError`; same fix as above |
-| CMS form stuck on "Saving…/Creating…" | The form's request to the server never arrived (same network cause) or the database is unreachable | Vercel → Logs (Error level); Neon → Monitoring shows connections |
-| First visit after a quiet hour takes 3–6 s | Vercel function cold start plus Neon compute wake-up on the free tiers | Later requests are fast; upgrade Neon to "always on" if needed |
-
-## Every later update
-Push to `main` on GitHub (or merge a pull request). Vercel builds and publishes automatically; each
-pull request gets its own preview URL. The database is untouched by builds unless the schema changed,
-in which case `prisma db push` adds the new tables/columns and fails loudly rather than dropping data.
-
-## Local development
-Unchanged: `pnpm dev` with the SQLite `dev.db`. The build script picks PostgreSQL only when
-`DATABASE_URL` starts with `postgresql://`.
+| Build fails with "Timed out fetching a new connection from the connection pool" | Neon asleep or its connection budget exhausted during pre-render | Retry the build; confirm the pooled (`-pooler`) URL is used |
+| Build fails with "Worker size exceeds limit" | Free plan (3 MB) instead of Paid (10 MB) | Step 2.1 |
+| Uploads fail with "MEDIA_PUBLIC_URL is not set" | Bucket domain not connected or variable missing | Step 2.2 and `wrangler.jsonc` vars |
+| Pages 500 with "Cannot perform I/O on behalf of a different request" | A database client was shared across requests | `src/lib/prisma.ts` creates one client per request on Workers; check recent changes |
+| Publishing in the CMS does not refresh the public page | Tag cache / queue bindings missing | Worker → Settings → Bindings shows two Durable Objects and two R2 buckets |
+| First visit after a quiet hour takes 3–6 s | Neon compute wake-up on the free tier | Later requests are fast; Neon → Compute → disable auto-suspend if needed |

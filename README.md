@@ -38,10 +38,12 @@ verified value is entered.
 ## Production notes
 - Do not run `pnpm build` while `pnpm dev` is running: Next 15.5 shares the `.next` directory and the
   build removes the dev server's static manifests (restart `pnpm dev` if that happens).
-- Switch `prisma/schema.prisma` datasource to `postgresql` and set `DATABASE_URL`; run
-  `prisma migrate deploy`.
-- Media uploads write to `public/uploads` locally; set the `STORAGE_*` variables and swap the
-  storage adapter in `src/app/api/admin/media` for S3-compatible storage + CDN.
-- Replace the in-memory rate limiter with Redis for multi-instance deployments.
+- Production runs on Cloudflare Workers via OpenNext with a Neon PostgreSQL database and R2 for
+  uploads; see `DEPLOY.md`. `scripts/db-prepare.mjs` swaps the Prisma provider from the
+  `DATABASE_URL` at build time, so the committed schema stays SQLite for local development.
+- Media uploads write to `public/uploads` locally and to the `MEDIA_BUCKET` R2 bucket on Workers
+  (`src/lib/storage.ts`), served from `MEDIA_PUBLIC_URL`.
+- The rate limiter is in-memory per Worker isolate; move it to KV/Durable Objects if limits must be
+  exact across the edge.
 - Configure `EMAIL_API_KEY`, `ADMISSIONS_NOTIFY_EMAIL`, `CRM_WEBHOOK_URL` to activate
   notifications and CRM forwarding (see `docs/CRM_INTEGRATION.md`).

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Prepare the database for a build. Used by `pnpm vercel-build` (and usable locally).
+ * Prepare the database for a build. Used by `pnpm cf:build` / `pnpm cf:deploy` (Cloudflare Workers Builds) and usable locally.
  *
  * 1. Picks the Prisma provider from DATABASE_URL (postgres:// → postgresql, otherwise sqlite)
  *    and writes prisma/.schema.build.prisma with that provider — one source schema, no drift.

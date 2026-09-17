@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "shv-website",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-03-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
+  "observability": { "enabled": true },
+  // Non-secret runtime settings. Secrets (DATABASE_URL, AUTH_SECRET, SEED_*) are set in
+  // the Cloudflare dashboard: Worker → Settings → Variables and Secrets.
+  "vars": {
+    "NEXTJS_ENV": "production",
+    "AUTH_TRUST_HOST": "true",
+    "APPLICATION_URL": "https://www.sthughs.edu.la",
+    "MEDIA_PUBLIC_URL": "https://media.sthughs.edu.la",
+    "NEXT_PUBLIC_CF_IMAGE_TRANSFORMS": "0"
+  },
+  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "shv-website" }],
+  "r2_buckets": [
+    { "binding": "NEXT_INC_CACHE_R2_BUCKET", "bucket_name": "shv-next-cache" },
+    { "binding": "MEDIA_BUCKET", "bucket_name": "shv-media" }
+  ],
+  "durable_objects": {
+    "bindings": [
+      { "name": "NEXT_CACHE_DO_QUEUE", "class_name": "DOQueueHandler" },
+      { "name": "NEXT_TAG_CACHE_DO_SHARDED", "class_name": "DOShardedTagCache" }
+    ]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["DOQueueHandler", "DOShardedTagCache"] }]
+}

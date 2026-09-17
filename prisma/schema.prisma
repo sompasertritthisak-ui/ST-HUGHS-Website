@@ -8,8 +8,9 @@
 // JSON-shaped fields are stored as strings suffixed `Json` and parsed with Zod.
 
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+  // Driver adapters are GA in Prisma 6.19: production (Cloudflare Workers) uses
+  // @prisma/adapter-neon, local development uses the bundled SQLite engine.
+  provider = "prisma-client-js"
 }
 
 datasource db {

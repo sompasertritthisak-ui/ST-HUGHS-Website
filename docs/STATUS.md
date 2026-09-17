@@ -54,9 +54,11 @@ screenshots at 1440px and 390px (no horizontal overflow, no console errors).
    confirmed fee schedule (tuition / application / registration / uniform amounts) and calendars.
 
 ## Deployment
-Switch Prisma to PostgreSQL, set the environment variables in `.env.example`, replace the in-memory
-rate limiter with Redis, point media storage at S3-compatible storage, and run Lighthouse + an
-accessibility audit on the staging URL.
+Target: Cloudflare Workers (OpenNext adapter) on the college's own Cloudflare account, built from
+GitHub by Workers Builds, Neon PostgreSQL (Singapore) for data, R2 for uploads and the ISR cache,
+Durable Objects for the revalidation queue and tag cache. Step-by-step guide in `DEPLOY.md`.
+Vercel was dropped on 17 Sept 2026: HTTPS to `*.vercel.app` stalls on Lao Telecom, so nobody at the
+college could open the deployment. Remaining: Lighthouse + accessibility audit on the staging URL.
 
 
 ## Brand and homepage upgrades — 16 September 2026

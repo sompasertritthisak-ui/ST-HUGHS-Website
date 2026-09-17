@@ -1,9 +1,11 @@
 /**
- * Serverless-friendly connection string for PostgreSQL (Neon on Vercel).
+ * Connection-string hygiene for PostgreSQL (Neon).
  *
  * - Neon's pooled endpoint (host contains "-pooler") runs PgBouncer in
  *   transaction mode and needs `pgbouncer=true` so Prisma skips prepared
- *   statements; without it queries fail after the first request.
+ *   statements when it talks to it through the classic engine (build-time
+ *   prerender, seed, local Postgres). The Neon serverless driver used at
+ *   runtime ignores the parameter.
  * - `connection_limit` keeps each Prisma client small. During `next build`
  *   many workers pre-render pages in parallel; the default pool size
  *   (2 × CPUs + 1 per worker) exhausts Neon's connection budget and every
