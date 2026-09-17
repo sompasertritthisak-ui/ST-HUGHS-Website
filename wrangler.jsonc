@@ -11,7 +11,7 @@
   "vars": {
     "NEXTJS_ENV": "production",
     "AUTH_TRUST_HOST": "true",
-    "APPLICATION_URL": "https://www.sthughs.edu.la",
+    "APPLICATION_URL": "https://staging.sthughs.edu.la",
     "MEDIA_PUBLIC_URL": "https://media.sthughs.edu.la",
     "NEXT_PUBLIC_CF_IMAGE_TRANSFORMS": "0"
   },

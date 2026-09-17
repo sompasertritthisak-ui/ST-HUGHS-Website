@@ -39,7 +39,7 @@ Already created for the earlier Vercel attempt; reuse it. If starting fresh:
    - Deploy command: `pnpm exec opennextjs-cloudflare deploy`
    - Root directory: `/`
 3. **Build variables** (used while building: schema push and page pre-rendering):
-   `DATABASE_URL`, `AUTH_SECRET`, `APPLICATION_URL=https://www.sthughs.edu.la`,
+   `DATABASE_URL`, `AUTH_SECRET`, `APPLICATION_URL=https://staging.sthughs.edu.la`,
    `MEDIA_PUBLIC_URL=https://media.sthughs.edu.la`. For the very first build only, also
    `SEED_ON_BUILD=true`, `SEED_ADMIN_EMAIL`, `SEED_ADMIN_PASSWORD` (skip these if the Neon database
    already holds the content from the Vercel deployment).
@@ -63,7 +63,7 @@ After the first successful build, **remove `SEED_ON_BUILD`** from the build vari
 resets navigation, pathways and FAQs to the seed content on every build while it is set.
 
 ## 5. Domain
-Worker → **Settings → Domains & Routes → Add → Custom domain** → `www.sthughs.edu.la`.
+Worker → **Settings → Domains & Routes → Add → Custom domain** → `staging.sthughs.edu.la` for review; later `www.sthughs.edu.la` to go live (update `APPLICATION_URL` in `wrangler.jsonc` at the same time).
 Because the zone is already on Cloudflare, the DNS record and certificate are created automatically
 and the old `www` record is replaced. To preview before replacing the current site, add
 `new.sthughs.edu.la` first and switch later. Keep `APPLICATION_URL` equal to the public address (it
