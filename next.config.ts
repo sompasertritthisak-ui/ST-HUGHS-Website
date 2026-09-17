@@ -26,6 +26,10 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     serverActions: { bodySizeLimit: "30mb" },
+    // Pre-rendering 44 CMS-driven pages hammers the database; keep the fan-out
+    // modest and retry a page instead of failing the whole build on a slow query.
+    staticGenerationMaxConcurrency: 4,
+    staticGenerationRetryCount: 3,
   },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
