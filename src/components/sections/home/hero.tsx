@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { GlobeStage } from "@/components/three/globe-stage";
 import { ORIGIN, type GlobeDestination } from "@/components/three/geo";
 import type { MessagingSettings } from "@/lib/content";
+import { HeroMotion } from "./hero-motion";
 
 const WORD_BASE_DELAY = 480; // let the loading plate begin to dissolve first
 const WORD_STAGGER = 40;
@@ -39,17 +40,18 @@ export function Hero({
   const supportDelay = WORD_BASE_DELAY + (line1Words + messaging.heroLine2.split(/\s+/).length) * WORD_STAGGER + 120;
 
   return (
-    <section aria-labelledby="hero-title" className="relative overflow-hidden">
+    <section aria-labelledby="hero-title" className="grain relative overflow-hidden">
+      <HeroMotion />
       {/* Globe — the visual centre: ~60vw, right-anchored, vertically centred, bleeding ~8vw past the edge.
           Interactive (drag / click) wherever the copy column does not sit above it. */}
-      <div className="absolute inset-y-0 right-[-8vw] z-[1] hidden w-[min(60vw,calc(100dvh-72px))] items-center lg:flex" aria-hidden>
+      <div data-hero-globe className="absolute inset-y-0 right-[-8vw] z-[1] hidden w-[min(60vw,calc(100dvh-72px))] items-center lg:flex" aria-hidden>
         {/* Left-third fade keeps the headline ≥ 4.5:1 over the globe */}
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-1/3 bg-linear-to-r from-bg to-transparent" />
         <GlobeStage destinations={destinations} className="aspect-square w-full" />
       </div>
 
       <div className="container-x relative grid min-h-[calc(100dvh-72px-3.25rem)] grid-cols-12 content-center gap-y-12 pb-16 pt-12 lg:pb-24 lg:pt-16">
-        <div className="relative z-10 col-span-12 lg:col-span-7">
+        <div data-hero-copy className="relative z-10 col-span-12 lg:col-span-7">
           <p className="eyebrow eyebrow-rule anim-fade-up" style={{ animationDelay: "320ms" }}>
             St Hugh&rsquo;s College Vientiane · NCUK Study Centre · Est. {established}
           </p>
@@ -75,6 +77,7 @@ export function Hero({
           <p className="anim-fade-up mt-6 hidden font-mono text-[0.625rem] uppercase tracking-[0.16em] text-fg-subtle lg:block" style={{ animationDelay: `${supportDelay + 240}ms` }}>
             Drag the globe · Click a destination
           </p>
+          <span aria-hidden className="scroll-cue anim-fade-up mt-8 hidden lg:block" style={{ animationDelay: `${supportDelay + 400}ms` }} />
         </div>
 
         {/* Small-screen map */}

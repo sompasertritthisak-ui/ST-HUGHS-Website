@@ -1,6 +1,6 @@
 export * from "./loading-sequence";
 export * from "./hero";
-export * from "./pathway-statement";
+export * from "./route-journey";
 export * from "./why-st-hughs";
 export * from "./explorer-teaser";
 export * from "./featured-programmes";

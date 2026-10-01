@@ -28,12 +28,22 @@ that reads as an intentional "plate" (not a grey box) with the CMS media slot na
 sequence, cards arrive along the path. Ease-out entrances 300–500ms, staggered 40ms. Nothing
 bounces. Reduced-motion users get the finished state instantly.
 
-**Narrative (acts)** — Origin (Vientiane) → Foundation (the programme) → Pathway (the route) →
-Destination (the university) → Future (career) → Return (the CTA back to the origin: "start here").
+**Narrative (acts)** — Written for a family that has never heard of SHV, in the order they ask:
+Origin (hero, globe) → How it works (red band: one year at home, then the world; proof numbers) →
+Real place (photography) → Why trust it → Programmes → Your pathway (tool) → Destinations →
+Student life → Campus → Track record → Future → Stories → News → Consultation → Start here.
+A left-gutter "spine" (`SectionSpine`) tracks the acts on large screens. The act list and each act's
+question live as a comment at the top of `src/app/(site)/page.tsx`; a section that cannot state its
+question is removed.
 
 **The WOW moment** — The hero: a dark globe with Vientiane as the single lit origin; on scroll the
 routes extend outward to the nine approved destinations, then the globe resolves into the
 Pathway Explorer.
+
+**Motion layer** — GSAP ScrollTrigger is used only where scroll should drive the drawing of the
+route: hero depth on exit (`HeroMotion`), the journey line, chips and counters (`RouteJourney`).
+Everything else is the CSS `Reveal`. Every GSAP effect starts from the server-rendered final state and
+is skipped under `prefers-reduced-motion`. Film grain (`grain`) sits on the large blue and red fields.
 
 **The MEMORY moment** — The thin red route line that runs through the whole site: it is the red rule
 under the wordmark in the logo, extended. It appears in the hero, in the pathway timeline, under the

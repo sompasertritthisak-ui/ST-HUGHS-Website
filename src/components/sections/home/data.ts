@@ -45,6 +45,17 @@ export function getPublishedRouteCount() {
   return prisma.pathway.count({ where: { status: "PUBLISHED" } });
 }
 
+/** Headline numbers for the journey band — published records only, never typed in. */
+export async function getHomeCounts() {
+  const [programmes, universities, routes] = await Promise.all([
+    prisma.programme.count({ where: { status: "PUBLISHED" } }),
+    prisma.university.count({ where: { status: "PUBLISHED" } }),
+    getPublishedRouteCount(),
+  ]);
+  return { programmes, universities, routes };
+}
+export type HomeCounts = Awaited<ReturnType<typeof getHomeCounts>>;
+
 /** Plain JSON for the client-side globe — no Prisma objects cross the boundary. */
 export function toGlobeDestinations(destinations: DestinationWithRelations[]): GlobeDestination[] {
   return destinations.map((d) => ({
@@ -59,7 +70,7 @@ export function toGlobeDestinations(destinations: DestinationWithRelations[]): G
 }
 
 export async function getHomeData() {
-  const [messaging, contact, institution, destinations, pathways, programmes, universities, facilities, metrics, stories, news, routeCount] =
+  const [messaging, contact, institution, destinations, pathways, programmes, universities, facilities, metrics, stories, news, routeCount, counts] =
     await Promise.all([
       getMessagingSettings(),
       getContactSettings(),
@@ -73,8 +84,9 @@ export async function getHomeData() {
       getStudentStories({ featured: true, take: 3 }),
       getNews({ take: 3 }),
       getPublishedRouteCount(),
+      getHomeCounts(),
     ]);
-  return { messaging, contact, institution, destinations, pathways, programmes, universities, facilities, metrics, stories, news, routeCount };
+  return { messaging, contact, institution, destinations, pathways, programmes, universities, facilities, metrics, stories, news, routeCount, counts };
 }
 
 export type HomeData = Awaited<ReturnType<typeof getHomeData>>;

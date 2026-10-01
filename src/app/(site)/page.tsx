@@ -11,7 +11,7 @@ import {
   Hero,
   LoadingSequence,
   NewsSection,
-  PathwayStatement,
+  RouteJourney,
   StudentExperience,
   StudentStories,
   WhyStHughs,
@@ -20,6 +20,7 @@ import { getHomeData, toGlobeDestinations } from "@/components/sections/home/dat
 import { LifeMosaic } from "@/components/sections/home/life-mosaic";
 import { Milestones } from "@/components/sections/home/milestones";
 import { FlagStripe } from "@/components/ui/flag-stripe";
+import { SectionSpine } from "@/components/site/section-spine";
 
 const TITLE = "St Hugh's College Vientiane — International university pathways from Laos";
 const DESCRIPTION =
@@ -32,11 +33,43 @@ export const metadata: Metadata = {
   openGraph: { title: TITLE, description: DESCRIPTION, url: "/", type: "website" },
 };
 
+/** The acts of the homepage, in order, for the wayfinding spine. Ids are the act headings. */
+const SPINE = [
+  { id: "hero-title", label: "Origin" },
+  { id: "journey-title", label: "How it works" },
+  { id: "life-title", label: "Life at SHV" },
+  { id: "why-title", label: "Why St Hugh's" },
+  { id: "programmes-title", label: "Programmes" },
+  { id: "explorer-title", label: "Your pathway" },
+  { id: "network-title", label: "Destinations" },
+  { id: "experience-title", label: "Student life" },
+  { id: "campus-title", label: "Campus" },
+  { id: "milestones-title", label: "Track record" },
+  { id: "future-title", label: "Future" },
+  { id: "stories-title", label: "Stories" },
+  { id: "news-title", label: "News" },
+  { id: "final-cta", label: "Start here" },
+];
+
 /**
- * The homepage is a journey, not a template stack:
- * Origin (hero) → the route (statement) → why (evidence) → Pathway (explorer) →
- * Foundation (programmes) → Destination (network) → Student life → Campus →
- * Future (employability) → Stories → News → Start here (consultation, final CTA).
+ * The homepage is written for someone who has never heard of St Hugh's. Each act answers
+ * one question, in the order a family asks them:
+ *
+ *  1. Hero            Who and where is this?                      (origin, the globe)
+ *  2. RouteJourney    How does it work?                           (one year at home, then the world; proof numbers)
+ *  3. LifeMosaic      Is it a real place with real students?      (photography only, no stock)
+ *  4. WhyStHughs      Can I trust it?                             (authorisation, NCUK, sourced claims)
+ *  5. Programmes      What would I study?                         (the taught programmes)
+ *  6. Explorer        Which route is mine?                        (the tool)
+ *  7. GlobalNetwork   Where can it take me?                       (destinations and universities)
+ *  8. StudentLife     What is learning here like?
+ *  9. Campus          Where will I spend the year?
+ * 10. Milestones      How established is it?                      (dated public record)
+ * 11. Employability   What happens after?                         (verified figures only)
+ * 12. Stories         Who has done it?                            (consent-gated)
+ * 13. News            Is it alive?
+ * 14. Consultation    What do I do now?                           (the one conversion)
+ * 15. FinalCta        Start here.
  */
 export default async function HomePage() {
   const data = await getHomeData();
@@ -67,47 +100,52 @@ export default async function HomePage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
 
-      {/* 1 — loading sequence (≤ 900ms, once per session, never blocks) */}
+      <SectionSpine stops={SPINE} />
+
+      {/* loading sequence (≤ 900ms, once per session, never blocks) */}
       <LoadingSequence line1={messaging.heroLine1} line2={messaging.heroLine2} />
 
-      {/* 2 — Origin */}
+      {/* 1 — Origin */}
       <Hero messaging={messaging} destinations={globeDestinations} routeCount={data.routeCount} established={institution.established} />
 
-      {/* 3 — the route in one sentence, on the red band that continues from the hero */}
-      <PathwayStatement destinations={data.destinations} />
+      {/* 2 — How it works: the red band continues straight on from the hero's wayfinding strip */}
+      <RouteJourney destinations={globeDestinations} counts={data.counts} />
+
+      {/* 3 — Real place, real people */}
       <LifeMosaic />
 
-      {/* 4 — evidence */}
+      {/* 4 — Trust */}
       <WhyStHughs institution={institution} />
-      <Milestones />
 
-      {/* 5 — Pathway */}
+      {/* 5 — What you study */}
+      <FeaturedProgrammes programmes={data.programmes} />
+
+      {/* 6 — Your pathway (the tool) */}
       <FlagStripe />
       <ExplorerTeaser pathways={data.pathways} />
 
-      {/* 6 — Foundation */}
-      <FeaturedProgrammes programmes={data.programmes} />
-
-      {/* 7 — Destination */}
-      <FlagStripe />
+      {/* 7 — Destinations and universities */}
       <GlobalNetwork destinations={data.destinations} universities={data.universities} />
 
-      {/* 8 — Student experience */}
+      {/* 8 — Student life */}
       <StudentExperience facilities={data.facilities} />
 
       {/* 9 — Campus */}
       <CampusStrip facilities={data.facilities} addressLine={contact.addressLines[1] ?? contact.addressLines[0]} />
 
-      {/* 10 — Future */}
+      {/* 10 — Track record */}
+      <Milestones />
+
+      {/* 11 — Future */}
       <Employability metrics={data.metrics} />
 
-      {/* 11 — Stories (consent-gated) */}
+      {/* 12 — Stories (consent-gated) */}
       <StudentStories stories={data.stories} />
 
-      {/* 12 — News */}
+      {/* 13 — News */}
       <NewsSection news={data.news} />
 
-      {/* 13 + 14 — Consultation and apply */}
+      {/* 14 — The conversion */}
       <ConsultationBand
         tone="band"
         title="Talk it through with an advisor"
