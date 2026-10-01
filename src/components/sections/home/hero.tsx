@@ -50,7 +50,7 @@ export function Hero({
         <GlobeStage destinations={destinations} className="aspect-square w-full" />
       </div>
 
-      <div className="container-x relative grid min-h-[calc(100dvh-72px-3.25rem)] grid-cols-12 content-center gap-y-12 pb-16 pt-12 lg:pb-24 lg:pt-16">
+      <div className="container-x relative grid min-h-[calc(100dvh-72px-3.25rem)] grid-cols-12 content-center gap-y-12 pb-12 pt-10 lg:pb-14 lg:pt-12">
         <div data-hero-copy className="relative z-10 col-span-12 lg:col-span-7">
           <p className="eyebrow eyebrow-rule anim-fade-up" style={{ animationDelay: "320ms" }}>
             St Hugh&rsquo;s College Vientiane · NCUK Study Centre · Est. {established}
