@@ -93,7 +93,7 @@ export function WhyStHughs({ institution }: { institution: InstitutionSettings }
             const body = (
               <>
                 <div className="flex items-baseline justify-between gap-6">
-                  <span className="font-mono text-[0.6875rem] tracking-[0.14em] text-fg-subtle tabular">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="font-mono text-[0.6875rem] tracking-[0.14em] text-brand-soft tabular">{String(i + 1).padStart(2, "0")}</span>
                   <Badge tone="gold">{item.source}</Badge>
                 </div>
                 <h3 className="mt-4 text-[1.375rem] font-medium leading-snug text-fg text-balance md:text-[1.5rem]">{item.title}</h3>

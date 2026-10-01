@@ -10,7 +10,7 @@ const base =
   "group inline-flex items-center justify-center gap-2 font-medium tracking-[0.01em] rounded-[var(--radius-sm)] transition-[background-color,color,border-color,transform] duration-[var(--dur-fast)] ease-[var(--ease-out)] disabled:opacity-50 disabled:pointer-events-none active:scale-[0.99] select-none whitespace-nowrap max-w-full";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-brand text-white hover:bg-brand-deep border border-transparent",
+  primary: "bg-brand text-(--on-brand) hover:bg-brand-deep border border-transparent",
   secondary: "border border-line-strong text-fg hover:border-fg hover:bg-fg/5",
   ghost: "text-fg hover:text-brand-soft px-0 whitespace-normal text-left",
   danger: "bg-danger text-white hover:bg-danger/90 border border-transparent",

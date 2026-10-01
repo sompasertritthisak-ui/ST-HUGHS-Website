@@ -43,9 +43,9 @@ export async function Milestones() {
           <ol className="grid gap-10 md:grid-cols-5 md:gap-6" aria-label="Milestones">
             {items.map((m, i) => (
               <li key={`${m.year}-${i}`} className="shv-ml-item group relative pl-8 md:pl-0" style={{ "--d": `${200 + i * 160}ms` } as React.CSSProperties}>
-                <span aria-hidden className="absolute left-0 top-[6px] size-[15px] rounded-full border border-route bg-bg transition-[background-color,transform] duration-[var(--dur)] group-hover:scale-125 group-hover:bg-route md:-top-[7px] md:left-0" />
+                <span aria-hidden className="absolute left-0 top-[6px] size-[15px] rounded-full border-2 border-route bg-route shadow-[0_0_0_4px_var(--bg)] transition-transform duration-[var(--dur)] group-hover:scale-125 md:-top-[7px] md:left-0" />
                 <div className="md:pt-8">
-                  <p className="font-display text-[clamp(2rem,3vw,2.75rem)] leading-none text-fg tabular">{m.year}</p>
+                  <p className="font-display text-[clamp(2rem,3vw,2.75rem)] leading-none text-brand-soft tabular">{m.year}</p>
                   <p className="mt-3 text-[1.0625rem] font-medium leading-snug text-fg">{m.label}</p>
                   {m.detail ? <p className="mt-2 text-sm leading-relaxed text-fg-muted transition-opacity duration-[var(--dur)] md:opacity-70 md:group-hover:opacity-100">{m.detail}</p> : null}
                 </div>

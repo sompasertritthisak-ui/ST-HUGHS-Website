@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getNavigation, getContactSettings } from "@/lib/content";
 import { Logo } from "./logo";
 import { RouteLine } from "@/components/ui/route-line";
+import { FlagStripe } from "@/components/ui/flag-stripe";
 import { FacebookIcon as Facebook, LinkedinIcon as Linkedin, YoutubeIcon as Youtube, InstagramIcon as Instagram } from "./social-icons";
 
 export async function SiteFooter() {
@@ -15,7 +16,8 @@ export async function SiteFooter() {
   ].filter((s) => s.href);
 
   return (
-    <footer className="relative border-t border-line bg-bg-raised">
+    <footer className="relative bg-bg-raised">
+      <FlagStripe />
       <div className="container-x pb-10 pt-16">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">

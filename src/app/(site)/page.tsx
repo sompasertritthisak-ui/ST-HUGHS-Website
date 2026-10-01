@@ -19,6 +19,7 @@ import {
 import { getHomeData, toGlobeDestinations } from "@/components/sections/home/data";
 import { LifeMosaic } from "@/components/sections/home/life-mosaic";
 import { Milestones } from "@/components/sections/home/milestones";
+import { FlagStripe } from "@/components/ui/flag-stripe";
 
 const TITLE = "St Hugh's College Vientiane — International university pathways from Laos";
 const DESCRIPTION =
@@ -72,21 +73,23 @@ export default async function HomePage() {
       {/* 2 — Origin */}
       <Hero messaging={messaging} destinations={globeDestinations} routeCount={data.routeCount} established={institution.established} />
 
-      {/* 3 — the route in one sentence */}
-      <LifeMosaic />
+      {/* 3 — the route in one sentence, on the red band that continues from the hero */}
       <PathwayStatement destinations={data.destinations} />
+      <LifeMosaic />
 
       {/* 4 — evidence */}
       <WhyStHughs institution={institution} />
       <Milestones />
 
       {/* 5 — Pathway */}
+      <FlagStripe />
       <ExplorerTeaser pathways={data.pathways} />
 
       {/* 6 — Foundation */}
       <FeaturedProgrammes programmes={data.programmes} />
 
       {/* 7 — Destination */}
+      <FlagStripe />
       <GlobalNetwork destinations={data.destinations} universities={data.universities} />
 
       {/* 8 — Student experience */}
@@ -106,6 +109,7 @@ export default async function HomePage() {
 
       {/* 13 + 14 — Consultation and apply */}
       <ConsultationBand
+        tone="band"
         title="Talk it through with an advisor"
         body="A free consultation checks your qualifications against the published entry requirements and sets out a clear next step. It is guidance to help you plan, not a formal admissions decision."
         primaryHref="/consultation"

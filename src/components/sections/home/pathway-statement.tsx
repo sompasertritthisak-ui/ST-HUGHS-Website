@@ -18,11 +18,11 @@ function formatDisjunction(items: string[]) {
   }
 }
 
-/** Act II — the whole proposition in one sentence. Origin → destination → future. */
+/** Act II — the whole proposition in one sentence, set on the flag's red band. Origin → destination → future. */
 export function PathwayStatement({ destinations }: { destinations: DestinationWithRelations[] }) {
   const list = formatDisjunction(destinations.map((d) => withArticle(d.country)));
   const linkClass =
-    "relative inline-block text-brand-soft transition-colors duration-[var(--dur)] hover:text-fg after:absolute after:bottom-[0.06em] after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-route after:transition-transform after:duration-[var(--dur)] after:ease-[var(--ease-out)] hover:after:scale-x-100 focus-visible:after:scale-x-100";
+    "relative inline-block text-fg underline decoration-[2px] underline-offset-[0.12em] decoration-white/40 transition-colors duration-[var(--dur)] hover:decoration-white after:absolute after:bottom-[0.06em] after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-route after:transition-transform after:duration-[var(--dur)] after:ease-[var(--ease-out)] hover:after:scale-x-100 focus-visible:after:scale-x-100";
   void list;
   const linked = destinations.map((d, i) => (
     <span key={d.id}>
@@ -33,7 +33,7 @@ export function PathwayStatement({ destinations }: { destinations: DestinationWi
     </span>
   ));
   return (
-    <section aria-labelledby="statement-title" className="theme-light bg-bg text-fg relative">
+    <section aria-labelledby="statement-title" className="theme-brand bg-bg text-fg relative">
       <div className="container-x section-y">
         <RouteLine node="start" className="mb-14 lg:mb-20" />
         <div className="grid grid-cols-12 gap-y-10">

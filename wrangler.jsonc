@@ -6,13 +6,15 @@
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
   "observability": { "enabled": true },
-  // Non-secret runtime settings. Secrets (DATABASE_URL, AUTH_SECRET, SEED_*) are set in
-  // the Cloudflare dashboard: Worker → Settings → Variables and Secrets.
+  // Settings that are the same on every account live here. Per-deployment values
+  // (APPLICATION_URL, MEDIA_PUBLIC_URL) and secrets (DATABASE_URL, AUTH_SECRET) are set in the
+  // Cloudflare dashboard: Worker → Settings → Variables and Secrets. `keep_vars` stops a deploy
+  // from wiping dashboard variables, so the same repository serves the draft Worker on a personal
+  // account and the production Worker on the college account.
+  "keep_vars": true,
   "vars": {
     "NEXTJS_ENV": "production",
     "AUTH_TRUST_HOST": "true",
-    "APPLICATION_URL": "https://staging.sthughs.edu.la",
-    "MEDIA_PUBLIC_URL": "https://media.sthughs.edu.la",
     "NEXT_PUBLIC_CF_IMAGE_TRANSFORMS": "0"
   },
   "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "shv-website" }],

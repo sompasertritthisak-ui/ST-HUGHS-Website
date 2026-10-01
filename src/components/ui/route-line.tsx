@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /**
- * The signature gold line. A horizontal or vertical hairline with a small
+ * The signature red route line. A horizontal or vertical hairline with a small
  * terminal node. Used as section dividers and timeline spines.
  */
 export function RouteLine({

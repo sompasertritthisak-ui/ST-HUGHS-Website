@@ -15,8 +15,10 @@ reasons to trust. A university partner arrives asking "is this institution serio
 **Intended emotion** — *Assured momentum.* The feeling of standing at a departure gate with a
 confirmed ticket.
 
-**Visual language** — Deep brand-blue surfaces, white type, and the brand red used like a signature stroke
-(thin rules, small marks, the active node, the primary button), never as large washes. Editorial
+**Visual language** — The three colours of the Lao flag: deep brand-blue fields, white fields, and brand
+red as full bands at the key moments (the wayfinding strip under the hero, the one-sentence route
+statement, the consultation band) plus the signature stroke everywhere else (eyebrows, rules, nodes,
+numbers, the primary button). The 6px red·blue·red "flag stripe" marks every white→blue transition. Editorial
 serif display set large and quiet; institutional sans for everything readable; mono for
 wayfinding labels (route codes, durations, statuses). Materiality: dark glass and brushed metal,
 restrained. Imagery: real SHV photography only; where none exists yet, a structured placeholder
@@ -68,8 +70,10 @@ rule red #CC1814).
 
 Semantic aliases: `--bg`, `--bg-raised`, `--fg`, `--fg-muted`, `--line`, `--line-strong`, `--ring`,
 `--route`. Public site is deep-blue-first; `.theme-light` (admin CMS and any white public section) flips
-to white ground, ink text and deep red. Red is never a large fill except the primary button; it lives in
-the 1px route line, nodes, badges and the logo rule.
+to white ground, ink text and deep red. `.theme-brand` flips to a red ground with white type, a white
+route line and an inverted (white) primary button; use it for whole bands, never for cards. Red also
+lives in every eyebrow, stat value, milestone year, index number, the route line, nodes and badges.
+Red text on blue is always `brand-soft` (#FF8A85); true red on blue is reserved for fills and strokes.
 
 ### Type
 | Role | Family | Notes |
@@ -102,8 +106,10 @@ Stagger 40ms. Route-line draw: 900–1400ms with `--ease-out`.
 - **Eyebrow** — mono uppercase label with a 24px red rule to the left.
 - **Stat** — number in display face, label in mono; renders "—" with "Verified data pending" when
   no verified value exists. Never invents numbers.
-- **Button** — `primary` (red fill, white text), `secondary` (white outline), `ghost` (text + arrow).
-  Only one primary per viewport.
+- **Button** — `primary` (red fill, white text; on `.theme-brand` it inverts to white fill, red text),
+  `secondary` (outline), `ghost` (text + arrow). Only one primary per viewport.
+- **FlagStripe** — 6px red·blue·red rule (`src/components/ui/flag-stripe.tsx`) at white→blue seams and
+  the top of the footer.
 
 ## Anti-patterns (hard rules)
 - No neon, no crypto/gaming gradients, no floating blobs, no glassmorphism on cards.

@@ -1,13 +1,15 @@
 import { getMessagingSettings } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { RouteLine } from "@/components/ui/route-line";
+import { FlagStripe } from "@/components/ui/flag-stripe";
 
 /** The closing statement. Returns the reader to the origin: start here. */
 export async function FinalCta() {
   const m = await getMessagingSettings();
   const [first, ...rest] = m.finalCtaTitle.split(" ");
   return (
-    <section aria-labelledby="final-cta" className="relative overflow-hidden border-t border-line">
+    <section aria-labelledby="final-cta" className="relative overflow-hidden">
+      <FlagStripe />
       <div className="container-x section-y relative">
         <RouteLine className="absolute left-[var(--gutter)] right-[var(--gutter)] top-0" node="start" />
         <div className="grid gap-12 lg:grid-cols-12 lg:items-end">

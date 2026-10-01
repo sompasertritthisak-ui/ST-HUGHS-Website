@@ -48,7 +48,7 @@ export function Hero({
         <GlobeStage destinations={destinations} className="aspect-square w-full" />
       </div>
 
-      <div className="container-x relative grid min-h-[calc(100dvh-72px)] grid-cols-12 content-center gap-y-12 pb-16 pt-12 lg:pb-24 lg:pt-16">
+      <div className="container-x relative grid min-h-[calc(100dvh-72px-3.25rem)] grid-cols-12 content-center gap-y-12 pb-16 pt-12 lg:pb-24 lg:pt-16">
         <div className="relative z-10 col-span-12 lg:col-span-7">
           <p className="eyebrow eyebrow-rule anim-fade-up" style={{ animationDelay: "320ms" }}>
             St Hugh&rsquo;s College Vientiane · NCUK Study Centre · Est. {established}
@@ -56,7 +56,7 @@ export function Hero({
           <h1 id="hero-title" className="font-display mt-8 text-[clamp(2.75rem,9.2vw,8.5rem)] leading-[0.94] text-fg">
             <Words text={messaging.heroLine1} className="block" />
             <Words text={messaging.heroLine2} offset={line1Words} className="block" />
-            <span aria-hidden className="anim-fade-up mt-5 block h-[3px] w-28 origin-left bg-route" style={{ animationDelay: `${supportDelay}ms` }} />
+            <span aria-hidden className="anim-fade-up mt-5 block h-1 w-36 origin-left bg-route" style={{ animationDelay: `${supportDelay}ms` }} />
           </h1>
           <p className="anim-fade-up mt-8 max-w-xl text-lg leading-relaxed text-fg-muted text-pretty md:text-xl" style={{ animationDelay: `${supportDelay}ms` }}>
             {messaging.heroSupport}
@@ -82,16 +82,19 @@ export function Hero({
           <GlobeStage destinations={destinations} className="aspect-[2/1] w-full" webgl={false} />
         </div>
 
-        {/* Wayfinding strip */}
-        <div className="anim-fade-up relative z-10 col-span-12 flex flex-wrap items-center gap-x-8 gap-y-2 border-t border-line pt-5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-subtle lg:col-span-7" style={{ animationDelay: `${supportDelay + 300}ms` }}>
-          <span className="inline-flex items-center gap-2">
+      </div>
+
+      {/* Wayfinding band — the flag's red stripe under the blue field */}
+      <div className="theme-brand bg-bg text-fg anim-fade-up relative z-10" style={{ animationDelay: `${supportDelay + 300}ms` }}>
+        <div className="container-x flex flex-wrap items-center gap-x-8 gap-y-2 py-4 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-muted">
+          <span className="inline-flex items-center gap-2 text-fg">
             <span aria-hidden className="size-1.5 rounded-full bg-route shadow-[0_0_10px_var(--route)]" />
             Origin · {ORIGIN.label} {ORIGIN.lat.toFixed(2)}° N, {ORIGIN.lng.toFixed(2)}° E
           </span>
           <span>
             {destinations.length} destination{destinations.length === 1 ? "" : "s"} · {routeCount} published route{routeCount === 1 ? "" : "s"}
           </span>
-          <span className="ml-auto hidden text-brand-soft sm:inline">{messaging.tagline}</span>
+          <span className="ml-auto hidden text-fg sm:inline">{messaging.tagline}</span>
         </div>
       </div>
     </section>

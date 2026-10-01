@@ -5,11 +5,11 @@ export function Stat({ label, value, unit, sourceNote, verified, className }: { 
   const show = verified && value;
   return (
     <div className={cn("border-t border-line pt-5", className)}>
-      <div className="font-display text-[clamp(2.5rem,4vw,3.75rem)] leading-none text-fg tabular">
+      <div className="font-display text-[clamp(2.5rem,4vw,3.75rem)] leading-none text-brand-soft tabular">
         {show ? (
           <>
             {value}
-            {unit ? <span className="ml-1 text-[0.5em] text-brand-soft">{unit}</span> : null}
+            {unit ? <span className="ml-1 text-[0.5em] text-fg-muted">{unit}</span> : null}
           </>
         ) : (
           <span className="text-fg-subtle">—</span>

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 /**
- * The gold route line as page progress: a 1px line across the top that draws
+ * The red route line as page progress: a 2px line across the top that draws
  * on route change and then tracks scroll depth. The memory motif of the site.
  */
 export function ProgressLine() {
@@ -39,7 +39,7 @@ export function ProgressLine() {
   }, []);
 
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-x-0 top-0 z-[100] h-px">
+    <div aria-hidden className="pointer-events-none fixed inset-x-0 top-0 z-[100] h-[2px]">
       <div
         className="h-full origin-left bg-route shadow-[0_0_8px_var(--route)] transition-transform duration-[var(--dur-slow)] ease-[var(--ease-out)]"
         style={{ transform: `scaleX(${loading ? 0.35 : Math.max(0.02, progress)})` }}

@@ -15,6 +15,21 @@ director) and for whoever maintains the code. No terminal is needed on the Cloud
 Why not Vercel: on 17 Sept 2026 we measured from Vientiane (Lao Telecom) that HTTPS to any
 `*.vercel.app` name stalls during the TLS handshake, while Cloudflare answers in under 0.1 s.
 
+## 0. Draft site first (your own Cloudflare account, no IT needed)
+To show management a working draft before the college account is involved, run the same setup on
+a personal Cloudflare account. Everything below applies unchanged; the only differences:
+
+- Sign up at https://dash.cloudflare.com (free), then enable **Workers Paid** (USD 5/month) and
+  add a payment card under R2 (the R2 free tier still needs a card on file).
+- Skip the custom-domain steps. The Worker gets `https://shv-website.<your-subdomain>.workers.dev`,
+  which loads normally from Lao Telecom (tested 1 Oct 2026). Share that address with management.
+- For `MEDIA_PUBLIC_URL`, open the `shv-media` bucket → Settings → **Public access → R2.dev
+  subdomain → Allow** and use the `https://pub-….r2.dev` address it shows.
+- Set `APPLICATION_URL` to the workers.dev address.
+
+Moving to the college account later is a repeat of steps 2–5 there; the database and content are
+untouched, and the personal Worker can then be deleted.
+
 ## 1. Database (Neon)
 Already created for the earlier Vercel attempt; reuse it. If starting fresh:
 1. https://neon.tech → New project → name `shv-website`, region **Singapore**.
@@ -39,8 +54,9 @@ Already created for the earlier Vercel attempt; reuse it. If starting fresh:
    - Deploy command: `pnpm exec opennextjs-cloudflare deploy`
    - Root directory: `/`
 3. **Build variables** (used while building: schema push and page pre-rendering):
-   `DATABASE_URL`, `AUTH_SECRET`, `APPLICATION_URL=https://staging.sthughs.edu.la`,
-   `MEDIA_PUBLIC_URL=https://media.sthughs.edu.la`. For the very first build only, also
+   `DATABASE_URL`, `AUTH_SECRET`, `APPLICATION_URL` (the address the site will be opened at, e.g.
+   `https://staging.sthughs.edu.la` or the workers.dev address), `MEDIA_PUBLIC_URL` (the media
+   bucket's public address). For the very first build only, also
    `SEED_ON_BUILD=true`, `SEED_ADMIN_EMAIL`, `SEED_ADMIN_PASSWORD` (skip these if the Neon database
    already holds the content from the Vercel deployment).
 4. **Save and Deploy**. The first build takes 4–6 minutes. The R2 and Durable Object bindings are
@@ -54,19 +70,19 @@ Worker → **Settings → Variables and Secrets** → add as **Secret**:
 | `DATABASE_URL` | the Neon pooled connection string |
 | `AUTH_SECRET` | 32+ random characters (`openssl rand -base64 32`) |
 
-Plain variables (`APPLICATION_URL`, `MEDIA_PUBLIC_URL`, `AUTH_TRUST_HOST`,
-`NEXT_PUBLIC_CF_IMAGE_TRANSFORMS`) are preset in `wrangler.jsonc`; change them in the file so the
-repository and the dashboard never disagree. Optional: `EMAIL_API_KEY`, `ADMISSIONS_NOTIFY_EMAIL`,
+Also add, as plain variables, `APPLICATION_URL` and `MEDIA_PUBLIC_URL` with the same values as the
+build variables. `AUTH_TRUST_HOST` and `NEXT_PUBLIC_CF_IMAGE_TRANSFORMS` are preset in
+`wrangler.jsonc`; `keep_vars` in that file makes deploys preserve what is set in the dashboard. Optional: `EMAIL_API_KEY`, `ADMISSIONS_NOTIFY_EMAIL`,
 `CRM_WEBHOOK_URL` (see `docs/CRM_INTEGRATION.md`).
 
 After the first successful build, **remove `SEED_ON_BUILD`** from the build variables. The seed
 resets navigation, pathways and FAQs to the seed content on every build while it is set.
 
 ## 5. Domain
-Worker → **Settings → Domains & Routes → Add → Custom domain** → `staging.sthughs.edu.la` for review; later `www.sthughs.edu.la` to go live (update `APPLICATION_URL` in `wrangler.jsonc` at the same time).
+Worker → **Settings → Domains & Routes → Add → Custom domain** → `staging.sthughs.edu.la` for review; later `www.sthughs.edu.la` to go live (update the `APPLICATION_URL` variable at the same time).
 Because the zone is already on Cloudflare, the DNS record and certificate are created automatically
 and the old `www` record is replaced. To preview before replacing the current site, add
-`new.sthughs.edu.la` first and switch later. Keep `APPLICATION_URL` equal to the public address (it
+`new.sthughs.edu.la` first and switch later. Keep the `APPLICATION_URL` variable equal to the public address (it
 drives absolute links, the sitemap and login redirects).
 
 Disable the `*.workers.dev` preview address (Settings → Domains & Routes) once the domain works.
