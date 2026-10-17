@@ -73,8 +73,11 @@ async function main() {
     { email: "admissions@sthughs.edu.la", name: "Admissions Counsellor", role: "ADMISSIONS" },
     { email: "marketing@sthughs.edu.la", name: "Marketing", role: "MARKETING" },
   ];
-  for (const u of demoUsers) {
-    await prisma.user.upsert({ where: { email: u.email }, update: {}, create: { ...u, passwordHash } });
+  // Demo staff accounts only for local development (they would share the admin password).
+  if (process.env.SEED_DEMO_USERS === "true") {
+    for (const u of demoUsers) {
+      await prisma.user.upsert({ where: { email: u.email }, update: {}, create: { ...u, passwordHash } });
+    }
   }
 
   // ── Site settings ──────────────────────────────────────────────────────────
