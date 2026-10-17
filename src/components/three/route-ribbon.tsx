@@ -2,39 +2,39 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import * as THREE from "three";
 import type { GlobeDestination } from "./geo";
 
 /**
- * Chapter scene — "Where the line leads". The red route line as a ribbon in deep space: it draws
- * itself from the near foreground up and away into depth, a packet of light travels along it, four
- * milestones sit on the line, and the published destinations float around its far end as labels
- * that link to their pages. The camera leans gently with the pointer. Frame loop runs only while
- * the scene is on screen.
+ * Chapter scene — "Where the line leads". The red route line as a ribbon of light that curves out
+ * of the foreground and arrives at a small, slowly turning Earth. The published destinations orbit
+ * the Earth on a tilted ring as labels that link to their pages; three milestones sit on the line.
+ * Depth fog, a soft halo and drifting dust give it depth; the camera leans with the pointer.
+ * Runs only while on screen; nothing renders without WebGL or under reduced motion.
  */
 
 const BRAND = "#CF1B18";
 const SOFT = "#FF8A85";
+const SPACE = "#0B1350";
 
-const MILESTONES = [
-  { t: 0.06, label: "Vientiane · Year one" },
-  { t: 0.42, label: "Partner university" },
-  { t: 0.7, label: "Degree" },
-  { t: 0.96, label: "Career, anywhere" },
-] as const;
+const TEX = {
+  day: "/textures/earth/earth_atmos_2048.jpg",
+  clouds: "/textures/earth/earth_clouds_1024.png",
+  lights: "/textures/earth/earth_lights_2048.png",
+};
 
-function Dust({ count = 420 }: { count?: number }) {
+function Dust({ count = 520 }: { count?: number }) {
   const ref = useRef<THREE.Points>(null);
   const geometry = useMemo(() => {
-    let seed = 11;
+    let seed = 13;
     const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647) * 2 - 1;
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      pos[i * 3] = rand() * 14;
-      pos[i * 3 + 1] = rand() * 8;
-      pos[i * 3 + 2] = rand() * 10 - 6;
+      pos[i * 3] = rand() * 16;
+      pos[i * 3 + 1] = rand() * 9;
+      pos[i * 3 + 2] = rand() * 12 - 7;
     }
     const g = new THREE.BufferGeometry();
     g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
@@ -42,102 +42,190 @@ function Dust({ count = 420 }: { count?: number }) {
   }, [count]);
   useEffect(() => () => geometry.dispose(), [geometry]);
   useFrame((_, delta) => {
-    if (ref.current) ref.current.rotation.y += delta * 0.012;
+    if (ref.current) ref.current.rotation.y += delta * 0.01;
   });
   return (
     <points ref={ref} geometry={geometry}>
-      <pointsMaterial color="#ffffff" size={1.6} sizeAttenuation={false} transparent opacity={0.35} depthWrite={false} />
+      <pointsMaterial color="#ffffff" size={1.8} sizeAttenuation={false} transparent opacity={0.4} depthWrite={false} />
     </points>
   );
 }
 
-function Scene({ destinations }: { destinations: GlobeDestination[] }) {
-  const curve = useMemo(
-    () =>
-      new THREE.CatmullRomCurve3(
-        [new THREE.Vector3(-6.5, -2.8, 2.2), new THREE.Vector3(-2.4, -1.2, 0.6), new THREE.Vector3(0.6, 0.3, -1.4), new THREE.Vector3(3.6, 1.6, -3.8), new THREE.Vector3(7.5, 3.1, -7.5)],
-        false,
-        "catmullrom",
-        0.6,
-      ),
-    [],
+function World({ center, radius, destinations }: { center: THREE.Vector3; radius: number; destinations: GlobeDestination[] }) {
+  const [day, clouds, lights] = useLoader(THREE.TextureLoader, [TEX.day, TEX.clouds, TEX.lights]);
+  useEffect(() => {
+    for (const t of [day, clouds, lights]) {
+      t.colorSpace = THREE.SRGBColorSpace;
+      t.needsUpdate = true;
+    }
+  }, [day, clouds, lights]);
+  const earth = useRef<THREE.Mesh>(null);
+  const cloud = useRef<THREE.Mesh>(null);
+  const ring = useRef<THREE.Group>(null);
+  const labelRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const tilt = 0.42;
+  const orbit = radius * 1.75;
+  const n = destinations.length;
+
+  useFrame(({ clock, camera }, delta) => {
+    const d = Math.min(delta, 0.05);
+    if (earth.current) earth.current.rotation.y += d * 0.07;
+    if (cloud.current) cloud.current.rotation.y += d * 0.09;
+    const t = clock.getElapsedTime() * 0.055;
+    if (ring.current) {
+      ring.current.children.forEach((child, i) => {
+        const a = t + (i / Math.max(1, n)) * Math.PI * 2;
+        child.position.set(Math.cos(a) * orbit, Math.sin(a) * orbit * Math.sin(tilt), Math.sin(a) * orbit * Math.cos(tilt));
+        // Labels behind the Earth recede.
+        const behind = child.position.z < -radius * 0.35;
+        const el = labelRefs.current[i];
+        if (el) {
+          el.style.opacity = behind ? "0.28" : "1";
+          el.style.transform = `translate(-50%, -50%) scale(${behind ? 0.85 : 1})`;
+        }
+        child.lookAt(camera.position);
+      });
+    }
+  });
+
+  return (
+    <group position={center}>
+      {/* atmosphere */}
+      <mesh scale={1.22}>
+        <sphereGeometry args={[radius, 48, 32]} />
+        <meshBasicMaterial color="#5E7FF0" transparent opacity={0.16} side={THREE.BackSide} depthWrite={false} blending={THREE.AdditiveBlending} />
+      </mesh>
+      <mesh ref={earth}>
+        <sphereGeometry args={[radius, 64, 48]} />
+        <meshPhongMaterial map={day} emissiveMap={lights} emissive={new THREE.Color("#ffd9a3")} emissiveIntensity={0.18} specular={new THREE.Color("#4e6fc4")} shininess={12} />
+      </mesh>
+      <mesh ref={cloud}>
+        <sphereGeometry args={[radius * 1.015, 48, 32]} />
+        <meshPhongMaterial map={clouds} transparent opacity={0.5} depthWrite={false} />
+      </mesh>
+      {/* orbit guide */}
+      <mesh rotation={[Math.PI / 2 - tilt, 0, 0]}>
+        <ringGeometry args={[orbit - 0.004, orbit + 0.004, 128]} />
+        <meshBasicMaterial color="#ffffff" transparent opacity={0.12} side={THREE.DoubleSide} depthWrite={false} />
+      </mesh>
+      <group ref={ring}>
+        {destinations.map((dst, i) => (
+          <group key={dst.slug}>
+            <mesh>
+              <sphereGeometry args={[0.035, 12, 12]} />
+              <meshBasicMaterial color={SOFT} toneMapped={false} />
+            </mesh>
+            <Html
+              position={[0, 0.17, 0]}
+              zIndexRange={[30, 10]}
+              ref={(el) => {
+                labelRefs.current[i] = el;
+              }}
+              style={{ transform: "translate(-50%, -50%)", transition: "opacity 400ms ease, transform 400ms ease" }}
+            >
+              <Link
+                href={`/destinations/${dst.slug}`}
+                className="block whitespace-nowrap rounded-full border border-white/25 bg-[#0B1350]/75 px-3 py-1.5 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-white backdrop-blur-sm transition-colors hover:border-[#FF8A85] hover:bg-[#CF1B18]"
+              >
+                <span className="mr-2 text-[#FF8A85]">{dst.isoCode}</span>
+                {dst.country}
+              </Link>
+            </Html>
+          </group>
+        ))}
+      </group>
+    </group>
   );
-  const tube = useMemo(() => new THREE.TubeGeometry(curve, 260, 0.03, 10, false), [curve]);
-  const halo = useMemo(() => new THREE.TubeGeometry(curve, 120, 0.1, 10, false), [curve]);
+}
+
+const MILESTONES = [
+  { t: 0.07, label: "Vientiane · Year one" },
+  { t: 0.5, label: "Partner university" },
+  { t: 0.88, label: "Degree abroad" },
+] as const;
+
+function Scene({ destinations }: { destinations: GlobeDestination[] }) {
+  const { camera, pointer, viewport } = useThree();
+  const wide = viewport.aspect > 1.15;
+  const center = useMemo(() => new THREE.Vector3(wide ? 2.3 : 0.9, wide ? 0.9 : 1.3, -1.6), [wide]);
+  const radius = wide ? 1.05 : 0.8;
+
+  const curve = useMemo(() => {
+    const end = center.clone().add(new THREE.Vector3(-radius * 0.72, -radius * 0.55, radius * 0.5));
+    return new THREE.CatmullRomCurve3(
+      [new THREE.Vector3(-7.5, -3.4, 3), new THREE.Vector3(-3.6, -2.2, 1.6), new THREE.Vector3(-0.8, -1.3, 0.4), new THREE.Vector3(wide ? 0.9 : 0.1, -0.5, -0.6), end],
+      false,
+      "catmullrom",
+      0.5,
+    );
+  }, [center, radius, wide]);
+  const tube = useMemo(() => new THREE.TubeGeometry(curve, 240, 0.028, 10, false), [curve]);
+  const halo = useMemo(() => new THREE.TubeGeometry(curve, 120, 0.09, 10, false), [curve]);
+  const aura = useMemo(() => new THREE.TubeGeometry(curve, 80, 0.26, 8, false), [curve]);
   useEffect(
     () => () => {
       tube.dispose();
       halo.dispose();
+      aura.dispose();
     },
-    [tube, halo],
+    [tube, halo, aura],
   );
-  const packet = useRef<THREE.Mesh>(null);
-  const chips = useRef<THREE.Group>(null);
   const drawn = useRef(0);
-  const { camera, pointer } = useThree();
-  const total = tube.index ? tube.index.count : 0;
-  const haloTotal = halo.index ? halo.index.count : 0;
-  const target = useMemo(() => new THREE.Vector3(0.6, 0.4, -2), []);
+  const packet = useRef<THREE.Mesh>(null);
+  const totals = [tube, halo, aura].map((g) => (g.index ? g.index.count : 0));
+  const look = useMemo(() => center.clone().add(new THREE.Vector3(wide ? -1.4 : -0.5, -0.6, 0)), [center, wide]);
 
   useFrame(({ clock }, delta) => {
     const t = clock.getElapsedTime();
-    // draw-on over ~2.4 s
-    drawn.current = Math.min(1, drawn.current + delta / 2.4);
+    drawn.current = Math.min(1, drawn.current + delta / 2.6);
     const eased = 1 - Math.pow(1 - drawn.current, 3);
-    tube.setDrawRange(0, Math.floor(total * eased));
-    halo.setDrawRange(0, Math.floor(haloTotal * eased));
+    tube.setDrawRange(0, Math.floor(totals[0] * eased));
+    halo.setDrawRange(0, Math.floor(totals[1] * eased));
+    aura.setDrawRange(0, Math.floor(totals[2] * eased));
     if (packet.current) {
-      const frac = (t * 0.07) % 1;
+      const frac = (t * 0.065) % 1;
       curve.getPoint(Math.min(frac, eased), packet.current.position);
       packet.current.visible = eased > 0.05;
     }
-    if (chips.current) chips.current.position.y = Math.sin(t * 0.6) * 0.06;
-    // pointer parallax
-    camera.position.x += (pointer.x * 0.7 - camera.position.x) * 0.04;
-    camera.position.y += (0.6 + pointer.y * 0.45 - camera.position.y) * 0.04;
-    camera.lookAt(target);
+    camera.position.x += (pointer.x * 0.6 - camera.position.x) * 0.04;
+    camera.position.y += (0.3 + pointer.y * 0.4 - camera.position.y) * 0.04;
+    camera.lookAt(look);
   });
 
   const milestonePositions = useMemo(() => MILESTONES.map((m) => curve.getPoint(m.t)), [curve]);
-  // Destinations float above the far half of the ribbon in three staggered rows, so none falls
-  // into the copy area at the bottom-left and neighbours never overlap.
-  const chipPositions = useMemo(
-    () =>
-      destinations.map((_, i) => {
-        const n = Math.max(1, destinations.length - 1);
-        const t = 0.38 + (i / n) * 0.5;
-        const p = curve.getPoint(t);
-        const row = i % 3;
-        return new THREE.Vector3(p.x - 0.8 + row * 0.3, p.y + 0.5 + row * 0.42, p.z + 0.3);
-      }),
-    [curve, destinations],
-  );
 
   return (
     <>
+      <fog attach="fog" args={[SPACE, 5, 17]} />
+      <ambientLight intensity={0.9} />
+      <directionalLight position={[-3, 3, 5]} intensity={2.6} />
       <Dust />
+
+      <mesh geometry={aura}>
+        <meshBasicMaterial color={BRAND} transparent opacity={0.05} depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false} />
+      </mesh>
       <mesh geometry={halo}>
-        <meshBasicMaterial color={BRAND} transparent opacity={0.16} depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false} />
+        <meshBasicMaterial color={BRAND} transparent opacity={0.18} depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false} />
       </mesh>
       <mesh geometry={tube}>
-        <meshBasicMaterial color={BRAND} toneMapped={false} />
+        <meshBasicMaterial color={SOFT} toneMapped={false} />
       </mesh>
       <mesh ref={packet} visible={false}>
         <sphereGeometry args={[0.07, 16, 16]} />
-        <meshBasicMaterial color={SOFT} toneMapped={false} />
+        <meshBasicMaterial color="#ffffff" toneMapped={false} />
       </mesh>
 
       {MILESTONES.map((m, i) => (
         <group key={m.label} position={milestonePositions[i]}>
           <mesh>
-            <sphereGeometry args={[0.075, 20, 20]} />
+            <sphereGeometry args={[0.07, 20, 20]} />
             <meshBasicMaterial color="#ffffff" toneMapped={false} />
           </mesh>
           <mesh>
-            <sphereGeometry args={[0.16, 16, 16]} />
-            <meshBasicMaterial color={BRAND} transparent opacity={0.25} depthWrite={false} toneMapped={false} />
+            <sphereGeometry args={[0.17, 16, 16]} />
+            <meshBasicMaterial color={BRAND} transparent opacity={0.22} depthWrite={false} toneMapped={false} />
           </mesh>
-          <Html position={[0, 0.26, 0]} center zIndexRange={[20, 0]} style={{ pointerEvents: "none" }}>
+          <Html position={[0, 0.3, 0]} center zIndexRange={[20, 0]} style={{ pointerEvents: "none" }}>
             <span className="whitespace-nowrap font-mono text-[0.625rem] uppercase tracking-[0.16em] text-white/85">
               <span className="mr-2 text-[#FF8A85]">{String(i + 1).padStart(2, "0")}</span>
               {m.label}
@@ -146,25 +234,7 @@ function Scene({ destinations }: { destinations: GlobeDestination[] }) {
         </group>
       ))}
 
-      <group ref={chips}>
-        {destinations.map((d, i) => (
-          <group key={d.slug} position={chipPositions[i]}>
-            <mesh>
-              <sphereGeometry args={[0.03, 10, 10]} />
-              <meshBasicMaterial color={SOFT} toneMapped={false} />
-            </mesh>
-            <Html position={[0, 0.18, 0]} center zIndexRange={[30, 10]}>
-              <Link
-                href={`/destinations/${d.slug}`}
-                className="whitespace-nowrap rounded-full border border-white/25 bg-[#0B1350]/70 px-3 py-1.5 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-white backdrop-blur-sm transition-colors hover:border-[#FF8A85] hover:bg-[#CF1B18]"
-              >
-                <span className="mr-2 text-[#FF8A85]">{d.isoCode}</span>
-                {d.country}
-              </Link>
-            </Html>
-          </group>
-        ))}
-      </group>
+      <World center={center} radius={radius} destinations={destinations} />
     </>
   );
 }
@@ -193,7 +263,13 @@ export function RouteRibbon({ destinations, className }: { destinations: GlobeDe
   return (
     <div ref={ref} className={className} aria-hidden>
       {ok ? (
-        <Canvas dpr={[1, 1.5]} frameloop={active ? "always" : "never"} camera={{ position: [0, 0.6, 6], fov: 42, near: 0.1, far: 60 }} gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }} style={{ background: "transparent", width: "100%", height: "100%" }}>
+        <Canvas
+          dpr={[1, 1.5]}
+          frameloop={active ? "always" : "never"}
+          camera={{ position: [0, 0.3, 6.6], fov: 42, near: 0.1, far: 60 }}
+          gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+          style={{ background: "transparent", width: "100%", height: "100%" }}
+        >
           <Scene destinations={destinations} />
         </Canvas>
       ) : null}
