@@ -1,3 +1,4 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 const securityHeaders = [
@@ -24,6 +25,8 @@ function mediaHost(): string | undefined {
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // A stray lockfile in the home folder otherwise makes Next guess the wrong workspace root.
+  turbopack: { root: path.resolve(process.cwd()) },
   // Prisma's generated client must stay external so OpenNext can patch it for Workers.
   serverExternalPackages: ["@prisma/client", ".prisma/client"],
   images: {

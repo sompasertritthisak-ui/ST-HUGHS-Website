@@ -20,16 +20,15 @@ type Mode = "pending" | "webgl" | "fallback";
 
 /**
  * Gating — the SVG map is used ONLY when: the user prefers reduced motion, the
- * browser asks for data saving, no WebGL context can be created, or the
- * viewport is narrower than 768px. Device memory / core count never gate;
- * they pick the quality tier below. A normal desktop always gets WebGL.
+ * browser asks for data saving, or no WebGL context can be created. Screen size
+ * never gates (phones get the real Earth too, on the low tier); device memory /
+ * core count never gate either — they pick the quality tier below.
  */
 function canRunWebGL(): boolean {
   if (typeof window === "undefined") return false;
   const nav = navigator as Navigator & { connection?: { saveData?: boolean } };
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
   if (nav.connection?.saveData) return false;
-  if (window.innerWidth < 768) return false;
   try {
     const c = document.createElement("canvas");
     const gl = c.getContext("webgl2") ?? c.getContext("webgl");
@@ -47,6 +46,7 @@ function canRunWebGL(): boolean {
  */
 function pickTier(): GlobeTier {
   const nav = navigator as Navigator & { deviceMemory?: number };
+  if (window.innerWidth < 768) return "low";
   if (typeof nav.deviceMemory === "number" && nav.deviceMemory < 4) return "low";
   if (typeof nav.hardwareConcurrency === "number" && nav.hardwareConcurrency > 0 && nav.hardwareConcurrency <= 4) return "low";
   if (window.devicePixelRatio >= 3) return "low";
@@ -58,7 +58,12 @@ function pickTier(): GlobeTier {
  *               that is also mounted, hidden, on large screens — it must never
  *               create a second WebGL context). Defaults to true: desktop gets 3D.
  */
-export function GlobeStage({ destinations, className, webgl = true, tone = "dark" }: { destinations: GlobeDestination[]; className?: string; webgl?: boolean; tone?: GlobeTone }) {
+/**
+ * `media`: a media query that must match for the WebGL scene to run. The hero mounts two stages
+ * (large screens / small screens) and only the visible one may own a WebGL context; the other
+ * renders the static map, hidden by CSS.
+ */
+export function GlobeStage({ destinations, className, webgl = true, tone = "dark", media }: { destinations: GlobeDestination[]; className?: string; webgl?: boolean; tone?: GlobeTone; media?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [mode, setMode] = useState<Mode>("pending");
@@ -70,10 +75,16 @@ export function GlobeStage({ destinations, className, webgl = true, tone = "dark
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
-    const ok = webgl && canRunWebGL();
-    if (ok) setTier(pickTier());
-    setMode(ok ? "webgl" : "fallback");
-  }, [webgl]);
+    const mq = media ? window.matchMedia(media) : null;
+    const decide = () => {
+      const ok = webgl && (!mq || mq.matches) && canRunWebGL();
+      if (ok) setTier(pickTier());
+      setMode(ok ? "webgl" : "fallback");
+    };
+    decide();
+    mq?.addEventListener("change", decide);
+    return () => mq?.removeEventListener("change", decide);
+  }, [webgl, media]);
 
   // Pause the render loop the moment the hero leaves the viewport.
   useEffect(() => {

@@ -50,7 +50,7 @@ export function Hero({
       <div data-hero-globe className="absolute inset-y-0 right-[-8vw] z-[1] hidden w-[min(60vw,calc(100dvh-72px))] items-center lg:flex" aria-hidden>
         {/* Left-third fade keeps the headline ≥ 4.5:1 over the globe */}
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-1/3 bg-linear-to-r from-bg to-transparent" />
-        <GlobeStage destinations={destinations} className="aspect-square w-full" tone="light" />
+        <GlobeStage destinations={destinations} className="aspect-square w-full" tone="light" media="(min-width: 1024px)" />
       </div>
 
       <div className="container-x relative grid min-h-[calc(100dvh-72px-3.25rem)] grid-cols-12 content-center gap-y-12 pb-12 pt-10 lg:pb-14 lg:pt-12">
@@ -85,9 +85,12 @@ export function Hero({
           <span aria-hidden className="scroll-cue anim-fade-up mt-8 hidden lg:block" style={{ animationDelay: `${supportDelay + 400}ms` }} />
         </div>
 
-        {/* Small-screen map */}
+        {/* Small and medium screens: the same interactive Earth, below the copy */}
         <div className="col-span-12 lg:hidden" aria-hidden>
-          <GlobeStage destinations={destinations} className="aspect-[8/3] w-full overflow-hidden rounded-[var(--radius)]" webgl={false} tone="light" />
+          <div className="relative mx-auto w-full max-w-[640px]">
+            <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgb(16_48_144/0.14)_0%,rgb(16_48_144/0.05)_40%,transparent_64%)]" />
+            <GlobeStage destinations={destinations} className="aspect-square w-full" tone="light" media="(max-width: 1023.98px)" />
+          </div>
         </div>
 
       </div>
