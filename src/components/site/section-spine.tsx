@@ -53,13 +53,13 @@ export function SectionSpine({ stops }: { stops: SpineStop[] }) {
     <nav
       aria-label="Page sections"
       className={cn(
-        "fixed left-4 top-1/2 z-40 hidden -translate-y-1/2 transition-opacity duration-[var(--dur)] xl:block",
+        "fixed left-4 top-1/2 z-40 hidden -translate-y-1/2 mix-blend-difference transition-opacity duration-[var(--dur)] xl:block",
         visible ? "opacity-100" : "pointer-events-none opacity-0",
       )}
     >
       <div className="relative flex flex-col items-center gap-3 py-2">
         <span aria-hidden className="absolute inset-y-2 left-1/2 w-px -translate-x-1/2 bg-white/15" />
-        <span aria-hidden className="absolute left-1/2 top-2 w-px -translate-x-1/2 origin-top bg-route" style={{ height: "calc(100% - 1rem)", transform: `translateX(-50%) scaleY(${progress})` }} />
+        <span aria-hidden className="absolute left-1/2 top-2 w-px -translate-x-1/2 origin-top bg-white" style={{ height: "calc(100% - 1rem)", transform: `translateX(-50%) scaleY(${progress})` }} />
         {stops.map((s, i) => (
           <button
             key={s.id}
@@ -72,10 +72,10 @@ export function SectionSpine({ stops }: { stops: SpineStop[] }) {
             <span
               className={cn(
                 "size-1.5 rounded-full transition-[transform,background-color] duration-[var(--dur)]",
-                i === active ? "scale-[1.6] bg-route shadow-[0_0_10px_var(--route)]" : "bg-white/40 group-hover:bg-white",
+                i === active ? "scale-[1.7] bg-white shadow-[0_0_10px_rgb(255_255_255/0.8)]" : "bg-white/40 group-hover:bg-white",
               )}
             />
-            <span className="pointer-events-none absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-[var(--radius-sm)] bg-midnight/90 px-2 py-1 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-white opacity-0 transition-opacity duration-[var(--dur-fast)] group-hover:opacity-100 group-focus-visible:opacity-100">
+            <span className="pointer-events-none absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-[var(--radius-sm)] bg-white px-2 py-1 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-black opacity-0 transition-opacity duration-[var(--dur-fast)] group-hover:opacity-100 group-focus-visible:opacity-100">
               {s.label}
             </span>
           </button>

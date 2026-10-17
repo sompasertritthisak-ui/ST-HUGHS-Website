@@ -26,19 +26,21 @@
   --color-warning: #d08a1f;
   --color-danger: #d64545;
 
-  /* semantic — deep blue (public site default) */
-  --bg: var(--color-midnight);
-  --bg-raised: var(--color-obsidian);
-  --bg-panel: var(--color-navy);
-  --bg-hover: var(--color-navy-2);
-  --fg: var(--color-ivory);
-  --fg-muted: var(--color-platinum);
+  /* semantic — WHITE is the primary colour (site default); blue and red are the accents */
+  --bg: var(--color-ivory);
+  --bg-raised: #ffffff;
+  --bg-panel: #ffffff;
+  --bg-hover: var(--color-ivory-2);
+  --fg: var(--color-ink);
+  --fg-muted: #3a4675;
   --fg-subtle: var(--color-slate);
-  --line: rgb(255 255 255 / 0.12);
-  --line-strong: rgb(255 255 255 / 0.26);
-  --ring: var(--color-ivory);
+  --line: rgb(11 19 80 / 0.12);
+  --line-strong: rgb(11 19 80 / 0.28);
+  --ring: var(--color-blue);
   --route: var(--color-brand);
   --on-brand: #ffffff;         /* text on a red fill */
+  /* red text on white must be the deep variant to keep ≥ 4.5:1 */
+  --color-brand-soft: var(--color-brand-deep);
 
   /* radius */
   --radius-sm: 4px;
@@ -57,10 +59,28 @@
   --gutter: clamp(1rem, 4vw, 3rem);
   --section-y: clamp(4rem, 10vw, 9rem);
 
+  color-scheme: light;
+}
+
+/* Deep-blue surface — the hero, the cinematic chapters, the closing scene and the footer */
+.theme-dark {
+  --bg: var(--color-midnight);
+  --bg-raised: var(--color-obsidian);
+  --bg-panel: var(--color-navy);
+  --bg-hover: var(--color-navy-2);
+  --fg: var(--color-ivory);
+  --fg-muted: var(--color-platinum);
+  --fg-subtle: var(--color-slate);
+  --line: rgb(255 255 255 / 0.12);
+  --line-strong: rgb(255 255 255 / 0.26);
+  --ring: var(--color-ivory);
+  --route: var(--color-brand);
+  --on-brand: #ffffff;
+  --color-brand-soft: #ff8a85; /* red-tinted text on deep blue (≥ 6:1) */
   color-scheme: dark;
 }
 
-/* White theme surface — the admin CMS and any `.theme-light` public section */
+/* Explicit white surface (same as the default) — kept for the admin CMS and sections nested in a dark one */
 .theme-light {
   --bg: var(--color-ivory);
   --bg-raised: #ffffff;
@@ -238,7 +258,7 @@ summary {
 }
 
 @utility glass-nav {
-  background: color-mix(in oklab, var(--color-midnight) 90%, transparent);
+  background: color-mix(in oklab, #ffffff 86%, transparent);
   backdrop-filter: blur(14px) saturate(120%);
   -webkit-backdrop-filter: blur(14px) saturate(120%);
 }
@@ -417,7 +437,7 @@ summary {
 }
 
 @supports (scrollbar-color: auto) {
-  * { scrollbar-color: var(--color-navy-2) transparent; scrollbar-width: thin; }
+  * { scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin; }
 }
 
 /* ───────────────────────────── Google Translate chrome ───────────────────────────── */

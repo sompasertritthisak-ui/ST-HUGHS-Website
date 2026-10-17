@@ -121,7 +121,7 @@ export function CinematicScene({
   const number = `${String(index).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
 
   return (
-    <section ref={root} id={id} aria-labelledby={`${id}-title`} className={cn("relative h-[190vh] bg-midnight text-white", className)}>
+    <section ref={root} id={id} aria-labelledby={`${id}-title`} className={cn("theme-dark relative h-[190vh] bg-midnight text-white", className)}>
       <div className="sticky top-0 h-[100dvh] overflow-hidden [perspective:1200px]">
         <div data-backdrop className="absolute inset-0 will-change-transform">
           {/* eslint-disable-next-line @next/next/no-img-element */}

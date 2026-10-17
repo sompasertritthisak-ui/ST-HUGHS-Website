@@ -63,8 +63,8 @@ function buildEvidence(inst: InstitutionSettings): Evidence[] {
 }
 
 /** Act III — Why St Hugh's. Evidence-led, sourced, no superlatives. */
-export function WhyStHughs({ institution }: { institution: InstitutionSettings }) {
-  const evidence = buildEvidence(institution);
+export function WhyStHughs({ institution, limit = 6 }: { institution: InstitutionSettings; limit?: number }) {
+  const evidence = buildEvidence(institution).slice(0, limit);
   return (
     <section aria-labelledby="why-title" className="theme-light bg-bg text-fg border-y border-line">
       <div className="container-x section-y grid grid-cols-12 gap-x-8 gap-y-12">

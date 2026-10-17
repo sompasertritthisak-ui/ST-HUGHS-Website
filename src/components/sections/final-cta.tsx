@@ -10,7 +10,7 @@ export async function FinalCta() {
   const m = await getMessagingSettings();
   const [first, ...rest] = m.finalCtaTitle.split(" ");
   return (
-    <section aria-labelledby="final-cta" className="grain relative overflow-hidden">
+    <section aria-labelledby="final-cta" className="theme-dark bg-bg text-fg grain relative overflow-hidden">
       <FlagStripe className="relative z-10" />
       <BackdropVideo media={CINEMATIC.finale} opacity={0.6} />
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgb(11_19_80/0.95)_0%,rgb(11_19_80/0.7)_50%,rgb(11_19_80/0.45)_100%)]" />

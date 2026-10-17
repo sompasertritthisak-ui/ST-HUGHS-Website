@@ -15,10 +15,11 @@ reasons to trust. A university partner arrives asking "is this institution serio
 **Intended emotion** — *Assured momentum.* The feeling of standing at a departure gate with a
 confirmed ticket.
 
-**Visual language** — The three colours of the Lao flag: deep brand-blue fields, white fields, and brand
-red as full bands at the key moments (the wayfinding strip under the hero, the one-sentence route
-statement, the consultation band) plus the signature stroke everywhere else (eyebrows, rules, nodes,
-numbers, the primary button). The 6px red·blue·red "flag stripe" marks every white→blue transition. Editorial
+**Visual language** — White is the primary colour; deep brand blue and brand red are the accents (the
+Lao flag's three colours, with white as the ground). Deep blue appears only where the cinema needs it:
+the hero behind the globe, the three chapter openers, the closing scene and the footer. Red is the
+stroke: eyebrows, rules, nodes, numbers, the primary button, the thin wayfinding band under the hero.
+The 6px red·blue·red "flag stripe" marks the seam into the closing scene and the footer. Editorial
 serif display set large and quiet; institutional sans for everything readable; mono for
 wayfinding labels (route codes, durations, statuses). Materiality: dark glass and brushed metal,
 restrained. Imagery: real SHV photography only; where none exists yet, a structured placeholder
@@ -28,10 +29,11 @@ that reads as an intentional "plate" (not a grey box) with the CMS media slot na
 sequence, cards arrive along the path. Ease-out entrances 300–500ms, staggered 40ms. Nothing
 bounces. Reduced-motion users get the finished state instantly.
 
-**Narrative (acts)** — Written for a family that has never heard of SHV, in the order they ask:
-Origin (hero, globe) → How it works (red band: one year at home, then the world; proof numbers) →
-Real place (photography) → Why trust it → Programmes → Your pathway (tool) → Destinations →
-Student life → Campus → Track record → Future → Stories → News → Consultation → Start here.
+**Narrative (acts)** — Short on purpose. Written for a family that has never heard of SHV:
+Origin (hero, globe) → How it works (three steps, four verified numbers) → Chapter 1 → Programmes →
+Chapter 2 → Destinations (compact) → Chapter 3 → Life at SHV (photography) → Why trust it (four
+sourced facts) → Start here. Everything else lives on its own page: timeline on /about, the pathway
+tool, outcomes on /careers, stories, news, the campus walk on /campus.
 A left-gutter "spine" (`SectionSpine`) tracks the acts on large screens. The act list and each act's
 question live as a comment at the top of `src/app/(site)/page.tsx`; a section that cannot state its
 question is removed.
@@ -91,8 +93,9 @@ rule red #CC1814).
 | `--color-success` / `warning` / `danger` | `#2F9E6B` / `#D08A1F` / `#D64545` | status |
 
 Semantic aliases: `--bg`, `--bg-raised`, `--fg`, `--fg-muted`, `--line`, `--line-strong`, `--ring`,
-`--route`. Public site is deep-blue-first; `.theme-light` (admin CMS and any white public section) flips
-to white ground, ink text and deep red. `.theme-brand` flips to a red ground with white type, a white
+`--route`. The site is white-first (`:root`); `.theme-dark` flips a section to the deep-blue ground
+with white type (hero, chapters, closing scene, footer); `.theme-light` is an explicit white surface
+for the admin CMS or a white panel nested in a dark section. `.theme-brand` flips to a red ground with white type, a white
 route line and an inverted (white) primary button; use it for whole bands, never for cards. Red also
 lives in every eyebrow, stat value, milestone year, index number, the route line, nodes and badges.
 Red text on blue is always `brand-soft` (#FF8A85); true red on blue is reserved for fills and strokes.

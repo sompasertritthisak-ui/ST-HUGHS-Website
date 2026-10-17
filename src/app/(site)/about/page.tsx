@@ -10,6 +10,7 @@ import { Section, FactsTable, Prose, PendingLine, SourceNote, NextSteps } from "
 import { Plate } from "@/components/ui/plate";
 import { Reveal } from "@/components/ui/reveal";
 import { Badge } from "@/components/ui/badge";
+import { Milestones } from "@/components/sections/home/milestones";
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageBySlug("about");
@@ -45,6 +46,8 @@ export default async function AboutPage() {
         />
         <SourceNote note={institution.authorisationSource || null} className="mt-4" />
       </Section>
+
+      <Milestones />
 
       {bodyBlocks.length ? <BlockRenderer blocks={bodyBlocks} fallbackTitle={page?.title ?? "About"} /> : null}
 

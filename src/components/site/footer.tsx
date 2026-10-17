@@ -16,7 +16,7 @@ export async function SiteFooter() {
   ].filter((s) => s.href);
 
   return (
-    <footer className="relative bg-bg-raised">
+    <footer className="theme-dark relative bg-bg-raised text-fg">
       <FlagStripe />
       <div className="container-x pb-10 pt-16">
         <div className="grid gap-12 lg:grid-cols-12">

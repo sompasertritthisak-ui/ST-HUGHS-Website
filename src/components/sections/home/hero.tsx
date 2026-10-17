@@ -42,7 +42,7 @@ export function Hero({
   const supportDelay = WORD_BASE_DELAY + (line1Words + messaging.heroLine2.split(/\s+/).length) * WORD_STAGGER + 120;
 
   return (
-    <section aria-labelledby="hero-title" className="grain relative overflow-hidden">
+    <section aria-labelledby="hero-title" className="theme-dark bg-bg text-fg grain relative -mt-[72px] overflow-hidden pt-[72px]">
       <HeroMotion />
       {/* Living backdrop: the terrace at blue hour, kept dark so the headline and globe lead */}
       <BackdropVideo media={CINEMATIC.origin} opacity={0.55} className="z-0" />
@@ -56,7 +56,7 @@ export function Hero({
         <GlobeStage destinations={destinations} className="aspect-square w-full" />
       </div>
 
-      <div className="container-x relative grid min-h-[calc(100dvh-72px-3.25rem)] grid-cols-12 content-center gap-y-12 pb-12 pt-10 lg:pb-14 lg:pt-12">
+      <div className="container-x relative grid min-h-[calc(100dvh-144px-3.25rem)] grid-cols-12 content-center gap-y-12 pb-12 pt-10 lg:pb-14 lg:pt-12">
         <div data-hero-copy className="relative z-10 col-span-12 lg:col-span-7">
           <p className="eyebrow eyebrow-rule anim-fade-up" style={{ animationDelay: "320ms" }}>
             St Hugh&rsquo;s College Vientiane · NCUK Study Centre · Est. {established}

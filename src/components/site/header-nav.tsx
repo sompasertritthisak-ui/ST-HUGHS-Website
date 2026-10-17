@@ -57,11 +57,19 @@ export function HeaderNav({ items, audience }: { items: NavItem[]; audience: Nav
   }, [audienceOpen]);
 
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+  // The homepage opens on the deep-blue hero: the bar is transparent with white type until the
+  // visitor scrolls. Everywhere else the site is white, so the bar is white glass from the start.
+  const overDarkHero = pathname === "/" && !scrolled && !open;
 
   return (
-    <header className={cn("fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-[var(--dur)]", scrolled || open ? "glass-nav border-b border-line" : "border-b border-transparent")}>
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-[var(--dur)]",
+        overDarkHero ? "theme-dark border-b border-transparent text-fg" : "glass-nav border-b border-line text-fg",
+      )}
+    >
       <div className="container-x flex h-[72px] items-center justify-between gap-6">
-        <Logo />
+        <Logo tone={overDarkHero ? "light" : "dark"} />
 
         <nav aria-label="Primary" className="hidden xl:block">
           <ul className="flex items-center gap-6 2xl:gap-7">
