@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { PageHero } from "@/components/sections/page-hero";
+import { PAGE_IMAGES } from "@/components/cinematic/placeholders";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { getExplorerData } from "@/components/explorer/data";
 import { CompareTool } from "@/components/explorer/compare-tool";
@@ -15,7 +16,7 @@ export default async function ComparePage() {
   const { programmes, pathways, messaging } = await getExplorerData();
   return (
     <>
-      <PageHero
+      <PageHero media={PAGE_IMAGES["compare"]}
         eyebrow="Compare your options"
         title={
           <>

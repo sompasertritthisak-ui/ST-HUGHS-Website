@@ -3,6 +3,7 @@ import { getFaculty, getPartners, getFaqs, getContactSettings } from "@/lib/cont
 import { getInstitutionSettings } from "@/lib/content-pages";
 import { pageMetadata, faqPageJsonLd } from "@/lib/seo";
 import { PageHero } from "@/components/sections/page-hero";
+import { PAGE_IMAGES } from "@/components/cinematic/placeholders";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { JsonLd } from "@/components/site/json-ld";
 import { Section, FactsTable, Prose, PendingLine, NextSteps, SourceNote } from "@/components/pages";
@@ -24,7 +25,7 @@ export default async function ForParentsPage() {
 
   return (
     <>
-      <PageHero eyebrow="I'm a parent" title={<>Reasons to <span className="italic text-brand-soft">trust</span>, not adjectives.</>} lede="You are weighing whether a degree abroad is realistic and whether this college is serious. This page sets out what can be verified today — authorisation, the awarding body, the people responsible — and what the first conversation costs: nothing." />
+      <PageHero media={PAGE_IMAGES["for/parents"]} eyebrow="I'm a parent" title={<>Reasons to <span className="italic text-brand-soft">trust</span>, not adjectives.</>} lede="You are weighing whether a degree abroad is realistic and whether this college is serious. This page sets out what can be verified today — authorisation, the awarding body, the people responsible — and what the first conversation costs: nothing." />
 
       <Section eyebrow="Trust signals" title="What is on record" lede="Each line is sourced. Where SHV has not yet published something, the line says so.">
         <FactsTable

@@ -4,6 +4,7 @@ import { getInstitutionSettings } from "@/lib/content-pages";
 import { pageMetadata } from "@/lib/seo";
 import { splitList } from "@/lib/utils";
 import { PageHero } from "@/components/sections/page-hero";
+import { PAGE_IMAGES } from "@/components/cinematic/placeholders";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { Section, Prose, NextSteps, FactsTable } from "@/components/pages";
 import { Stat } from "@/components/ui/stat";
@@ -23,7 +24,7 @@ export default async function ForEmployersPage() {
 
   return (
     <>
-      <PageHero
+      <PageHero media={PAGE_IMAGES["for/employers"]}
         eyebrow="I'm an employer"
         title={<>Talent with a <span className="italic text-brand-soft">route.</span></>}
         lede="SHV students begin international degrees in Vientiane and progress to partner universities abroad. Employers can shape that journey — internships, industry projects and mentoring — and meet graduates who return with international qualifications."

@@ -4,6 +4,7 @@ import { getContactSettings, getDestinations, getMessagingSettings, getPathwayBy
 import { pageMetadata } from "@/lib/seo";
 import { t } from "@/lib/i18n";
 import { PageHero } from "@/components/sections/page-hero";
+import { PAGE_IMAGES } from "@/components/cinematic/placeholders";
 import { ConsultationForm, WhatsAppLink, whatsappHref, firstParam, type LeadSearchParams } from "@/components/forms";
 
 export const metadata: Metadata = pageMetadata({
@@ -40,7 +41,7 @@ export default async function ConsultationPage({ searchParams }: { searchParams:
 
   return (
     <>
-      <PageHero eyebrow={t("consultation.eyebrow")} title={t("consultation.title")} lede={t("consultation.lede")} />
+      <PageHero media={PAGE_IMAGES["consultation"]} eyebrow={t("consultation.eyebrow")} title={t("consultation.title")} lede={t("consultation.lede")} />
 
       <section className="container-x pb-24">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">

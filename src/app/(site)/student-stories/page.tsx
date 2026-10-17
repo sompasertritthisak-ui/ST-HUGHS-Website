@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getStudentStories } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/sections/page-hero";
+import { PAGE_IMAGES } from "@/components/cinematic/placeholders";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { StoryCard } from "@/components/cards/story-card";
 import { Section } from "@/components/pages";
@@ -22,7 +23,7 @@ export default async function StudentStoriesPage() {
 
   return (
     <>
-      <PageHero
+      <PageHero media={PAGE_IMAGES["student-stories"]}
         eyebrow="Student stories"
         title={<>Real routes, <span className="italic text-brand-soft">real people.</span></>}
         lede="Every story here is a real student, photographed with permission and published with consent. Where a story names a destination or outcome, the evidence sits behind it in the CMS."

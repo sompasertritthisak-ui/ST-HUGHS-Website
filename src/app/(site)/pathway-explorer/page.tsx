@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { PageHero } from "@/components/sections/page-hero";
+import { PAGE_IMAGES } from "@/components/cinematic/placeholders";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { getExplorerData } from "@/components/explorer/data";
 import { PathwayExplorer } from "@/components/explorer/pathway-explorer";
@@ -15,7 +16,7 @@ export default async function PathwayExplorerPage() {
   const { messaging, ...data } = await getExplorerData();
   return (
     <>
-      <PageHero
+      <PageHero media={PAGE_IMAGES["pathway-explorer"]}
         eyebrow="Pathway Explorer"
         title={
           <>

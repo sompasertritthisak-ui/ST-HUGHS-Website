@@ -3,6 +3,7 @@ import { getContactSettings, getFaqs } from "@/lib/content";
 import { getInstitutionSettings } from "@/lib/content-pages";
 import { pageMetadata, educationalOrganizationJsonLd, faqPageJsonLd } from "@/lib/seo";
 import { PageHero } from "@/components/sections/page-hero";
+import { PAGE_IMAGES } from "@/components/cinematic/placeholders";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { JsonLd } from "@/components/site/json-ld";
 import { Section, FactsTable, PendingLine, NextSteps } from "@/components/pages";
@@ -29,7 +30,7 @@ export default async function ContactPage() {
 
   return (
     <>
-      <PageHero
+      <PageHero media={PAGE_IMAGES["contact"]}
         eyebrow="Contact"
         title={<>Start with a <span className="italic text-brand-soft">conversation.</span></>}
         lede="Two ways in: book a free consultation with an advisor, or send an enquiry and the admissions team will respond. The details below are the published contact points for the college."

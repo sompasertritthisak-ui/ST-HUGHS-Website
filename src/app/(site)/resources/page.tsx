@@ -4,6 +4,7 @@ import { pageMetadata } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
 import { DOCUMENT_CATEGORIES, DOCUMENT_CATEGORY_LABELS } from "@/lib/enums";
 import { PageHero } from "@/components/sections/page-hero";
+import { PAGE_IMAGES } from "@/components/cinematic/placeholders";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { Section, NextSteps } from "@/components/pages";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -22,7 +23,7 @@ export default async function ResourcesPage() {
 
   return (
     <>
-      <PageHero
+      <PageHero media={PAGE_IMAGES["resources"]}
         eyebrow="Resource centre"
         title={<>Documents, <span className="italic text-brand-soft">as approved.</span></>}
         lede="Prospectus, brochures, entry requirements, application guides, handbooks and calendars. Every document carries a version and a date, and appears here only once approved."

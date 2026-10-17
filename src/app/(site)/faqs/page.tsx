@@ -4,6 +4,7 @@ import { getFaqs } from "@/lib/content";
 import { pageMetadata, faqPageJsonLd } from "@/lib/seo";
 import { FAQ_CATEGORIES, FAQ_CATEGORY_LABELS } from "@/lib/enums";
 import { PageHero } from "@/components/sections/page-hero";
+import { PAGE_IMAGES } from "@/components/cinematic/placeholders";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { JsonLd } from "@/components/site/json-ld";
 import { Section } from "@/components/pages";
@@ -22,7 +23,7 @@ export default async function FaqsPage() {
 
   return (
     <>
-      <PageHero
+      <PageHero media={PAGE_IMAGES["faqs"]}
         eyebrow="FAQ"
         title={<>Straight <span className="italic text-brand-soft">answers.</span></>}
         lede="Grouped by topic. If a question is not answered here, an advisor will answer it in a free consultation."

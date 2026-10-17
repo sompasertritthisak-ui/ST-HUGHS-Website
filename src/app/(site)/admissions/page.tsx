@@ -4,7 +4,7 @@ import { getProgrammes, getFaqs, getMessagingSettings, getDocuments } from "@/li
 import { pageMetadata, faqPageJsonLd } from "@/lib/seo";
 import { parseStringArray } from "@/lib/utils";
 import { PageHero } from "@/components/sections/page-hero";
-import { CINEMATIC } from "@/components/cinematic/media";
+import { PAGE_IMAGES } from "@/components/cinematic/placeholders";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { JsonLd } from "@/components/site/json-ld";
 import { Section, StepRail, FactsTable, type RailStep } from "@/components/pages";
@@ -34,7 +34,7 @@ export default async function AdmissionsPage() {
 
   return (
     <>
-      <PageHero media={CINEMATIC.learning}
+      <PageHero media={PAGE_IMAGES["admissions"]}
         eyebrow="Admissions"
         title={
           <>

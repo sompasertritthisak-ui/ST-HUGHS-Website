@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getProgrammes, getPathways, getFaqs, getMessagingSettings } from "@/lib/content";
 import { pageMetadata, faqPageJsonLd } from "@/lib/seo";
 import { PageHero } from "@/components/sections/page-hero";
+import { PAGE_IMAGES } from "@/components/cinematic/placeholders";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { JsonLd } from "@/components/site/json-ld";
 import { ProgrammeCard } from "@/components/cards/programme-card";
@@ -28,7 +29,7 @@ export default async function ForStudentsPage() {
 
   return (
     <>
-      <PageHero eyebrow="I'm a student" title={<>Start in Vientiane. <span className="italic text-brand-soft">Finish abroad.</span></>} lede="You want a degree from a university abroad and you are starting in Laos. SHV is the first year of that route: an internationally recognised programme completed close to home, then progression to a partner university." />
+      <PageHero media={PAGE_IMAGES["for/students"]} eyebrow="I'm a student" title={<>Start in Vientiane. <span className="italic text-brand-soft">Finish abroad.</span></>} lede="You want a degree from a university abroad and you are starting in Laos. SHV is the first year of that route: an internationally recognised programme completed close to home, then progression to a partner university." />
 
       <Section eyebrow="Your four steps" title="How to move from here" layout="full">
         <StepRail steps={steps} />

@@ -3,7 +3,7 @@ import { getFacilities, getEvents, getStudentStories, getFaqs, getProgrammes } f
 import { pageMetadata, faqPageJsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
 import { PageHero } from "@/components/sections/page-hero";
-import { CINEMATIC } from "@/components/cinematic/media";
+import { PAGE_IMAGES } from "@/components/cinematic/placeholders";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { JsonLd } from "@/components/site/json-ld";
 import { StoryCard } from "@/components/cards/story-card";
@@ -29,7 +29,7 @@ export default async function StudentLifePage() {
 
   return (
     <>
-      <PageHero media={CINEMATIC.campus}
+      <PageHero media={PAGE_IMAGES["student-life"]}
         eyebrow="Student life"
         title={
           <>

@@ -53,6 +53,13 @@ screenshots at 1440px and 390px (no horizontal overflow, no console errors).
 6. **Fees / documents** — the six programme decks are published; add entry-requirement sheets, the
    confirmed fee schedule (tuition / application / registration / uniform amounts) and calendars.
 
+## Placeholder hero images (to replace)
+Every sub-page opens with a hero frame whose image is currently a free-licence Unsplash photograph
+chosen to match the headline (`src/components/cinematic/placeholders.ts`). They are placeholders:
+replace each with St Hugh's own photography via the CMS media library, then point the page at the
+media record. None of them shows St Hugh's students, staff or premises, and the homepage still uses
+only real SHV photographs for people.
+
 ## Deployment
 Target: Cloudflare Workers (OpenNext adapter) on the college's own Cloudflare account, built from
 GitHub by Workers Builds, Neon PostgreSQL (Singapore) for data, R2 for uploads and the ISR cache,

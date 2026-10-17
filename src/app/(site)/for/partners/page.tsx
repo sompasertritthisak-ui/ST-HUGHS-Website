@@ -3,6 +3,7 @@ import { getFaculty, getPartners, getProgrammes, getContactSettings } from "@/li
 import { getInstitutionSettings } from "@/lib/content-pages";
 import { pageMetadata, educationalOrganizationJsonLd } from "@/lib/seo";
 import { PageHero } from "@/components/sections/page-hero";
+import { PAGE_IMAGES } from "@/components/cinematic/placeholders";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { JsonLd } from "@/components/site/json-ld";
 import { Section, FactsTable, Prose, PendingLine, NextSteps, SourceNote } from "@/components/pages";
@@ -19,7 +20,7 @@ export default async function ForPartnersPage() {
 
   return (
     <>
-      <PageHero
+      <PageHero media={PAGE_IMAGES["for/partners"]}
         eyebrow="I'm a partner"
         title={<>Is this institution <span className="italic text-brand-soft">serious?</span></>}
         lede="A short, factual layer for universities, education partners and investors. Everything here is on record or clearly marked as not yet published; nothing is decorated."

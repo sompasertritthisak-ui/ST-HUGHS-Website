@@ -6,6 +6,7 @@ import { pageMetadata } from "@/lib/seo";
 import { cn, formatDate } from "@/lib/utils";
 import { NEWS_CATEGORY_LABELS, type NewsCategory } from "@/lib/enums";
 import { PageHero } from "@/components/sections/page-hero";
+import { PAGE_IMAGES } from "@/components/cinematic/placeholders";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { NewsCard } from "@/components/cards/news-card";
 import { Section } from "@/components/pages";
@@ -29,7 +30,7 @@ export default async function NewsPage({ searchParams }: { searchParams: Search 
 
   return (
     <>
-      <PageHero eyebrow="News and insights" title={<>What is <span className="italic text-brand-soft">happening.</span></>} lede="Announcements, partnerships and academic updates from the college — each article links to the programme or university it concerns." />
+      <PageHero media={PAGE_IMAGES["news"]} eyebrow="News and insights" title={<>What is <span className="italic text-brand-soft">happening.</span></>} lede="Announcements, partnerships and academic updates from the college — each article links to the programme or university it concerns." />
 
       <Section id="articles" eyebrow="Articles" title={category ? NEWS_CATEGORY_LABELS[category as NewsCategory] ?? category : "All articles"} layout="full">
         {categories.length > 1 ? (

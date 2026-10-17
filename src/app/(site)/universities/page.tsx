@@ -4,7 +4,7 @@ import { getUniversities, getPartners } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { PARTNER_TYPE_LABELS, type PartnerType } from "@/lib/enums";
 import { PageHero } from "@/components/sections/page-hero";
-import { CINEMATIC } from "@/components/cinematic/media";
+import { PAGE_IMAGES } from "@/components/cinematic/placeholders";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { UniversityCard } from "@/components/cards/university-card";
 import { Section, PendingLine } from "@/components/pages";
@@ -26,7 +26,7 @@ export default async function UniversitiesPage() {
 
   return (
     <>
-      <PageHero media={CINEMATIC.world}
+      <PageHero media={PAGE_IMAGES["universities"]}
         eyebrow="Universities"
         title={
           <>

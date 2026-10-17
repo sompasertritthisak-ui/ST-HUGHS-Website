@@ -3,6 +3,7 @@ import { getContactSettings, getDestinations, getProgrammes } from "@/lib/conten
 import { pageMetadata } from "@/lib/seo";
 import { t } from "@/lib/i18n";
 import { PageHero } from "@/components/sections/page-hero";
+import { PAGE_IMAGES } from "@/components/cinematic/placeholders";
 import { Button } from "@/components/ui/button";
 import { EnquiryForm, WhatsAppLink, whatsappHref, firstParam, type LeadSearchParams } from "@/components/forms";
 
@@ -28,7 +29,7 @@ export default async function EnquirePage({ searchParams }: { searchParams: Lead
 
   return (
     <>
-      <PageHero eyebrow={t("enquire.eyebrow")} title={t("enquire.title")} lede={t("enquire.lede")} />
+      <PageHero media={PAGE_IMAGES["enquire"]} eyebrow={t("enquire.eyebrow")} title={t("enquire.title")} lede={t("enquire.lede")} />
 
       <section className="container-x pb-24">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
