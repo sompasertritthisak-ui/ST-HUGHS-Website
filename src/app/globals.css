@@ -258,7 +258,7 @@ summary {
 }
 
 @utility glass-nav {
-  background: color-mix(in oklab, #ffffff 86%, transparent);
+  background: color-mix(in oklab, #ffffff 93%, transparent);
   backdrop-filter: blur(14px) saturate(120%);
   -webkit-backdrop-filter: blur(14px) saturate(120%);
 }
@@ -335,6 +335,25 @@ summary {
 .kenburns {
   animation: shv-kenburns 24s var(--ease-in-out) infinite alternate;
   @media (prefers-reduced-motion: reduce) { animation: none; }
+}
+
+/* Split heading: words rise one after another (components/ui/split-heading.tsx). */
+.split .split-mask { display: inline-block; overflow: hidden; padding-bottom: 0.08em; vertical-align: baseline; }
+.split .split-word {
+  display: inline-block;
+  transform: translateY(115%);
+  transition: transform 760ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 45ms);
+  will-change: transform;
+}
+.split.is-visible .split-word { transform: none; }
+@media (prefers-reduced-motion: reduce) { .split .split-word { transform: none; transition: none; } }
+
+/* Magnetic call to action (components/ui/magnetic.tsx). */
+.magnetic { --mx: 0px; --my: 0px; }
+.magnetic-inner { transition: transform 420ms var(--ease-out); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .magnetic-inner { transform: translate3d(var(--mx), var(--my), 0); }
 }
 
 @utility tabular {

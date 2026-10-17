@@ -5,6 +5,8 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
+import { Magnetic } from "@/components/ui/magnetic";
+import { SplitHeading } from "@/components/ui/split-heading";
 import type { HomeCounts } from "./data";
 
 export type JourneyDestination = { slug: string; country: string; isoCode: string; verified: boolean; routes: number };
@@ -82,9 +84,7 @@ export function RouteJourney({ destinations, counts }: { destinations: JourneyDe
         <div className="grid grid-cols-12 gap-x-8 gap-y-10 lg:items-end">
           <div className="col-span-12 lg:col-span-7">
             <p className="eyebrow eyebrow-rule">How it works</p>
-            <h2 id="journey-title" className="font-display mt-6 text-[clamp(2.5rem,5.4vw,5rem)] leading-[0.98] text-fg text-balance">
-              One year at home. <span className="italic">Then the world.</span>
-            </h2>
+            <SplitHeading id="journey-title" text="One year at home." accent="Then the world." accentClassName="italic text-blue" className="font-display mt-6 text-[clamp(2.5rem,5.4vw,5rem)] leading-[0.98] text-fg text-balance" />
           </div>
           <div className="col-span-12 lg:col-span-4 lg:col-start-9">
             <p className="text-lg leading-relaxed text-fg-muted text-pretty">
@@ -92,9 +92,11 @@ export function RouteJourney({ destinations, counts }: { destinations: JourneyDe
               partner university abroad.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Button href="/consultation" arrow="right">
-                Book a free consultation
-              </Button>
+              <Magnetic>
+                <Button href="/consultation" arrow="right">
+                  Book a free consultation
+                </Button>
+              </Magnetic>
               <Button href="/pathways" variant="secondary">
                 See every route
               </Button>
@@ -109,15 +111,15 @@ export function RouteJourney({ destinations, counts }: { destinations: JourneyDe
           <span aria-hidden className="absolute bottom-0 left-[7px] top-0 w-px bg-line-strong md:hidden" />
           <span aria-hidden className="rj-vline-fill absolute bottom-0 left-[7px] top-0 w-px origin-top bg-route md:hidden" />
           {STEPS.map((s) => (
-            <li key={s.n} className="rj-step relative pl-10 md:pl-0">
-              <span aria-hidden className="absolute left-0 top-[1px] size-[15px] rounded-full border-2 border-route bg-bg md:relative md:block" />
+            <li key={s.n} className="rj-step group relative pl-10 md:pl-0">
+              <span aria-hidden className="absolute left-0 top-[1px] size-[15px] rounded-full border-2 border-route bg-bg transition-[background-color,transform] duration-[var(--dur)] group-hover:scale-125 group-hover:bg-route md:relative md:block" />
               <div className="md:mt-7">
                 <p className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-brand-soft">
                   <span className="tabular">{s.n}</span>
                   <span className="mx-2 text-fg-subtle">·</span>
                   {s.place}
                 </p>
-                <h3 className="font-display mt-3 text-[clamp(1.75rem,2.6vw,2.5rem)] leading-[1.05] text-fg text-balance">{s.title}</h3>
+                <h3 className="font-display mt-3 text-[clamp(1.75rem,2.6vw,2.5rem)] leading-[1.05] text-fg text-balance transition-colors duration-[var(--dur)] group-hover:text-blue">{s.title}</h3>
                 <p className="mt-4 max-w-sm text-[1.0625rem] leading-relaxed text-fg-muted">{s.body}</p>
                 <Link href={s.href} className="group mt-5 inline-flex items-center gap-2 text-[0.9375rem] text-fg">
                   {s.cta}

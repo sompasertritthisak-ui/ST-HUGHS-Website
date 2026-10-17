@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Magnetic } from "@/components/ui/magnetic";
 import { GlobeStage } from "@/components/three/globe-stage";
 import { ORIGIN, type GlobeDestination } from "@/components/three/geo";
 import type { MessagingSettings } from "@/lib/content";
@@ -70,9 +71,11 @@ export function Hero({
             {messaging.heroSupport}
           </p>
           <div className="anim-fade-up mt-10 flex flex-wrap items-center gap-x-5 gap-y-4" style={{ animationDelay: `${supportDelay + 120}ms` }}>
-            <Button href="/pathway-explorer" size="lg" arrow="right">
-              Explore your pathway
-            </Button>
+            <Magnetic>
+              <Button href="/pathway-explorer" size="lg" arrow="right">
+                Explore your pathway
+              </Button>
+            </Magnetic>
             <Button href="/consultation" variant="secondary" size="lg">
               Talk to an advisor
             </Button>

@@ -46,7 +46,9 @@ Pathway Explorer.
 used where scroll should drive the picture: hero depth on exit (`HeroMotion`), the journey line, chips
 and counters (`RouteJourney`), and the three pinned `CinematicScene` chapter openers (backdrop
 push-in, title rising word by word out of depth, copy lifting away). Cards tilt a few degrees under
-the pointer (`Tilt`). Everything else is the CSS `Reveal`. Every effect starts from the server-rendered
+the pointer (`Tilt`); primary calls to action lean toward it (`Magnetic`). Every act's heading is a
+`SplitHeading`: words rise one after another the first time the heading scrolls into view, with the
+closing phrase in blue (or italic red on dark). Supporting copy uses the CSS `Reveal`. Every effect starts from the server-rendered
 final state and is skipped under `prefers-reduced-motion`. Film grain (`grain`) sits on the large
 blue and red fields.
 

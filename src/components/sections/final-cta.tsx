@@ -1,5 +1,7 @@
 import { getMessagingSettings } from "@/lib/content";
 import { Button } from "@/components/ui/button";
+import { Magnetic } from "@/components/ui/magnetic";
+import { SplitHeading } from "@/components/ui/split-heading";
 import { RouteLine } from "@/components/ui/route-line";
 import { FlagStripe } from "@/components/ui/flag-stripe";
 import { BackdropVideo } from "@/components/cinematic/backdrop-video";
@@ -19,16 +21,16 @@ export async function FinalCta() {
         <div className="grid gap-12 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">
             <p className="eyebrow eyebrow-rule">Start here</p>
-            <h2 id="final-cta" className="font-display mt-6 text-[clamp(3rem,8vw,7.5rem)] leading-[0.95] text-fg text-balance">
-              <span className="italic text-brand-soft">{first}</span> {rest.join(" ")}
-            </h2>
+            <SplitHeading id="final-cta" text={first} accent={rest.join(" ")} accentClassName="" className="font-display mt-6 text-[clamp(3rem,8vw,7.5rem)] leading-[0.95] text-fg text-balance [&>span:first-child_.split-word]:italic [&>span:first-child_.split-word]:text-brand-soft" />
           </div>
           <div className="lg:col-span-4">
             <p className="text-lg leading-relaxed text-fg-muted text-pretty">{m.finalCtaBody}</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button href="/pathway-explorer" arrow="right">
-                Explore your pathway
-              </Button>
+              <Magnetic>
+                <Button href="/pathway-explorer" arrow="right">
+                  Explore your pathway
+                </Button>
+              </Magnetic>
               <Button href="/consultation" variant="secondary">
                 Talk to an advisor
               </Button>

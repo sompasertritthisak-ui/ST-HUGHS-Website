@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
+import { SplitHeading } from "@/components/ui/split-heading";
 import type { InstitutionSettings } from "./data";
 
 type Evidence = { title: string; body: string; source: string; href?: string };
@@ -72,9 +73,7 @@ export function WhyStHughs({ institution, limit = 6 }: { institution: Institutio
           <div className="lg:sticky lg:top-28">
             <Reveal>
               <p className="eyebrow eyebrow-rule">Why St Hugh&rsquo;s</p>
-              <h2 id="why-title" className="font-display mt-6 text-[clamp(2.25rem,4.6vw,3.75rem)] leading-[1.02] text-fg text-balance">
-                New, and built to be checked.
-              </h2>
+              <SplitHeading id="why-title" text="New, and built" accent="to be checked." accentClassName="text-blue" className="font-display mt-6 text-[clamp(2.25rem,4.6vw,3.75rem)] leading-[1.02] text-fg text-balance" />
               <p className="mt-6 max-w-md text-lg leading-relaxed text-fg-muted text-pretty">
                 St Hugh&rsquo;s College is a young institution. What it offers can be verified line by line — authorisation, partnership, programme structure —
                 and every claim on this site carries its source.

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { SplitHeading } from "@/components/ui/split-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 import { getMessagingSettings } from "@/lib/content";
@@ -40,9 +41,7 @@ export async function LifeMosaic() {
         <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <Eyebrow className="mb-5">Life at SHV</Eyebrow>
-            <h2 id="life-title" className="font-display text-[clamp(2.25rem,4.6vw,3.75rem)] leading-[1.02] text-fg text-balance">
-              Real classrooms. Real partners. Real students.
-            </h2>
+            <SplitHeading id="life-title" text="Real classrooms. Real partners." accent="Real students." accentClassName="text-blue" className="font-display text-[clamp(2.25rem,4.6vw,3.75rem)] leading-[1.02] text-fg text-balance" />
           </div>
           <p className="max-w-md text-fg-muted">
             Every photograph here is from St Hugh&apos;s College Vientiane or its partner universities. No stock imagery, no generated faces.

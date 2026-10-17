@@ -4,6 +4,7 @@ import { PROGRAMME_TYPE_LABELS, type ProgrammeType } from "@/lib/enums";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/ui/reveal";
+import { SplitHeading } from "@/components/ui/split-heading";
 import { ProgrammeShowcase, type ShowcaseItem } from "./programme-showcase";
 
 type ProgrammeWithHero = Programme & { heroMedia?: Media | null };
@@ -43,9 +44,7 @@ export async function FeaturedProgrammes({ programmes }: { programmes: Programme
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
           <Reveal className="lg:col-span-7">
             <p className="eyebrow eyebrow-rule">Foundation</p>
-            <h2 id="programmes-title" className="font-display mt-6 text-[clamp(2.25rem,4.6vw,3.75rem)] leading-[1.02] text-fg text-balance">
-              Taught in Vientiane. Recognised by universities abroad.
-            </h2>
+            <SplitHeading id="programmes-title" text="Taught in Vientiane." accent="Recognised by universities abroad." accentClassName="text-blue" className="font-display mt-6 text-[clamp(2.25rem,4.6vw,3.75rem)] leading-[1.02] text-fg text-balance" />
           </Reveal>
           <Reveal className="lg:col-span-4 lg:col-start-9" delay={80}>
             <p className="text-lg leading-relaxed text-fg-muted text-pretty">

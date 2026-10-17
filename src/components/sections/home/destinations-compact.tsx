@@ -3,6 +3,7 @@ import type { Destination, Media, University } from "@prisma/client";
 import type { DestinationWithRelations } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
+import { SplitHeading } from "@/components/ui/split-heading";
 
 type UniversityWithRelations = University & { logo?: Media | null; destination?: Destination | null };
 
@@ -18,9 +19,7 @@ export function DestinationsCompact({ destinations, universities }: { destinatio
         <div className="grid grid-cols-12 gap-x-8 gap-y-8 lg:items-end">
           <Reveal className="col-span-12 lg:col-span-6">
             <p className="eyebrow eyebrow-rule">Destinations</p>
-            <h2 id="destinations-title" className="font-display mt-6 text-[clamp(2.25rem,4.6vw,3.75rem)] leading-[1.02] text-fg text-balance">
-              {destinations.length} countries. One starting point.
-            </h2>
+            <SplitHeading id="destinations-title" text={`${destinations.length} countries.`} accent="One starting point." accentClassName="text-blue" className="font-display mt-6 text-[clamp(2.25rem,4.6vw,3.75rem)] leading-[1.02] text-fg text-balance" />
           </Reveal>
           <Reveal className="col-span-12 lg:col-span-5 lg:col-start-8" delay={80}>
             <p className="text-lg leading-relaxed text-fg-muted text-pretty">
