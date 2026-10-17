@@ -48,8 +48,8 @@ export function Hero({
       {/* Globe — the visual centre: ~60vw, right-anchored, vertically centred, bleeding ~8vw past the edge.
           Interactive (drag / click) wherever the copy column does not sit above it. */}
       <div data-hero-globe className="absolute inset-y-0 right-[-8vw] z-[1] hidden w-[min(60vw,calc(100dvh-72px))] items-center lg:flex" aria-hidden>
-        {/* Left-third fade keeps the headline ≥ 4.5:1 over the globe */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-1/3 bg-linear-to-r from-bg to-transparent" />
+        {/* A narrow, soft fade where the headline's longest line can meet the globe; the rest of the Earth stays clear */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[14%] bg-linear-to-r from-bg/80 via-bg/25 to-transparent" />
         <GlobeStage destinations={destinations} className="aspect-square w-full" tone="light" media="(min-width: 1024px)" />
       </div>
 
