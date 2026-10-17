@@ -35,6 +35,7 @@ export function BackdropVideo({ media, className, opacity = 1 }: { media: SceneM
               video.src = src;
               video.load();
               loaded = true;
+              video.addEventListener("canplay", () => void video.play().catch(() => undefined), { once: true });
             }
             video.play().catch(() => undefined);
           } else video.pause();

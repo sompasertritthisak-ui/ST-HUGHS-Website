@@ -132,7 +132,8 @@ export function CinematicScene({
       const words = el.querySelectorAll<HTMLElement>(".cs-word");
       const rest = el.querySelectorAll<HTMLElement>("[data-rest]");
       const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: "top top", end: "bottom bottom", scrub: 0.6 } });
-      if (backdrop) tl.fromTo(backdrop, { scale: 1.16, yPercent: -3 }, { scale: 1, yPercent: 3, ease: "none", duration: 1 }, 0);
+      // The frame travels left to right as the visitor scrolls, on top of the slow push-in.
+      if (backdrop) tl.fromTo(backdrop, { scale: 1.18, xPercent: -5, yPercent: -2 }, { scale: 1.06, xPercent: 5, yPercent: 2, ease: "none", duration: 1 }, 0);
       if (veil) tl.fromTo(veil, { opacity: 0.9 }, { opacity: 0.5, ease: "none", duration: 1 }, 0);
       if (copy) tl.fromTo(copy, { rotateX: 16, y: 80 }, { rotateX: 0, y: 0, ease: "power2.out", duration: 0.4 }, 0.02);
       if (words.length) tl.fromTo(words, { yPercent: 110 }, { yPercent: 0, ease: "power3.out", duration: 0.32, stagger: 0.035 }, 0.06);
@@ -156,6 +157,8 @@ export function CinematicScene({
               video.src = src;
               video.load();
               loaded = true;
+              // Some browsers refuse the first play() on a lazily loaded clip; try again once it can play.
+              video.addEventListener("canplay", () => void video.play().catch(() => undefined), { once: true });
             }
             video.play().catch(() => undefined);
           } else video.pause();
