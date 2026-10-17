@@ -44,6 +44,7 @@ export function CinematicScene({
   accent,
   body,
   media,
+  backdrop,
   cta,
   align = "left",
   className,
@@ -56,7 +57,10 @@ export function CinematicScene({
   title: string;
   accent?: string;
   body?: string;
-  media: SceneMedia;
+  /** Poster (with optional clip) behind the chapter. Omit when `backdrop` supplies a live scene. */
+  media?: SceneMedia;
+  /** A live backdrop (e.g. a three.js scene) rendered instead of `media`. */
+  backdrop?: ReactNode;
   cta?: { href: string; label: string };
   align?: "left" | "center";
   className?: string;
@@ -72,7 +76,7 @@ export function CinematicScene({
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const nav = navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } };
     const lowData = Boolean(nav.connection?.saveData) || /(^|-)2g$/.test(nav.connection?.effectiveType ?? "");
-    if (media.src && !reduced && !lowData) setUseVideo(true);
+    if (media?.src && !reduced && !lowData) setUseVideo(true);
     if (reduced) return;
 
     gsap.registerPlugin(ScrollTrigger);
@@ -91,12 +95,12 @@ export function CinematicScene({
       if (copy) tl.to(copy, { y: -80, opacity: 0, ease: "power1.in", duration: 0.28 }, 0.72);
     }, el);
     return () => ctx.revert();
-  }, [media.src]);
+  }, [media?.src]);
 
   useEffect(() => {
     const el = root.current;
     const video = videoRef.current;
-    if (!el || !video || !useVideo || !media.src) return;
+    if (!el || !video || !useVideo || !media?.src) return;
     let loaded = false;
     const src = media.src;
     const io = new IntersectionObserver(
@@ -116,7 +120,7 @@ export function CinematicScene({
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [useVideo, media.src]);
+  }, [useVideo, media?.src]);
 
   const number = `${String(index).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
 
@@ -124,16 +128,19 @@ export function CinematicScene({
     <section ref={root} id={id} aria-labelledby={`${id}-title`} className={cn("theme-dark relative h-[190vh] bg-midnight text-white", className)}>
       <div className="sticky top-0 h-[100dvh] overflow-hidden [perspective:1200px]">
         <div data-backdrop className="absolute inset-0 will-change-transform">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={media.poster}
-            alt=""
-            className={cn("absolute inset-0 size-full object-cover", !media.src && "kenburns")}
-            style={media.position ? { objectPosition: media.position } : undefined}
-            loading="lazy"
-            decoding="async"
-          />
-          {useVideo ? (
+          {backdrop ? <div className="absolute inset-0">{backdrop}</div> : null}
+          {media ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={media.poster}
+              alt=""
+              className={cn("absolute inset-0 size-full object-cover", !media.src && "kenburns")}
+              style={media.position ? { objectPosition: media.position } : undefined}
+              loading="lazy"
+              decoding="async"
+            />
+          ) : null}
+          {useVideo && media ? (
             <video
               ref={videoRef}
               muted
@@ -148,7 +155,7 @@ export function CinematicScene({
             />
           ) : null}
         </div>
-        <div data-veil className="absolute inset-0 bg-[linear-gradient(to_top,rgb(11_19_80/0.94)_0%,rgb(11_19_80/0.5)_45%,rgb(11_19_80/0.3)_100%)]" />
+        <div data-veil className={cn("absolute inset-0", backdrop ? "bg-[linear-gradient(to_top,rgb(11_19_80/0.85)_0%,rgb(11_19_80/0.15)_40%,transparent_70%)]" : "bg-[linear-gradient(to_top,rgb(11_19_80/0.94)_0%,rgb(11_19_80/0.5)_45%,rgb(11_19_80/0.3)_100%)]")} />
         <div aria-hidden className="grain absolute inset-0" />
 
         {/* Chapter marker */}

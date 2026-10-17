@@ -30,7 +30,7 @@ const STEPS = [
     body: "Pass, and the qualification takes you to a degree abroad.",
     href: "/destinations",
     cta: "The destinations",
-    image: { src: "/media/cinematic/poster-world.jpg", alt: "", position: "50% 22%" },
+    image: { src: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=75", alt: "", position: "50% 55%" },
   },
   {
     n: "03",
@@ -39,7 +39,7 @@ const STEPS = [
     body: "An internationally recognised degree, and a career anywhere.",
     href: "/careers",
     cta: "Careers & employability",
-    image: { src: "/media/cinematic/poster-finale.jpg", alt: "", position: "50% 60%" },
+    image: { src: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=75", alt: "", position: "50% 45%" },
   },
 ] as const;
 
