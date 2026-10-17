@@ -20,13 +20,14 @@ const SPACE = "#0B1350";
 type Pane = { src: string; position: [number, number, number]; size: [number, number]; phase: number; label: string };
 
 const PANES: Pane[] = [
-  { src: "/media/students/Class_1.jpg", position: [-2.7, 1.35, -1.6], size: [2.9, 1.8], phase: 0, label: "Seminar room" },
-  { src: "/media/students/shv-classroom-teacher.jpg", position: [2.5, 0.35, -2.1], size: [3.2, 2.0], phase: 2.1, label: "Teaching" },
-  { src: "/media/campus/shv-campus-entrance.jpg", position: [-0.2, 2.6, -4.8], size: [4.0, 1.9], phase: 4.2, label: "Campus · Vientiane" },
-  { src: "/media/partners/shv-assumption-partnership-signing.jpg", position: [4.1, 2.3, -4.2], size: [2.7, 1.7], phase: 1.2, label: "Partners" },
+  { src: "/media/students/Class_1.jpg", position: [-2.5, 0.25, -0.6], size: [3.4, 2.1], phase: 0, label: "Seminar room" },
+  { src: "/media/students/shv-classroom-teacher.jpg", position: [1.9, -0.55, -2.2], size: [3.8, 2.35], phase: 2.1, label: "Teaching" },
+  { src: "/media/campus/shv-campus-entrance.jpg", position: [0.3, 1.9, -4.4], size: [4.6, 2.2], phase: 4.2, label: "Campus · Vientiane" },
+  { src: "/media/partners/shv-assumption-partnership-signing.jpg", position: [-3.4, -1.9, -3.2], size: [3.2, 2.0], phase: 1.2, label: "Partners" },
 ];
 
 function Dust({ count = 420 }: { count?: number }) {
+  const ref = useRef<THREE.Points>(null);
   const geometry = useMemo(() => {
     let seed = 29;
     const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647) * 2 - 1;
@@ -132,7 +133,7 @@ function Scene() {
     }
     camera.position.x += (smooth.x * 0.3 - camera.position.x) * 0.05;
     camera.position.y += (0.2 + smooth.y * 0.2 - camera.position.y) * 0.05;
-    camera.lookAt(0.2, 0.9, -2.2);
+    camera.lookAt(0, 0.2, -2);
   });
 
   const scale = wide ? 1 : 0.72;
@@ -140,7 +141,7 @@ function Scene() {
     <>
       <fog attach="fog" args={[SPACE, 6, 16]} />
       <Dust />
-      <group scale={scale} position={[wide ? 0 : 0.1, wide ? 0 : 0.9, 0]}>
+      <group scale={scale} position={[wide ? 0 : 0.2, wide ? 0 : 0.6, 0]}>
         <mesh geometry={halo}>
           <meshBasicMaterial color={BRAND} transparent opacity={0.16} depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false} />
         </mesh>
