@@ -258,7 +258,7 @@ summary {
 }
 
 @utility glass-nav {
-  background: color-mix(in oklab, #ffffff 93%, transparent);
+  background: color-mix(in oklab, #ffffff 96%, transparent);
   backdrop-filter: blur(14px) saturate(120%);
   -webkit-backdrop-filter: blur(14px) saturate(120%);
 }

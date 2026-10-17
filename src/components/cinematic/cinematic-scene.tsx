@@ -155,7 +155,7 @@ export function CinematicScene({
             />
           ) : null}
         </div>
-        <div data-veil className={cn("absolute inset-0", backdrop ? "bg-[linear-gradient(to_top,rgb(11_19_80/0.85)_0%,rgb(11_19_80/0.15)_40%,transparent_70%)]" : "bg-[linear-gradient(to_top,rgb(11_19_80/0.94)_0%,rgb(11_19_80/0.5)_45%,rgb(11_19_80/0.3)_100%)]")} />
+        <div data-veil className={cn("absolute inset-0", backdrop ? "bg-[linear-gradient(to_top,rgb(11_19_80/0.85)_0%,rgb(11_19_80/0.15)_40%,transparent_70%)]" : "bg-[linear-gradient(to_top,rgb(11_19_80/0.96)_0%,rgb(11_19_80/0.72)_40%,rgb(11_19_80/0.35)_100%)]")} />
         <div aria-hidden className="grain absolute inset-0" />
 
         {/* Chapter marker */}

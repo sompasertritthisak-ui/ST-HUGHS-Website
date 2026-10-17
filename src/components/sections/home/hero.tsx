@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/magnetic";
 import { GlobeStage } from "@/components/three/globe-stage";
-import { ORIGIN, type GlobeDestination } from "@/components/three/geo";
+import type { GlobeDestination } from "@/components/three/geo";
 import type { MessagingSettings } from "@/lib/content";
 import { HeroMotion } from "./hero-motion";
 
@@ -82,7 +82,7 @@ export function Hero({
           <p className="anim-fade-up mt-6 hidden font-mono text-[0.625rem] uppercase tracking-[0.16em] text-fg-subtle lg:block" style={{ animationDelay: `${supportDelay + 240}ms` }}>
             Drag the globe · Click a destination
           </p>
-          <span aria-hidden className="scroll-cue anim-fade-up mt-8 hidden lg:block" style={{ animationDelay: `${supportDelay + 400}ms` }} />
+          <span aria-hidden className="scroll-cue anim-fade-up mt-8 hidden opacity-50 lg:block" style={{ animationDelay: `${supportDelay + 400}ms`, height: "1.75rem" }} />
         </div>
 
         {/* Small and medium screens: the same interactive Earth, below the copy */}
@@ -100,12 +100,13 @@ export function Hero({
         <div className="container-x flex flex-wrap items-center gap-x-8 gap-y-2 py-4 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-muted">
           <span className="inline-flex items-center gap-2 text-fg">
             <span aria-hidden className="size-1.5 rounded-full bg-route shadow-[0_0_10px_var(--route)]" />
-            Origin · {ORIGIN.label} {ORIGIN.lat.toFixed(2)}° N, {ORIGIN.lng.toFixed(2)}° E
+            NCUK Study Centre
           </span>
+          <span className="hidden md:inline">Authorised by the Lao Ministry of Education and Sports</span>
           <span>
             {destinations.length} destination{destinations.length === 1 ? "" : "s"} · {routeCount} published route{routeCount === 1 ? "" : "s"}
           </span>
-          <span className="ml-auto hidden text-fg sm:inline">{messaging.tagline}</span>
+          <span className="ml-auto hidden text-fg lg:inline">{messaging.tagline}</span>
         </div>
       </div>
     </section>

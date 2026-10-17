@@ -42,8 +42,14 @@ export type GlobeTone = "dark" | "light";
  * halo (normal blending — additive glow vanishes on white) and no star field, for the white hero.
  */
 const TONES = {
-  dark: { glow: PALETTE.haze, glowAdditive: true, node: PALETTE.brandSoft, nodeMuted: PALETTE.platinum, packet: PALETTE.brandSoft, ambient: 0.6, sun: 3.2 },
-  light: { glow: "#6E8FFF", glowAdditive: false, node: PALETTE.brand, nodeMuted: "#7D8AAE", packet: PALETTE.brand, ambient: 1.0, sun: 3.4 },
+  dark: {
+    glow: PALETTE.haze, glowAdditive: true, node: PALETTE.brandSoft, nodeMuted: PALETTE.platinum, packet: PALETTE.brandSoft, ambient: 0.6, sun: 3.2,
+    chip: "border-white/25 bg-[#0B1350]/70 text-white/85", chipHover: "border-[#FF8A85] bg-[#0B1350]/90 text-white", code: "text-[#FF8A85]", origin: "text-white", originAccent: "text-[#FF8A85]",
+  },
+  light: {
+    glow: "#6E8FFF", glowAdditive: false, node: PALETTE.brand, nodeMuted: "#7D8AAE", packet: PALETTE.brand, ambient: 1.0, sun: 3.4,
+    chip: "border-[#103090]/20 bg-white/90 text-[#0B1350] shadow-sm", chipHover: "border-[#103090] bg-[#103090] text-white shadow-md", code: "text-[#A3120F]", origin: "text-[#0B1350]", originAccent: "text-[#A3120F]",
+  },
 } as const;
 type Tone = (typeof TONES)[GlobeTone];
 
@@ -215,16 +221,14 @@ function DestinationNode({
       {/* drei only applies `pointerEvents` in transform mode; in screen-space mode set it via style + wrapperClass */}
       <Html position={[0, 0.03, 0]} wrapperClass="pointer-events-none" zIndexRange={[30, 10]} style={{ opacity: 0, visibility: "hidden", pointerEvents: "none" }} ref={label}>
         <div
-          className={`whitespace-nowrap rounded-[var(--radius-sm)] border px-2 py-1 font-mono text-[0.625rem] uppercase tracking-[0.14em] backdrop-blur-sm transition-colors duration-[var(--dur-fast)] ${
-            hover ? "border-brand/70 bg-bg/85 text-fg" : "border-line bg-bg/60 text-fg-muted"
-          }`}
+          className={`whitespace-nowrap rounded-full border px-2.5 py-1 font-mono text-[0.625rem] uppercase tracking-[0.14em] backdrop-blur-sm transition-colors duration-[var(--dur-fast)] ${hover ? pal.chipHover : pal.chip}`}
           style={{ transform: "translate(-50%, -100%)" }}
         >
-          <span className="text-brand-soft">{destination.isoCode}</span>
-          <span className="mx-1.5 text-fg-subtle">·</span>
+          <span className={hover ? "text-white/80" : pal.code}>{destination.isoCode}</span>
+          <span className="mx-1.5 opacity-50">·</span>
           <span>{destination.country}</span>
           {hover ? (
-            <span className="block pt-0.5 text-[0.5625rem] tracking-[0.12em] text-fg-muted">
+            <span className="block pt-0.5 text-[0.5625rem] tracking-[0.12em] opacity-80">
               {destination.routes > 0 ? `${destination.routes} published route${destination.routes === 1 ? "" : "s"}` : "Routes in confirmation"}
             </span>
           ) : null}
@@ -234,7 +238,7 @@ function DestinationNode({
   );
 }
 
-function OriginNode() {
+function OriginNode({ pal }: { pal: Tone }) {
   const pulse = useRef<THREE.Mesh>(null);
   const label = useRef<HTMLDivElement>(null);
   const group = useRef<THREE.Group>(null);
@@ -277,9 +281,9 @@ function OriginNode() {
         <meshBasicMaterial color={PALETTE.brand} transparent opacity={0.85} side={THREE.DoubleSide} depthWrite={false} toneMapped={false} />
       </mesh>
       <Html position={[0, 0, 0]} wrapperClass="pointer-events-none" zIndexRange={[40, 10]} style={{ opacity: 0, visibility: "hidden", pointerEvents: "none" }} ref={label}>
-        <div className="whitespace-nowrap font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-fg" style={{ transform: "translate(14px, -50%)" }}>
-          <span className="text-brand-soft">Vientiane</span>
-          <span className="mx-1.5 text-fg-subtle">·</span>
+        <div className={`whitespace-nowrap font-mono text-[0.6875rem] font-medium uppercase tracking-[0.16em] ${pal.origin}`} style={{ transform: "translate(16px, 10px)" }}>
+          <span className={pal.originAccent}>Vientiane</span>
+          <span className="mx-1.5 opacity-50">·</span>
           <span>Lao PDR</span>
         </div>
       </Html>
@@ -405,7 +409,7 @@ function Scene({
           <meshPhongMaterial map={cloudMap} transparent opacity={0.55} depthWrite={false} />
         </mesh>
 
-        <OriginNode />
+        <OriginNode pal={pal} />
 
         {arcs.map((a, i) => (
           <group key={destinations[i]?.slug ?? i}>
