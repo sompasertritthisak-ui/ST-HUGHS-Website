@@ -8,7 +8,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/magnetic";
 import { SplitHeading } from "@/components/ui/split-heading";
-import { Parallax } from "@/components/ui/parallax";
 import type { HomeCounts } from "./data";
 
 export type JourneyDestination = { slug: string; country: string; isoCode: string; verified: boolean; routes: number };
@@ -116,9 +115,7 @@ export function RouteJourney({ destinations, counts }: { destinations: JourneyDe
               <span aria-hidden className="absolute left-0 top-[1px] size-[15px] rounded-full border-2 border-route bg-bg transition-[background-color,transform] duration-[var(--dur)] group-hover:scale-125 group-hover:bg-route md:relative md:block" />
               <div className="md:mt-7">
                 <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-[var(--radius)] bg-bg-hover">
-                  <Parallax speed={0.2}>
-                    <Image src={s.image.src} alt={s.image.alt} fill sizes="(min-width:768px) 30vw, 90vw" className="object-cover transition-transform duration-[900ms] ease-[var(--ease-out)] group-hover:scale-[1.05]" style={{ objectPosition: s.image.position }} />
-                  </Parallax>
+                  <Image src={s.image.src} alt={s.image.alt} fill sizes="(min-width:768px) 30vw, 90vw" className="object-cover transition-transform duration-[900ms] ease-[var(--ease-out)] group-hover:scale-[1.05]" style={{ objectPosition: s.image.position }} />
                 </div>
                 <p className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-brand-soft">
                   <span className="tabular">{s.n}</span>

@@ -4,7 +4,6 @@ import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { SplitHeading } from "@/components/ui/split-heading";
-import { Parallax } from "@/components/ui/parallax";
 import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 import { getMessagingSettings } from "@/lib/content";
@@ -50,17 +49,15 @@ export async function LifeMosaic() {
         <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-12 lg:auto-rows-[minmax(220px,auto)]">
           {media.map((m, i) => (
             <Reveal key={m.id} as="li" delay={i * 60} className={cn("group relative overflow-hidden rounded-[var(--radius)] bg-bg-hover", slots[i] ?? "lg:col-span-4 aspect-[4/3]")}>
-              <Parallax speed={i % 2 === 0 ? 0.22 : -0.18}>
-                <Image
-                  src={m.url}
-                  alt={m.alt}
-                  fill
-                  sizes="(min-width:1024px) 50vw, 100vw"
-                  className="object-cover transition-transform duration-[900ms] ease-[var(--ease-out)] group-hover:scale-[1.04]"
-                  style={{ objectPosition: `${Math.round(m.focalX * 100)}% ${Math.round(m.focalY * 100)}%` }}
-                  priority={i === 0}
-                />
-              </Parallax>
+              <Image
+                src={m.url}
+                alt={m.alt}
+                fill
+                sizes="(min-width:1024px) 50vw, 100vw"
+                className="object-cover transition-transform duration-[900ms] ease-[var(--ease-out)] group-hover:scale-[1.04]"
+                style={{ objectPosition: `${Math.round(m.focalX * 100)}% ${Math.round(m.focalY * 100)}%` }}
+                priority={i === 0}
+              />
               <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-midnight/70 to-transparent opacity-80 transition-opacity duration-[var(--dur)] group-hover:opacity-100" />
               <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-4">
                 <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-white">{m.caption ?? m.alt}</span>
