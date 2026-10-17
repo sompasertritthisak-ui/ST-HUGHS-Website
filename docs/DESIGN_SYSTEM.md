@@ -16,8 +16,10 @@ reasons to trust. A university partner arrives asking "is this institution serio
 confirmed ticket.
 
 **Visual language** — White is the primary colour; deep brand blue and brand red are the accents (the
-Lao flag's three colours, with white as the ground). The hero is white too: the 3D globe renders in
-its light tone (white sphere, brand-blue land and rim, soft blue halo, no stars). Deep blue appears
+Lao flag's three colours, with white as the ground). The hero is white too: the 3D globe is a
+photographic Earth (NASA Blue Marble day surface, relief, ocean reflectivity, drifting clouds, city
+lights; textures in `public/textures/earth/`) with a soft blue atmosphere, red routes and nodes. No
+dotted or outlined land anywhere; the no-WebGL fallback is the real equirectangular map. Deep blue appears
 only inside the cinema: the three chapter openers, the closing scene, the page-hero frames on
 sub-pages, and the footer. Red is the
 stroke: eyebrows, rules, nodes, numbers, the primary button, the thin wayfinding band under the hero.

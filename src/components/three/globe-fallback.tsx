@@ -1,10 +1,9 @@
 import { ORIGIN, angularDistance, project, type GlobeDestination } from "./geo";
-import { LAND_DOTS } from "./data/land-dots";
 import { cn } from "@/lib/utils";
 
 /**
- * Static premium fallback for the hero globe: a stylised equirectangular map
- * with a faint graticule, the origin node and curved routes that draw on with
+ * Static fallback for the hero globe: the real Blue Marble map (equirectangular,
+ * re-centred on Asia), the origin node and curved routes that draw on with
  * stroke-dasharray. Server-safe (no hooks) so it can also be the SSR frame
  * before the WebGL scene mounts. Same palette, same story.
  */
@@ -15,20 +14,11 @@ const H = 360;
 const CENTRE_LNG = 40;
 const px = (lat: number, lng: number): [number, number] => project(lat, ((((lng - CENTRE_LNG + 180) % 360) + 360) % 360) - 180, W, H);
 
-/** Land as one path of zero-length round-capped segments (every 2nd dot keeps the SSR payload small). */
-const LAND_PATH = (() => {
-  const parts: string[] = [];
-  for (let i = 0; i + 1 < LAND_DOTS.length; i += 4) {
-    const [x, y] = px(LAND_DOTS[i] / 100, LAND_DOTS[i + 1] / 100);
-    parts.push(`M${x.toFixed(1)} ${y.toFixed(1)}h.01`);
-  }
-  return parts.join("");
-})();
 
 export function GlobeFallback({ destinations, className, animate = true, tone = "dark" }: { destinations: GlobeDestination[]; className?: string; animate?: boolean; tone?: "dark" | "light" }) {
   const [ox, oy] = px(ORIGIN.lat, ORIGIN.lng);
-  const parallels = [-60, -30, 0, 30, 60];
-  const meridians = Array.from({ length: 11 }, (_, i) => -150 + i * 30);
+  /** The texture's left edge is 180°W; the frame starts at CENTRE_LNG − 180°, so shift and wrap it. */
+  const shift = (CENTRE_LNG / 360) * W;
 
   return (
     <div className={cn("relative h-full w-full", className)} aria-hidden>
@@ -50,35 +40,21 @@ export function GlobeFallback({ destinations, className, animate = true, tone = 
         }
       `}</style>
       <svg
-        viewBox={`0 0 ${W} ${H}`}
+        viewBox={`0 30 ${W} 270`}
         className={cn("h-full w-full", animate ? "shv-gf-animate" : "shv-gf-static")}
         preserveAspectRatio="xMidYMid meet"
         role="presentation"
       >
         <defs>
-          <radialGradient id="shv-gf-vignette" cx="50%" cy="50%" r="65%">
-            <stop offset="0%" stopColor={tone === "light" ? "var(--color-blue)" : "var(--color-navy)"} stopOpacity={tone === "light" ? "0.1" : "0.55"} />
-            <stop offset="100%" stopColor={tone === "light" ? "#ffffff" : "var(--color-midnight)"} stopOpacity="0" />
-          </radialGradient>
+          <clipPath id="shv-gf-clip">
+            <rect width={W} height={H} rx="6" />
+          </clipPath>
         </defs>
-
-        <rect width={W} height={H} fill="url(#shv-gf-vignette)" />
-
-        {/* Graticule */}
-        <g stroke="var(--fg-muted)" strokeOpacity="0.14" strokeWidth="0.6" fill="none">
-          <rect x="0.5" y="0.5" width={W - 1} height={H - 1} strokeOpacity="0.2" />
-          {parallels.map((lat) => {
-            const y = px(lat, 0)[1];
-            return <line key={`p${lat}`} x1="0" y1={y} x2={W} y2={y} strokeDasharray={lat === 0 ? undefined : "2 6"} />;
-          })}
-          {meridians.map((lng) => {
-            const x = px(0, lng)[0];
-            return <line key={`m${lng}`} x1={x} y1="0" x2={x} y2={H} strokeDasharray="2 6" />;
-          })}
+        <g clipPath="url(#shv-gf-clip)">
+          <image href="/textures/earth/earth_atmos_2048.jpg" x={-shift} y={0} width={W} height={H} preserveAspectRatio="none" />
+          <image href="/textures/earth/earth_atmos_2048.jpg" x={W - shift} y={0} width={W} height={H} preserveAspectRatio="none" />
+          <rect width={W} height={H} fill="var(--color-midnight)" fillOpacity={tone === "light" ? "0" : "0.35"} />
         </g>
-
-        {/* Land — the same dotted world as the globe */}
-        <path d={LAND_PATH} fill="none" stroke="var(--fg)" strokeOpacity="0.5" strokeWidth="1.25" strokeLinecap="round" />
 
         {/* Routes */}
         <g fill="none" strokeLinecap="round">

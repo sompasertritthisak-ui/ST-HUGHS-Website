@@ -1,24 +1,25 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type ComponentRef } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import { Html, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import type { MotionValue } from "motion/react";
 import { ORIGIN, angularDistance, latLngToXYZ, type GlobeDestination } from "./geo";
-import { LAND_DOTS } from "./data/land-dots";
 
 /**
  * The hero globe — the site's WOW moment.
  *
- * A deep-blue sphere carrying the world as a cloud of white land dots, a soft
- * blue atmosphere, a sparse still star field, Vientiane as the red pulsing
- * origin, red great-circle routes with travelling packets, and labelled,
- * clickable destination nodes. Drag to turn; it turns itself when left alone.
+ * A photographic Earth (NASA Blue Marble day surface, terrain relief, ocean
+ * reflectivity, a drifting cloud layer and city lights), a soft atmosphere,
+ * Vientiane as the red pulsing origin, red great-circle routes with travelling
+ * packets, and labelled, clickable destination nodes. Drag to turn; it turns
+ * itself when left alone.
  *
- * No textures, no fetches, no lights, no shadows, no postprocessing. Pixel
- * ratio is capped (1.5 high tier / 1 low tier), the frame loop is paused when
- * the hero is off-screen, and every hand-built resource is disposed on unmount.
+ * Textures total ~1.6 MB and load inside Suspense (the SVG map shows until
+ * then). Pixel ratio is capped (1.5 high tier / 1 low tier), the frame loop is
+ * paused when the hero is off-screen, and every hand-built resource is
+ * disposed on unmount.
  */
 
 export type GlobeTier = "high" | "low";
@@ -41,36 +42,18 @@ export type GlobeTone = "dark" | "light";
  * halo (normal blending — additive glow vanishes on white) and no star field, for the white hero.
  */
 const TONES = {
-  dark: {
-    sphereDeep: PALETTE.midnight,
-    sphereBase: PALETTE.navy,
-    rim: PALETTE.platinum,
-    glow: PALETTE.haze,
-    glowAdditive: true,
-    graticule: PALETTE.platinum,
-    graticuleOpacity: 0.045,
-    land: PALETTE.white,
-    stars: true,
-    node: PALETTE.brandSoft,
-    nodeMuted: PALETTE.platinum,
-    packet: PALETTE.brandSoft,
-  },
-  light: {
-    sphereDeep: "#D9E1F6",
-    sphereBase: "#FFFFFF",
-    rim: "#103090",
-    glow: "#8FA6EE",
-    glowAdditive: false,
-    graticule: "#103090",
-    graticuleOpacity: 0.09,
-    land: "#103090",
-    stars: false,
-    node: PALETTE.brand,
-    nodeMuted: "#7D8AAE",
-    packet: PALETTE.brand,
-  },
+  dark: { glow: PALETTE.haze, glowAdditive: true, node: PALETTE.brandSoft, nodeMuted: PALETTE.platinum, packet: PALETTE.brandSoft, ambient: 0.6, sun: 3.2 },
+  light: { glow: "#6E8FFF", glowAdditive: false, node: PALETTE.brand, nodeMuted: "#7D8AAE", packet: PALETTE.brand, ambient: 1.0, sun: 3.4 },
 } as const;
 type Tone = (typeof TONES)[GlobeTone];
+
+const TEXTURES = {
+  day: "/textures/earth/earth_atmos_2048.jpg",
+  normal: "/textures/earth/earth_normal_2048.jpg",
+  specular: "/textures/earth/earth_specular_2048.jpg",
+  clouds: "/textures/earth/earth_clouds_1024.png",
+  lights: "/textures/earth/earth_lights_2048.png",
+} as const;
 
 const R = 1;
 const CAMERA_DISTANCE = 3.1;
@@ -98,24 +81,6 @@ const sphereVertex = /* glsl */ `
   }
 `;
 
-const sphereFragment = /* glsl */ `
-  uniform vec3 uDeep;
-  uniform vec3 uBase;
-  uniform vec3 uRim;
-  varying vec3 vNormal;
-  varying vec3 vView;
-  void main() {
-    float ndv = max(dot(vNormal, vView), 0.0);
-    float fresnel = pow(1.0 - ndv, 3.4);
-    vec3 light = normalize(vec3(-0.5, 0.6, 0.85));
-    float diffuse = dot(vNormal, light) * 0.5 + 0.5;
-    vec3 col = mix(uDeep, uBase, diffuse * 0.85);
-    col += uRim * fresnel * 0.16;
-    gl_FragColor = vec4(col, 1.0);
-    #include <colorspace_fragment>
-  }
-`;
-
 const glowFragment = /* glsl */ `
   uniform vec3 uColor;
   varying vec3 vNormal;
@@ -129,93 +94,10 @@ const glowFragment = /* glsl */ `
   }
 `;
 
-const dotsVertex = /* glsl */ `
-  uniform float uSize;
-  uniform float uPixelRatio;
-  varying float vFacing;
-  void main() {
-    vec4 mv = modelViewMatrix * vec4(position, 1.0);
-    vec3 n = normalize(normalMatrix * normalize(position));
-    vFacing = clamp(dot(n, normalize(-mv.xyz)), 0.0, 1.0);
-    gl_Position = projectionMatrix * mv;
-    gl_PointSize = uSize * uPixelRatio * (3.0 / -mv.z);
-  }
-`;
-
-const dotsFragment = /* glsl */ `
-  uniform vec3 uColor;
-  varying float vFacing;
-  void main() {
-    vec2 c = gl_PointCoord - 0.5;
-    float d = length(c);
-    if (d > 0.5) discard;
-    float edge = smoothstep(0.5, 0.28, d);
-    float alpha = 0.55 * (0.5 + 0.5 * vFacing) * edge;
-    gl_FragColor = vec4(uColor, alpha);
-    #include <colorspace_fragment>
-  }
-`;
-
 // ── Geometry builders ────────────────────────────────────────────────────────
 
 function easeOutCubic(t: number) {
   return 1 - Math.pow(1 - t, 3);
-}
-
-function buildGraticule(radius: number, step = 30, segments = 72) {
-  const pts: number[] = [];
-  const push = (a: [number, number, number], b: [number, number, number]) => pts.push(...a, ...b);
-  for (let lat = -90 + step; lat < 90; lat += step) {
-    for (let i = 0; i < segments; i++) {
-      push(latLngToXYZ(lat, (i / segments) * 360 - 180, radius), latLngToXYZ(lat, ((i + 1) / segments) * 360 - 180, radius));
-    }
-  }
-  for (let lng = -180; lng < 180; lng += step) {
-    for (let i = 0; i < segments / 2; i++) {
-      push(latLngToXYZ((i / (segments / 2)) * 180 - 90, lng, radius), latLngToXYZ(((i + 1) / (segments / 2)) * 180 - 90, lng, radius));
-    }
-  }
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute("position", new THREE.Float32BufferAttribute(pts, 3));
-  return geo;
-}
-
-/** Natural Earth land as points on the sphere. `step` subsamples for the low tier. */
-function buildLandDots(step: number) {
-  const count = Math.ceil(LAND_DOTS.length / 2 / step);
-  const pos = new Float32Array(count * 3);
-  let j = 0;
-  for (let i = 0; i + 1 < LAND_DOTS.length; i += 2 * step) {
-    const [x, y, z] = latLngToXYZ(LAND_DOTS[i] / 100, LAND_DOTS[i + 1] / 100, R + 0.004);
-    pos[j++] = x;
-    pos[j++] = y;
-    pos[j++] = z;
-  }
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute("position", new THREE.BufferAttribute(pos.subarray(0, j), 3));
-  return geo;
-}
-
-/** Deterministic sparse star field, far behind the globe. Never moves. */
-function buildStars(count: number) {
-  let seed = 7;
-  const rand = () => {
-    seed = (seed * 16807) % 2147483647;
-    return seed / 2147483647;
-  };
-  const pos = new Float32Array(count * 3);
-  for (let i = 0; i < count; i++) {
-    const u = rand() * 2 - 1;
-    const t = rand() * Math.PI * 2;
-    const r = 9 + rand() * 4;
-    const s = Math.sqrt(1 - u * u);
-    pos[i * 3] = r * s * Math.cos(t);
-    pos[i * 3 + 1] = r * u;
-    pos[i * 3 + 2] = r * s * Math.sin(t);
-  }
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
-  return geo;
 }
 
 type Arc = {
@@ -229,9 +111,9 @@ type Arc = {
 };
 
 function buildArcs(destinations: GlobeDestination[]): Arc[] {
-  const start = new THREE.Vector3(...latLngToXYZ(ORIGIN.lat, ORIGIN.lng, R + 0.006));
+  const start = new THREE.Vector3(...latLngToXYZ(ORIGIN.lat, ORIGIN.lng, R + 0.016));
   return destinations.map((d, i) => {
-    const end = new THREE.Vector3(...latLngToXYZ(d.lat, d.lng, R + 0.006));
+    const end = new THREE.Vector3(...latLngToXYZ(d.lat, d.lng, R + 0.016));
     const dist = angularDistance(ORIGIN.lat, ORIGIN.lng, d.lat, d.lng);
     const mid = start.clone().add(end).normalize().multiplyScalar(R + 0.1 + dist * 0.2);
     const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
@@ -357,7 +239,7 @@ function OriginNode() {
   const label = useRef<HTMLDivElement>(null);
   const group = useRef<THREE.Group>(null);
   const node = useMemo(() => {
-    const p = new THREE.Vector3(...latLngToXYZ(ORIGIN.lat, ORIGIN.lng, R + 0.004));
+    const p = new THREE.Vector3(...latLngToXYZ(ORIGIN.lat, ORIGIN.lng, R + 0.016));
     const q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 0, 1), p.clone().normalize());
     return { position: p, quaternion: q };
   }, []);
@@ -417,32 +299,31 @@ function Scene({
   destinations: GlobeDestination[];
   scroll?: MotionValue<number>;
   tier: GlobeTier;
-  pal: Tone;
   /** True while the pointer is down on the globe or hovering a node — auto-rotation waits. */
   paused: boolean;
   onSelect: (slug: string) => void;
   onNodeHover: (hovering: boolean) => void;
+  pal: Tone;
 }) {
   const spin = useRef<THREE.Group>(null);
+  const clouds = useRef<THREE.Mesh>(null);
   const spinAngle = useRef(0);
   const packets = useRef<(THREE.Mesh | null)[]>([]);
-  const dpr = useThree((s) => s.viewport.dpr);
+  const gl = useThree((s) => s.gl);
 
-  const sphereMaterial = useMemo(
-    () =>
-      new THREE.ShaderMaterial({
-        vertexShader: sphereVertex,
-        fragmentShader: sphereFragment,
-        uniforms: {
-          uDeep: { value: new THREE.Color(pal.sphereDeep) },
-          uBase: { value: new THREE.Color(pal.sphereBase) },
-          uRim: { value: new THREE.Color(pal.rim) },
-        },
-      }),
-    [pal],
-  );
-  const sphereGeometry = useMemo(() => new THREE.SphereGeometry(R, 64, 48), []);
+  // Textures suspend until loaded; the SVG map is shown meanwhile.
+  const [day, normal, specular, cloudMap, lights] = useLoader(THREE.TextureLoader, [TEXTURES.day, TEXTURES.normal, TEXTURES.specular, TEXTURES.clouds, TEXTURES.lights]);
+  useEffect(() => {
+    const aniso = Math.min(8, gl.capabilities.getMaxAnisotropy());
+    for (const t of [day, cloudMap, lights]) t.colorSpace = THREE.SRGBColorSpace;
+    for (const t of [day, normal, specular, cloudMap, lights]) {
+      t.anisotropy = aniso;
+      t.needsUpdate = true;
+    }
+  }, [day, normal, specular, cloudMap, lights, gl]);
 
+  const sphereGeometry = useMemo(() => new THREE.SphereGeometry(R, tier === "high" ? 96 : 64, tier === "high" ? 64 : 48), [tier]);
+  const cloudGeometry = useMemo(() => new THREE.SphereGeometry(R * 1.012, 64, 48), []);
   const glowMaterial = useMemo(
     () =>
       new THREE.ShaderMaterial({
@@ -456,78 +337,40 @@ function Scene({
       }),
     [pal],
   );
-  const glowGeometry = useMemo(() => new THREE.SphereGeometry(R * 1.2, 48, 36), []);
-
-  const graticule = useMemo(() => buildGraticule(R + 0.002), []);
-  const graticuleMaterial = useMemo(
-    () => new THREE.LineBasicMaterial({ color: pal.graticule, transparent: true, opacity: pal.graticuleOpacity, depthWrite: false }),
-    [pal],
-  );
-
-  const landDots = useMemo(() => buildLandDots(tier === "high" ? 1 : 2), [tier]);
-  const landMaterial = useMemo(
-    () =>
-      new THREE.ShaderMaterial({
-        vertexShader: dotsVertex,
-        fragmentShader: dotsFragment,
-        uniforms: {
-          uColor: { value: new THREE.Color(pal.land) },
-          uSize: { value: tier === "high" ? 2.1 : 2.6 },
-          uPixelRatio: { value: 1 },
-        },
-        transparent: true,
-        depthWrite: false,
-      }),
-    [tier, pal],
-  );
-  useEffect(() => {
-    landMaterial.uniforms.uPixelRatio.value = dpr;
-  }, [dpr, landMaterial]);
-
-  const stars = useMemo(() => buildStars(tier === "high" ? 260 : 120), [tier]);
-  const starMaterial = useMemo(
-    () => new THREE.PointsMaterial({ color: PALETTE.white, size: 1.6, sizeAttenuation: false, transparent: true, opacity: 0.32, depthWrite: false }),
-    [],
-  );
-
+  const glowGeometry = useMemo(() => new THREE.SphereGeometry(R * 1.18, 48, 36), []);
   const arcs = useMemo(() => buildArcs(destinations), [destinations]);
 
   useEffect(() => {
     return () => {
-      sphereMaterial.dispose();
       sphereGeometry.dispose();
+      cloudGeometry.dispose();
       glowMaterial.dispose();
       glowGeometry.dispose();
-      graticule.dispose();
-      graticuleMaterial.dispose();
-      landDots.dispose();
-      landMaterial.dispose();
-      stars.dispose();
-      starMaterial.dispose();
       for (const a of arcs) {
         a.geometry.dispose();
         a.material.dispose();
       }
     };
-  }, [sphereMaterial, sphereGeometry, glowMaterial, glowGeometry, graticule, graticuleMaterial, landDots, landMaterial, stars, starMaterial, arcs]);
+  }, [sphereGeometry, cloudGeometry, glowMaterial, glowGeometry, arcs]);
 
   useFrame(({ clock }, delta) => {
     const t = clock.getElapsedTime();
-    if (!paused) spinAngle.current += AUTO_ROTATE * Math.min(delta, MAX_DELTA);
+    const d = Math.min(delta, MAX_DELTA);
+    if (!paused) spinAngle.current += AUTO_ROTATE * d;
     if (spin.current) spin.current.rotation.y = spinAngle.current + (scroll?.get() ?? 0) * SCROLL_ROTATE;
+    // Clouds drift a little faster than the ground beneath them.
+    if (clouds.current) clouds.current.rotation.y += d * 0.018;
 
     arcs.forEach((a, i) => {
       const p = Math.max(0, Math.min(1, (t - a.delay) / ARC_DRAW_SECONDS));
       a.geometry.setDrawRange(0, Math.round(easeOutCubic(p) * (ARC_POINTS + 1)));
-      // gentle pulse once drawn
       a.material.opacity = p >= 1 ? a.baseOpacity * (0.86 + 0.14 * Math.sin(t * 1.6 + i * 0.9)) : a.baseOpacity;
-      // travelling packet
       const packet = packets.current[i];
       if (packet) {
         if (p >= 1) {
           const frac = ((t - a.delay - ARC_DRAW_SECONDS) * 0.16 + i * 0.137) % 1;
           a.curve.getPoint(frac, packet.position);
-          const glow = Math.sin(frac * Math.PI); // fade at both ends
+          const glow = Math.sin(frac * Math.PI);
           packet.scale.setScalar(0.6 + 0.6 * glow);
           packet.visible = true;
         } else {
@@ -539,12 +382,28 @@ function Scene({
 
   return (
     <>
-      {pal.stars ? <points geometry={stars} material={starMaterial} renderOrder={-2} /> : null}
+      {/* Sun from the viewer's upper right so the hemisphere facing the page is in daylight; fill keeps the limb readable */}
+      <ambientLight intensity={pal.ambient} />
+      <directionalLight position={[3.5, 2.5, 6]} intensity={pal.sun} />
+      <hemisphereLight args={["#ffffff", "#6E8FFF", 0.35]} />
       <group ref={spin}>
         <mesh geometry={glowGeometry} material={glowMaterial} renderOrder={-1} />
-        <mesh geometry={sphereGeometry} material={sphereMaterial} />
-        <lineSegments geometry={graticule} material={graticuleMaterial} />
-        <points geometry={landDots} material={landMaterial} renderOrder={1} />
+        <mesh geometry={sphereGeometry}>
+          <meshPhongMaterial
+            map={day}
+            normalMap={normal}
+            normalScale={new THREE.Vector2(0.55, 0.55)}
+            specularMap={specular}
+            specular={new THREE.Color("#5f7fd0")}
+            shininess={16}
+            emissiveMap={lights}
+            emissive={new THREE.Color("#ffd9a3")}
+            emissiveIntensity={0.12}
+          />
+        </mesh>
+        <mesh ref={clouds} geometry={cloudGeometry} renderOrder={0}>
+          <meshPhongMaterial map={cloudMap} transparent opacity={0.55} depthWrite={false} />
+        </mesh>
 
         <OriginNode />
 

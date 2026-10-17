@@ -87,7 +87,7 @@ export function Hero({
 
         {/* Small-screen map */}
         <div className="col-span-12 lg:hidden" aria-hidden>
-          <GlobeStage destinations={destinations} className="aspect-[2/1] w-full" webgl={false} tone="light" />
+          <GlobeStage destinations={destinations} className="aspect-[8/3] w-full overflow-hidden rounded-[var(--radius)]" webgl={false} tone="light" />
         </div>
 
       </div>
