@@ -102,7 +102,9 @@ export async function SiteFooter() {
         <RouteLine className="my-10" node="both" />
 
         <div className="flex flex-col gap-4 text-xs text-fg-subtle sm:flex-row sm:items-center sm:justify-between">
-          <p>© {year} St Hugh&apos;s College Vientiane. Established 2023. Authorised by the Lao Ministry of Education and Sports.</p>
+          <p className="text-fg-muted">
+            <span className="font-semibold text-fg">© {year} St Hugh&apos;s College Vientiane.</span> All rights reserved. Established 2023. Authorised by the Lao Ministry of Education and Sports.
+          </p>
           <ul className="flex flex-wrap gap-x-5 gap-y-2">
             {legal.map((item) => (
               <li key={item.id}>

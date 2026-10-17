@@ -21,10 +21,8 @@ export function DestinationsCompact({ destinations, universities }: { destinatio
             <p className="eyebrow eyebrow-rule">Destinations</p>
             <SplitHeading id="destinations-title" text={`${destinations.length} countries.`} accent="One starting point." accentClassName="text-blue" className="font-display mt-6 text-[clamp(2.25rem,4.6vw,3.75rem)] leading-[1.02] text-fg text-balance" />
           </Reveal>
-          <Reveal className="col-span-12 lg:col-span-5 lg:col-start-8" delay={80}>
-            <p className="text-lg leading-relaxed text-fg-muted text-pretty">
-              Every country below has at least one published route from Vientiane. Progression is subject to each university&rsquo;s entry requirements.
-            </p>
+          <Reveal className="col-span-12 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-fg-subtle lg:col-span-5 lg:col-start-8 lg:text-right" delay={80}>
+            Number = published routes from Vientiane
           </Reveal>
         </div>
 

@@ -25,7 +25,7 @@ const LAND_PATH = (() => {
   return parts.join("");
 })();
 
-export function GlobeFallback({ destinations, className, animate = true }: { destinations: GlobeDestination[]; className?: string; animate?: boolean }) {
+export function GlobeFallback({ destinations, className, animate = true, tone = "dark" }: { destinations: GlobeDestination[]; className?: string; animate?: boolean; tone?: "dark" | "light" }) {
   const [ox, oy] = px(ORIGIN.lat, ORIGIN.lng);
   const parallels = [-60, -30, 0, 30, 60];
   const meridians = Array.from({ length: 11 }, (_, i) => -150 + i * 30);
@@ -57,8 +57,8 @@ export function GlobeFallback({ destinations, className, animate = true }: { des
       >
         <defs>
           <radialGradient id="shv-gf-vignette" cx="50%" cy="50%" r="65%">
-            <stop offset="0%" stopColor="var(--color-navy)" stopOpacity="0.55" />
-            <stop offset="100%" stopColor="var(--color-midnight)" stopOpacity="0" />
+            <stop offset="0%" stopColor={tone === "light" ? "var(--color-blue)" : "var(--color-navy)"} stopOpacity={tone === "light" ? "0.1" : "0.55"} />
+            <stop offset="100%" stopColor={tone === "light" ? "#ffffff" : "var(--color-midnight)"} stopOpacity="0" />
           </radialGradient>
         </defs>
 

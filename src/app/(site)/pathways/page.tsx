@@ -5,6 +5,7 @@ import { getPathwaySubjectAreas } from "@/lib/content-pages";
 import { pageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { PageHero } from "@/components/sections/page-hero";
+import { CINEMATIC } from "@/components/cinematic/media";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { PathwayCard } from "@/components/cards/pathway-card";
 import { Section } from "@/components/pages";
@@ -75,7 +76,7 @@ export default async function PathwaysPage({ searchParams }: { searchParams: Sea
 
   return (
     <>
-      <PageHero
+      <PageHero media={CINEMATIC.world}
         eyebrow="Pathways"
         title={
           <>

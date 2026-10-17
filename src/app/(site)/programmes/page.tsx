@@ -3,6 +3,7 @@ import { getProgrammes, getMessagingSettings } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { PROGRAMME_TYPES, PROGRAMME_TYPE_LABELS, type ProgrammeType } from "@/lib/enums";
 import { PageHero } from "@/components/sections/page-hero";
+import { CINEMATIC } from "@/components/cinematic/media";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { ProgrammeJourney } from "@/components/sections/programme-journey";
 import { ProgrammeCard } from "@/components/cards/programme-card";
@@ -42,7 +43,7 @@ export default async function ProgrammesPage() {
 
   return (
     <>
-      <PageHero
+      <PageHero media={CINEMATIC.learning}
         eyebrow="Programmes"
         title={
           <>

@@ -5,7 +5,7 @@ import { Suspense, lazy, useCallback, useEffect, useRef, useState } from "react"
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { GlobeFallback } from "./globe-fallback";
 import type { GlobeDestination } from "./geo";
-import type { GlobeTier } from "./globe";
+import type { GlobeTier, GlobeTone } from "./globe";
 import { cn } from "@/lib/utils";
 
 /**
@@ -58,7 +58,7 @@ function pickTier(): GlobeTier {
  *               that is also mounted, hidden, on large screens — it must never
  *               create a second WebGL context). Defaults to true: desktop gets 3D.
  */
-export function GlobeStage({ destinations, className, webgl = true }: { destinations: GlobeDestination[]; className?: string; webgl?: boolean }) {
+export function GlobeStage({ destinations, className, webgl = true, tone = "dark" }: { destinations: GlobeDestination[]; className?: string; webgl?: boolean; tone?: GlobeTone }) {
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [mode, setMode] = useState<Mode>("pending");
@@ -110,11 +110,11 @@ export function GlobeStage({ destinations, className, webgl = true }: { destinat
       style={mounted && !reduced ? { scale, opacity, y } : undefined}
     >
       {mode === "webgl" ? (
-        <Suspense fallback={<GlobeFallback destinations={destinations} />}>
-          <Globe destinations={destinations} active={inView} scroll={progress} tier={tier} onSelect={onSelect} />
+        <Suspense fallback={<GlobeFallback destinations={destinations} tone={tone} />}>
+          <Globe destinations={destinations} active={inView} scroll={progress} tier={tier} tone={tone} onSelect={onSelect} />
         </Suspense>
       ) : (
-        <GlobeFallback destinations={destinations} />
+        <GlobeFallback destinations={destinations} tone={tone} />
       )}
     </motion.div>
   );

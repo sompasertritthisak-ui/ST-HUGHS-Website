@@ -4,6 +4,7 @@ import { getInstitutionSettings } from "@/lib/content-pages";
 import { pageMetadata } from "@/lib/seo";
 import { BlockRenderer } from "@/components/blocks";
 import { PageHero } from "@/components/sections/page-hero";
+import { CINEMATIC } from "@/components/cinematic/media";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { PathwayTimeline } from "@/components/sections/pathway-timeline";
 import { Section, FactsTable, NextSteps } from "@/components/pages";
@@ -36,7 +37,7 @@ export default async function WhyPage() {
 
   return (
     <>
-      {heroBlocks.length ? <BlockRenderer blocks={heroBlocks} fallbackTitle={page?.title ?? "Why St Hugh's"} /> : <PageHero eyebrow="Why St Hugh's" title="Why Laos. Why SHV. Why global." lede="Evidence, not adjectives." />}
+      {heroBlocks.length ? <BlockRenderer blocks={heroBlocks} fallbackTitle={page?.title ?? "Why St Hugh's"} /> : <PageHero media={CINEMATIC.origin} eyebrow="Why St Hugh's" title="Why Laos. Why SHV. Why global." lede="Evidence, not adjectives." />}
 
       <section aria-label="Three acts" className="container-x pb-4">
         <ol className="grid gap-8 lg:grid-cols-3">

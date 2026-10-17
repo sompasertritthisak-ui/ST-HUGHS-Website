@@ -110,12 +110,10 @@ async function main() {
       valueJson: JSON.stringify({
         heroLine1: "From Laos.",
         heroLine2: "To the world.",
-        heroSupport:
-          "International education, university pathways and future-focused programmes designed to help students take their next step with confidence.",
+        heroSupport: "The first year of an international degree, taught in Vientiane. The degree, with a partner university abroad.",
         tagline: "Local start. Global future.",
         finalCtaTitle: "Your next chapter starts here.",
-        finalCtaBody:
-          "Whether you're planning your first step toward university, exploring an international pathway, or looking for a future beyond borders, St Hugh's College can help you understand the route ahead.",
+        finalCtaBody: "A free consultation checks your qualifications against the entry requirements and sets out your next step.",
         guidanceDisclaimer: "This is guidance to help you plan. It is not a formal admissions decision.",
         announcement: "",
       }),

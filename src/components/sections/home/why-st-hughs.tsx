@@ -24,7 +24,7 @@ function buildEvidence(inst: InstitutionSettings): Evidence[] {
   if (inst.ncukStudyCentre) {
     items.push({
       title: "An NCUK Study Centre",
-      body: `${inst.ncukSince ? `${inst.ncukSince} ` : ""}SHV delivers the NCUK International Foundation Year and International Year One in Vientiane, with progression to NCUK University Partners.`,
+      body: `${inst.ncukSince ? `${inst.ncukSince} ` : ""}SHV delivers NCUK programmes in Vientiane with progression to NCUK University Partners.`,
       source: "NCUK",
       href: "/programmes",
     });
@@ -32,14 +32,14 @@ function buildEvidence(inst: InstitutionSettings): Evidence[] {
 
   items.push({
     title: "English for Academic Purposes, built in",
-    body: "Both NCUK programmes include English for Academic Purposes as a taught module. NCUK University Partners accept it in place of IELTS for progression, so language preparation is part of the course rather than a separate hurdle.",
+    body: "Taught inside both NCUK programmes and accepted by NCUK University Partners in place of IELTS.",
     source: "NCUK",
     href: "/programmes",
   });
 
   items.push({
     title: "Start at home, then go",
-    body: "The first year is taught in Vientiane. Students and families take on the cost and distance of moving abroad only after the foundation is complete and a university place is confirmed.",
+    body: "The first year is taught in Vientiane; the move abroad comes once a university place is confirmed.",
     source: "Vientiane",
     href: "/pathways",
   });
@@ -55,7 +55,7 @@ function buildEvidence(inst: InstitutionSettings): Evidence[] {
 
   items.push({
     title: "A free consultation, first",
-    body: "Before anyone applies, an advisor checks qualifications against the published entry requirements and sets out a clear next step. It is guidance, not an admissions decision.",
+    body: "An advisor checks your qualifications against the entry requirements before you apply.",
     source: "Admissions",
     href: "/consultation",
   });
@@ -74,10 +74,7 @@ export function WhyStHughs({ institution, limit = 6 }: { institution: Institutio
             <Reveal>
               <p className="eyebrow eyebrow-rule">Why St Hugh&rsquo;s</p>
               <SplitHeading id="why-title" text="New, and built" accent="to be checked." accentClassName="text-blue" className="font-display mt-6 text-[clamp(2.25rem,4.6vw,3.75rem)] leading-[1.02] text-fg text-balance" />
-              <p className="mt-6 max-w-md text-lg leading-relaxed text-fg-muted text-pretty">
-                St Hugh&rsquo;s College is a young institution. What it offers can be verified line by line — authorisation, partnership, programme structure —
-                and every claim on this site carries its source.
-              </p>
+              <p className="mt-6 max-w-md text-lg leading-relaxed text-fg-muted text-pretty">Every claim on this site carries its source.</p>
               <div className="mt-8">
                 <Button href="/why-st-hughs" variant="ghost" arrow="right">
                   Read the full case

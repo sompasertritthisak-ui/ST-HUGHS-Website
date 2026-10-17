@@ -51,7 +51,7 @@ export function LoadingSequence({ line1, line2 }: { line1: string; line2: string
         id="shv-intro"
         suppressHydrationWarning
         aria-hidden
-        className="theme-dark pointer-events-none fixed inset-0 z-[90] flex flex-col items-center justify-center bg-bg text-fg"
+        className="pointer-events-none fixed inset-0 z-[90] flex flex-col items-center justify-center bg-bg text-fg"
       >
         <div className="container-x flex w-full max-w-[880px] flex-col gap-6">
           <div className="shv-intro-line h-px w-full bg-route" />

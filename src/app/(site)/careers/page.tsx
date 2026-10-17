@@ -4,6 +4,7 @@ import { getInstitutionSettings } from "@/lib/content-pages";
 import { pageMetadata } from "@/lib/seo";
 import { splitList } from "@/lib/utils";
 import { PageHero } from "@/components/sections/page-hero";
+import { CINEMATIC } from "@/components/cinematic/media";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { StoryCard } from "@/components/cards/story-card";
 import { Section, Prose, NextSteps } from "@/components/pages";
@@ -35,7 +36,7 @@ export default async function CareersPage() {
 
   return (
     <>
-      <PageHero
+      <PageHero media={CINEMATIC.finale}
         eyebrow="Careers and employability"
         title={
           <>

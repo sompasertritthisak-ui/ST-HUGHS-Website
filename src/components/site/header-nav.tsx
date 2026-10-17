@@ -57,29 +57,20 @@ export function HeaderNav({ items, audience }: { items: NavItem[]; audience: Nav
   }, [audienceOpen]);
 
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
-  // The homepage opens on the deep-blue hero: the bar is transparent with white type until the
-  // visitor scrolls. Everywhere else the site is white, so the bar is white glass from the start.
-  const overDarkHero = pathname === "/" && !scrolled && !open;
-
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-[var(--dur)]",
-        overDarkHero ? "theme-dark border-b border-transparent text-fg" : "glass-nav border-b border-line text-fg",
-      )}
-    >
+    <header className={cn("fixed inset-x-0 top-0 z-50 text-fg transition-[background-color,border-color,box-shadow] duration-[var(--dur)]", scrolled || open ? "glass-nav border-b border-line" : "bg-bg/95 border-b border-transparent")}>
       <div className="container-x flex h-[72px] items-center justify-between gap-6">
-        <Logo tone={overDarkHero ? "light" : "dark"} />
+        <Logo tone="dark" />
 
         <nav aria-label="Primary" className="hidden xl:block">
-          <ul className="flex items-center gap-6 2xl:gap-7">
+          <ul className="flex items-center gap-5 2xl:gap-6">
             {items.map((item) => (
               <li key={item.id}>
                 <Link
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={cn(
-                    "relative whitespace-nowrap py-2 text-[0.9375rem] text-fg-muted transition-colors duration-[var(--dur-fast)] hover:text-fg",
+                    "relative whitespace-nowrap py-2 text-[0.875rem] font-semibold text-fg/80 transition-colors duration-[var(--dur-fast)] hover:text-fg",
                     "after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-route after:transition-transform after:duration-[var(--dur)] after:ease-[var(--ease-out)] hover:after:scale-x-100",
                     isActive(item.href) && "text-fg after:scale-x-100",
                   )}
@@ -99,7 +90,7 @@ export function HeaderNav({ items, audience }: { items: NavItem[]; audience: Nav
               aria-expanded={audienceOpen}
               aria-haspopup="menu"
               onClick={() => setAudienceOpen((v) => !v)}
-              className="inline-flex h-10 items-center gap-1.5 whitespace-nowrap px-3 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-muted hover:text-fg"
+              className="inline-flex h-10 items-center gap-1.5 whitespace-nowrap px-3 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-fg/80 hover:text-fg"
             >
               I am a… <ChevronDown aria-hidden className={cn("size-3.5 transition-transform", audienceOpen && "rotate-180")} strokeWidth={1.75} />
             </button>

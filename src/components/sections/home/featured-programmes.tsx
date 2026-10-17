@@ -47,10 +47,7 @@ export async function FeaturedProgrammes({ programmes }: { programmes: Programme
             <SplitHeading id="programmes-title" text="Taught in Vientiane." accent="Recognised by universities abroad." accentClassName="text-blue" className="font-display mt-6 text-[clamp(2.25rem,4.6vw,3.75rem)] leading-[1.02] text-fg text-balance" />
           </Reveal>
           <Reveal className="lg:col-span-4 lg:col-start-9" delay={80}>
-            <p className="text-lg leading-relaxed text-fg-muted text-pretty">
-              Each programme is a first step on a route, not a course in isolation. Choose one to see where it leads.
-            </p>
-            <div className="mt-4">
+            <div className="lg:text-right">
               <Button href="/programmes" variant="ghost" arrow="right">
                 All programmes
               </Button>

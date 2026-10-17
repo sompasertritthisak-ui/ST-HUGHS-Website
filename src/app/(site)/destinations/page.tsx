@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getDestinations } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/sections/page-hero";
+import { CINEMATIC } from "@/components/cinematic/media";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { DestinationCard } from "@/components/cards/destination-card";
 import { Section } from "@/components/pages";
@@ -75,7 +76,7 @@ export default async function DestinationsPage() {
 
   return (
     <>
-      <PageHero
+      <PageHero media={CINEMATIC.world}
         eyebrow="Destinations"
         title={
           <>

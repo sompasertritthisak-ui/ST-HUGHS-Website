@@ -4,6 +4,7 @@ import { getInstitutionSettings } from "@/lib/content-pages";
 import { pageMetadata, educationalOrganizationJsonLd } from "@/lib/seo";
 import { BlockRenderer } from "@/components/blocks";
 import { PageHero } from "@/components/sections/page-hero";
+import { CINEMATIC } from "@/components/cinematic/media";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { JsonLd } from "@/components/site/json-ld";
 import { Section, FactsTable, Prose, PendingLine, SourceNote, NextSteps } from "@/components/pages";
@@ -31,7 +32,7 @@ export default async function AboutPage() {
 
   return (
     <>
-      {heroBlocks.length ? <BlockRenderer blocks={heroBlocks} fallbackTitle={page?.title ?? "About"} /> : <PageHero eyebrow="About SHV" title="St Hugh's College Vientiane" lede="A private college in Vientiane, authorised by the Lao Ministry of Education and Sports and operating as an NCUK Study Centre." />}
+      {heroBlocks.length ? <BlockRenderer blocks={heroBlocks} fallbackTitle={page?.title ?? "About"} /> : <PageHero media={CINEMATIC.origin} eyebrow="About SHV" title="St Hugh's College Vientiane" lede="A private college in Vientiane, authorised by the Lao Ministry of Education and Sports and operating as an NCUK Study Centre." />}
 
       <Section eyebrow="Institution" title="Authorisation and standing" lede="Trust is demonstrated: dates, authorisations and relationships, each with a source.">
         <FactsTable

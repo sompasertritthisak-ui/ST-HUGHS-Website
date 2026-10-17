@@ -3,6 +3,7 @@ import { getFacilities, getContactSettings, getFaqs } from "@/lib/content";
 import { pageMetadata, faqPageJsonLd } from "@/lib/seo";
 import { FACILITY_CATEGORIES, FACILITY_CATEGORY_LABELS } from "@/lib/enums";
 import { PageHero } from "@/components/sections/page-hero";
+import { CINEMATIC } from "@/components/cinematic/media";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { JsonLd } from "@/components/site/json-ld";
 import { Section, VerificationNote } from "@/components/pages";
@@ -26,7 +27,7 @@ export default async function CampusPage() {
 
   return (
     <>
-      <PageHero
+      <PageHero media={CINEMATIC.campus}
         eyebrow="Campus"
         title={
           <>

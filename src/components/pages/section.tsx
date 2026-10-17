@@ -1,12 +1,13 @@
 import { cn } from "@/lib/utils";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { RouteLine } from "@/components/ui/route-line";
+import { SplitHeading } from "@/components/ui/split-heading";
 import type { ReactNode } from "react";
 
 /**
  * Editorial section on a 12-column grid: a sticky label column (4) and an
  * offset content column (7, starting at 6). Sections render as full-bleed white
- * bands (brand: deep blue hero, white body) and every section opens on the red
+ * bands; a string title rises word by word, and every section opens on the red
  * route line so the page reads as one continuous journey.
  */
 export function Section({
@@ -32,6 +33,15 @@ export function Section({
   layout?: "split" | "full";
 }) {
   const headingId = id ? `${id}-title` : undefined;
+  const headingClass = "font-display text-[clamp(2rem,3.6vw,3rem)] leading-[1.02] text-fg text-balance";
+  const heading =
+    typeof title === "string" ? (
+      <SplitHeading as="h2" id={headingId} text={title} className={headingClass} />
+    ) : (
+      <h2 id={headingId} className={headingClass}>
+        {title}
+      </h2>
+    );
   return (
     <section id={id} aria-labelledby={headingId} className={cn("theme-light bg-bg text-fg scroll-mt-24", className)}>
       <div className="container-x">
@@ -41,9 +51,7 @@ export function Section({
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-28">
               {eyebrow ? <Eyebrow className="mb-5">{eyebrow}</Eyebrow> : null}
-              <h2 id={headingId} className="font-display text-[clamp(2rem,3.6vw,3rem)] leading-[1.02] text-fg text-balance">
-                {title}
-              </h2>
+              {heading}
               {lede ? <p className="mt-5 max-w-md leading-relaxed text-fg-muted text-pretty">{lede}</p> : null}
               {aside ? <div className="mt-6">{aside}</div> : null}
             </div>
@@ -55,9 +63,7 @@ export function Section({
           <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-7">
               {eyebrow ? <Eyebrow className="mb-5">{eyebrow}</Eyebrow> : null}
-              <h2 id={headingId} className="font-display text-[clamp(2rem,3.6vw,3rem)] leading-[1.02] text-fg text-balance">
-                {title}
-              </h2>
+              {heading}
             </div>
             {lede || aside ? (
               <div className="lg:col-span-4 lg:col-start-9">

@@ -95,7 +95,6 @@ export default async function HomePage() {
         eyebrow="The programmes"
         title="Taught here."
         accent="Recognised there."
-        body="Seminar rooms in Vientiane where the first year of an international degree is taught in English, to the standard the partner universities set."
         media={CINEMATIC.learning}
         cta={{ href: "/programmes", label: "See the programmes" }}
       />
@@ -109,7 +108,6 @@ export default async function HomePage() {
         eyebrow="Destinations"
         title="Where the line"
         accent="leads."
-        body="Ten countries, each reached by a published route. The line that starts on the terrace in Vientiane lands at a partner university."
         media={CINEMATIC.world}
         cta={{ href: "/destinations", label: "Every destination" }}
         align="center"
@@ -124,14 +122,13 @@ export default async function HomePage() {
         eyebrow="A year in Vientiane"
         title="A year at home,"
         accent="lived fully."
-        body="Small classes, close support and a city you already know, before the move abroad."
         media={CINEMATIC.campus}
         cta={{ href: "/student-life", label: "Student life at SHV" }}
       />
       <LifeMosaic />
 
       {/* 6 — Trust */}
-      <WhyStHughs institution={institution} limit={4} />
+      <WhyStHughs institution={institution} limit={3} />
 
       {/* 7 — Start here */}
       <FinalCta />

@@ -33,6 +33,45 @@ const PALETTE = {
   haze: "#3352C9", // atmosphere — brand blue, lifted for an additive glow
 } as const;
 
+export type GlobeTone = "dark" | "light";
+
+/**
+ * Two renderings of the same globe. `dark`: the original deep-blue sphere with white land for a
+ * midnight ground. `light`: a white sphere with brand-blue land, graticule and rim, a soft blue
+ * halo (normal blending — additive glow vanishes on white) and no star field, for the white hero.
+ */
+const TONES = {
+  dark: {
+    sphereDeep: PALETTE.midnight,
+    sphereBase: PALETTE.navy,
+    rim: PALETTE.platinum,
+    glow: PALETTE.haze,
+    glowAdditive: true,
+    graticule: PALETTE.platinum,
+    graticuleOpacity: 0.045,
+    land: PALETTE.white,
+    stars: true,
+    node: PALETTE.brandSoft,
+    nodeMuted: PALETTE.platinum,
+    packet: PALETTE.brandSoft,
+  },
+  light: {
+    sphereDeep: "#D9E1F6",
+    sphereBase: "#FFFFFF",
+    rim: "#103090",
+    glow: "#8FA6EE",
+    glowAdditive: false,
+    graticule: "#103090",
+    graticuleOpacity: 0.09,
+    land: "#103090",
+    stars: false,
+    node: PALETTE.brand,
+    nodeMuted: "#7D8AAE",
+    packet: PALETTE.brand,
+  },
+} as const;
+type Tone = (typeof TONES)[GlobeTone];
+
 const R = 1;
 const CAMERA_DISTANCE = 3.1;
 const SCROLL_ROTATE = 0.5; // radians of extra turn across the hero's scroll range
@@ -218,12 +257,14 @@ function DestinationNode({
   appearAt,
   onSelect,
   onHover,
+  pal,
 }: {
   destination: GlobeDestination;
   position: THREE.Vector3;
   appearAt: number;
   onSelect: (slug: string) => void;
   onHover: (hovering: boolean) => void;
+  pal: Tone;
 }) {
   const group = useRef<THREE.Group>(null);
   const core = useRef<THREE.Group>(null);
@@ -260,7 +301,7 @@ function DestinationNode({
       <group ref={core} scale={0}>
         <mesh>
           <sphereGeometry args={[0.014, 16, 16]} />
-          <meshBasicMaterial color={destination.verified ? PALETTE.brandSoft : PALETTE.platinum} toneMapped={false} />
+          <meshBasicMaterial color={destination.verified ? pal.node : pal.nodeMuted} toneMapped={false} />
         </mesh>
         <mesh>
           <sphereGeometry args={[0.03, 12, 12]} />
@@ -371,10 +412,12 @@ function Scene({
   paused,
   onSelect,
   onNodeHover,
+  pal,
 }: {
   destinations: GlobeDestination[];
   scroll?: MotionValue<number>;
   tier: GlobeTier;
+  pal: Tone;
   /** True while the pointer is down on the globe or hovering a node — auto-rotation waits. */
   paused: boolean;
   onSelect: (slug: string) => void;
@@ -391,12 +434,12 @@ function Scene({
         vertexShader: sphereVertex,
         fragmentShader: sphereFragment,
         uniforms: {
-          uDeep: { value: new THREE.Color(PALETTE.midnight) },
-          uBase: { value: new THREE.Color(PALETTE.navy) },
-          uRim: { value: new THREE.Color(PALETTE.platinum) },
+          uDeep: { value: new THREE.Color(pal.sphereDeep) },
+          uBase: { value: new THREE.Color(pal.sphereBase) },
+          uRim: { value: new THREE.Color(pal.rim) },
         },
       }),
-    [],
+    [pal],
   );
   const sphereGeometry = useMemo(() => new THREE.SphereGeometry(R, 64, 48), []);
 
@@ -405,20 +448,20 @@ function Scene({
       new THREE.ShaderMaterial({
         vertexShader: sphereVertex,
         fragmentShader: glowFragment,
-        uniforms: { uColor: { value: new THREE.Color(PALETTE.haze) } },
+        uniforms: { uColor: { value: new THREE.Color(pal.glow) } },
         side: THREE.BackSide,
         transparent: true,
         depthWrite: false,
-        blending: THREE.AdditiveBlending,
+        blending: pal.glowAdditive ? THREE.AdditiveBlending : THREE.NormalBlending,
       }),
-    [],
+    [pal],
   );
   const glowGeometry = useMemo(() => new THREE.SphereGeometry(R * 1.2, 48, 36), []);
 
   const graticule = useMemo(() => buildGraticule(R + 0.002), []);
   const graticuleMaterial = useMemo(
-    () => new THREE.LineBasicMaterial({ color: PALETTE.platinum, transparent: true, opacity: 0.045, depthWrite: false }),
-    [],
+    () => new THREE.LineBasicMaterial({ color: pal.graticule, transparent: true, opacity: pal.graticuleOpacity, depthWrite: false }),
+    [pal],
   );
 
   const landDots = useMemo(() => buildLandDots(tier === "high" ? 1 : 2), [tier]);
@@ -428,14 +471,14 @@ function Scene({
         vertexShader: dotsVertex,
         fragmentShader: dotsFragment,
         uniforms: {
-          uColor: { value: new THREE.Color(PALETTE.white) },
+          uColor: { value: new THREE.Color(pal.land) },
           uSize: { value: tier === "high" ? 2.1 : 2.6 },
           uPixelRatio: { value: 1 },
         },
         transparent: true,
         depthWrite: false,
       }),
-    [tier],
+    [tier, pal],
   );
   useEffect(() => {
     landMaterial.uniforms.uPixelRatio.value = dpr;
@@ -496,7 +539,7 @@ function Scene({
 
   return (
     <>
-      <points geometry={stars} material={starMaterial} renderOrder={-2} />
+      {pal.stars ? <points geometry={stars} material={starMaterial} renderOrder={-2} /> : null}
       <group ref={spin}>
         <mesh geometry={glowGeometry} material={glowMaterial} renderOrder={-1} />
         <mesh geometry={sphereGeometry} material={sphereMaterial} />
@@ -516,7 +559,7 @@ function Scene({
               renderOrder={3}
             >
               <sphereGeometry args={[0.011, 10, 10]} />
-              <meshBasicMaterial color={PALETTE.brandSoft} toneMapped={false} />
+              <meshBasicMaterial color={pal.packet} toneMapped={false} />
             </mesh>
             <DestinationNode
               destination={destinations[i]}
@@ -524,6 +567,7 @@ function Scene({
               appearAt={a.delay + ARC_DRAW_SECONDS}
               onSelect={onSelect}
               onHover={onNodeHover}
+              pal={pal}
             />
           </group>
         ))}
@@ -568,14 +612,17 @@ export function Globe({
   active = true,
   scroll,
   tier = "high",
+  tone = "dark",
   onSelect,
 }: {
   destinations: GlobeDestination[];
   active?: boolean;
   scroll?: MotionValue<number>;
   tier?: GlobeTier;
+  tone?: GlobeTone;
   onSelect?: (slug: string) => void;
 }) {
+  const pal = TONES[tone];
   const [hoveringNode, setHoveringNode] = useState(false);
   const [dragging, setDragging] = useState(false);
   return (
@@ -598,6 +645,7 @@ export function Globe({
         paused={hoveringNode || dragging}
         onSelect={onSelect ?? (() => undefined)}
         onNodeHover={setHoveringNode}
+        pal={pal}
       />
       <Controls dragging={dragging} onDraggingChange={setDragging} />
     </Canvas>

@@ -43,9 +43,7 @@ export async function LifeMosaic() {
             <Eyebrow className="mb-5">Life at SHV</Eyebrow>
             <SplitHeading id="life-title" text="Real classrooms. Real partners." accent="Real students." accentClassName="text-blue" className="font-display text-[clamp(2.25rem,4.6vw,3.75rem)] leading-[1.02] text-fg text-balance" />
           </div>
-          <p className="max-w-md text-fg-muted">
-            Every photograph here is from St Hugh&apos;s College Vientiane or its partner universities. No stock imagery, no generated faces.
-          </p>
+          <p className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-fg-subtle">Real photographs · No stock imagery</p>
         </div>
 
         <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-12 lg:auto-rows-[minmax(220px,auto)]">

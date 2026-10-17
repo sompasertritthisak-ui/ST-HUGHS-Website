@@ -3,6 +3,7 @@ import { getProgrammes, getDestinations, getFacilities, getFaqs, getContactSetti
 import { getInstitutionSettings } from "@/lib/content-pages";
 import { pageMetadata, faqPageJsonLd } from "@/lib/seo";
 import { PageHero } from "@/components/sections/page-hero";
+import { CINEMATIC } from "@/components/cinematic/media";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { JsonLd } from "@/components/site/json-ld";
 import { ProgrammeCard } from "@/components/cards/programme-card";
@@ -24,7 +25,7 @@ export default async function InternationalStudentsPage() {
 
   return (
     <>
-      <PageHero
+      <PageHero media={CINEMATIC.world}
         eyebrow="International students"
         title={
           <>

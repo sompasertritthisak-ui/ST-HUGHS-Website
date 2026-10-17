@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
@@ -17,25 +18,28 @@ const STEPS = [
     n: "01",
     place: "Vientiane",
     title: "Year one, at home",
-    body: "Begin an NCUK International Foundation Year or International Year One at St Hugh's. English for Academic Purposes is taught inside the programme and accepted by NCUK University Partners in place of IELTS.",
+    body: "An NCUK foundation year or Year One, taught in English in Vientiane.",
     href: "/programmes",
     cta: "The programmes",
+    image: { src: "/media/students/shv-classroom-teacher.jpg", alt: "A class in session at St Hugh's College Vientiane", position: "50% 40%" },
   },
   {
     n: "02",
     place: "Abroad",
     title: "Progress to a partner university",
-    body: "Pass, and the qualification carries you into a degree abroad with a partner university. Every destination below is a route St Hugh's has published, and the list grows only as partnerships are confirmed.",
+    body: "Pass, and the qualification takes you to a degree abroad.",
     href: "/destinations",
     cta: "The destinations",
+    image: { src: "/media/cinematic/poster-world.jpg", alt: "", position: "50% 22%" },
   },
   {
     n: "03",
     place: "Anywhere",
     title: "Graduate, then go further",
-    body: "An internationally recognised degree, a network in two countries, and the independence that comes from making the move in stages rather than all at once.",
+    body: "An internationally recognised degree, and a career anywhere.",
     href: "/careers",
     cta: "Careers & employability",
+    image: { src: "/media/cinematic/poster-finale.jpg", alt: "", position: "50% 60%" },
   },
 ] as const;
 
@@ -87,11 +91,7 @@ export function RouteJourney({ destinations, counts }: { destinations: JourneyDe
             <SplitHeading id="journey-title" text="One year at home." accent="Then the world." accentClassName="italic text-blue" className="font-display mt-6 text-[clamp(2.5rem,5.4vw,5rem)] leading-[0.98] text-fg text-balance" />
           </div>
           <div className="col-span-12 lg:col-span-4 lg:col-start-9">
-            <p className="text-lg leading-relaxed text-fg-muted text-pretty">
-              St Hugh&rsquo;s is an NCUK Study Centre: the first year of an international degree is taught in Vientiane, and the degree itself is completed with a
-              partner university abroad.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 lg:justify-end">
               <Magnetic>
                 <Button href="/consultation" arrow="right">
                   Book a free consultation
@@ -114,13 +114,16 @@ export function RouteJourney({ destinations, counts }: { destinations: JourneyDe
             <li key={s.n} className="rj-step group relative pl-10 md:pl-0">
               <span aria-hidden className="absolute left-0 top-[1px] size-[15px] rounded-full border-2 border-route bg-bg transition-[background-color,transform] duration-[var(--dur)] group-hover:scale-125 group-hover:bg-route md:relative md:block" />
               <div className="md:mt-7">
+                <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-[var(--radius)] bg-bg-hover">
+                  <Image src={s.image.src} alt={s.image.alt} fill sizes="(min-width:768px) 30vw, 90vw" className="object-cover transition-transform duration-[900ms] ease-[var(--ease-out)] group-hover:scale-[1.05]" style={{ objectPosition: s.image.position }} />
+                </div>
                 <p className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-brand-soft">
                   <span className="tabular">{s.n}</span>
                   <span className="mx-2 text-fg-subtle">·</span>
                   {s.place}
                 </p>
                 <h3 className="font-display mt-3 text-[clamp(1.75rem,2.6vw,2.5rem)] leading-[1.05] text-fg text-balance transition-colors duration-[var(--dur)] group-hover:text-blue">{s.title}</h3>
-                <p className="mt-4 max-w-sm text-[1.0625rem] leading-relaxed text-fg-muted">{s.body}</p>
+                <p className="mt-3 max-w-sm text-[1.0625rem] leading-relaxed text-fg-muted">{s.body}</p>
                 <Link href={s.href} className="group mt-5 inline-flex items-center gap-2 text-[0.9375rem] text-fg">
                   {s.cta}
                   <span aria-hidden className="h-px w-6 bg-route transition-[width] duration-[var(--dur)] group-hover:w-10" />

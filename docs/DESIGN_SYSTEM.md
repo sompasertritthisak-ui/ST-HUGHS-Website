@@ -16,8 +16,10 @@ reasons to trust. A university partner arrives asking "is this institution serio
 confirmed ticket.
 
 **Visual language** — White is the primary colour; deep brand blue and brand red are the accents (the
-Lao flag's three colours, with white as the ground). Deep blue appears only where the cinema needs it:
-the hero behind the globe, the three chapter openers, the closing scene and the footer. Red is the
+Lao flag's three colours, with white as the ground). The hero is white too: the 3D globe renders in
+its light tone (white sphere, brand-blue land and rim, soft blue halo, no stars). Deep blue appears
+only inside the cinema: the three chapter openers, the closing scene, the page-hero frames on
+sub-pages, and the footer. Red is the
 stroke: eyebrows, rules, nodes, numbers, the primary button, the thin wayfinding band under the hero.
 The 6px red·blue·red "flag stripe" marks the seam into the closing scene and the footer. Editorial
 serif display set large and quiet; institutional sans for everything readable; mono for
@@ -46,9 +48,11 @@ Pathway Explorer.
 used where scroll should drive the picture: hero depth on exit (`HeroMotion`), the journey line, chips
 and counters (`RouteJourney`), and the three pinned `CinematicScene` chapter openers (backdrop
 push-in, title rising word by word out of depth, copy lifting away). Cards tilt a few degrees under
-the pointer (`Tilt`); primary calls to action lean toward it (`Magnetic`). Every act's heading is a
-`SplitHeading`: words rise one after another the first time the heading scrolls into view, with the
-closing phrase in blue (or italic red on dark). Supporting copy uses the CSS `Reveal`. Every effect starts from the server-rendered
+the pointer (`Tilt`); primary calls to action lean toward it (`Magnetic`). Every heading on the site — homepage
+acts, `PageHero` titles and `Section` titles on sub-pages — is a `SplitHeading`: words rise one after
+another the first time the heading scrolls into view, with the closing phrase in blue (or italic red
+on dark). Sub-pages open with a cinematic frame (`PageHero media`) from the same generated world as the
+homepage. Supporting copy uses the CSS `Reveal`. Every effect starts from the server-rendered
 final state and is skipped under `prefers-reduced-motion`. Film grain (`grain`) sits on the large
 blue and red fields.
 
@@ -105,8 +109,8 @@ Red text on blue is always `brand-soft` (#FF8A85); true red on blue is reserved 
 ### Type
 | Role | Family | Notes |
 |---|---|---|
-| Display | Cormorant Garamond 300/400/500 + italic | ≥ 40px only. Tight tracking `-0.01em`, line-height 0.95–1.05 |
-| Sans | IBM Plex Sans 400/500/600 | body 16–18px, line-height 1.6; UI 14–15px |
+| Display | Cormorant Garamond 600 (400–700 loaded) + italic | ≥ 40px only. Tight tracking `-0.01em`, line-height 0.95–1.05. Headings are set bold on purpose |
+| Sans | IBM Plex Sans 400/500/600/700 | body 16–18px, line-height 1.6; UI 14–15px; menu items 600 |
 | Mono | IBM Plex Mono 400/500 | eyebrows, route codes, durations, statuses; uppercase, tracking `0.14em`, 11–12px |
 
 Scale (rem): 0.75, 0.875, 1, 1.125, 1.25, 1.5, 2, 2.5, 3.25, 4.25, 5.5, clamp() for display.
