@@ -15,6 +15,28 @@ director) and for whoever maintains the code. No terminal is needed on the Cloud
 Why not Vercel: on 17 Sept 2026 we measured from Vientiane (Lao Telecom) that HTTPS to any
 `*.vercel.app` name stalls during the TLS handshake, while Cloudflare answers in under 0.1 s.
 
+## 0a. Always-on draft for the team (Railway, 15 minutes, no IT needed)
+A named preview that stays up without anyone's laptop, for management and team feedback while the
+college's Cloudflare account is being arranged. Railway runs the app straight from GitHub and loads
+normally from Lao Telecom (tested 17 Oct 2026). Cost: the Hobby plan, USD 5 per month, which includes
+enough usage for a draft site.
+
+1. https://railway.com → **Login with GitHub** (the account that owns `ST-HUGHS-Website`).
+2. **New Project → Deploy from GitHub repo → ST-HUGHS-Website**. Railway reads `railway.json` and
+   `nixpacks.toml` from the repository: build `pnpm build:server`, start `pnpm start`.
+3. Before the first build finishes, open the service → **Variables** and add:
+   - `DATABASE_URL` = the Neon connection string (the same database as before; content is already in it)
+   - `AUTH_SECRET` = 32+ random characters
+   - `AUTH_TRUST_HOST` = `true`
+   - `APPLICATION_URL` = the public address from step 4 (come back and set it once known)
+   Do not add `SEED_ON_BUILD`; the database is populated.
+4. Service → **Settings → Networking → Generate Domain**, then click the pencil and rename it to
+   `previewsthughsdraft` → the address becomes `https://previewsthughsdraft.up.railway.app`.
+   Set `APPLICATION_URL` to that address and redeploy once (Deployments → ⋯ → Redeploy).
+5. Share the address. Every push to `main` redeploys automatically; the CMS at `/admin/login` works
+   with the same admin account. Uploads on Railway are stored on the service's disk and are lost on
+   redeploy, so treat media uploads there as temporary until the Cloudflare/R2 setup.
+
 ## 0. Draft site first (your own Cloudflare account, no IT needed)
 To show management a working draft before the college account is involved, run the same setup on
 a personal Cloudflare account. Everything below applies unchanged; the only differences:

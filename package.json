@@ -20,7 +20,8 @@
     "cf:build": "node scripts/db-prepare.mjs && opennextjs-cloudflare build",
     "cf:preview": "opennextjs-cloudflare preview",
     "cf:deploy": "node scripts/db-prepare.mjs && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "cf:upload": "opennextjs-cloudflare upload"
+    "cf:upload": "opennextjs-cloudflare upload",
+    "build:server": "node scripts/db-prepare.mjs && next build --turbopack"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
