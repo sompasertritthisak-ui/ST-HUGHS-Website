@@ -66,6 +66,7 @@ export function DragScroll({ children, className, ariaLabel }: { children: React
           if (e.key === "ArrowRight") ref.current.scrollBy({ left: 320, behavior: "smooth" });
           if (e.key === "ArrowLeft") ref.current.scrollBy({ left: -320, behavior: "smooth" });
         }}
+        data-lenis-prevent
         className={cn(
           "flex snap-x gap-6 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:gap-8 focus-visible:outline-none",
           dragging ? "cursor-grabbing snap-none select-none" : "cursor-grab snap-mandatory",

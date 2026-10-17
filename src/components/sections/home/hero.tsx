@@ -3,6 +3,8 @@ import { GlobeStage } from "@/components/three/globe-stage";
 import { ORIGIN, type GlobeDestination } from "@/components/three/geo";
 import type { MessagingSettings } from "@/lib/content";
 import { HeroMotion } from "./hero-motion";
+import { BackdropVideo } from "@/components/cinematic/backdrop-video";
+import { CINEMATIC } from "@/components/cinematic/media";
 
 const WORD_BASE_DELAY = 480; // let the loading plate begin to dissolve first
 const WORD_STAGGER = 40;
@@ -42,6 +44,10 @@ export function Hero({
   return (
     <section aria-labelledby="hero-title" className="grain relative overflow-hidden">
       <HeroMotion />
+      {/* Living backdrop: the terrace at blue hour, kept dark so the headline and globe lead */}
+      <BackdropVideo media={CINEMATIC.origin} opacity={0.55} className="z-0" />
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(90deg,rgb(11_19_80/0.96)_0%,rgb(11_19_80/0.82)_42%,rgb(11_19_80/0.35)_100%)]" />
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-40 bg-gradient-to-t from-midnight to-transparent" />
       {/* Globe — the visual centre: ~60vw, right-anchored, vertically centred, bleeding ~8vw past the edge.
           Interactive (drag / click) wherever the copy column does not sit above it. */}
       <div data-hero-globe className="absolute inset-y-0 right-[-8vw] z-[1] hidden w-[min(60vw,calc(100dvh-72px))] items-center lg:flex" aria-hidden>

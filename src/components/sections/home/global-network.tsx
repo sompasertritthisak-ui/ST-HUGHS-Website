@@ -5,6 +5,7 @@ import { UniversityCard } from "@/components/cards/university-card";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/ui/reveal";
+import { Tilt } from "@/components/ui/tilt";
 import { VerificationBadge } from "@/components/ui/verification-badge";
 
 type UniversityWithRelations = University & { logo?: Media | null; destination?: Destination | null };
@@ -101,7 +102,9 @@ export function GlobalNetwork({ destinations, universities }: { destinations: De
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {universities.map((u, i) => (
                 <Reveal key={u.id} delay={i * 40}>
-                  <UniversityCard university={u} className="h-full" />
+                  <Tilt className="h-full rounded-[var(--radius)]">
+                    <UniversityCard university={u} className="h-full" />
+                  </Tilt>
                 </Reveal>
               ))}
             </div>

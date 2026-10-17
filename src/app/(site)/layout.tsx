@@ -3,6 +3,7 @@ import { SiteFooter } from "@/components/site/footer";
 import { ProgressLine } from "@/components/site/progress-line";
 import { PageViewTracker } from "@/components/site/page-view-tracker";
 import { AnalyticsDelegation } from "@/components/site/analytics-delegation";
+import { SmoothScroll } from "@/components/site/smooth-scroll";
 
 /** Public pages are CMS-driven: on-demand revalidation from admin actions plus a 5-minute safety net. */
 export const revalidate = 300;
@@ -16,6 +17,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       >
         Skip to main content
       </a>
+      <SmoothScroll />
       <ProgressLine />
       <SiteHeader />
       <main id="main" className="pt-[72px]">

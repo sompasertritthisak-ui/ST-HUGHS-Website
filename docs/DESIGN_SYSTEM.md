@@ -40,10 +40,22 @@ question is removed.
 routes extend outward to the nine approved destinations, then the globe resolves into the
 Pathway Explorer.
 
-**Motion layer** — GSAP ScrollTrigger is used only where scroll should drive the drawing of the
-route: hero depth on exit (`HeroMotion`), the journey line, chips and counters (`RouteJourney`).
-Everything else is the CSS `Reveal`. Every GSAP effect starts from the server-rendered final state and
-is skipped under `prefers-reduced-motion`. Film grain (`grain`) sits on the large blue and red fields.
+**Motion layer** — Lenis inertial scrolling (pointer devices only) drives GSAP ScrollTrigger. GSAP is
+used where scroll should drive the picture: hero depth on exit (`HeroMotion`), the journey line, chips
+and counters (`RouteJourney`), and the three pinned `CinematicScene` chapter openers (backdrop
+push-in, title rising word by word out of depth, copy lifting away). Cards tilt a few degrees under
+the pointer (`Tilt`). Everything else is the CSS `Reveal`. Every effect starts from the server-rendered
+final state and is skipped under `prefers-reduced-motion`. Film grain (`grain`) sits on the large
+blue and red fields.
+
+**Cinematic backdrops** — One generated hero still (blue hour, white campus terrace in Vientiane,
+students in silhouette, the red route line arcing to distant cities) is the visual reference for every
+clip, so the look is identical across the page: hero (origin loop), programmes chapter (seminar room),
+final call to action (the same terrace at dawn). The destinations and campus chapters use crops of the
+still with a slow drift. Clips are silent 8 s loops, requested only near the viewport, replaced by
+their poster under reduced motion or reduced data. Rule kept: generated imagery is atmosphere; it is
+never presented as a photograph of actual students, and real photography remains the only source for
+people on the site.
 
 **The MEMORY moment** — The thin red route line that runs through the whole site: it is the red rule
 under the wordmark in the logo, extended. It appears in the hero, in the pathway timeline, under the

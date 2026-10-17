@@ -21,6 +21,8 @@ import { LifeMosaic } from "@/components/sections/home/life-mosaic";
 import { Milestones } from "@/components/sections/home/milestones";
 import { FlagStripe } from "@/components/ui/flag-stripe";
 import { SectionSpine } from "@/components/site/section-spine";
+import { CinematicScene } from "@/components/cinematic/cinematic-scene";
+import { CINEMATIC } from "@/components/cinematic/media";
 
 const TITLE = "St Hugh's College Vientiane — International university pathways from Laos";
 const DESCRIPTION =
@@ -117,17 +119,51 @@ export default async function HomePage() {
       {/* 4 — Trust */}
       <WhyStHughs institution={institution} />
 
-      {/* 5 — What you study */}
+      {/* 5 — What you study (chapter opener, then the programmes) */}
+      <CinematicScene
+        id="chapter-programmes"
+        index={1}
+        total={3}
+        eyebrow="The programmes"
+        title="Taught here."
+        accent="Recognised there."
+        body="Seminar rooms in Vientiane where the first year of an international degree is taught in English, to the standard the partner universities set."
+        media={CINEMATIC.learning}
+        cta={{ href: "/programmes", label: "See the programmes" }}
+      />
       <FeaturedProgrammes programmes={data.programmes} />
 
       {/* 6 — Your pathway (the tool) */}
       <FlagStripe />
       <ExplorerTeaser pathways={data.pathways} />
 
-      {/* 7 — Destinations and universities */}
+      {/* 7 — Destinations and universities (chapter opener, then the board) */}
+      <CinematicScene
+        id="chapter-destinations"
+        index={2}
+        total={3}
+        eyebrow="Destinations"
+        title="Where the line"
+        accent="leads."
+        body="Ten countries, each reached by a published route. The line that starts on the terrace in Vientiane lands at a partner university."
+        media={CINEMATIC.world}
+        cta={{ href: "/destinations", label: "Every destination" }}
+        align="center"
+      />
       <GlobalNetwork destinations={data.destinations} universities={data.universities} />
 
-      {/* 8 — Student life */}
+      {/* 8 — Student life (chapter opener, then the detail) */}
+      <CinematicScene
+        id="chapter-campus"
+        index={3}
+        total={3}
+        eyebrow="A year in Vientiane"
+        title="A year at home,"
+        accent="lived fully."
+        body="Small classes, close support and a city you already know, before the move abroad."
+        media={CINEMATIC.campus}
+        cta={{ href: "/student-life", label: "Student life at SHV" }}
+      />
       <StudentExperience facilities={data.facilities} />
 
       {/* 9 — Campus */}

@@ -3,6 +3,7 @@ import { PathwayCard } from "@/components/cards/pathway-card";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/ui/reveal";
+import { Tilt } from "@/components/ui/tilt";
 import type { PathwayWithRelations } from "@/lib/content";
 
 /** The explorer's step chain — structural UI labels, not content. */
@@ -96,7 +97,9 @@ export function ExplorerTeaser({ pathways }: { pathways: PathwayWithRelations[] 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {featured.map((p, i) => (
                 <Reveal key={p.id} delay={i * 40}>
-                  <PathwayCard pathway={p} className="h-full" />
+                  <Tilt className="h-full rounded-[var(--radius)]">
+                    <PathwayCard pathway={p} className="h-full" />
+                  </Tilt>
                 </Reveal>
               ))}
             </div>
