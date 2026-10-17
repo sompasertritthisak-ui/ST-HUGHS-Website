@@ -99,14 +99,16 @@ function Scene({ destinations }: { destinations: GlobeDestination[] }) {
   });
 
   const milestonePositions = useMemo(() => MILESTONES.map((m) => curve.getPoint(m.t)), [curve]);
+  // Destinations float above the far half of the ribbon in three staggered rows, so none falls
+  // into the copy area at the bottom-left and neighbours never overlap.
   const chipPositions = useMemo(
     () =>
       destinations.map((_, i) => {
         const n = Math.max(1, destinations.length - 1);
-        const t = 0.46 + (i / n) * 0.5;
+        const t = 0.4 + (i / n) * 0.56;
         const p = curve.getPoint(t);
-        const side = i % 2 === 0 ? 1 : -1;
-        return new THREE.Vector3(p.x + side * (0.7 + (i % 3) * 0.45), p.y + side * (0.95 + (i % 3) * 0.25), p.z + 0.4);
+        const row = i % 3;
+        return new THREE.Vector3(p.x - 0.9 + row * 0.35, p.y + 0.9 + row * 0.62, p.z + 0.3);
       }),
     [curve, destinations],
   );
