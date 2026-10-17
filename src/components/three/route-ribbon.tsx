@@ -105,10 +105,10 @@ function Scene({ destinations }: { destinations: GlobeDestination[] }) {
     () =>
       destinations.map((_, i) => {
         const n = Math.max(1, destinations.length - 1);
-        const t = 0.4 + (i / n) * 0.56;
+        const t = 0.38 + (i / n) * 0.5;
         const p = curve.getPoint(t);
         const row = i % 3;
-        return new THREE.Vector3(p.x - 0.9 + row * 0.35, p.y + 0.9 + row * 0.62, p.z + 0.3);
+        return new THREE.Vector3(p.x - 0.8 + row * 0.3, p.y + 0.5 + row * 0.42, p.z + 0.3);
       }),
     [curve, destinations],
   );
