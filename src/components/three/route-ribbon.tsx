@@ -309,7 +309,7 @@ export function RouteRibbon({ destinations, className }: { destinations: GlobeDe
           gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
           style={{ background: "transparent", width: "100%", height: "100%" }}
         >
-          <Scene destinations={destinations} />
+          <Scene destinations={destinations} spin={spin} />
         </Canvas>
       ) : null}
     </div>
