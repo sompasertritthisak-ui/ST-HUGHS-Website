@@ -5,7 +5,7 @@
     "buildCommand": "pnpm build:server"
   },
   "deploy": {
-    "startCommand": "pnpm start",
+    "startCommand": "pnpm start:server",
     "healthcheckPath": "/robots.txt",
     "healthcheckTimeout": 300,
     "restartPolicyType": "ON_FAILURE",

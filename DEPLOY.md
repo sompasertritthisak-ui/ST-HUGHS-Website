@@ -29,7 +29,9 @@ enough usage for a draft site.
    - `AUTH_SECRET` = 32+ random characters
    - `AUTH_TRUST_HOST` = `true`
    - `APPLICATION_URL` = the public address from step 4 (come back and set it once known)
-   Do not add `SEED_ON_BUILD`; the database is populated.
+   Also add `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD` (your choice): on the first start with an
+   empty database the server loads the verified content and creates this admin account by itself
+   (`scripts/start.mjs`). A database that already has users is never re-seeded.
 4. Service → **Settings → Networking → Generate Domain**, then click the pencil and rename it to
    `previewsthughsdraft` → the address becomes `https://previewsthughsdraft.up.railway.app`.
    Set `APPLICATION_URL` to that address and redeploy once (Deployments → ⋯ → Redeploy).
