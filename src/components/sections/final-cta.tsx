@@ -1,6 +1,5 @@
 import { getMessagingSettings } from "@/lib/content";
-import { Button } from "@/components/ui/button";
-import { Magnetic } from "@/components/ui/magnetic";
+import { CtaTrio } from "@/components/ui/cta-trio";
 import { SplitHeading } from "@/components/ui/split-heading";
 import { RouteLine } from "@/components/ui/route-line";
 import { FlagStripe } from "@/components/ui/flag-stripe";
@@ -25,16 +24,7 @@ export async function FinalCta() {
           </div>
           <div className="lg:col-span-4">
             <p className="text-lg leading-relaxed text-fg-muted text-pretty">{m.finalCtaBody}</p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Magnetic>
-                <Button href="/pathway-explorer" arrow="right">
-                  Explore your pathway
-                </Button>
-              </Magnetic>
-              <Button href="/consultation" variant="secondary">
-                Talk to an advisor
-              </Button>
-            </div>
+            <CtaTrio className="mt-8" />
           </div>
         </div>
       </div>

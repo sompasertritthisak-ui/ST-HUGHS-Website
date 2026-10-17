@@ -71,8 +71,11 @@ people on the site.
 under the wordmark in the logo, extended. It appears in the hero, in the pathway timeline, under the
 active nav item, and as the page-load progress bar. "The red line from Laos to the world."
 
-**Primary conversion** — Book a free consultation (talk to an advisor). Secondary: explore your
-pathway. Tertiary: apply.
+**Calls to action** — Three, always together and always in this order (`CtaTrio`): **Book a tour**
+(primary, red), **Explore your pathway**, **Talk to an advisor**. They appear in the hero, under the
+"How it works" heading and in the closing scene; the phone enquiry bar carries the advisor link.
+Secondary pages add "How to apply". A separate **Work with us** act and page (`/work-with-us`) take
+job enquiries into the same CMS enquiry queue (audience OTHER, source `work-with-us`).
 
 ## Tokens
 

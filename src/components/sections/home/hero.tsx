@@ -1,5 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { Magnetic } from "@/components/ui/magnetic";
+import { CtaTrio } from "@/components/ui/cta-trio";
 import { GlobeStage } from "@/components/three/globe-stage";
 import type { GlobeDestination } from "@/components/three/geo";
 import type { MessagingSettings } from "@/lib/content";
@@ -69,18 +68,8 @@ export function Hero({
           <p className="anim-fade-up mt-8 max-w-xl text-lg leading-relaxed text-fg-muted text-pretty md:text-xl" style={{ animationDelay: `${supportDelay}ms` }}>
             {messaging.heroSupport}
           </p>
-          <div className="anim-fade-up mt-10 flex flex-wrap items-center gap-x-5 gap-y-4" style={{ animationDelay: `${supportDelay + 120}ms` }}>
-            <Magnetic>
-              <Button href="/pathway-explorer" size="lg" arrow="right">
-                Explore your pathway
-              </Button>
-            </Magnetic>
-            <Button href="/consultation" variant="secondary" size="lg">
-              Talk to an advisor
-            </Button>
-            <Button href="/programmes" variant="ghost" arrow="right" className="text-[0.9375rem]">
-              Explore programmes
-            </Button>
+          <div className="anim-fade-up mt-10" style={{ animationDelay: `${supportDelay + 120}ms` }}>
+            <CtaTrio size="lg" />
           </div>
           <p className="anim-fade-up mt-6 hidden font-mono text-[0.625rem] uppercase tracking-[0.16em] text-fg-subtle lg:block" style={{ animationDelay: `${supportDelay + 240}ms` }}>
             Drag the globe · Click a destination

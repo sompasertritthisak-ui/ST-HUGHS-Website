@@ -5,8 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Button } from "@/components/ui/button";
-import { Magnetic } from "@/components/ui/magnetic";
+import { CtaTrio } from "@/components/ui/cta-trio";
 import { SplitHeading } from "@/components/ui/split-heading";
 import type { HomeCounts } from "./data";
 
@@ -98,16 +97,7 @@ export function RouteJourney({ destinations, counts }: { destinations: JourneyDe
             <SplitHeading id="journey-title" text="One year at home." accent="Then the world." accentClassName="italic text-blue" className="font-display mt-6 text-[clamp(2.5rem,5.4vw,5rem)] leading-[0.98] text-fg text-balance" />
           </div>
           <div className="col-span-12 lg:col-span-5 lg:col-start-8">
-            <div className="flex flex-wrap items-center gap-3 lg:justify-end">
-              <Magnetic>
-                <Button href="/consultation" arrow="right">
-                  Book a free consultation
-                </Button>
-              </Magnetic>
-              <Button href="/pathways" variant="secondary">
-                See every route
-              </Button>
-            </div>
+            <CtaTrio compact className="lg:justify-end" />
           </div>
         </div>
 

@@ -5,6 +5,7 @@ import { FeaturedProgrammes, Hero, LoadingSequence, RouteJourney, WhyStHughs } f
 import { getHomeData, toGlobeDestinations } from "@/components/sections/home/data";
 import { DestinationsCompact } from "@/components/sections/home/destinations-compact";
 import { LifeMosaic } from "@/components/sections/home/life-mosaic";
+import { WorkWithUs } from "@/components/sections/home/work-with-us";
 import { SectionSpine } from "@/components/site/section-spine";
 import { CinematicScene } from "@/components/cinematic/cinematic-scene";
 import { CINEMATIC } from "@/components/cinematic/media";
@@ -30,6 +31,7 @@ const SPINE = [
   { id: "destinations-title", label: "Destinations" },
   { id: "life-title", label: "Life at SHV" },
   { id: "why-title", label: "Why St Hugh's" },
+  { id: "work-title", label: "Work with us" },
   { id: "final-cta", label: "Start here" },
 ];
 
@@ -134,7 +136,10 @@ export default async function HomePage() {
       {/* 6 — Trust */}
       <WhyStHughs institution={institution} limit={3} />
 
-      {/* 7 — Start here */}
+      {/* 7 — Work with us */}
+      <WorkWithUs />
+
+      {/* 8 — Start here */}
       <FinalCta />
     </>
   );

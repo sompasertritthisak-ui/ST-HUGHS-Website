@@ -95,6 +95,12 @@ export async function SiteFooter() {
                   <span aria-hidden className="h-px w-6 bg-route transition-[width] duration-[var(--dur)] group-hover:w-10" />
                 </Link>
               </li>
+              <li>
+                <Link href="/work-with-us" className="group flex items-center justify-between border-b border-line pb-3 text-[0.9375rem] text-fg">
+                  Work with us
+                  <span aria-hidden className="h-px w-6 bg-route transition-[width] duration-[var(--dur)] group-hover:w-10" />
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
