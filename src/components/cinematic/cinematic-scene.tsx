@@ -35,6 +35,47 @@ function Words({ text, className }: { text: string; className?: string }) {
  * and is replaced by its poster under reduced motion or reduced data. Everything renders on the
  * server in its final state; motion is layered on afterwards.
  */
+/** Hold-and-drag pan for a photographic backdrop: the image slides under the cursor, with inertia. */
+function usePan(enabled: boolean) {
+  const target = useRef<HTMLElement | null>(null);
+  const state = useRef({ x: 50, v: 0, dragging: false, last: 0, raf: 0 });
+  const apply = () => {
+    const el = target.current;
+    const s = state.current;
+    if (!el) return;
+    if (!s.dragging) {
+      s.x = Math.max(15, Math.min(85, s.x + s.v));
+      s.v *= 0.92;
+    }
+    el.style.objectPosition = `${s.x.toFixed(2)}% 50%`;
+    if (s.dragging || Math.abs(s.v) > 0.01) s.raf = requestAnimationFrame(apply);
+    else s.raf = 0;
+  };
+  const onDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!enabled || (e.target as HTMLElement).closest("a")) return;
+    state.current.dragging = true;
+    state.current.last = e.clientX;
+    state.current.v = 0;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    e.currentTarget.style.cursor = "grabbing";
+    if (!state.current.raf) state.current.raf = requestAnimationFrame(apply);
+  };
+  const onMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const s = state.current;
+    if (!s.dragging) return;
+    const dx = e.clientX - s.last;
+    s.last = e.clientX;
+    const step = (-dx / e.currentTarget.clientWidth) * 60;
+    s.x = Math.max(15, Math.min(85, s.x + step));
+    s.v = step;
+  };
+  const onUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    state.current.dragging = false;
+    e.currentTarget.style.cursor = enabled ? "grab" : "";
+  };
+  return { target, handlers: enabled ? { onPointerDown: onDown, onPointerMove: onMove, onPointerUp: onUp, onPointerCancel: onUp } : {} };
+}
+
 export function CinematicScene({
   id,
   index,
@@ -45,6 +86,7 @@ export function CinematicScene({
   body,
   media,
   backdrop,
+  pan = false,
   cta,
   align = "left",
   className,
@@ -61,6 +103,8 @@ export function CinematicScene({
   media?: SceneMedia;
   /** A live backdrop (e.g. a three.js scene) rendered instead of `media`. */
   backdrop?: ReactNode;
+  /** Let the visitor hold and drag a photographic backdrop to look around it. */
+  pan?: boolean;
   cta?: { href: string; label: string };
   align?: "left" | "center";
   className?: string;
@@ -69,6 +113,7 @@ export function CinematicScene({
   const root = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [useVideo, setUseVideo] = useState(false);
+  const panCtl = usePan(pan && Boolean(media) && !media?.src);
 
   useEffect(() => {
     const el = root.current;
@@ -126,15 +171,18 @@ export function CinematicScene({
 
   return (
     <section ref={root} id={id} aria-labelledby={`${id}-title`} className={cn("theme-dark relative h-[190vh] bg-midnight text-white", className)}>
-      <div className="sticky top-0 h-[100dvh] overflow-hidden [perspective:1200px]">
+      <div className="sticky top-0 h-[100dvh] overflow-hidden [perspective:1200px]" style={pan && media && !media.src ? { cursor: "grab", touchAction: "pan-y" } : undefined} {...panCtl.handlers}>
         <div data-backdrop className="absolute inset-0 will-change-transform">
           {backdrop ? <div className="absolute inset-0">{backdrop}</div> : null}
           {media ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
+              ref={(el) => {
+                panCtl.target.current = el;
+              }}
               src={media.poster}
               alt=""
-              className={cn("absolute inset-0 size-full object-cover", !media.src && "kenburns")}
+              className={cn("absolute inset-0 size-full object-cover", !media.src && !pan && "kenburns")}
               style={media.position ? { objectPosition: media.position } : undefined}
               loading="lazy"
               decoding="async"
@@ -157,6 +205,12 @@ export function CinematicScene({
         </div>
         <div data-veil className={cn("absolute inset-0", backdrop ? "bg-[linear-gradient(to_top,rgb(11_19_80/0.85)_0%,rgb(11_19_80/0.15)_40%,transparent_70%)]" : "bg-[linear-gradient(to_top,rgb(11_19_80/0.96)_0%,rgb(11_19_80/0.72)_40%,rgb(11_19_80/0.35)_100%)]")} />
         <div aria-hidden className="grain absolute inset-0" />
+
+        {pan && media && !media.src ? (
+          <div className="container-x pointer-events-none absolute inset-x-0 bottom-6 hidden justify-end md:flex">
+            <span className="font-mono text-[0.625rem] uppercase tracking-[0.16em] text-white/70">Hold and drag to look around</span>
+          </div>
+        ) : null}
 
         {/* Chapter marker */}
         <div className="container-x absolute inset-x-0 top-[calc(72px+1.5rem)] flex items-center justify-between font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-white/70">

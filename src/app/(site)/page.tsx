@@ -123,7 +123,8 @@ export default async function HomePage() {
         eyebrow="A year in Vientiane"
         title="A year at home,"
         accent="lived fully."
-        media={{ poster: "/media/students/Class_1.jpg", position: "50% 40%" }}
+        media={{ poster: "/media/students/Class_1.jpg", position: "50% 50%" }}
+        pan
         cta={{ href: "/student-life", label: "Student life at SHV" }}
       />
       <LifeMosaic />

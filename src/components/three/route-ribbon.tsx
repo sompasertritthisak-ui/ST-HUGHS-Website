@@ -51,7 +51,10 @@ function Dust({ count = 520 }: { count?: number }) {
   );
 }
 
-function World({ center, radius, destinations }: { center: THREE.Vector3; radius: number; destinations: GlobeDestination[] }) {
+/** Shared drag state: the Canvas owns the pointer, the World applies the spin. */
+type Spin = { offset: number; velocity: number; dragging: boolean };
+
+function World({ center, radius, destinations, spin }: { center: THREE.Vector3; radius: number; destinations: GlobeDestination[]; spin: Spin }) {
   const [day, clouds, lights] = useLoader(THREE.TextureLoader, [TEX.day, TEX.clouds, TEX.lights]);
   useEffect(() => {
     for (const t of [day, clouds, lights]) {
@@ -62,6 +65,7 @@ function World({ center, radius, destinations }: { center: THREE.Vector3; radius
   const earth = useRef<THREE.Mesh>(null);
   const cloud = useRef<THREE.Mesh>(null);
   const ring = useRef<THREE.Group>(null);
+  const world = useRef<THREE.Group>(null);
   const labelRefs = useRef<(HTMLDivElement | null)[]>([]);
   const tilt = 0.42;
   const orbit = radius * 1.75;
@@ -69,9 +73,15 @@ function World({ center, radius, destinations }: { center: THREE.Vector3; radius
 
   useFrame(({ clock, camera }, delta) => {
     const d = Math.min(delta, 0.05);
-    if (earth.current) earth.current.rotation.y += d * 0.07;
-    if (cloud.current) cloud.current.rotation.y += d * 0.09;
-    const t = clock.getElapsedTime() * 0.055;
+    // Auto-rotation pauses while the visitor holds the globe; a flick keeps it turning, then settles.
+    if (!spin.dragging) {
+      spin.offset += spin.velocity * d;
+      spin.velocity *= 0.94;
+      if (earth.current) earth.current.rotation.y += d * 0.07;
+      if (cloud.current) cloud.current.rotation.y += d * 0.09;
+    }
+    if (world.current) world.current.rotation.y = spin.offset;
+    const t = clock.getElapsedTime() * 0.055 + spin.offset * 0.5;
     if (ring.current) {
       ring.current.children.forEach((child, i) => {
         const a = t + (i / Math.max(1, n)) * Math.PI * 2;
@@ -90,6 +100,7 @@ function World({ center, radius, destinations }: { center: THREE.Vector3; radius
 
   return (
     <group position={center}>
+      <group ref={world}>
       {/* atmosphere */}
       <mesh scale={1.22}>
         <sphereGeometry args={[radius, 48, 32]} />
@@ -108,6 +119,7 @@ function World({ center, radius, destinations }: { center: THREE.Vector3; radius
         <ringGeometry args={[orbit - 0.004, orbit + 0.004, 128]} />
         <meshBasicMaterial color="#ffffff" transparent opacity={0.12} side={THREE.DoubleSide} depthWrite={false} />
       </mesh>
+      </group>
       <group ref={ring}>
         {destinations.map((dst, i) => (
           <group key={dst.slug}>
@@ -144,7 +156,7 @@ const MILESTONES = [
   { t: 0.88, label: "Degree abroad" },
 ] as const;
 
-function Scene({ destinations }: { destinations: GlobeDestination[] }) {
+function Scene({ destinations, spin }: { destinations: GlobeDestination[]; spin: Spin }) {
   const { camera, pointer, viewport } = useThree();
   const wide = viewport.aspect > 1.15;
   const center = useMemo(() => new THREE.Vector3(wide ? 2.3 : 0.9, wide ? 0.9 : 1.3, -1.6), [wide]);
@@ -234,7 +246,7 @@ function Scene({ destinations }: { destinations: GlobeDestination[] }) {
         </group>
       ))}
 
-      <World center={center} radius={radius} destinations={destinations} />
+      <World center={center} radius={radius} destinations={destinations} spin={spin} />
     </>
   );
 }
@@ -243,6 +255,33 @@ export function RouteRibbon({ destinations, className }: { destinations: GlobeDe
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
   const [ok, setOk] = useState(false);
+  const spin = useRef<Spin>({ offset: 0, velocity: 0, dragging: false }).current;
+  const drag = useRef<{ x: number; last: number; t: number } | null>(null);
+
+  const onDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if ((e.target as HTMLElement).closest("a")) return; // let destination links click through
+    drag.current = { x: e.clientX, last: e.clientX, t: performance.now() };
+    spin.dragging = true;
+    spin.velocity = 0;
+    (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
+    e.currentTarget.style.cursor = "grabbing";
+  };
+  const onMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const d = drag.current;
+    if (!d) return;
+    const dx = e.clientX - d.last;
+    const now = performance.now();
+    spin.offset += dx * 0.008;
+    spin.velocity = (dx * 0.008) / Math.max(0.016, (now - d.t) / 1000);
+    d.last = e.clientX;
+    d.t = now;
+  };
+  const onUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    drag.current = null;
+    spin.dragging = false;
+    spin.velocity = Math.max(-6, Math.min(6, spin.velocity));
+    e.currentTarget.style.cursor = "grab";
+  };
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -261,7 +300,7 @@ export function RouteRibbon({ destinations, className }: { destinations: GlobeDe
   }, []);
 
   return (
-    <div ref={ref} className={className} aria-hidden>
+    <div ref={ref} className={className} aria-hidden onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={onUp} style={{ cursor: "grab", touchAction: "pan-y" }}>
       {ok ? (
         <Canvas
           dpr={[1, 1.5]}
