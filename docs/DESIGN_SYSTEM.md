@@ -157,6 +157,14 @@ Stagger 40ms. Route-line draw: 900–1400ms with `--ease-out`.
 - Body text never below 16px on mobile; contrast ≥ 4.5:1 checked for ivory/platinum on midnight
   and ink on ivory.
 
+## CMS shell
+Deep-blue sidebar (`.theme-dark`, 272px) carrying the white lockup, grouped navigation with 18px
+icons, active item as a white pill with the red bar, and the signed-in person at the foot. Content
+area on `#F5F7FC` with white cards (`Panel`: 14px radius, soft layered shadow, red eyebrow rule
+before the title). Dashboard opens with a deep-blue welcome band (date, greeting, quick actions as
+pills), four stat tiles with display numerals, status counts as tinted pills, activity as a timeline.
+Sign-in splits into a cinematic brand panel and the form.
+
 ## Copy voice
 Plain, confident, specific. Sentence case for UI; the display statements may be set in caps in
 the mono eyebrow style. Say what happens: "Book a consultation", "Explore this pathway".

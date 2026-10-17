@@ -57,16 +57,22 @@ export function ConfirmSubmit({ label, confirmLabel = "Yes, do it", description,
   );
 }
 
-export function Panel({ title, children, className, action }: { title?: string; children: ReactNode; className?: string; action?: ReactNode }) {
+export function Panel({ title, description, children, className, action, padded = true }: { title?: string; description?: string; children: ReactNode; className?: string; action?: ReactNode; padded?: boolean }) {
   return (
-    <section className={cn("rounded-[var(--radius)] border border-line bg-bg-raised shadow-sm", className)}>
+    <section className={cn("rounded-[var(--radius-lg)] border border-line/80 bg-bg-raised shadow-[0_1px_2px_rgb(11_19_80/0.04),0_12px_32px_-20px_rgb(11_19_80/0.25)]", className)}>
       {title ? (
-        <header className="flex items-center justify-between gap-3 border-b border-line px-4 py-2.5">
-          <h2 className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-subtle">{title}</h2>
+        <header className="flex items-start justify-between gap-3 px-5 pb-3 pt-5">
+          <div>
+            <h2 className="flex items-center gap-2.5 text-[0.9375rem] font-semibold text-fg">
+              <span aria-hidden className="h-px w-4 bg-route" />
+              {title}
+            </h2>
+            {description ? <p className="mt-1 text-sm text-fg-muted">{description}</p> : null}
+          </div>
           {action}
         </header>
       ) : null}
-      <div className="p-4">{children}</div>
+      <div className={cn(padded && "px-5 pb-5", padded && !title && "pt-5")}>{children}</div>
     </section>
   );
 }

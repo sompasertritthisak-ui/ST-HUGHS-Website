@@ -5,6 +5,7 @@ import { navForRole } from "@/components/admin/nav";
 import { Sidebar } from "@/components/admin/sidebar";
 import { Topbar } from "@/components/admin/topbar";
 import { ToastProvider } from "@/components/admin/toast";
+import { ROLE_LABELS, type Role } from "@/lib/enums";
 
 export const metadata: Metadata = {
   title: { default: "CMS", template: "%s — SHV CMS" },
@@ -29,10 +30,10 @@ export default async function AdminLayout({ children }: { children: ReactNode })
     <div className="theme-light min-h-dvh bg-bg text-fg text-[0.9375rem]">
       <ToastProvider>
         <div className="flex min-h-dvh">
-          <Sidebar groups={groups} />
-          <div className="flex min-w-0 flex-1 flex-col">
+          <Sidebar groups={groups} user={{ name: user.name, email: user.email, roleLabel: ROLE_LABELS[user.role as Role] ?? user.role }} />
+          <div className="flex min-w-0 flex-1 flex-col bg-[#F5F7FC]">
             <Topbar user={user} menuButton={<span aria-hidden className="block w-11 lg:hidden" />} />
-            <main id="main" className="flex-1 px-4 py-6 sm:px-6 lg:px-8">
+            <main id="main" className="flex-1 px-4 py-8 sm:px-6 lg:px-10">
               <div className="mx-auto w-full max-w-[1320px]">{children}</div>
             </main>
           </div>
