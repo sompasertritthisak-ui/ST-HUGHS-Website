@@ -111,7 +111,17 @@ export function GlobeStage({ destinations, className, webgl = true, tone = "dark
   const opacity = useTransform(progress, [0, 0.7, 1], [1, 0.55, 0]);
   const y = useTransform(progress, [0, 1], [0, 90]);
 
-  const onSelect = useCallback((slug: string) => router.push(`/destinations/${slug}`), [router]);
+  // Click a destination: the globe turns to face it and the camera eases in, then the page changes.
+  const [flyTo, setFlyTo] = useState<string | null>(null);
+  const onSelect = useCallback(
+    (slug: string) => {
+      if (flyTo) return;
+      setFlyTo(slug);
+      router.prefetch(`/destinations/${slug}`);
+      window.setTimeout(() => router.push(`/destinations/${slug}`), 1100);
+    },
+    [router, flyTo],
+  );
 
   return (
     <motion.div
@@ -122,7 +132,7 @@ export function GlobeStage({ destinations, className, webgl = true, tone = "dark
     >
       {mode === "webgl" ? (
         <Suspense fallback={<GlobeFallback destinations={destinations} tone={tone} />}>
-          <Globe destinations={destinations} active={inView} scroll={progress} tier={tier} tone={tone} onSelect={onSelect} />
+          <Globe destinations={destinations} active={inView} scroll={progress} tier={tier} tone={tone} onSelect={onSelect} flyTo={flyTo} />
         </Suspense>
       ) : (
         <GlobeFallback destinations={destinations} tone={tone} />

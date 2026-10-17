@@ -53,6 +53,20 @@ screenshots at 1440px and 390px (no horizontal overflow, no console errors).
 6. **Fees / documents** — the six programme decks are published; add entry-requirement sheets, the
    confirmed fee schedule (tuition / application / registration / uniform amounts) and calendars.
 
+## Interaction layer — 17 October 2026
+Hero: hover a destination for its partner universities and route count; click to fly there (globe
+turns, camera eases in, page opens). Chapter 2: drag the Earth to spin it. Chapter 3 and /campus:
+hold-and-drag photographs. How it works: steps light up in order as the line reaches them, with
+Year 1 / Years 2–3 / After badges. Programmes: "Leads to" partner lines (logo slot fills when a
+university logo is uploaded). Life at SHV: student quote tiles appear automatically once a story is
+PUBLISHED with consent GRANTED. Phones: fixed "Talk to an advisor" bar (adds WhatsApp when the CMS
+contact setting `whatsapp` is filled; phone call until then). Desktop: opt-in ambient sound toggle
+(synthesised, no file). /destinations opens on the globe.
+
+Still needs assets: a real classroom film for chapter 1 (replace `public/media/cinematic/learning.mp4`),
+partner logos (CMS → Universities → logo), consented student stories, college photography for the
+Unsplash placeholders, and 720p versions of the three clips for phones (no encoder on the build Mac).
+
 ## Placeholder hero images (to replace)
 Every sub-page opens with a hero frame whose image is currently a free-licence Unsplash photograph
 chosen to match the headline (`src/components/cinematic/placeholders.ts`). They are placeholders:

@@ -3,6 +3,7 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { RouteLine } from "@/components/ui/route-line";
 import { SplitHeading } from "@/components/ui/split-heading";
 import { BackdropVideo } from "@/components/cinematic/backdrop-video";
+import { PanImage } from "@/components/cinematic/pan-image";
 import type { SceneMedia } from "@/components/cinematic/cinematic-scene";
 import { cn } from "@/lib/utils";
 
@@ -19,6 +20,7 @@ export function PageHero({
   lede,
   aside,
   media,
+  pan = false,
   className,
   children,
 }: {
@@ -28,6 +30,8 @@ export function PageHero({
   lede?: ReactNode;
   aside?: ReactNode;
   media?: SceneMedia;
+  /** Hold-and-drag to look around the frame's photograph. */
+  pan?: boolean;
   className?: string;
   children?: ReactNode;
 }) {
@@ -49,8 +53,8 @@ export function PageHero({
       </div>
       {media ? (
         <div className="theme-dark relative mt-12 aspect-[16/9] overflow-hidden rounded-[var(--radius-lg)] bg-bg md:aspect-[21/9]">
-          <BackdropVideo media={media} />
-          <div aria-hidden className="absolute inset-0 bg-[linear-gradient(to_top,rgb(11_19_80/0.55)_0%,transparent_50%)]" />
+          {pan ? <PanImage src={media.poster} /> : <BackdropVideo media={media} />}
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgb(11_19_80/0.55)_0%,transparent_50%)]" />
           <div aria-hidden className="grain absolute inset-0" />
           <span aria-hidden className="absolute bottom-5 left-5 h-[3px] w-16 bg-route" />
         </div>

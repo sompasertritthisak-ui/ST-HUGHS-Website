@@ -3,7 +3,8 @@ import Link from "next/link";
 import { getDestinations } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/sections/page-hero";
-import { PAGE_IMAGES } from "@/components/cinematic/placeholders";
+import { GlobeStage } from "@/components/three/globe-stage";
+import { toGlobeDestinations } from "@/components/sections/home/data";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { DestinationCard } from "@/components/cards/destination-card";
 import { Section } from "@/components/pages";
@@ -76,7 +77,7 @@ export default async function DestinationsPage() {
 
   return (
     <>
-      <PageHero media={PAGE_IMAGES["destinations"]}
+      <PageHero
         eyebrow="Destinations"
         title={
           <>
@@ -85,6 +86,11 @@ export default async function DestinationsPage() {
         }
         lede="Every destination below has at least one pathway attached, or is being confirmed. We show only the routes that actually lead to each country — no programme leads everywhere."
         aside={
+          <>
+            <div className="relative mx-auto mb-6 w-full max-w-[460px]">
+              <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgb(16_48_144/0.14)_0%,rgb(16_48_144/0.05)_40%,transparent_64%)]" />
+              <GlobeStage destinations={toGlobeDestinations(destinations)} className="aspect-square w-full" tone="light" />
+            </div>
           <dl className="grid grid-cols-2 gap-6 border-t border-line pt-6 font-mono text-[0.6875rem] uppercase tracking-[0.14em]">
             <div>
               <dt className="text-fg-subtle">Destinations</dt>
@@ -95,6 +101,7 @@ export default async function DestinationsPage() {
               <dd className="font-display mt-2 text-[2.5rem] normal-case tracking-normal text-fg tabular">{regions.length}</dd>
             </div>
           </dl>
+          </>
         }
       />
 

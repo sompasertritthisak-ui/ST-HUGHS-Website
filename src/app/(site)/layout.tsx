@@ -4,11 +4,14 @@ import { ProgressLine } from "@/components/site/progress-line";
 import { PageViewTracker } from "@/components/site/page-view-tracker";
 import { AnalyticsDelegation } from "@/components/site/analytics-delegation";
 import { SmoothScroll } from "@/components/site/smooth-scroll";
+import { EnquiryBar } from "@/components/site/enquiry-bar";
+import { getContactSettings } from "@/lib/content";
 
 /** Public pages are CMS-driven: on-demand revalidation from admin actions plus a 5-minute safety net. */
 export const revalidate = 300;
 
-export default function SiteLayout({ children }: { children: React.ReactNode }) {
+export default async function SiteLayout({ children }: { children: React.ReactNode }) {
+  const contact = await getContactSettings();
   return (
     <>
       <a
@@ -24,6 +27,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         {children}
       </main>
       <SiteFooter />
+      <EnquiryBar phone={contact.phones[0] ?? null} whatsapp={contact.whatsapp || null} />
       <PageViewTracker />
       <AnalyticsDelegation />
     </>

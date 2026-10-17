@@ -356,6 +356,11 @@ summary {
   .magnetic-inner { transform: translate3d(var(--mx), var(--my), 0); }
 }
 
+/* Journey steps light up as the route line reaches them (components/sections/home/route-journey.tsx). */
+.rj-step.is-reached .rj-node { background: var(--route); box-shadow: 0 0 0 5px color-mix(in oklab, var(--route) 18%, transparent); }
+.rj-step.is-reached h3 { color: var(--color-blue); }
+.rj-step.is-reached .rj-when { border-color: var(--color-blue); color: var(--color-blue); }
+
 @utility tabular {
   font-variant-numeric: tabular-nums;
 }

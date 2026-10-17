@@ -42,6 +42,9 @@ export function Hero({
 
   return (
     <section aria-labelledby="hero-title" className="bg-bg text-fg relative overflow-hidden">
+      <link rel="preload" as="image" href="/textures/earth/earth_atmos_2048.jpg" />
+      <link rel="preload" as="image" href="/textures/earth/earth_clouds_1024.png" />
+      <link rel="preload" as="image" href="/textures/earth/earth_normal_2048.jpg" />
       <HeroMotion />
       {/* Soft blue atmosphere behind the globe so the white field has depth without a dark ground */}
       <div aria-hidden className="pointer-events-none absolute inset-y-0 right-[-10vw] z-0 hidden w-[70vw] bg-[radial-gradient(ellipse_at_center,rgb(16_48_144/0.14)_0%,rgb(16_48_144/0.05)_38%,transparent_62%)] lg:block" />

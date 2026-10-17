@@ -12,6 +12,8 @@ export type GlobeDestination = {
   verified: boolean;
   /** Number of published routes to this destination (shown on hover). */
   routes: number;
+  /** Published partner universities in this destination (shown on hover). */
+  universities?: string[];
 };
 
 /** St Hugh's College Vientiane — the single origin node. */

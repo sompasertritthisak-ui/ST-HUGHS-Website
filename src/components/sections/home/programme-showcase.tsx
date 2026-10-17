@@ -18,6 +18,8 @@ export type ShowcaseItem = {
   qualification: string | null;
   /** Concise "what you study": module or year titles, max 6. */
   modules: string[];
+  /** Where the programme leads: partner universities on published routes (logo when the CMS has one). */
+  leadsTo: { label: string; structure: string | null; href: string; logo: string | null }[];
   assessment: string | null;
   image: { url: string; alt: string; focalX: number; focalY: number } | null;
 };
@@ -168,6 +170,27 @@ export function ProgrammeShowcase({ items }: { items: ShowcaseItem[] }) {
               ))}
             </ul>
             {current.assessment ? <p className="mt-3 text-sm text-fg-muted">{current.assessment}</p> : null}
+          </div>
+        ) : null}
+        {current.leadsTo.length > 0 ? (
+          <div className="mt-6 border-t border-line pt-5">
+            <p className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-brand-soft">Leads to</p>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {current.leadsTo.map((u) => (
+                <li key={u.href}>
+                  <Link href={u.href} className="group/lead inline-flex h-10 items-center gap-2.5 rounded-full border border-line pl-1.5 pr-3.5 text-[0.875rem] text-fg transition-colors hover:border-blue hover:bg-blue hover:text-white">
+                    {u.logo ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={u.logo} alt="" className="size-7 rounded-full bg-white object-contain p-0.5" />
+                    ) : (
+                      <span aria-hidden className="ml-1.5 size-1.5 rounded-full bg-route" />
+                    )}
+                    {u.label}
+                    {u.structure ? <span className="font-mono text-[0.625rem] tracking-[0.12em] opacity-60 group-hover/lead:opacity-90">{u.structure}</span> : null}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         ) : null}
         <div className="mt-6 flex flex-wrap gap-4">

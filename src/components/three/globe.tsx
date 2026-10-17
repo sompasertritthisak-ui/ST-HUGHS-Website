@@ -228,8 +228,11 @@ function DestinationNode({
           <span className="mx-1.5 opacity-50">·</span>
           <span>{destination.country}</span>
           {hover ? (
-            <span className="block pt-0.5 text-[0.5625rem] tracking-[0.12em] opacity-80">
-              {destination.routes > 0 ? `${destination.routes} published route${destination.routes === 1 ? "" : "s"}` : "Routes in confirmation"}
+            <span className="block pt-1 text-[0.5625rem] normal-case tracking-[0.06em] opacity-90">
+              {destination.universities && destination.universities.length > 0 ? destination.universities.join(" · ") : null}
+              <span className="block pt-0.5 uppercase tracking-[0.12em] opacity-80">
+                {destination.routes > 0 ? `${destination.routes} published route${destination.routes === 1 ? "" : "s"} · click to fly` : "Routes in confirmation"}
+              </span>
             </span>
           ) : null}
         </div>
@@ -299,6 +302,7 @@ function Scene({
   onSelect,
   onNodeHover,
   pal,
+  flyTo,
 }: {
   destinations: GlobeDestination[];
   scroll?: MotionValue<number>;
@@ -308,10 +312,13 @@ function Scene({
   onSelect: (slug: string) => void;
   onNodeHover: (hovering: boolean) => void;
   pal: Tone;
+  /** Slug of a destination the globe should turn toward (set on click, before navigating). */
+  flyTo: string | null;
 }) {
   const spin = useRef<THREE.Group>(null);
   const clouds = useRef<THREE.Mesh>(null);
   const spinAngle = useRef(0);
+  const flyPos = useRef(new THREE.Vector3());
   const packets = useRef<(THREE.Mesh | null)[]>([]);
   const gl = useThree((s) => s.gl);
 
@@ -357,10 +364,23 @@ function Scene({
     };
   }, [sphereGeometry, cloudGeometry, glowMaterial, glowGeometry, arcs]);
 
-  useFrame(({ clock }, delta) => {
+  useFrame(({ clock, camera }, delta) => {
     const t = clock.getElapsedTime();
     const d = Math.min(delta, MAX_DELTA);
-    if (!paused) spinAngle.current += AUTO_ROTATE * d;
+    const flying = flyTo ? arcs[destinations.findIndex((x) => x.slug === flyTo)] : undefined;
+    if (flying && spin.current) {
+      // Turn the globe so the chosen destination faces the camera, and ease the camera in a little.
+      spin.current.updateMatrixWorld();
+      flyPos.current.copy(flying.end).applyMatrix4(spin.current.matrixWorld);
+      const want = Math.atan2(camera.position.x, camera.position.z);
+      const have = Math.atan2(flyPos.current.x, flyPos.current.z);
+      let err = want - have;
+      while (err > Math.PI) err -= Math.PI * 2;
+      while (err < -Math.PI) err += Math.PI * 2;
+      spinAngle.current += err * Math.min(1, d * 7);
+      const len = camera.position.length();
+      camera.position.multiplyScalar(THREE.MathUtils.lerp(len, CAMERA_DISTANCE * 0.84, Math.min(1, d * 3)) / len);
+    } else if (!paused) spinAngle.current += AUTO_ROTATE * d;
     if (spin.current) spin.current.rotation.y = spinAngle.current + (scroll?.get() ?? 0) * SCROLL_ROTATE;
     // Clouds drift a little faster than the ground beneath them.
     if (clouds.current) clouds.current.rotation.y += d * 0.018;
@@ -477,6 +497,7 @@ export function Globe({
   tier = "high",
   tone = "dark",
   onSelect,
+  flyTo = null,
 }: {
   destinations: GlobeDestination[];
   active?: boolean;
@@ -484,6 +505,7 @@ export function Globe({
   tier?: GlobeTier;
   tone?: GlobeTone;
   onSelect?: (slug: string) => void;
+  flyTo?: string | null;
 }) {
   const pal = TONES[tone];
   const [hoveringNode, setHoveringNode] = useState(false);
@@ -509,6 +531,7 @@ export function Globe({
         onSelect={onSelect ?? (() => undefined)}
         onNodeHover={setHoveringNode}
         pal={pal}
+        flyTo={flyTo}
       />
       <Controls dragging={dragging} onDraggingChange={setDragging} />
     </Canvas>

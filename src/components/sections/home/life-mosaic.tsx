@@ -6,7 +6,7 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { SplitHeading } from "@/components/ui/split-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
-import { getMessagingSettings } from "@/lib/content";
+import { getMessagingSettings, getStudentStories } from "@/lib/content";
 
 /**
  * Life at SHV — an editorial mosaic of REAL photography from the media library.
@@ -22,6 +22,8 @@ export async function LifeMosaic() {
   });
   if (media.length < 3) return null;
   const messaging = await getMessagingSettings();
+  // Named voices appear only once a student has given consent (status PUBLISHED + consent GRANTED).
+  const voices = (await getStudentStories({ featured: true, take: 3 })).filter((s) => s.quote);
   // With 4 or 5 photos the grid leaves a gap; fill it with a brand statement tile.
   const fillerSpan = media.length === 4 ? "lg:col-span-8" : media.length === 5 ? "lg:col-span-4" : null;
 
@@ -63,6 +65,20 @@ export async function LifeMosaic() {
                 <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-white">{m.caption ?? m.alt}</span>
                 <span aria-hidden className="h-px w-8 bg-route transition-[width] duration-[var(--dur)] group-hover:w-14" />
               </figcaption>
+            </Reveal>
+          ))}
+          {voices.map((v, i) => (
+            <Reveal key={v.id} as="li" delay={(media.length + i) * 60} className="relative flex flex-col justify-between overflow-hidden rounded-[var(--radius)] border border-line bg-bg p-6 aspect-[3/2] lg:col-span-4 lg:aspect-auto">
+              <span aria-hidden className="font-display text-[3rem] leading-none text-brand-soft">&ldquo;</span>
+              <p className="font-display mt-2 text-[1.375rem] leading-[1.2] text-fg text-balance">{v.quote}</p>
+              <div className="mt-6 flex items-center gap-3">
+                {v.photo ? <Image src={v.photo.url} alt="" width={40} height={40} className="size-10 rounded-full object-cover" /> : <span aria-hidden className="size-10 rounded-full bg-bg-hover" />}
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-semibold text-fg">{v.studentName}</p>
+                  <p className="truncate font-mono text-[0.625rem] uppercase tracking-[0.14em] text-fg-subtle">{[v.programme?.shortTitle ?? v.programme?.title, v.destination?.country].filter(Boolean).join(" → ")}</p>
+                </div>
+                <Link href={`/student-stories/${v.slug}`} className="ml-auto text-sm text-blue hover:underline">Read</Link>
+              </div>
             </Reveal>
           ))}
           {fillerSpan ? (

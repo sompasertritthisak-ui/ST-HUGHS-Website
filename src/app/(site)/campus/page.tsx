@@ -27,7 +27,7 @@ export default async function CampusPage() {
 
   return (
     <>
-      <PageHero media={PAGE_IMAGES["campus"]}
+      <PageHero media={PAGE_IMAGES["campus"]} pan
         eyebrow="Campus"
         title={
           <>

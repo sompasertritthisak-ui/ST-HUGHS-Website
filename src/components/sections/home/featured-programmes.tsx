@@ -21,7 +21,20 @@ export async function FeaturedProgrammes({ programmes }: { programmes: Programme
   const modules = programmes.length
     ? await prisma.programmeModule.findMany({ where: { programmeId: { in: programmes.map((p) => p.id) } }, orderBy: { order: "asc" }, select: { programmeId: true, title: true } })
     : [];
+  const routes = programmes.length
+    ? await prisma.pathway.findMany({
+        where: { status: "PUBLISHED", programmeId: { in: programmes.map((p) => p.id) } },
+        select: { programmeId: true, structureLabel: true, university: { select: { name: true, slug: true, logo: { select: { url: true, alt: true } } } }, destination: { select: { country: true } } },
+      })
+    : [];
   const items: ShowcaseItem[] = programmes.map((p) => ({
+    leadsTo: Array.from(
+      new Map(
+        routes
+          .filter((r) => r.programmeId === p.id && r.university)
+          .map((r) => [r.university!.slug, { label: `${r.university!.name}${r.destination ? `, ${r.destination.country}` : ""}`, structure: r.structureLabel, href: `/universities/${r.university!.slug}`, logo: r.university!.logo?.url ?? null }]),
+      ).values(),
+    ).slice(0, 4),
     modules: modules.filter((m) => m.programmeId === p.id).map((m) => m.title.replace(/\s*\([^)]*\)\s*$/, "").trim()).slice(0, 6),
     assessment: firstSentence(p.assessment),
     slug: p.slug,

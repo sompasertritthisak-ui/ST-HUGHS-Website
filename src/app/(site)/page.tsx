@@ -9,6 +9,7 @@ import { SectionSpine } from "@/components/site/section-spine";
 import { CinematicScene } from "@/components/cinematic/cinematic-scene";
 import { CINEMATIC } from "@/components/cinematic/media";
 import { RouteRibbon } from "@/components/three/route-ribbon";
+import { AmbientToggle } from "@/components/site/ambient-toggle";
 
 const TITLE = "St Hugh's College Vientiane — International university pathways from Laos";
 const DESCRIPTION =
@@ -79,6 +80,7 @@ export default async function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
 
       <SectionSpine stops={SPINE} />
+      <AmbientToggle />
 
       <LoadingSequence line1={messaging.heroLine1} line2={messaging.heroLine2} />
 

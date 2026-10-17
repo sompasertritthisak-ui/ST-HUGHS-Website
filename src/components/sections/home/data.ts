@@ -66,6 +66,7 @@ export function toGlobeDestinations(destinations: DestinationWithRelations[]): G
     lng: d.lng,
     verified: d.verificationStatus === "VERIFIED",
     routes: d.pathways.length,
+    universities: d.universities.map((u) => u.name).slice(0, 3),
   }));
 }
 
