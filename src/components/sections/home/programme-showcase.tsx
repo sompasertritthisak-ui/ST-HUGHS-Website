@@ -6,6 +6,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
+import { Tilt } from "@/components/ui/tilt";
 
 export type ShowcaseItem = {
   slug: string;
@@ -111,6 +112,7 @@ export function ProgrammeShowcase({ items }: { items: ShowcaseItem[] }) {
 
       {/* Panel */}
       <div id={`${baseId}-panel`} role="tabpanel" aria-labelledby={`${baseId}-tab-${active}`} className="lg:col-span-7">
+        <Tilt max={4} className="rounded-[var(--radius)]">
         <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[var(--radius)] border border-line bg-bg-hover">
           {items.map((it, i) =>
             it.image ? (
@@ -137,6 +139,7 @@ export function ProgrammeShowcase({ items }: { items: ShowcaseItem[] }) {
             {current.typeLabel}
           </div>
         </div>
+        </Tilt>
 
         <div key={current.slug} className="anim-fade-up mt-6 grid gap-6 md:grid-cols-12">
           <p className="text-[1.0625rem] leading-relaxed text-fg-muted md:col-span-7">{current.summary}</p>

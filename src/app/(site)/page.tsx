@@ -9,6 +9,7 @@ import { SectionSpine } from "@/components/site/section-spine";
 import { CinematicScene } from "@/components/cinematic/cinematic-scene";
 import { CINEMATIC } from "@/components/cinematic/media";
 import { RouteRibbon } from "@/components/three/route-ribbon";
+import { CampusLayers } from "@/components/three/campus-layers";
 
 const TITLE = "St Hugh's College Vientiane — International university pathways from Laos";
 const DESCRIPTION =
@@ -123,7 +124,7 @@ export default async function HomePage() {
         eyebrow="A year in Vientiane"
         title="A year at home,"
         accent="lived fully."
-        media={{ poster: "/media/students/Class_1.jpg", position: "50% 40%" }}
+        backdrop={<CampusLayers className="absolute inset-0" />}
         cta={{ href: "/student-life", label: "Student life at SHV" }}
       />
       <LifeMosaic />
