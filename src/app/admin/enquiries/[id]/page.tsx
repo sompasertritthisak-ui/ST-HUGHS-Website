@@ -60,7 +60,7 @@ export default async function EnquiryDetailPage({ params }: { params: Promise<{ 
         }
       />
 
-      <div className="grid gap-4 lg:grid-cols-[1fr_20rem]">
+      <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_20rem] [&>*]:min-w-0">
         <div className="flex flex-col gap-4">
           <Panel title="Contact">
             <Dl

@@ -95,7 +95,7 @@ export default async function NavigationPage({ searchParams }: { searchParams: P
         ))}
       </nav>
 
-      <div className="grid gap-4 lg:grid-cols-[1fr_24rem]">
+      <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_22rem] [&>*]:min-w-0">
         <section aria-label={`${MENU_LABELS[menu]} items`}>
           {roots.length === 0 ? (
             <p className="rounded-[var(--radius)] border border-dashed border-line-strong p-8 text-center text-sm text-fg-muted">No items in this menu yet.</p>
@@ -122,7 +122,7 @@ export default async function NavigationPage({ searchParams }: { searchParams: P
           )}
         </section>
         <aside>
-          <Panel title={`Add to ${MENU_LABELS[menu].toLowerCase()} menu`}>
+          <Panel className="@container" title={`Add to ${MENU_LABELS[menu].toLowerCase()} menu`}>
             <NavItemForm menu={menu} parents={parents} />
           </Panel>
         </aside>

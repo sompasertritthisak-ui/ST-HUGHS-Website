@@ -41,7 +41,7 @@ export default async function UserDetailPage({ params }: { params: Promise<{ id:
         lede={<code className="font-mono text-xs">{u.email}</code>}
         actions={u.isActive ? <Badge tone="success">Active</Badge> : <Badge tone="danger">Deactivated</Badge>}
       />
-      <div className="grid gap-4 lg:grid-cols-[1fr_20rem]">
+      <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_20rem] [&>*]:min-w-0">
         <div className="flex flex-col gap-4">
           <Panel title="Account" description={lockedBySuper ? "Only a super admin can edit another super admin." : undefined}>
             {manage && !lockedBySuper ? (

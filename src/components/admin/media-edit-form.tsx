@@ -34,7 +34,7 @@ export function MediaEditForm({ media, canWrite, canDelete }: { media: MediaEdit
   const control = "h-10 text-[0.9375rem]";
   return (
     <div className="flex flex-col gap-6">
-    <form action={action} noValidate className="grid gap-6 lg:grid-cols-[1fr_22rem]">
+    <form action={action} noValidate className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_22rem] [&>*]:min-w-0">
       <div>
         {isImage ? (
           <FocalPointPicker url={media.url} alt={media.alt} initialX={media.focalX} initialY={media.focalY} disabled={!canWrite} />

@@ -30,7 +30,7 @@ export default async function CampaignDetailPage({ params }: { params: Promise<{
         <ArrowLeft aria-hidden className="size-4" strokeWidth={1.75} /> Back to campaigns
       </Link>
       <PageHeader eyebrow="Campaign" title={campaign.name} lede={<code className="font-mono text-xs">utm_campaign={campaign.utmCampaign}</code>} />
-      <div className="grid gap-4 lg:grid-cols-[1fr_22rem]">
+      <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_22rem] [&>*]:min-w-0">
         <div className="flex flex-col gap-4">
           <Panel title="Details">
             <CampaignForm campaign={campaign} />

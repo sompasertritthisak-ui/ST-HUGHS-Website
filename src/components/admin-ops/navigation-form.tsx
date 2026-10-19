@@ -1,5 +1,7 @@
 "use client";
 
+import { cn } from "@/lib/utils";
+
 import { useActionState, useState } from "react";
 import { Checkbox, Field, Input, Select } from "@/components/ui/field";
 import { saveNavigationItem } from "@/lib/admin-ops/navigation-actions";
@@ -33,7 +35,7 @@ export function NavItemForm({ item, menu, parents, compactMode }: { item?: NavIt
   }
 
   return (
-    <form action={action} className="grid gap-3 md:grid-cols-2" key={state.ok && !item ? state.at : uid}>
+    <form action={action} className={cn("grid gap-3", compactMode ? "md:grid-cols-2" : "@[36rem]:grid-cols-2")} key={state.ok && !item ? state.at : uid}>
       {item?.id ? <input type="hidden" name="id" value={item.id} /> : null}
       <input type="hidden" name="menu" value={menu} />
       <Field label="Label" htmlFor={`label-${uid}`} required error={err.label}>
@@ -42,7 +44,7 @@ export function NavItemForm({ item, menu, parents, compactMode }: { item?: NavIt
       <Field label="Link" htmlFor={`href-${uid}`} required hint="Relative path (/programmes) or https URL." error={err.href}>
         <Input id={`href-${uid}`} name="href" defaultValue={item?.href ?? ""} className={`${compact} font-mono`} required maxLength={500} aria-invalid={Boolean(err.href)} />
       </Field>
-      <Field label="Description" htmlFor={`description-${uid}`} hint="Shown in the header mega-menu." error={err.description} className={menu === "HEADER" ? "" : "md:col-span-2"}>
+      <Field label="Description" htmlFor={`description-${uid}`} hint="Shown in the header mega-menu." error={err.description} className={menu === "HEADER" ? "" : compactMode ? "md:col-span-2" : "@[36rem]:col-span-2"}>
         <Input id={`description-${uid}`} name="description" defaultValue={item?.description ?? ""} className={compact} maxLength={200} />
       </Field>
       {menu === "HEADER" ? (
@@ -59,7 +61,7 @@ export function NavItemForm({ item, menu, parents, compactMode }: { item?: NavIt
           </Select>
         </Field>
       ) : null}
-      <div className="flex flex-wrap items-center gap-4 md:col-span-2">
+      <div className={cn("flex flex-wrap items-center gap-4", compactMode ? "md:col-span-2" : "@[36rem]:col-span-2")}>
         <label className="flex items-center gap-2 text-sm text-fg">
           <Checkbox name="isVisible" defaultChecked={item?.isVisible ?? true} /> Visible
         </label>

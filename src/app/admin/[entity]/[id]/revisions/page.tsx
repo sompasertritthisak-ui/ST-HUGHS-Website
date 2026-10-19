@@ -45,7 +45,7 @@ export default async function RevisionsPage({ params, searchParams }: Props) {
       {revisions.length === 0 ? (
         <EmptyState title="No revisions yet" body="A snapshot is taken automatically before every update, status change and rollback." />
       ) : (
-        <div className="grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
+        <div className="grid gap-6 xl:grid-cols-[18rem_minmax(0,1fr)] [&>*]:min-w-0">
           <Panel title="Versions" className="lg:self-start">
             <ol className="-m-2 flex flex-col">
               {revisions.map((r) => (

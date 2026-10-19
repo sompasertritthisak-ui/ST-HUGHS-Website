@@ -53,7 +53,7 @@ export default async function EditEntityPage({ params, searchParams }: Props) {
           {def.labelSingular} created as a draft. {def.children?.length || def.hasBlocks ? "You can now add inline items below." : ""}
         </p>
       ) : null}
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_20rem]">
+      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_20rem] [&>*]:min-w-0">
         <div className="flex min-w-0 flex-col gap-6">
           <EntityForm entityKey={def.key} id={record.id} fields={def.fields} values={toFormValues(def.fields, record)} relationOptions={relationOptions} mediaPreviews={mediaPreviews} canWrite={canWrite} listHref={entityHref(def)} />
           {def.children?.map((child) => <ChildList key={child.key} entityKey={def.key} parentId={record.id} child={child} rows={(Array.isArray(record[child.key]) ? record[child.key] : []) as AdminRecord[]} canWrite={canWrite} />)}
