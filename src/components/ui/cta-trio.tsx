@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
  */
 export function CtaTrio({ size = "md", className, compact = false }: { size?: "sm" | "md" | "lg"; className?: string; compact?: boolean }) {
   return (
-    <div className={cn("flex flex-wrap items-center gap-3", className)}>
+    <div className={cn("flex flex-wrap items-center gap-3 [&_a]:max-sm:h-12 [&_a]:max-sm:px-5 [&_a]:max-sm:text-[0.9375rem]", className)}>
       <Magnetic>
         <Button href="/enquire?type=visit" size={size} arrow="right">
           Book a tour

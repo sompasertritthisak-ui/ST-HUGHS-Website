@@ -55,20 +55,20 @@ export function Hero({
         <GlobeStage destinations={destinations} className="aspect-square w-full" tone="light" media="(min-width: 1024px)" />
       </div>
 
-      <div className="container-x relative grid min-h-[calc(100dvh-72px-3.25rem)] grid-cols-12 content-center gap-y-12 pb-12 pt-10 lg:pb-14 lg:pt-12">
+      <div className="container-x relative grid min-h-[calc(100dvh-72px-3.25rem)] grid-cols-12 content-center gap-y-6 pb-10 pt-6 lg:gap-y-12 lg:pb-14 lg:pt-12">
         <div data-hero-copy className="relative z-10 col-span-12 lg:col-span-7">
           <p className="eyebrow eyebrow-rule anim-fade-up" style={{ animationDelay: "320ms" }}>
             St Hugh&rsquo;s College Vientiane · NCUK Study Centre · Est. {established}
           </p>
-          <h1 id="hero-title" className="font-display mt-8 text-[clamp(2.75rem,9.2vw,8.5rem)] leading-[0.94] text-fg">
+          <h1 id="hero-title" className="font-display mt-5 text-[clamp(2.5rem,9.2vw,8.5rem)] leading-[0.94] text-fg lg:mt-8">
             <Words text={messaging.heroLine1} className="block" />
             <Words text={messaging.heroLine2} offset={line1Words} className="block" />
             <span aria-hidden className="anim-fade-up mt-5 block h-1 w-36 origin-left bg-route" style={{ animationDelay: `${supportDelay}ms` }} />
           </h1>
-          <p className="anim-fade-up mt-8 max-w-xl text-lg leading-relaxed text-fg-muted text-pretty md:text-xl" style={{ animationDelay: `${supportDelay}ms` }}>
+          <p className="anim-fade-up mt-5 max-w-xl text-[1.0625rem] leading-relaxed text-fg-muted text-pretty md:text-xl lg:mt-8" style={{ animationDelay: `${supportDelay}ms` }}>
             {messaging.heroSupport}
           </p>
-          <div className="anim-fade-up mt-10" style={{ animationDelay: `${supportDelay + 120}ms` }}>
+          <div className="anim-fade-up mt-7 lg:mt-10" style={{ animationDelay: `${supportDelay + 120}ms` }}>
             <CtaTrio size="lg" />
           </div>
           <p className="anim-fade-up mt-6 hidden font-mono text-[0.625rem] uppercase tracking-[0.16em] text-fg-subtle lg:block" style={{ animationDelay: `${supportDelay + 240}ms` }}>
@@ -77,9 +77,9 @@ export function Hero({
           <span aria-hidden className="scroll-cue anim-fade-up mt-8 hidden opacity-50 lg:block" style={{ animationDelay: `${supportDelay + 400}ms`, height: "1.75rem" }} />
         </div>
 
-        {/* Small and medium screens: the same interactive Earth, below the copy */}
-        <div className="col-span-12 lg:hidden" aria-hidden>
-          <div className="relative mx-auto w-full max-w-[640px]">
+        {/* Small and medium screens: the Earth comes first, so it is in view before any scrolling */}
+        <div className="order-first col-span-12 -mt-4 lg:hidden" aria-hidden>
+          <div className="relative mx-auto w-full max-w-[min(72vw,360px)] md:max-w-[440px]">
             <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgb(16_48_144/0.14)_0%,rgb(16_48_144/0.05)_40%,transparent_64%)]" />
             <GlobeStage destinations={destinations} className="aspect-square w-full" tone="light" media="(max-width: 1023.98px)" />
           </div>
