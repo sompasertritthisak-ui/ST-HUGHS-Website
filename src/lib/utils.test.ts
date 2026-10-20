@@ -1,7 +1,7 @@
 // @vitest-environment node
 import { describe, it, expect } from "vitest";
 import { z } from "zod";
-import { parseJson, parseStringArray, splitList, toSlug, isPublished, truncate, cn } from "./utils";
+import { parseJson, parseStringArray, splitList, toSlug, isPublished, truncate, cn, formatDate, formatDateTime, toCampusLocalInput, fromCampusLocalInput } from "./utils";
 
 describe("parseJson", () => {
   const schema = z.object({ a: z.number() });
@@ -57,5 +57,31 @@ describe("misc", () => {
   });
   it("cn merges tailwind classes", () => {
     expect(cn("p-2", "p-4")).toBe("p-4");
+  });
+});
+
+describe("campus time zone (Asia/Vientiane, UTC+7)", () => {
+  // 03:16 UTC on the server clock is 10:16 in Vientiane — what the staff member sees on their own screen.
+  const instant = new Date("2026-10-20T03:16:00Z");
+  it("formatDateTime renders in campus time whatever the server zone", () => {
+    expect(formatDateTime(instant)).toBe("20 Oct 2026, 10:16");
+    expect(formatDateTime("2026-10-20T03:16:00Z")).toBe("20 Oct 2026, 10:16");
+  });
+  it("formatDate rolls the calendar day in campus time, and callers can still override options", () => {
+    expect(formatDate(new Date("2026-03-01T20:30:00Z"))).toBe("2 March 2026");
+    expect(formatDate(instant, { month: "short", hour: "2-digit", minute: "2-digit" })).toBe("20 Oct 2026, 10:16");
+    expect(formatDate(null)).toBe("");
+  });
+  it("datetime-local round-trips through campus time", () => {
+    expect(toCampusLocalInput(instant)).toBe("2026-10-20T10:16");
+    expect(fromCampusLocalInput("2026-10-20T10:16").toISOString()).toBe("2026-10-20T03:16:00.000Z");
+    expect(fromCampusLocalInput(toCampusLocalInput(instant)).getTime()).toBe(instant.getTime());
+    expect(toCampusLocalInput(new Date("nope"))).toBe("");
+  });
+  it("fromCampusLocalInput reads date-only values as campus midnight and respects explicit zones", () => {
+    expect(fromCampusLocalInput("2026-10-20").toISOString()).toBe("2026-10-19T17:00:00.000Z");
+    expect(fromCampusLocalInput("2026-10-20T10:16:30").toISOString()).toBe("2026-10-20T03:16:30.000Z");
+    expect(fromCampusLocalInput("2026-10-20T03:16:00Z").toISOString()).toBe("2026-10-20T03:16:00.000Z");
+    expect(Number.isNaN(fromCampusLocalInput("not a date").getTime())).toBe(true);
   });
 });

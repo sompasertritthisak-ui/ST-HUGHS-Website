@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { AudienceSchema, ConsultationModeSchema } from "@/lib/enum-schemas";
+import { CAMPUS_TIME_ZONE } from "@/lib/utils";
 
 /**
  * Lead schemas shared by the public forms (client) and the write APIs (server).
@@ -75,7 +76,7 @@ export const ConsultationTimeSlotSchema = z.enum(CONSULTATION_TIME_SLOTS);
 export type ConsultationTimeSlot = z.infer<typeof ConsultationTimeSlotSchema>;
 
 /** Campus time zone used to decide what "today" means for a booking. */
-export const CAMPUS_TIME_ZONE = "Asia/Vientiane";
+export { CAMPUS_TIME_ZONE };
 
 /** `YYYY-MM-DD` for the given instant in the campus time zone. */
 export function todayIsoDate(now: Date = new Date(), timeZone: string = CAMPUS_TIME_ZONE): string {

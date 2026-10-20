@@ -1,5 +1,6 @@
 import { z } from "zod";
 import type { FieldDef } from "./types";
+import { fromCampusLocalInput, toCampusLocalInput } from "@/lib/utils";
 
 /**
  * Builds a Zod schema from registry field definitions and parses FormData
@@ -53,7 +54,7 @@ function dateField(field: FieldDef): z.ZodType<unknown> {
   return z.preprocess((v) => {
     const s = emptyToNull(v);
     if (s === null) return null;
-    const parsed = typeof s === "string" ? new Date(s) : s;
+    const parsed = typeof s === "string" ? fromCampusLocalInput(s) : s;
     return parsed instanceof Date && !Number.isNaN(parsed.getTime()) ? parsed : "invalid";
   }, field.required ? d : d.nullable());
 }
@@ -134,11 +135,6 @@ export function serialize(fields: FieldDef[], data: Record<string, unknown>) {
   return out;
 }
 
-function toLocalInput(d: Date) {
-  const pad = (n: number) => String(n).padStart(2, "0");
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
-}
-
 export type FormValues = Record<string, string | boolean>;
 
 /** Prisma record → values a form can render (strings/booleans). */
@@ -151,7 +147,7 @@ export function toFormValues(fields: FieldDef[], record: Record<string, unknown>
         out[field.name] = v === true;
         break;
       case "date":
-        out[field.name] = v instanceof Date ? toLocalInput(v) : typeof v === "string" && v ? toLocalInput(new Date(v)) : "";
+        out[field.name] = v instanceof Date ? toCampusLocalInput(v) : typeof v === "string" && v ? toCampusLocalInput(new Date(v)) : "";
         break;
       case "string-array": {
         let arr: unknown = [];
