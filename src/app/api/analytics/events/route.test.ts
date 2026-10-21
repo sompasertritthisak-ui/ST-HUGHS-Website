@@ -64,12 +64,14 @@ describe("POST /api/analytics/events", () => {
     expect((await post({ name: "page_view" })).status).toBe(204);
   });
 
-  it("rate limits at 60 per minute per IP", async () => {
+  it("accepts 300 events per minute per IP, then drops extras quietly", async () => {
     const sameIp = ip();
-    for (let i = 0; i < 60; i++) expect((await post({ name: "page_view" }, { ip: sameIp })).status).toBe(204);
+    for (let i = 0; i < 300; i++) expect((await post({ name: "page_view" }, { ip: sameIp })).status).toBe(204);
+    expect(db.analyticsEvent.create).toHaveBeenCalledTimes(300);
     const res = await post({ name: "page_view" }, { ip: sameIp });
-    expect(res.status).toBe(429);
-    expect(res.headers.get("retry-after")).toBeTruthy();
+    expect(res.status).toBe(204); // no 429: browsers would log it as an error
+    expect(db.analyticsEvent.create).toHaveBeenCalledTimes(300); // but nothing is stored
     expect((await post({ name: "page_view" })).status).toBe(204); // other IPs unaffected
+    expect(db.analyticsEvent.create).toHaveBeenCalledTimes(301);
   });
 });

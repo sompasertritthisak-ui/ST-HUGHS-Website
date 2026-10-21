@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { TrackEventSchema, trackEvent } from "@/lib/analytics";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
-import { rateLimited, readBody } from "../../_lib/respond";
+import { readBody } from "../../_lib/respond";
 
 /**
  * POST /api/analytics/events — first-party event ingestion.
@@ -12,14 +12,16 @@ import { rateLimited, readBody } from "../../_lib/respond";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const ANALYTICS_RATE_LIMIT = { limit: 60, windowMs: 60 * 1000 } as const;
+/** Generous: many visitors in Laos share one public IP (carrier NAT, school labs on an open day). */
+const ANALYTICS_RATE_LIMIT = { limit: 300, windowMs: 60 * 1000 } as const;
 
 const NO_STORE = { "Cache-Control": "no-store" } as const;
 
 export async function POST(req: Request) {
   const ip = clientIp(req.headers);
   const rl = rateLimit(`analytics:${ip}`, ANALYTICS_RATE_LIMIT.limit, ANALYTICS_RATE_LIMIT.windowMs);
-  if (!rl.ok) return rateLimited(rl.retryAfterMs);
+  // Over the limit: drop the event quietly (analytics is best-effort; a 429 would only log errors in visitors' consoles).
+  if (!rl.ok) return new NextResponse(null, { status: 204, headers: NO_STORE });
 
   const raw = await readBody(req, 8 * 1024);
   if (raw === null) return new NextResponse(null, { status: 400, headers: NO_STORE });

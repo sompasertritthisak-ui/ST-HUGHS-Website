@@ -13,7 +13,7 @@ import { rateLimited, readBody, validationError } from "./respond";
  * Shared implementation for POST /api/enquiries and POST /api/consultations.
  *
  * Order of operations (deliberate):
- *   1. rate limit per IP (5 per hour, shared key so a bot cannot double-dip)
+ *   1. rate limit per IP (30 per hour — many Lao families share one carrier IP; honeypot + validation stop bots)
  *   2. parse body (JSON or form)
  *   3. honeypot → quiet 200 (bots learn nothing)
  *   4. Zod validation → 422 with field errors
@@ -24,7 +24,7 @@ import { rateLimited, readBody, validationError } from "./respond";
  *   9. 201 { ok, id } — nothing else from the record is returned
  */
 
-export const LEAD_RATE_LIMIT = { limit: 5, windowMs: 60 * 60 * 1000 } as const;
+export const LEAD_RATE_LIMIT = { limit: 30, windowMs: 60 * 60 * 1000 } as const;
 
 type Kind = "ENQUIRY" | "CONSULTATION";
 

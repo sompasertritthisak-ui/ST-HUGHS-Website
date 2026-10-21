@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { notifyNewEnquiry, forwardToCrm } from "@/lib/notify";
 import type { FakePrisma } from "@/tests/fake-prisma";
 import { POST } from "./route";
+import { LEAD_RATE_LIMIT } from "@/app/api/_lib/lead";
 
 vi.mock("@/lib/prisma", async () => {
   const { createFakePrisma } = await import("@/tests/fake-prisma");
@@ -140,14 +141,14 @@ describe("POST /api/enquiries", () => {
     expect(bad).not.toContain("Souphaphone");
   });
 
-  it("rate limits after 5 submissions per IP with Retry-After", async () => {
+  it("rate limits after LEAD_RATE_LIMIT submissions per IP with Retry-After", async () => {
     const sameIp = ip();
-    for (let i = 0; i < 5; i++) expect((await post(valid, { ip: sameIp })).status).toBe(201);
+    for (let i = 0; i < LEAD_RATE_LIMIT.limit; i++) expect((await post(valid, { ip: sameIp })).status).toBe(201);
     const res = await post(valid, { ip: sameIp });
     expect(res.status).toBe(429);
     expect(Number(res.headers.get("retry-after"))).toBeGreaterThan(0);
     expect((await res.json()).ok).toBe(false);
-    expect(db.enquiry.create).toHaveBeenCalledTimes(5);
+    expect(db.enquiry.create).toHaveBeenCalledTimes(LEAD_RATE_LIMIT.limit);
   });
 
   it("still returns 201 when analytics/audit fail (lead is never lost)", async () => {

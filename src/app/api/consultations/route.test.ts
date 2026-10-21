@@ -5,6 +5,7 @@ import { notifyNewEnquiry, forwardToCrm } from "@/lib/notify";
 import { todayIsoDate } from "@/lib/schemas/enquiry";
 import type { FakePrisma } from "@/tests/fake-prisma";
 import { POST } from "./route";
+import { LEAD_RATE_LIMIT } from "@/app/api/_lib/lead";
 
 vi.mock("@/lib/prisma", async () => {
   const { createFakePrisma } = await import("@/tests/fake-prisma");
@@ -113,9 +114,9 @@ describe("POST /api/consultations", () => {
     expect(text).not.toContain(future);
   });
 
-  it("429 after 5 per IP", async () => {
+  it("429 after LEAD_RATE_LIMIT per IP", async () => {
     const sameIp = ip();
-    for (let i = 0; i < 5; i++) expect((await post(valid, { ip: sameIp })).status).toBe(201);
+    for (let i = 0; i < LEAD_RATE_LIMIT.limit; i++) expect((await post(valid, { ip: sameIp })).status).toBe(201);
     const res = await post(valid, { ip: sameIp });
     expect(res.status).toBe(429);
     expect(res.headers.get("retry-after")).toBeTruthy();
