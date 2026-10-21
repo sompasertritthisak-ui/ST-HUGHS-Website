@@ -1,5 +1,5 @@
 import "server-only";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { Prisma } from "@prisma/client";
 import { CONTENT_STATUSES, STATUS_TRANSITIONS, type ContentStatus } from "@/lib/enums";
 import { can, canTransitionTo } from "@/lib/rbac";
@@ -22,6 +22,7 @@ export function revalidateFor(def: EntityDef, ...records: (AdminRecord | null)[]
   const paths = new Set<string>([`/admin/${def.key}`]);
   for (const r of records) if (r) for (const p of def.publicPaths(r)) paths.add(p);
   for (const p of paths) revalidatePath(p);
+  revalidateTag("search"); // site search index
 }
 
 export function friendlyDbError(error: unknown): ActionState {

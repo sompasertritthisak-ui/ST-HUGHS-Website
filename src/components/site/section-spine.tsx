@@ -75,7 +75,7 @@ export function SectionSpine({ stops }: { stops: SpineStop[] }) {
                 i === active ? "scale-[1.7] bg-white shadow-[0_0_10px_rgb(255_255_255/0.8)]" : "bg-white/40 group-hover:bg-white",
               )}
             />
-            <span className="pointer-events-none absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-[var(--radius-sm)] bg-white px-2 py-1 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-black opacity-0 transition-opacity duration-[var(--dur-fast)] group-hover:opacity-100 group-focus-visible:opacity-100">
+            <span className="pointer-events-none absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-[var(--radius-sm)] bg-white px-2 py-1 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-black opacity-0 transition-opacity duration-[var(--dur-fast)] group-hover:opacity-100 group-focus-visible:opacity-100">
               {s.label}
             </span>
           </button>

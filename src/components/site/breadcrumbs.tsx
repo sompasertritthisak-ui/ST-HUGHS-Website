@@ -13,18 +13,18 @@ export function Breadcrumbs({ items, className }: { items: Crumb[]; className?: 
   const trail: Crumb[] = [{ label: "Home", href: "/" }, ...items];
   return (
     <nav aria-label="Breadcrumb" className={cn("container-x pt-8", className)}>
-      <ol className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[0.6875rem] uppercase tracking-[0.14em]">
+      <ol className="flex flex-wrap items-center gap-x-3 gap-y-0 font-mono text-[0.6875rem] uppercase tracking-[0.14em]">
         {trail.map((c, i) => {
           const last = i === trail.length - 1;
           return (
             <li key={c.href} className="flex items-center gap-3">
               {i > 0 ? <span aria-hidden className="h-px w-4 bg-route/60" /> : null}
               {last ? (
-                <span aria-current="page" className="text-fg-muted">
+                <span aria-current="page" className="inline-flex min-h-10 items-center text-fg-muted">
                   {c.label}
                 </span>
               ) : (
-                <Link href={c.href} className="text-fg-subtle transition-colors hover:text-brand-soft">
+                <Link href={c.href} className="inline-flex min-h-10 items-center text-fg-subtle transition-colors hover:text-brand-soft">
                   {c.label}
                 </Link>
               )}

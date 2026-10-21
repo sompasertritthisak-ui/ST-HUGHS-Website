@@ -45,7 +45,7 @@ export function PanImage({ src, alt = "" }: { src: string; alt?: string }) {
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img ref={img} src={src} alt={alt} className="absolute inset-0 size-full object-cover" style={{ objectPosition: "50% 50%" }} draggable={false} />
-      <span className="pointer-events-none absolute bottom-5 right-5 hidden font-mono text-[0.625rem] uppercase tracking-[0.16em] text-white/80 md:block">Hold and drag to look around</span>
+      <span className="pointer-events-none absolute bottom-5 right-5 hidden font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-white/80 md:block">Hold and drag to look around</span>
     </div>
   );
 }

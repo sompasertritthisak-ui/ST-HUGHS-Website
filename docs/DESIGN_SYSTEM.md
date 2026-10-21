@@ -115,8 +115,10 @@ Red text on blue is always `brand-soft` (#FF8A85); true red on blue is reserved 
 | Role | Family | Notes |
 |---|---|---|
 | Display | Cormorant Garamond 600 (400–700 loaded) + italic | ≥ 40px only. Tight tracking `-0.01em`, line-height 0.95–1.05. Headings are set bold on purpose |
-| Sans | IBM Plex Sans 400/500/600/700 | body 16–18px, line-height 1.6; UI 14–15px; menu items 600 |
-| Mono | IBM Plex Mono 400/500 | eyebrows, route codes, durations, statuses; uppercase, tracking `0.14em`, 11–12px |
+| Sans | Plus Jakarta Sans (variable) | body 16–18px, line-height 1.6; UI 14–15px; menu items 600 |
+| Labels | Plus Jakarta Sans 600–700 (the `font-mono` class now maps here; staff found the typewriter face blocky) | eyebrows, route codes, durations, statuses; uppercase, tracking `0.12–0.14em`, minimum 11px |
+| Lao | Noto Sans Lao Looped (text), Noto Serif Lao (beside display headings) | loaded only when Lao text appears; never preloaded |
+| Code | system monospace (`--font-code`) | `<code>` only (CMS keys, ids, UTM values) |
 
 Scale (rem): 0.75, 0.875, 1, 1.125, 1.25, 1.5, 2, 2.5, 3.25, 4.25, 5.5, clamp() for display.
 

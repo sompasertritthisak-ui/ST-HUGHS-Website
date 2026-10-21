@@ -33,7 +33,7 @@ export default async function UniversitiesPage() {
             The institutions at the <span className="italic text-brand-soft">end of the line.</span>
           </>
         }
-        lede="Two kinds of destination appear here: the NCUK university network that receives International Foundation Year and International Year One students, and the named institutions referenced in SHV's own pathway routes. Each carries its partnership type and a verification status — trust is shown, not claimed."
+        lede="Two kinds of university appear here: NCUK University Partners, which accept International Foundation Year and International Year One students, and the universities SHV partners with directly. Each shows its partnership type and verification status."
         aside={
           <dl className="grid grid-cols-2 gap-6 border-t border-line pt-6 font-mono text-[0.6875rem] uppercase tracking-[0.14em]">
             <div>
@@ -81,7 +81,7 @@ export default async function UniversitiesPage() {
         ) : null}
       </Section>
 
-      <Section eyebrow="Global academic network" title="Awarding bodies and education partners" lede="Each name links to the organisation's own website. Nothing here is decorative — every entry is a published, verified or clearly pending relationship." layout="full">
+      <Section eyebrow="Global academic network" title="Awarding bodies and education partners" lede="Each name links to the organisation's own website. Each entry is a confirmed relationship or is clearly marked as pending." layout="full">
         {partners.length ? (
           <ul className="grid grid-cols-1 gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
             {partners.map((p) => {

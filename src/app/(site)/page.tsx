@@ -11,10 +11,11 @@ import { CinematicScene } from "@/components/cinematic/cinematic-scene";
 import { CINEMATIC } from "@/components/cinematic/media";
 import { RouteRibbon } from "@/components/three/route-ribbon";
 import { AmbientToggle } from "@/components/site/ambient-toggle";
+import { AlumniVoices } from "@/components/sections/alumni-voices";
 
 const TITLE = "St Hugh's College Vientiane — International university pathways from Laos";
 const DESCRIPTION =
-  "St Hugh's College Vientiane is an NCUK Study Centre in Lao PDR. Begin the International Foundation Year or International Year One in Vientiane and progress to universities in the UK, Australia, New Zealand, North America and Asia.";
+  "St Hugh's College Vientiane is an NCUK Study Centre in Lao PDR. Begin in Vientiane with an NCUK programme or a partner degree route, and progress to universities in the UK, Europe, Australia, New Zealand, North America and Asia.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -30,6 +31,7 @@ const SPINE = [
   { id: "programmes-title", label: "Programmes" },
   { id: "destinations-title", label: "Destinations" },
   { id: "life-title", label: "Life at SHV" },
+  { id: "alumni-title", label: "Alumni" },
   { id: "why-title", label: "Why St Hugh's" },
   { id: "work-title", label: "Work with us" },
   { id: "final-cta", label: "Start here" },
@@ -46,7 +48,8 @@ const SPINE = [
  *  3. Chapter 1 → Programmes     What would I study?       (→ /programmes)
  *  4. Chapter 2 → Destinations   Where can it take me?     (→ /destinations, /universities)
  *  5. Chapter 3 → Life at SHV    Is it a real place?       (→ /student-life, /campus)
- *  6. Why St Hugh's     Can I trust it? (four sourced facts → /why-st-hughs)
+ *  6. Alumni voices     Did it work for people like me? (consented videos → /student-stories)
+ *  7. Why St Hugh's     Can I trust it? (four sourced facts → /why-st-hughs)
  *  7. Start here        The one conversion: a free consultation
  *
  * Moved to their own pages: the timeline (/about), the pathway tool (/pathway-explorer), outcomes
@@ -133,10 +136,13 @@ export default async function HomePage() {
       />
       <LifeMosaic />
 
-      {/* 6 — Trust */}
+      {/* 6 — Alumni voices */}
+      <AlumniVoices />
+
+      {/* 7 — Trust */}
       <WhyStHughs institution={institution} limit={3} />
 
-      {/* 7 — Work with us */}
+      {/* 8 — Work with us */}
       <WorkWithUs />
 
       {/* 8 — Start here */}

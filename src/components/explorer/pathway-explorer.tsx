@@ -218,7 +218,7 @@ export function PathwayExplorer({ data }: { data: Omit<ExplorerData, "messaging"
                   <li key={step.key} className="flex items-center gap-4 py-4">
                     <span className="font-mono text-[0.6875rem] tracking-[0.14em] text-brand-soft tabular">{index}</span>
                     <div className="min-w-0 flex-1">
-                      <p className="font-mono text-[0.625rem] uppercase tracking-[0.14em] text-fg-subtle">{step.label}</p>
+                      <p className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-subtle">{step.label}</p>
                       <p className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.9375rem] font-medium text-fg">
                         <Check aria-hidden className="size-3.5 text-brand-soft" strokeWidth={2} />
                         <span>{step.chosen!.label}</span>
@@ -240,7 +240,7 @@ export function PathwayExplorer({ data }: { data: Omit<ExplorerData, "messaging"
                   <div className="flex items-baseline gap-4">
                     <span className="font-mono text-[0.6875rem] tracking-[0.14em] text-brand-soft tabular">{index}</span>
                     <div>
-                      <p className="font-mono text-[0.625rem] uppercase tracking-[0.14em] text-fg-subtle">{step.label}</p>
+                      <p className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-subtle">{step.label}</p>
                       <h3 ref={currentHeading} tabIndex={-1} className="font-display mt-1 text-[clamp(1.5rem,2.4vw,2rem)] text-fg outline-none">
                         {step.prompt}
                       </h3>
@@ -265,7 +265,7 @@ export function PathwayExplorer({ data }: { data: Omit<ExplorerData, "messaging"
                         >
                           <span className="text-[0.9375rem] font-medium leading-snug text-fg">{opt.label}</span>
                           <span className="flex w-full flex-wrap items-center justify-between gap-2">
-                            <span className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-fg-subtle">
+                            <span className="font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-fg-subtle">
                               {opt.meta ? <>{opt.meta} · </> : null}
                               {opt.count} {opt.count === 1 ? "route" : "routes"}
                             </span>

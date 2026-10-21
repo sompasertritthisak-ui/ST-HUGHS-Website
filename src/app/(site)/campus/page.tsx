@@ -46,8 +46,8 @@ export default async function CampusPage() {
               ))}
             </address>
             <div className="mt-6">
-              <Button href="/consultation?type=visit" arrow="right">
-                Book a visit
+              <Button href="/enquire?type=visit" arrow="right">
+                Book a tour
               </Button>
             </div>
           </div>
@@ -95,7 +95,7 @@ export default async function CampusPage() {
         </Section>
       ) : null}
 
-      <ConsultationBand title="Walk the campus with an advisor" body="Book a visit to see the classrooms, lecture halls and study spaces in person, and ask anything about the year in Vientiane." primaryHref="/consultation?type=visit" primaryLabel="Book a visit" secondaryHref="/contact" secondaryLabel="Contact and directions" />
+      <ConsultationBand title="Walk the campus with an advisor" body="Book a tour to see the classrooms, lecture halls and study spaces in person, and ask anything about the year in Vientiane." primaryHref="/enquire?type=visit" primaryLabel="Book a tour" secondaryHref="/contact" secondaryLabel="Contact and directions" />
     </>
   );
 }

@@ -12,7 +12,13 @@ const W = 720;
 const H = 360;
 /** Equirectangular projection re-centred on 40°E so the origin (Vientiane) and every destination sit inside the frame. */
 const CENTRE_LNG = 40;
-const px = (lat: number, lng: number): [number, number] => project(lat, ((((lng - CENTRE_LNG + 180) % 360) + 360) % 360) - 180, W, H);
+/** Rounded to 0.01px: server (V8) and Safari (JavaScriptCore) differ in the last digits of trig results, which made the
+ *  server-rendered SVG paths mismatch on hydration in iOS Safari. */
+const r2 = (n: number) => Math.round(n * 100) / 100;
+const px = (lat: number, lng: number): [number, number] => {
+  const [x, y] = project(lat, ((((lng - CENTRE_LNG + 180) % 360) + 360) % 360) - 180, W, H);
+  return [r2(x), r2(y)];
+};
 
 
 export function GlobeFallback({ destinations, className, animate = true, tone = "dark" }: { destinations: GlobeDestination[]; className?: string; animate?: boolean; tone?: "dark" | "light" }) {
@@ -68,7 +74,7 @@ export function GlobeFallback({ destinations, className, animate = true, tone = 
                 key={d.slug}
                 className="shv-gf-arc"
                 pathLength={1}
-                d={`M ${ox} ${oy} Q ${mx} ${my} ${dx} ${dy}`}
+                d={`M ${ox} ${oy} Q ${r2(mx)} ${r2(my)} ${dx} ${dy}`}
                 stroke="var(--color-brand)"
                 strokeOpacity={d.verified ? 0.7 : 0.38}
                 strokeWidth="0.9"

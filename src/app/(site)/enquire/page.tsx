@@ -23,6 +23,7 @@ export default async function EnquirePage({ searchParams }: { searchParams: Lead
     destinationSlug: firstParam(sp.destination),
     audience: firstParam(sp.audience),
     type: firstParam(sp.type),
+    topic: firstParam(sp.topic),
   };
 
   const audiences = [t("enquire.aside.students"), t("enquire.aside.partners"), t("enquire.aside.employers")];

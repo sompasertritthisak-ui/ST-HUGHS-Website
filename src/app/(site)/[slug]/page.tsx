@@ -31,7 +31,7 @@ export default async function BlockPage({ params }: { params: Params }) {
       <Breadcrumbs items={[{ label: page.title, href: `/${page.slug}` }]} />
       <BlockRenderer blocks={page.blocks} fallbackTitle={page.title} />
       {page.structuredDataJson ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: page.structuredDataJson.replace(/</g, "\\u003c") }} /> : null}
-      {!hasCta ? <ConsultationBand title="Questions about this page?" body="Contact the college and we will answer directly." primaryHref="/contact" primaryLabel="Contact us" secondaryHref="/consultation" secondaryLabel="Book a consultation" /> : null}
+      {!hasCta ? <ConsultationBand title="Questions about this page?" body="Contact the college and we will answer directly." primaryHref="/contact" primaryLabel="Contact us" secondaryHref="/consultation" secondaryLabel="Talk to an advisor" /> : null}
     </>
   );
 }

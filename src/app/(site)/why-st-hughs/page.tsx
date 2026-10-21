@@ -30,7 +30,7 @@ export default async function WhyPage() {
   const verifiedDestinations = destinations.filter((d) => d.verificationStatus === "VERIFIED");
 
   const acts = [
-    { code: "Act I", title: "Why Laos", body: "Start close to home. The first year is completed in Vientiane — family proximity, a lower relocation barrier and time to build academic English before moving abroad." },
+    { code: "Act I", title: "Why Laos", body: "Start close to home. At least your first year is in Vientiane: close to family, lower moving costs and time to build academic English before going abroad." },
     { code: "Act II", title: "Why SHV", body: "International programmes quality-assured by an awarding body, an institution authorised by the Lao Ministry of Education and Sports, and pathway guidance from the first conversation." },
     { code: "Act III", title: "Why global", body: `Published routes currently lead to ${verifiedDestinations.length} verified destination${verifiedDestinations.length === 1 ? "" : "s"}, with further partner routes published as they are confirmed.` },
   ];

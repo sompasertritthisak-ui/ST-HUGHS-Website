@@ -55,7 +55,7 @@ export default async function DestinationPage({ params }: { params: Params }) {
             See the routes here
           </Button>
           <Button href="/consultation" variant="secondary">
-            Book a consultation
+            Talk to an advisor
           </Button>
         </div>
       </PageHero>
@@ -132,7 +132,7 @@ export default async function DestinationPage({ params }: { params: Params }) {
         <SourceNote note={destination.sourceNote} />
       </section>
 
-      <ConsultationBand title={`Thinking about ${destination.country}?`} body="Explore the pathways that lead here, or book a free consultation to check the requirements against your qualifications." primaryHref="/pathways" primaryLabel="Explore pathways" secondaryHref="/consultation" secondaryLabel="Book a consultation" />
+      <ConsultationBand title={`Thinking about ${destination.country}?`} body="Explore the pathways that lead here, or book a free consultation to check the requirements against your qualifications." primaryHref="/pathways" primaryLabel="Explore pathways" secondaryHref="/consultation" secondaryLabel="Talk to an advisor" />
     </>
   );
 }

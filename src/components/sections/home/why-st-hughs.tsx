@@ -16,7 +16,7 @@ function buildEvidence(inst: InstitutionSettings): Evidence[] {
     items.push({
       title: "Authorised in Laos",
       body: inst.authorisation,
-      source: "Lao MoES",
+      source: "Ministry of Education and Sports",
       href: "/about",
     });
   }
@@ -39,7 +39,7 @@ function buildEvidence(inst: InstitutionSettings): Evidence[] {
 
   items.push({
     title: "Start at home, then go",
-    body: "The first year is taught in Vientiane; the move abroad comes once a university place is confirmed.",
+    body: "At least your first year is taught in Vientiane; you move abroad once a university place is confirmed.",
     source: "Vientiane",
     href: "/pathways",
   });
@@ -47,7 +47,7 @@ function buildEvidence(inst: InstitutionSettings): Evidence[] {
   if (inst.sisterInstitution) {
     items.push({
       title: "Roots in Vientiane",
-      body: `Sister institution: ${inst.sisterInstitution}. St Hugh's was established in ${inst.established} and builds on that experience of international education in Laos.`,
+      body: `Sister institution: ${inst.sisterInstitution} St Hugh's was established in ${inst.established} and builds on that experience of international education in Laos.`,
       source: "PBIS",
       href: "/about",
     });

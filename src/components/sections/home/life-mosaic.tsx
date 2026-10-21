@@ -75,7 +75,7 @@ export async function LifeMosaic() {
                 {v.photo ? <Image src={v.photo.url} alt="" width={40} height={40} className="size-10 rounded-full object-cover" /> : <span aria-hidden className="size-10 rounded-full bg-bg-hover" />}
                 <div className="min-w-0">
                   <p className="truncate text-sm font-semibold text-fg">{v.studentName}</p>
-                  <p className="truncate font-mono text-[0.625rem] uppercase tracking-[0.14em] text-fg-subtle">{[v.programme?.shortTitle ?? v.programme?.title, v.destination?.country].filter(Boolean).join(" → ")}</p>
+                  <p className="truncate font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-subtle">{[v.programme?.shortTitle ?? v.programme?.title, v.destination?.country].filter(Boolean).join(" → ")}</p>
                 </div>
                 <Link href={`/student-stories/${v.slug}`} className="ml-auto text-sm text-blue hover:underline">Read</Link>
               </div>
@@ -88,8 +88,8 @@ export async function LifeMosaic() {
                 <p className="font-display text-[clamp(1.75rem,2.6vw,2.5rem)] leading-[1.05] text-balance">{messaging.tagline}</p>
                 <p className="mt-3 max-w-md text-sm text-platinum">A foundation year at home in Vientiane, a degree with a partner university abroad, and an admissions team that checks every step with you.</p>
               </div>
-              <Link href="/consultation?type=visit" className="group inline-flex items-center gap-2 text-sm text-white">
-                Book a campus visit
+              <Link href="/enquire?type=visit" className="group inline-flex min-h-11 items-center gap-2 text-sm text-white">
+                Book a tour
                 <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-1" strokeWidth={1.5} />
               </Link>
             </Reveal>
@@ -97,11 +97,11 @@ export async function LifeMosaic() {
         </ul>
 
         <div className="mt-8 flex flex-wrap gap-6">
-          <Link href="/campus" className="group inline-flex items-center gap-2 text-fg">
+          <Link href="/campus" className="group inline-flex min-h-11 items-center gap-2 text-fg">
             Walk the campus
             <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-1" strokeWidth={1.5} />
           </Link>
-          <Link href="/student-life" className="group inline-flex items-center gap-2 text-fg">
+          <Link href="/student-life" className="group inline-flex min-h-11 items-center gap-2 text-fg">
             Student life at SHV
             <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-1" strokeWidth={1.5} />
           </Link>

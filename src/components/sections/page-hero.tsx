@@ -35,12 +35,14 @@ export function PageHero({
   className?: string;
   children?: ReactNode;
 }) {
-  const headingClass = "font-display text-[clamp(2.75rem,7vw,5.75rem)] leading-[0.98] text-fg text-balance";
+  // Long titles (programme names) step down a size so they never run to five lines on a phone.
+  const long = typeof title === "string" && title.length > 38;
+  const headingClass = cn("font-display leading-[0.98] text-fg text-balance", long ? "text-[clamp(2.25rem,5.6vw,4.5rem)]" : "text-[clamp(2.75rem,7vw,5.75rem)]");
   return (
     <section className={cn("container-x pb-12 pt-16 md:pt-24", className)}>
       <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
         <div className="lg:col-span-8">
-          {eyebrow ? <Eyebrow className="mb-6">{eyebrow}</Eyebrow> : null}
+          {eyebrow ? <Eyebrow className="mb-6"><span className="min-w-0">{eyebrow}</span></Eyebrow> : null}
           {typeof title === "string" ? (
             <SplitHeading as="h1" text={title} accent={accent} accentClassName="text-blue" className={headingClass} />
           ) : (

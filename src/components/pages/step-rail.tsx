@@ -25,7 +25,7 @@ export function StepRail({ steps, numbered = true, className }: { steps: RailSte
           <div className="md:col-span-8">
             <div className="max-w-[60ch] leading-relaxed text-fg-muted">{step.body}</div>
             {step.href ? (
-              <Link href={step.href} className="group mt-4 inline-flex items-center gap-2 text-[0.9375rem] text-brand-soft">
+              <Link href={step.href} className="group mt-4 inline-flex min-h-11 items-center gap-2 text-[0.9375rem] text-brand-soft">
                 {step.linkLabel ?? "Continue"}
                 <ArrowRight aria-hidden className="size-4 transition-transform duration-[var(--dur-fast)] group-hover:translate-x-1" strokeWidth={1.5} />
               </Link>

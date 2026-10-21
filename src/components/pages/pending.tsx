@@ -2,6 +2,7 @@ import { VerificationBadge } from "@/components/ui/verification-badge";
 import { Markdown } from "@/components/ui/markdown";
 import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
+import { publicSourceNote } from "@/lib/source-note";
 
 /** Calm empty state for a single field. Never lorem, never an invented fact. */
 export function PendingLine({ children = "Confirmed by the admissions team", className }: { children?: ReactNode; className?: string }) {
@@ -42,7 +43,8 @@ export function VerificationNote({ status, className }: { status: string; classN
 }
 
 /** Discreet provenance line. */
-export function SourceNote({ note, className }: { note?: string | null; className?: string }) {
+export function SourceNote({ note: raw, className }: { note?: string | null; className?: string }) {
+  const note = publicSourceNote(raw);
   if (!note) return null;
   return (
     <p className={cn("font-mono text-[0.6875rem] leading-relaxed tracking-[0.06em] text-fg-subtle", className)}>

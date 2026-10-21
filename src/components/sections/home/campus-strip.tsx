@@ -62,7 +62,7 @@ export function CampusStrip({ facilities: input, addressLine }: { facilities: Fa
                     <Plate media={f.photo} slot={`Campus — ${f.name}`} aspect={aspect} sizes="(min-width:1024px) 40vw, 80vw" />
                     <div className="mt-4 flex items-baseline justify-between gap-4 border-t border-line pt-3">
                       <div className="min-w-0">
-                        <p className="font-mono text-[0.625rem] uppercase tracking-[0.16em] text-fg-subtle">
+                        <p className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-fg-subtle">
                           <span className="tabular text-brand-soft">{String(i + 1).padStart(2, "0")}</span>
                           <span className="mx-2">/</span>
                           <span className="tabular">{String(facilities.length).padStart(2, "0")}</span>
@@ -79,7 +79,7 @@ export function CampusStrip({ facilities: input, addressLine }: { facilities: Fa
             <li aria-hidden className="w-[var(--gutter)] shrink-0" />
           </ol>
           </DragScroll>
-          <p className="container-x mt-3 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-fg-subtle">Drag or scroll sideways to walk the campus →</p>
+          <p className="container-x mt-3 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-fg-subtle">Drag or scroll sideways to walk the campus →</p>
         </div>
       ) : (
         <div className="container-x pb-[var(--section-y)] pt-10">

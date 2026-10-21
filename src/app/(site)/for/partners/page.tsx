@@ -22,7 +22,7 @@ export default async function ForPartnersPage() {
     <>
       <PageHero media={PAGE_IMAGES["for/partners"]}
         eyebrow="I'm a partner"
-        title={<>Is this institution <span className="italic text-brand-soft">serious?</span></>}
+        title={<>An institution <span className="italic text-brand-soft">on record.</span></>}
         lede="A short, factual layer for universities, education partners and investors. Everything here is on record or clearly marked as not yet published; nothing is decorated."
         aside={
           <div className="border-t border-line pt-6">
@@ -52,7 +52,7 @@ export default async function ForPartnersPage() {
         <SourceNote note={institution.authorisationSource || null} className="mt-4" />
       </Section>
 
-      <Section eyebrow="Vision, mission, history" title="Purpose and direction" lede="Maintained by SHV in the content management system and published as approved.">
+      <Section eyebrow="Vision, mission, history" title="Purpose and direction" lede="Published once approved.">
         <dl className="divide-y divide-line border-y border-line">
           {[
             { label: "Vision", text: institution.vision },

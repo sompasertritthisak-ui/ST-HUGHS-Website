@@ -84,7 +84,7 @@ export default async function DestinationsPage() {
             From Vientiane <span className="italic text-brand-soft">outward.</span>
           </>
         }
-        lede="Every destination below has at least one pathway attached, or is being confirmed. We show only the routes that actually lead to each country — no programme leads everywhere."
+        lede="Each destination below has at least one route from Vientiane, or one being confirmed. We show only the routes that genuinely lead to each country."
         aside={
           <>
             <div className="relative mx-auto mb-6 w-full max-w-[460px]">
@@ -140,7 +140,7 @@ export default async function DestinationsPage() {
         </Button>
       </section>
 
-      <ConsultationBand title="Which destination fits your plan?" body="Trace a full route in the Pathway Explorer, or book a free consultation and an advisor will match destinations to your subject and qualifications." primaryHref="/pathway-explorer" primaryLabel="Explore your pathway" secondaryHref="/consultation" secondaryLabel="Book a consultation" />
+      <ConsultationBand title="Which destination fits your plan?" body="Trace a full route in the Pathway Explorer, or book a free consultation and an advisor will match destinations to your subject and qualifications." primaryHref="/pathway-explorer" primaryLabel="Explore your pathway" secondaryHref="/consultation" secondaryLabel="Talk to an advisor" />
     </>
   );
 }

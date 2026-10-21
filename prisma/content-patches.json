@@ -1,0 +1,437 @@
+{
+  "version": "2026-10-21-copy-review-b",
+  "replace": [
+    {
+      "old": "Bachelor in International Hospitality Management (2+2 with British University Vietnam)",
+      "new": "Bachelor in International Hospitality Management (2+2, Hanoi)"
+    },
+    {
+      "old": "Bachelor's + Master's Pathway (1+3) with Assumption University — SIMBA",
+      "new": "Bachelor's + Master's Pathway (1+3) — SIMBA"
+    },
+    {
+      "old": "Bachelor's + Master's 1+3 (Assumption University)",
+      "new": "Bachelor's + Master's (1+3)"
+    },
+    {
+      "old": "Bachelor in International Business (1+3 with ESDES Business School, Lyon)",
+      "new": "Bachelor in International Business (1+3, Lyon)"
+    },
+    {
+      "old": "Bachelor in International Business 1+3 (ESDES)",
+      "new": "Bachelor in International Business (1+3)"
+    },
+    {
+      "old": "St Hugh's College Vientiane (SHV Certificate of Completion)",
+      "new": "St Hugh's College Vientiane"
+    },
+    {
+      "old": "Business Administration — Entrepreneurship & Innovation Gen AI (with NUOL)",
+      "new": "Business Administration — Entrepreneurship & Innovation Gen AI"
+    },
+    {
+      "old": "National University of Laos (Bachelor's degree); St Hugh's College Vientiane (Diploma and Associate degree)",
+      "new": "St Hugh's College Vientiane"
+    },
+    {
+      "old": "Bachelor's degree (Diploma → Associate degree → NUOL Bachelor)",
+      "new": "Bachelor's degree (Diploma → Associate degree → Bachelor's)"
+    },
+    {
+      "old": "Your Bachelor's degree: 3 years on the SHV campus plus a 24-week internship, taught in Lao with English from zero to B2, and awarded by the National University of Laos. The Associate degree in Entrepreneurship & Innovation Gen AI is awarded by St Hugh's.",
+      "new": "A St Hugh's degree programme taught in Lao: three years on our Vientiane campus plus a 24-week internship, with English from zero to B2. You earn a St Hugh's Diploma, then a St Hugh's Associate degree in Entrepreneurship & Innovation Gen AI, then your bachelor's degree."
+    },
+    {
+      "old": "St Hugh's College Vientiane (all three years; Year 3 top-up taught by NUOL professors on campus)",
+      "new": "St Hugh's College Vientiane — all three years on campus"
+    },
+    {
+      "old": "Year 1: Diploma (St Hugh's). Year 2: Associate degree in Entrepreneurship & Innovation Gen AI (St Hugh's). Year 3 + 24-week internship: Bachelor's degree awarded by the National University of Laos.",
+      "new": "Year 1: St Hugh's Diploma. Year 2: St Hugh's Associate degree in Entrepreneurship & Innovation Gen AI. Year 3 + 24-week internship: bachelor's degree, awarded through St Hugh's academic collaboration with the National University of Laos."
+    },
+    {
+      "old": "Progression to a Master's degree: a Bachelor's degree from the National University plus English at B2 level, ready to apply domestically and internationally",
+      "new": "Progression to a master's degree: a bachelor's degree plus English at B2 level, ready to apply in Laos and abroad"
+    },
+    {
+      "old": "Business Administration — Entrepreneurship & Innovation Gen AI (SHV + NUOL)",
+      "new": "Business Administration — Entrepreneurship & Innovation Gen AI, taught in Lao"
+    },
+    {
+      "old": "A NUOL-awarded bachelor's degree taught in Lao on the St Hugh's campus: 3 years + 24-week internship",
+      "new": "A St Hugh's bachelor's degree programme taught in Lao on our Vientiane campus: 3 years + 24-week internship"
+    },
+    {
+      "old": "- **Bachelor's degree from the National University of Laos** — study at SHV with academic collaboration with the NUOL",
+      "new": "- **A recognised bachelor's degree** — every year is studied at St Hugh's; the degree is awarded through our academic collaboration with the National University of Laos"
+    },
+    {
+      "old": "Clear progression — Diploma → Associate degree → NUOL Bachelor.",
+      "new": "Clear progression — St Hugh's Diploma → St Hugh's Associate degree → bachelor's degree."
+    },
+    {
+      "old": "- **Year 3+ — Top-up year taught by NUOL professors** on the St Hugh's campus. English continues.",
+      "new": "- **Year 3 — Bachelor's top-up year** on the St Hugh's campus, with visiting university professors. English continues."
+    },
+    {
+      "old": "- **Progress to a Master's degree** — a Bachelor's degree from the National University plus English at B2 level, ready to apply for a master's both domestically and internationally",
+      "new": "- **Progress to a master's degree** — a bachelor's degree plus English at B2 level, ready to apply for a master's in Laos or abroad"
+    },
+    {
+      "old": "## 3-year structure: 2 + 1 + internship",
+      "new": "## 3-year structure: 2+1 + internship"
+    },
+    {
+      "old": "Year 3 — Top-up year taught by NUOL professors",
+      "new": "Year 3 — Bachelor's top-up year"
+    },
+    {
+      "old": "Delivered on the St Hugh's campus. English continues.",
+      "new": "On the St Hugh's campus, with visiting professors from the National University of Laos. English continues."
+    },
+    {
+      "old": "final defence — leading to the NUOL Bachelor's degree.",
+      "new": "final defence — leading to your bachelor's degree."
+    },
+    {
+      "old": "Diploma → Associate degree → NUOL Bachelor's, all on the SHV campus",
+      "new": "Diploma → Associate degree → bachelor's degree, all on the St Hugh's campus"
+    },
+    {
+      "old": "a Diploma, then an Associate degree in Entrepreneurship & Innovation Gen AI, then a Bachelor's degree awarded by the National University of Laos.",
+      "new": "a St Hugh's Diploma, then a St Hugh's Associate degree in Entrepreneurship & Innovation Gen AI, then your bachelor's degree."
+    },
+    {
+      "old": "Bachelor's degree (National University of Laos); Associate degree in Entrepreneurship & Innovation Gen AI (St Hugh's)",
+      "new": "St Hugh's Diploma and Associate degree in Entrepreneurship & Innovation Gen AI; bachelor's degree (with the National University of Laos)"
+    },
+    {
+      "old": "No transfer — the Year 3 top-up is taught by NUOL professors on the St Hugh's campus",
+      "new": "No transfer — all three years, including the bachelor's top-up, are on the St Hugh's campus"
+    },
+    {
+      "old": "to the NUOL top-up year and the 24-week internship",
+      "new": "to the bachelor's top-up year and the 24-week internship"
+    },
+    {
+      "old": "Top-up year taught by NUOL professors; English continues",
+      "new": "Bachelor's top-up year with visiting university professors; English continues"
+    },
+    {
+      "old": "real work, real evidence, final defence → NUOL Bachelor's degree",
+      "new": "real work, real evidence, final defence → bachelor's degree"
+    },
+    {
+      "old": "BBA Entrepreneurship & Innovation Gen AI (3 years at SHV, awarded by NUOL)",
+      "new": "BBA Entrepreneurship & Innovation Gen AI (3 years at St Hugh's)"
+    },
+    {
+      "old": "The Business Administration degree in Entrepreneurship & Innovation Gen AI is taught in Lao on the SHV campus over three years plus a 24-week internship, with the Bachelor's degree awarded by the National University of Laos (NUOL) and the Year 3 top-up taught by NUOL professors.",
+      "new": "St Hugh's Business Administration degree in Entrepreneurship & Innovation Gen AI is taught in Lao on our campus over three years plus a 24-week internship, leading to a bachelor's degree."
+    },
+    {
+      "old": "Graduates hold a NUOL Bachelor's degree and English at B2 level, ready to apply for a master's degree domestically or internationally",
+      "new": "Graduates hold a bachelor's degree and English at B2 level, ready to apply for a master's degree in Laos or abroad"
+    },
+    {
+      "old": "the BBA with NUOL and Intensive English",
+      "new": "the St Hugh's BBA taught in Lao, and Intensive English"
+    },
+    {
+      "old": "Intensive English and the BBA with NUOL: no prior English required.",
+      "new": "Intensive English and the St Hugh's BBA: no prior English required."
+    },
+    {
+      "old": "Diploma (Year 1), Associate degree (Year 2, awarded by St Hugh's) and a top-up year taught by NUOL professors — with the Bachelor's degree awarded by the National University of Laos.",
+      "new": "a St Hugh's Diploma (Year 1), a St Hugh's Associate degree (Year 2) and a bachelor's top-up year — with the bachelor's degree awarded through our academic collaboration with the National University of Laos."
+    },
+    {
+      "old": "and a NUOL-awarded bachelor's degree taught on campus.",
+      "new": "and a St Hugh's bachelor's degree programme taught in Lao on our campus."
+    },
+    {
+      "old": "and the BBA with NUOL lets students complete a recognised degree without leaving Vientiane.",
+      "new": "and the St Hugh's BBA lets students complete a recognised degree without leaving Vientiane."
+    },
+    {
+      "old": "Mor 7 (Grade 7 / M.7)",
+      "new": "Mor 7 (M.7)"
+    },
+    {
+      "old": "The first year of an international degree, taught in Vientiane. The degree, with a partner university abroad.",
+      "new": "Start your international degree in Vientiane. Finish it with a partner university abroad, or here at home."
+    },
+    {
+      "old": "NCUK partnership announced 28 February 2025; NCUK programmes offered from September 2025.",
+      "new": "NCUK partnership announced on 28 February 2025; programmes running since September 2025."
+    },
+    {
+      "old": "St Hugh's College Vientiane offers the **Business Management** route from September 2025.",
+      "new": "St Hugh's College Vientiane has offered the **Business Management** route since September 2025."
+    },
+    {
+      "old": "and from September 2025 the college offers the NCUK International Foundation Year",
+      "new": "and since September 2025 the college has offered the NCUK International Foundation Year"
+    },
+    {
+      "old": "- **Integrated Math**\n",
+      "new": "- **Integrated Maths**\n"
+    },
+    {
+      "old": "Integrated Math and a skills-based module",
+      "new": "Integrated Maths and a skills-based module"
+    },
+    {
+      "old": "in lieu of IELTS",
+      "new": "in place of IELTS"
+    },
+    {
+      "old": "## Possibility of revenues during your studies",
+      "new": "## Earning while you study"
+    },
+    {
+      "old": "- **Fully paid internships** — for internships lasting more than two months you are entitled to mandatory compensation",
+      "new": "- **Paid internships** — internships longer than two months must be paid by law"
+    },
+    {
+      "old": "foreign students can work up to 20 hours per week",
+      "new": "international students can work up to 20 hours per week"
+    },
+    {
+      "old": "Merit scholarships might be awarded based on academic achievement**",
+      "new": "Merit scholarships may be awarded for academic achievement**"
+    },
+    {
+      "old": "Start your Bachelor in Business in Lao PDR and finish your degree at ESDES Business School",
+      "new": "Start your Bachelor in International Business in Laos and finish it at ESDES Business School"
+    },
+    {
+      "old": "NCUK University Partners (network)",
+      "new": "NCUK University Partners"
+    },
+    {
+      "old": "Each programme page publishes SHV's estimated cost of study for 2026–27 under \"Estimated cost of study 2026–27\", exactly as shown in the official programme decks: for example",
+      "new": "Where SHV's 2026–27 programme brochure gives an estimate, the programme page shows it under \"Estimated cost of study 2026–27\". For example:"
+    },
+    {
+      "old": "Mor 7 graduates spend nine months at SHV's NCUK Study Centre in Vientiane",
+      "new": "Mor 7 graduates spend nine months at SHV, an NCUK Study Centre in Vientiane,"
+    },
+    {
+      "old": "**Mor 7 graduate → 1st year at St Hugh's (NCUK Study Centre) → 3 years Bachelor abroad.**",
+      "new": "**Mor 7 graduate → foundation year at St Hugh's (NCUK Study Centre) → three-year bachelor's degree abroad.**"
+    },
+    {
+      "old": "SHV's 2026–27 programme decks add direct pathway partnerships with",
+      "new": "For 2026–27, SHV adds direct pathway partnerships with"
+    },
+    {
+      "old": "Example subject module shown in SHV's IFY deck.",
+      "new": "Example subject module."
+    },
+    {
+      "old": "Entry requirements, fees and confirmed intake dates are not stated in the programme deck and are confirmed by the admissions team.",
+      "new": "Entry requirements, fees and intake dates are confirmed by the admissions team."
+    },
+    {
+      "old": "Entry requirements and fees are not stated in the programme deck and are confirmed by the admissions team.",
+      "new": "Entry requirements and fees are confirmed by the admissions team."
+    },
+    {
+      "old": "Fees are not stated in the programme deck and are confirmed by the admissions team.",
+      "new": "Fees are confirmed by the admissions team."
+    },
+    {
+      "old": "The deck's 2026–27 Year 1 calendar is marked as an example",
+      "new": "The 2026–27 Year 1 calendar in SHV's brochure is marked as an example"
+    },
+    {
+      "old": "The deck's 2026–27 estimate",
+      "new": "SHV's 2026–27 estimate"
+    },
+    {
+      "old": "The deck's cost comparison",
+      "new": "SHV's cost comparison"
+    },
+    {
+      "old": "The deck compares",
+      "new": "SHV's brochure compares"
+    },
+    {
+      "old": "The deck records",
+      "new": "SHV's brochure records"
+    },
+    {
+      "old": "The deck includes",
+      "new": "SHV's brochure includes"
+    },
+    {
+      "old": "(the deck shows $13/hour",
+      "new": "(SHV's brochure shows $13/hour"
+    },
+    {
+      "old": "SHV's NCUK International Foundation Year deck",
+      "new": "SHV's NCUK International Foundation Year brochure"
+    },
+    {
+      "old": "SHV's ESDES pathway deck",
+      "new": "SHV's ESDES brochure"
+    },
+    {
+      "old": "SHV's ESDES deck",
+      "new": "SHV's ESDES brochure"
+    },
+    {
+      "old": "SHV's NCUK IFY deck",
+      "new": "SHV's NCUK IFY brochure"
+    },
+    {
+      "old": "SHV's IFY deck",
+      "new": "SHV's IFY brochure"
+    },
+    {
+      "old": "SHV's programme deck",
+      "new": "SHV's programme brochure"
+    },
+    {
+      "old": "SHV's deck",
+      "new": "SHV's programme brochure"
+    },
+    {
+      "old": "Official SHV programme deck",
+      "new": "Official SHV programme brochure"
+    },
+    {
+      "old": "official 2026–27 programme decks",
+      "new": "official 2026–27 programme brochures"
+    },
+    {
+      "old": "2026–27 programme decks",
+      "new": "2026–27 programme brochures"
+    },
+    {
+      "old": "The programme decks can be downloaded",
+      "new": "The programme brochures can be downloaded"
+    },
+    {
+      "old": ") programme deck, 2026–27",
+      "new": ") programme brochure, 2026–27"
+    },
+    {
+      "old": "Programme deck, 2026–27",
+      "new": "Programme brochure, 2026–27"
+    },
+    {
+      "old": "programme deck, 2026–27",
+      "new": "programme brochure, 2026–27"
+    },
+    {
+      "old": "+856 20 58 814 648",
+      "new": "+856 20 5881 4648"
+    },
+    {
+      "old": "+856 20 52451711",
+      "new": "+856 20 5245 1711"
+    },
+    {
+      "old": "+856 20 59965564",
+      "new": "+856 20 5996 5564"
+    },
+    {
+      "old": "NCUK Foundation Year and Year One, bachelor pathways with BUV, Assumption and ESDES, the St Hugh's BBA taught in Lao, and Intensive English",
+      "new": "NCUK International Foundation Year and International Year One, partner degrees in Vietnam, Thailand and France, the St Hugh's BBA taught in Lao, and Intensive English"
+    }
+  ],
+  "set": [
+    {
+      "model": "navigationItem",
+      "field": "label",
+      "old": "Careers & employability",
+      "new": "Careers and employability"
+    },
+    {
+      "model": "navigationItem",
+      "field": "label",
+      "old": "News & insights",
+      "new": "News and insights"
+    },
+    {
+      "model": "programme",
+      "field": "shortTitle",
+      "old": "International Hospitality Management 2+2",
+      "new": "International Hospitality Management (2+2)"
+    },
+    {
+      "model": "pathway",
+      "field": "structureLabel",
+      "old": "1 + 3",
+      "new": "1+3"
+    },
+    {
+      "model": "pathway",
+      "field": "structureLabel",
+      "old": "1 + 4",
+      "new": "1+4"
+    },
+    {
+      "model": "pathway",
+      "field": "structureLabel",
+      "old": "1 + 2",
+      "new": "1+2"
+    },
+    {
+      "model": "pathway",
+      "field": "structureLabel",
+      "old": "2 + 2",
+      "new": "2+2"
+    },
+    {
+      "model": "pathway",
+      "field": "structureLabel",
+      "old": "2 + 1 + internship",
+      "new": "2+1 + internship"
+    },
+    {
+      "model": "pathwayStep",
+      "field": "label",
+      "old": "Year 2–3",
+      "new": "Years 2–3"
+    },
+    {
+      "model": "destination",
+      "field": "pathwayTypes",
+      "old": "NCUK IFY, NCUK IYOne",
+      "new": "NCUK International Foundation Year, NCUK International Year One"
+    },
+    {
+      "model": "destination",
+      "field": "pathwayTypes",
+      "old": "NCUK IFY",
+      "new": "NCUK International Foundation Year"
+    },
+    {
+      "model": "programmeModule",
+      "field": "title",
+      "old": "Integrated Math",
+      "new": "Integrated Maths"
+    },
+    {
+      "model": "destination",
+      "field": "pathwayTypes",
+      "old": "NCUK IFY, ESDES 1+3 Bachelor in International Business",
+      "new": "NCUK International Foundation Year, ESDES 1+3 Bachelor in International Business"
+    },
+    {
+      "model": "destination",
+      "field": "pathwayTypes",
+      "old": "NCUK IFY, BUV 2+2 Bachelor in International Hospitality Management",
+      "new": "NCUK International Foundation Year, BUV 2+2 Bachelor in International Hospitality Management"
+    },
+    {
+      "model": "destination",
+      "field": "pathwayTypes",
+      "old": "NCUK IFY, Assumption University 1+3 Bachelor's + Master's (SIMBA)",
+      "new": "NCUK International Foundation Year, Assumption University 1+3 Bachelor's + Master's (SIMBA)"
+    }
+  ]
+}

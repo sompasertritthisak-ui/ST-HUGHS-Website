@@ -211,7 +211,7 @@ export function CinematicScene({
 
         {pan && media && !media.src ? (
           <div className="container-x pointer-events-none absolute inset-x-0 bottom-6 hidden justify-end md:flex">
-            <span className="font-mono text-[0.625rem] uppercase tracking-[0.16em] text-white/70">Hold and drag to look around</span>
+            <span className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-white/70">Hold and drag to look around</span>
           </div>
         ) : null}
 
@@ -244,7 +244,7 @@ export function CinematicScene({
               </p>
             ) : null}
             {cta ? (
-              <Link data-rest href={cta.href} className="group mt-8 inline-flex items-center gap-3 text-[0.9375rem] text-white">
+              <Link data-rest href={cta.href} className="group mt-8 inline-flex min-h-11 items-center gap-3 text-[0.9375rem] text-white">
                 {cta.label}
                 <span aria-hidden className="h-px w-8 bg-route transition-[width] duration-[var(--dur)] group-hover:w-14" />
               </Link>

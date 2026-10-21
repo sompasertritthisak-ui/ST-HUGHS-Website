@@ -20,7 +20,7 @@ export const metadata: Metadata = pageMetadata({
 const TYPE_INTROS: Partial<Record<ProgrammeType, string>> = {
   FOUNDATION: "Pre-university preparation completed in Vientiane before first-year entry abroad.",
   YEAR_ONE: "First-year undergraduate study in Vientiane, then direct entry to Year 2 with a partner university.",
-  BACHELOR_PATHWAY: "Degree routes structured across Laos and a partner campus (for example 1+3 or 2+2).",
+  BACHELOR_PATHWAY: "Degree routes that start in Vientiane and finish with a partner university abroad (1+3 or 2+2), or a full degree on the St Hugh's campus.",
   LANGUAGE: "Language preparation that supports entry and progression.",
   SHORT_COURSE: "Short programmes confirmed per intake.",
 };
@@ -30,7 +30,7 @@ export default async function ProgrammesPage() {
   const groups = PROGRAMME_TYPES.map((type) => ({ type, items: programmes.filter((p) => p.type === type) })).filter((g) => g.items.length > 0 || g.type === "BACHELOR_PATHWAY");
 
   const stations = [
-    { question: "Where are you now?", answer: "High school, a foundation year, A Levels or IB — the starting point decides which programme fits.", href: "/pathway-finder" },
+    { question: "Where are you now?", answer: "Mor 7 or high school, a foundation year, A Levels or IB: your starting point decides which programme fits.", href: "/pathway-finder" },
     { question: "What do you want to study?", answer: "Subject routes are set per programme and per intake.", href: "#programmes" },
     { question: "Which programme fits?", answer: `${programmes.length} published programme${programmes.length === 1 ? "" : "s"}, grouped by type below.`, href: "#programmes" },
     { question: "Where can it lead?", answer: "Each programme links to the pathways and destinations it can progress to.", href: "/pathways" },
@@ -50,7 +50,7 @@ export default async function ProgrammesPage() {
             The programme is the <span className="italic text-brand-soft">first step</span> of the route.
           </>
         }
-        lede="We do not simply list programmes. Every programme at SHV is the Vientiane leg of a longer journey to a university abroad — so each page answers where you start, what you study, how long it takes and where it leads."
+        lede="Every programme at SHV is the first stage of a longer journey: to a partner university abroad, or to a full degree here in Vientiane. Each page sets out where you start, what you study, how long it takes and where it leads."
         aside={
           <dl className="grid grid-cols-2 gap-6 border-t border-line pt-6 font-mono text-[0.6875rem] uppercase tracking-[0.14em]">
             <div>

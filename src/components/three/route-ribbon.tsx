@@ -137,7 +137,7 @@ function World({ center, radius, destinations, spin }: { center: THREE.Vector3; 
             >
               <Link
                 href={`/destinations/${dst.slug}`}
-                className="block whitespace-nowrap rounded-full border border-white/25 bg-[#0B1350]/75 px-3 py-1.5 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-white backdrop-blur-sm transition-colors hover:border-[#FF8A85] hover:bg-[#CF1B18]"
+                className="block whitespace-nowrap rounded-full border border-white/25 bg-[#0B1350]/75 px-3 py-1.5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-white backdrop-blur-sm transition-colors hover:border-[#FF8A85] hover:bg-[#CF1B18]"
               >
                 <span className="mr-2 text-[#FF8A85]">{dst.isoCode}</span>
                 {dst.country}
@@ -238,7 +238,7 @@ function Scene({ destinations, spin }: { destinations: GlobeDestination[]; spin:
             <meshBasicMaterial color={BRAND} transparent opacity={0.22} depthWrite={false} toneMapped={false} />
           </mesh>
           <Html position={[0, 0.3, 0]} center zIndexRange={[20, 0]} style={{ pointerEvents: "none" }}>
-            <span className="whitespace-nowrap font-mono text-[0.625rem] uppercase tracking-[0.16em] text-white/85">
+            <span className="whitespace-nowrap font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-white/85">
               <span className="mr-2 text-[#FF8A85]">{String(i + 1).padStart(2, "0")}</span>
               {m.label}
             </span>

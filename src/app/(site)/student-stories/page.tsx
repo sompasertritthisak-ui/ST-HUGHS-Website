@@ -9,6 +9,7 @@ import { Section } from "@/components/pages";
 import { Reveal } from "@/components/ui/reveal";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Button } from "@/components/ui/button";
+import { AlumniVoices } from "@/components/sections/alumni-voices";
 
 export const metadata: Metadata = pageMetadata({
   title: "Student stories",
@@ -26,7 +27,7 @@ export default async function StudentStoriesPage() {
       <PageHero media={PAGE_IMAGES["student-stories"]}
         eyebrow="Student stories"
         title={<>Real routes, <span className="italic text-brand-soft">real people.</span></>}
-        lede="Every story here is a real student, photographed with permission and published with consent. Where a story names a destination or outcome, the evidence sits behind it in the CMS."
+        lede="Every story here is a real student, photographed with permission and published with consent. Where a story names a destination or outcome, we hold the evidence on file."
         aside={
           <dl className="grid grid-cols-2 gap-6 border-t border-line pt-6 font-mono text-[0.6875rem] uppercase tracking-[0.14em]">
             <div>
@@ -40,6 +41,8 @@ export default async function StudentStoriesPage() {
           </dl>
         }
       />
+
+      <AlumniVoices variant="page" />
 
       {stories.length ? (
         <>

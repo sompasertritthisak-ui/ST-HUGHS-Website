@@ -70,12 +70,12 @@ export default async function PathwayPage({ params }: { params: Params }) {
             Explore universities
           </Button>
           <Button href="/consultation" variant="secondary">
-            Book a consultation
+            Talk to an advisor
           </Button>
         </div>
       </PageHero>
 
-      <Section eyebrow="The route" title="Step by step, from Vientiane" lede="The origin node is lit. Each step shows where you are, who you are with and for how long." layout="full">
+      <Section eyebrow="The route" title="Step by step, from Vientiane" lede="Each step shows where you study, with which institution and for how long." layout="full">
         <PathwayTimeline steps={pathway.steps} orientation="horizontal" />
       </Section>
 
@@ -169,7 +169,7 @@ export default async function PathwayPage({ params }: { params: Params }) {
         ) : null}
       </section>
 
-      <ConsultationBand title="See where this route leads" body="Explore the universities and destinations on this pathway, or book a free consultation to check your fit." primaryHref={pathway.destination ? `/destinations/${pathway.destination.slug}` : "/universities"} primaryLabel="Explore universities" secondaryHref="/consultation" secondaryLabel="Book a consultation" />
+      <ConsultationBand title="See where this route leads" body="Explore the universities and destinations on this pathway, or book a free consultation to check your fit." primaryHref={pathway.destination ? `/destinations/${pathway.destination.slug}` : "/universities"} primaryLabel="Explore universities" secondaryHref="/consultation" secondaryLabel="Talk to an advisor" />
     </>
   );
 }

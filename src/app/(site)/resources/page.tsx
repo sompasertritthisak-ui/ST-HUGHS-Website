@@ -13,7 +13,7 @@ import { Download } from "lucide-react";
 
 export const metadata: Metadata = pageMetadata({
   title: "Resources",
-  description: "Prospectus, programme brochures, entry requirements, application guides, handbooks and calendars from St Hugh's College Vientiane — published as approved.",
+  description: "Programme brochures and guides from St Hugh's College Vientiane.",
   path: "/resources",
 });
 
@@ -25,7 +25,7 @@ export default async function ResourcesPage() {
     <>
       <PageHero media={PAGE_IMAGES["resources"]}
         eyebrow="Resource centre"
-        title={<>Documents, <span className="italic text-brand-soft">as approved.</span></>}
+        title={<>Brochures <span className="italic text-brand-soft">and guides.</span></>}
         lede="Prospectus, brochures, entry requirements, application guides, handbooks and calendars. Every document carries a version and a date, and appears here only once approved."
         aside={
           <dl className="grid grid-cols-2 gap-6 border-t border-line pt-6 font-mono text-[0.6875rem] uppercase tracking-[0.14em]">
@@ -57,7 +57,7 @@ export default async function ResourcesPage() {
                   </p>
                   <div className="sm:col-span-2 sm:text-right">
                     {d.media?.url ? (
-                      <a href={d.media.url} target="_blank" rel="noopener noreferrer" data-analytics="brochure_download" className="inline-flex items-center gap-2 text-sm text-brand-soft underline underline-offset-4">
+                      <a href={d.media.url} target="_blank" rel="noopener noreferrer" data-analytics="brochure_download" className="inline-flex min-h-11 items-center gap-2 text-sm text-brand-soft underline underline-offset-4">
                         <Download aria-hidden className="size-4" strokeWidth={1.5} />
                         Download
                       </a>
@@ -86,7 +86,7 @@ export default async function ResourcesPage() {
         />
       </Section>
 
-      <ConsultationBand title="Need a document that is not here yet?" body="The admissions team can send current information for your intake and confirm fees and dates directly." primaryHref="/enquire?type=BROCHURE" primaryLabel="Request information" secondaryHref="/consultation" secondaryLabel="Book a consultation" />
+      <ConsultationBand title="Need a document that is not here yet?" body="The admissions team can send current information for your intake and confirm fees and dates directly." primaryHref="/enquire?type=BROCHURE" primaryLabel="Request information" secondaryHref="/consultation" secondaryLabel="Talk to an advisor" />
     </>
   );
 }

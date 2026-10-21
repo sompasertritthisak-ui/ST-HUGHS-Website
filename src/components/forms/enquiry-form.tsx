@@ -15,7 +15,11 @@ export type EnquiryFormDefaults = {
   audience?: string;
   /** "visit" prefills a campus-visit enquiry (type=VISIT). */
   type?: string;
+  /** "alumni" opens the form as an invitation for graduates to share their story. */
+  topic?: string;
 };
+
+const ALUMNI_MESSAGE = "I studied at St Hugh's College Vientiane and would like to share my story.";
 
 export type EnquiryFormProps = {
   programmes: ProgrammeOption[];
@@ -50,7 +54,7 @@ export function EnquiryForm({ programmes, destinations, defaults, whatsappHref, 
       currentQualification: "",
       programmeSlug: programmes.some((p) => p.slug === defaults?.programmeSlug) ? (defaults?.programmeSlug as string) : "",
       destinationSlug: destinations.some((d) => d.slug === defaults?.destinationSlug) ? (defaults?.destinationSlug as string) : "",
-      message: "",
+      message: defaults?.topic === "alumni" ? ALUMNI_MESSAGE : "",
       consentMarketing: false,
       website: "",
       type: normaliseType(defaults?.type),
@@ -70,6 +74,7 @@ export function EnquiryForm({ programmes, destinations, defaults, whatsappHref, 
       <Honeypot form={form} />
       <input type="hidden" name="type" value={String(form.values.type ?? "ENQUIRY")} />
       {isVisit ? <p className="eyebrow eyebrow-rule">{t("forms.context.visit")}</p> : null}
+      {!isVisit && defaults?.topic === "alumni" ? <p className="eyebrow eyebrow-rule">Share your alumni story</p> : null}
       <ErrorSummary form={form} labels={LEAD_FIELD_LABELS} />
       <FormError message={form.formError} />
       <LeadFields form={form} programmes={programmes} destinations={destinations} messageHint={t("forms.message.enquiry.hint")} />

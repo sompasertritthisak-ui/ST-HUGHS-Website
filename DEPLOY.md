@@ -123,6 +123,15 @@ columns and refuses destructive changes, then builds) and deploys. Pull requests
 Unchanged: `pnpm dev` with SQLite. To run the real Worker locally: copy `.dev.vars.example` to
 `.dev.vars`, fill in a Postgres `DATABASE_URL`, then `pnpm cf:build && pnpm cf:preview`.
 
+### One-time copy updates (content patches)
+
+The seed only runs on an empty database, so wording fixes made in `prisma/seed.ts` would never reach a live site by
+themselves. `scripts/apply-content-patches.mjs` applies the same fixes from `prisma/content-patches.json` once per
+patch version, on server start (`pnpm start:server`). A phrase is only replaced where it still appears verbatim, so
+anything an editor has already changed in the CMS is left alone. Preview with
+`node scripts/apply-content-patches.mjs --dry-run`; disable with `CONTENT_PATCHES=false`. On Cloudflare Workers
+(no start script) run it once from a machine with `DATABASE_URL` set to the production database.
+
 ## Troubleshooting
 | Symptom | Likely cause | Check |
 |---|---|---|

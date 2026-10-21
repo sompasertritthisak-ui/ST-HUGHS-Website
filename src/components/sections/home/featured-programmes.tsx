@@ -56,7 +56,7 @@ export async function FeaturedProgrammes({ programmes }: { programmes: Programme
       <div className="container-x section-y">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
           <Reveal className="lg:col-span-7">
-            <p className="eyebrow eyebrow-rule">Foundation</p>
+            <p className="eyebrow eyebrow-rule">Programmes</p>
             <SplitHeading id="programmes-title" text="Taught in Vientiane." accent="Recognised by universities abroad." accentClassName="text-blue" className="font-display mt-6 text-[clamp(2.25rem,4.6vw,3.75rem)] leading-[1.02] text-fg text-balance" />
           </Reveal>
           <Reveal className="lg:col-span-4 lg:col-start-9" delay={80}>

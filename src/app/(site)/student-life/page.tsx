@@ -43,7 +43,7 @@ export default async function StudentLifePage() {
         <ul className="divide-y divide-line border-y border-line">
           <li className="grid gap-2 py-5 sm:grid-cols-12 sm:gap-6">
             <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-soft sm:col-span-4">Academic English</span>
-            <p className="text-[0.9375rem] leading-relaxed text-fg-muted sm:col-span-8">{englishModules ? "English for Academic Purposes is built into each published programme and is accepted by NCUK University Partners in place of IELTS for progression." : "Confirmed by the admissions team."}</p>
+            <p className="text-[0.9375rem] leading-relaxed text-fg-muted sm:col-span-8">{englishModules ? "English is built into every programme. In the NCUK programmes, English for Academic Purposes is accepted by NCUK University Partners in place of IELTS for progression." : "Confirmed by the admissions team."}</p>
           </li>
           <li className="grid gap-2 py-5 sm:grid-cols-12 sm:gap-6">
             <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-soft sm:col-span-4">Teaching spaces</span>
@@ -56,7 +56,7 @@ export default async function StudentLifePage() {
         </ul>
       </Section>
 
-      <Section eyebrow="In pictures" title="Life around the campus" lede="Each plate is a named photography slot. Real SHV photographs replace them as they are approved." layout="full">
+      <Section eyebrow="In pictures" title="Life around the campus" lede="Photos from around the campus. More are added through the year." layout="full">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-12">
           {THEMES.map((theme, i) => {
             const facility = social[i % Math.max(social.length, 1)];
@@ -85,7 +85,7 @@ export default async function StudentLifePage() {
             ))}
           </ul>
         ) : (
-          <EmptyState title="Events are published here as they are confirmed" body="Open days, information sessions and campus events appear here once scheduled." action={<Button href="/consultation?type=visit" variant="secondary">Book a campus visit</Button>} />
+          <EmptyState title="Events are published here as they are confirmed" body="Open days, information sessions and campus events appear here once scheduled." action={<Button href="/enquire?type=visit" variant="secondary">Book a tour</Button>} />
         )}
       </Section>
 
@@ -115,12 +115,12 @@ export default async function StudentLifePage() {
           items={[
             { label: "Campus", description: "Every confirmed facility, room by room", href: "/campus" },
             { label: "Programmes", description: "What you will actually study", href: "/programmes" },
-            { label: "Book a campus visit", description: "Walk the campus with an advisor", href: "/consultation?type=visit" },
+            { label: "Book a tour", description: "Walk the campus with an advisor", href: "/enquire?type=visit" },
           ]}
         />
       </Section>
 
-      <ConsultationBand title="Come and see the campus" body="Book a visit and walk the campus with an advisor, or start with a free consultation." primaryHref="/consultation?type=visit" primaryLabel="Book a visit" secondaryHref="/consultation" secondaryLabel="Book a consultation" />
+      <ConsultationBand title="Come and see the campus" body="Book a tour and walk the campus with an advisor, or start with a free consultation." primaryHref="/enquire?type=visit" primaryLabel="Book a tour" secondaryHref="/consultation" secondaryLabel="Talk to an advisor" />
     </>
   );
 }

@@ -151,9 +151,11 @@
   --color-ring: var(--ring);
   --color-route: var(--route);
 
-  --font-display: var(--font-display), "Cormorant Garamond", Georgia, serif;
-  --font-sans: var(--font-sans), "IBM Plex Sans", system-ui, sans-serif;
-  --font-mono: var(--font-mono), "IBM Plex Mono", ui-monospace, monospace;
+  --font-display: var(--font-display), var(--font-lao-serif), "Cormorant Garamond", Georgia, "Noto Serif Lao", serif;
+  --font-sans: var(--font-sans), var(--font-lao), "Plus Jakarta Sans", system-ui, "Noto Sans Lao Looped", "Noto Sans Lao", "Lao Sangam MN", sans-serif;
+  /* Former monospace labels now use the text sans (staff found the typewriter face blocky). Real code keeps a code face. */
+  --font-mono: var(--font-sans), var(--font-lao), "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-code: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius);
@@ -175,7 +177,7 @@ html {
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: var(--font-sans);
+  font-family: var(--font-sans), var(--font-lao), system-ui, "Noto Sans Lao Looped", "Lao Sangam MN", sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -193,12 +195,47 @@ body {
   border-radius: 2px;
 }
 
+/* Search fields sit inside a bordered bar that shows focus itself (focus-within), so the field has no second ring. */
+input[type="search"][data-bare]:focus-visible {
+  outline: none;
+}
+
 a,
 button,
 [role="button"],
 summary {
   cursor: pointer;
   touch-action: manipulation;
+}
+
+/* Phone layout guards (found by the iPhone audit):
+   • grid items may shrink below their longest word, so one long label can never push a page sideways;
+   • the 12-column grids keep their rhythm but drop to a 12px column gap on phones (11 × 32px gaps alone were
+     wider than an iPhone SE). Layered, so explicit min-w-* and gap utilities still win. */
+@layer base {
+  .grid > * {
+    min-width: 0;
+  }
+}
+@media (max-width: 639.98px) {
+  .grid-cols-12 {
+    column-gap: 0.75rem !important;
+  }
+}
+
+/* Small uppercase labels (formerly monospace) read best a touch heavier in the sans. Layered so explicit
+   font-weight utilities still win. */
+@layer base {
+  .font-mono {
+    font-weight: 600;
+  }
+}
+
+/* Genuine code (CMS keys, ids, UTM values) keeps a monospace face. Unlayered, so it beats the font-mono utility. */
+:is(code, pre, samp, kbd).font-mono,
+:is(code, pre, samp) {
+  font-family: var(--font-code);
+  font-weight: 400;
 }
 
 /* Layered so Tailwind utilities (h-9, size-10, …) can override the auto height. */
@@ -224,7 +261,7 @@ summary {
 }
 
 @utility font-display {
-  font-family: var(--font-display);
+  font-family: var(--font-display), var(--font-lao-serif), Georgia, serif;
   font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1;
@@ -232,8 +269,9 @@ summary {
 
 @utility eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-brand-soft);
   display: inline-flex;
@@ -375,7 +413,7 @@ summary {
 .prose-shv h2,
 .prose-shv h3 {
   color: var(--fg);
-  font-family: var(--font-display);
+  font-family: var(--font-display), var(--font-lao-serif), Georgia, serif;
   font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 1.1;
@@ -403,7 +441,7 @@ summary {
   border-left: 1px solid var(--route);
   padding-left: 1.25em;
   margin-block: 1.5em;
-  font-family: var(--font-display);
+  font-family: var(--font-display), var(--font-lao-serif), Georgia, serif;
   font-size: 1.5rem;
   line-height: 1.3;
   color: var(--fg);

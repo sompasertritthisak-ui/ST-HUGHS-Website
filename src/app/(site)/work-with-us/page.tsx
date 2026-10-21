@@ -13,7 +13,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 const WHAT = [
-  { title: "Small classes, serious students", body: "Seminar-style teaching to students preparing for universities abroad, with English for Academic Purposes built into every programme." },
+  { title: "Small classes, serious students", body: "Seminar-style teaching to students preparing for universities abroad, with English built into every programme." },
   { title: "An international curriculum", body: "NCUK programmes with external moderation, plus bachelor pathways with partner universities in Vietnam, Thailand, France and Laos." },
   { title: "A young institution", body: "Established in 2023 and authorised by the Lao Ministry of Education and Sports: the people who join now shape how it grows." },
 ];

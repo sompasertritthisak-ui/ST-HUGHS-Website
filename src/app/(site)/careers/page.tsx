@@ -46,7 +46,7 @@ export default async function CareersPage() {
         lede="The route does not end at a degree. This page shows what we can verify today about outcomes and employability, and is honest about what is still being confirmed."
       />
 
-      <Section eyebrow="Outcomes" title="Verified outcomes" lede="Figures are published only once verified with a source and date. Empty tiles are structure waiting for evidence — not missing ambition." layout="full">
+      <Section eyebrow="Outcomes" title="Verified outcomes" lede="We publish figures only once they are verified, with a source and date." layout="full">
         {metrics.length ? (
           <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
             {metrics.map((m, i) => (
@@ -73,7 +73,7 @@ export default async function CareersPage() {
             <ul className="mt-10 divide-y divide-line border-y border-line">
               {fieldsByDirection.map((p) => (
                 <li key={p.id} className="grid gap-2 py-4 sm:grid-cols-12 sm:gap-6">
-                  <Link href={`/pathways/${p.slug}`} className="text-[0.9375rem] font-medium text-fg hover:text-brand-soft sm:col-span-6">
+                  <Link href={`/pathways/${p.slug}`} className="inline-flex min-h-11 items-center text-[0.9375rem] font-medium text-fg hover:text-brand-soft sm:col-span-6">
                     {p.title}
                   </Link>
                   <p className="text-sm text-fg-muted sm:col-span-6">{p.careerDirections}</p>

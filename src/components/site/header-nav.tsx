@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Logo } from "./logo";
 import { TranslateMenu } from "./translate-menu";
+import { lockScroll } from "./scroll-lock";
+import { SearchButton, openSearch } from "@/components/search/search-dialog";
 
 export type NavItem = { id: string; label: string; href: string; description?: string | null };
 
@@ -32,13 +34,17 @@ export function HeaderNav({ items, audience }: { items: NavItem[]; audience: Nav
 
   useEffect(() => {
     if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const unlock = lockScroll();
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    // The drawer only exists below xl; close it if the window grows past that.
+    const wide = window.matchMedia("(min-width: 1280px)");
+    const onWide = () => wide.matches && setOpen(false);
     window.addEventListener("keydown", onKey);
+    wide.addEventListener("change", onWide);
     return () => {
-      document.body.style.overflow = prev;
+      unlock();
       window.removeEventListener("keydown", onKey);
+      wide.removeEventListener("change", onWide);
     };
   }, [open]);
 
@@ -58,12 +64,13 @@ export function HeaderNav({ items, audience }: { items: NavItem[]; audience: Nav
 
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
   return (
+    <>
     <header className={cn("fixed inset-x-0 top-0 z-50 text-fg transition-[background-color,border-color,box-shadow] duration-[var(--dur)]", scrolled || open ? "glass-nav border-b border-line" : "bg-bg/95 border-b border-transparent")}>
-      <div className="container-x flex h-[72px] items-center justify-between gap-6">
+      <div className="container-x flex h-[72px] items-center justify-between gap-3 sm:gap-5">
         <Logo tone="dark" />
 
         <nav aria-label="Primary" className="hidden xl:block">
-          <ul className="flex items-center gap-5 2xl:gap-6">
+          <ul className="flex items-center gap-4 min-[1600px]:gap-6">
             {items.map((item) => (
               <li key={item.id}>
                 <Link
@@ -82,9 +89,10 @@ export function HeaderNav({ items, audience }: { items: NavItem[]; audience: Nav
           </ul>
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-2 md:flex min-[1600px]:gap-3">
+          <SearchButton />
           <TranslateMenu />
-          <div ref={audienceRef} className="relative">
+          <div ref={audienceRef} className="relative hidden min-[1700px]:block">
             <button
               type="button"
               aria-expanded={audienceOpen}
@@ -110,9 +118,11 @@ export function HeaderNav({ items, audience }: { items: NavItem[]; audience: Nav
           </Button>
         </div>
 
+        <div className="flex items-center gap-2 xl:hidden">
+        <SearchButton compact className="md:hidden" />
         <button
           type="button"
-          className="inline-flex size-11 items-center justify-center rounded-[var(--radius-sm)] border border-line-strong text-fg xl:hidden"
+          className="inline-flex size-11 items-center justify-center rounded-[var(--radius-sm)] border border-line-strong text-fg"
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -120,23 +130,39 @@ export function HeaderNav({ items, audience }: { items: NavItem[]; audience: Nav
         >
           {open ? <X className="size-5" strokeWidth={1.5} /> : <Menu className="size-5" strokeWidth={1.5} />}
         </button>
+        </div>
       </div>
+    </header>
 
-      {/* Mobile drawer */}
+      {/* Mobile drawer — a sibling of <header>, never a child: the header's backdrop-filter would become the
+          containing block for this fixed element and collapse it to the header's height (iOS Safari). */}
       <div
         id="mobile-menu"
         className={cn(
-          "fixed inset-x-0 bottom-0 top-[72px] z-40 overflow-y-auto bg-bg transition-[opacity,transform] duration-[var(--dur)] ease-[var(--ease-out)] xl:hidden",
-          open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0",
+          "fixed inset-x-0 bottom-0 top-[72px] z-[45] overflow-y-auto overscroll-contain bg-bg transition-[opacity,transform,visibility] duration-[var(--dur)] ease-[var(--ease-out)] xl:hidden",
+          open ? "visible translate-y-0 opacity-100" : "pointer-events-none invisible -translate-y-2 opacity-0",
         )}
         aria-hidden={!open}
+        inert={!open}
+        data-lenis-prevent
       >
-        <div className="container-x flex min-h-full flex-col gap-8 py-8">
+        <div className="container-x flex min-h-full flex-col gap-7 py-6 sm:py-8">
+          <button
+            type="button"
+            onClick={() => {
+              setOpen(false);
+              openSearch();
+            }}
+            className="flex h-12 w-full items-center gap-3 rounded-full border border-line-strong px-4 text-left text-[0.9375rem] font-medium text-fg-subtle"
+          >
+            <Search aria-hidden className="size-4 shrink-0 text-route" strokeWidth={2} />
+            <span className="truncate">Search the site…</span>
+          </button>
           <nav aria-label="Primary mobile">
             <ul className="divide-y divide-line border-y border-line">
               {items.map((item) => (
                 <li key={item.id}>
-                  <Link href={item.href} className="flex items-center justify-between py-4 font-display text-[1.75rem] text-fg" aria-current={isActive(item.href) ? "page" : undefined}>
+                  <Link href={item.href} onClick={() => setOpen(false)} className="flex items-center justify-between py-3.5 font-display text-[1.625rem] text-fg sm:py-4 sm:text-[1.75rem]" aria-current={isActive(item.href) ? "page" : undefined}>
                     {item.label}
                     {isActive(item.href) && <span aria-hidden className="size-1.5 rounded-full bg-route" />}
                   </Link>
@@ -167,6 +193,6 @@ export function HeaderNav({ items, audience }: { items: NavItem[]; audience: Nav
           </div>
         </div>
       </div>
-    </header>
+    </>
   );
 }

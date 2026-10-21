@@ -221,7 +221,7 @@ function DestinationNode({
       {/* drei only applies `pointerEvents` in transform mode; in screen-space mode set it via style + wrapperClass */}
       <Html position={[0, 0.03, 0]} wrapperClass="pointer-events-none" zIndexRange={[30, 10]} style={{ opacity: 0, visibility: "hidden", pointerEvents: "none" }} ref={label}>
         <div
-          className={`whitespace-nowrap rounded-full border px-2.5 py-1 font-mono text-[0.625rem] uppercase tracking-[0.14em] backdrop-blur-sm transition-colors duration-[var(--dur-fast)] ${hover ? pal.chipHover : pal.chip}`}
+          className={`whitespace-nowrap rounded-full border px-2.5 py-1 font-mono text-[0.6875rem] uppercase tracking-[0.14em] backdrop-blur-sm transition-colors duration-[var(--dur-fast)] ${hover ? pal.chipHover : pal.chip}`}
           style={{ transform: "translate(-50%, -100%)" }}
         >
           <span className={hover ? "text-white/80" : pal.code}>{destination.isoCode}</span>

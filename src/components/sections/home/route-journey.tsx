@@ -17,8 +17,8 @@ const STEPS = [
     n: "01",
     place: "Vientiane",
     when: "Year 1",
-    title: "Year one, at home",
-    body: "An NCUK foundation year or Year One, taught in English in Vientiane.",
+    title: "Your first year, at home",
+    body: "An NCUK programme or the first stage of a partner degree, taught in Vientiane.",
     href: "/programmes",
     cta: "The programmes",
     image: { src: "/media/students/shv-classroom-teacher.jpg", alt: "A class in session at St Hugh's College Vientiane", position: "50% 40%" },
@@ -26,7 +26,7 @@ const STEPS = [
   {
     n: "02",
     place: "Abroad",
-    when: "Years 2 – 3",
+    when: "Years 2–4",
     title: "Progress to a partner university",
     body: "Pass, and the qualification takes you to a degree abroad.",
     href: "/destinations",
@@ -40,7 +40,7 @@ const STEPS = [
     title: "Graduate, then go further",
     body: "An internationally recognised degree, and a career anywhere.",
     href: "/careers",
-    cta: "Careers & employability",
+    cta: "Careers and employability",
     image: { src: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=75", alt: "", position: "50% 45%" },
   },
 ] as const;
@@ -118,11 +118,11 @@ export function RouteJourney({ destinations, counts }: { destinations: JourneyDe
                   <span className="tabular">{s.n}</span>
                   <span className="text-fg-subtle">·</span>
                   {s.place}
-                  <span className="rj-when ml-auto rounded-full border border-line px-2 py-0.5 text-[0.625rem] text-fg-muted transition-colors duration-[var(--dur)]">{s.when}</span>
+                  <span className="rj-when ml-auto rounded-full border border-line px-2 py-0.5 text-[0.6875rem] text-fg-muted transition-colors duration-[var(--dur)]">{s.when}</span>
                 </p>
                 <h3 className="font-display mt-3 text-[clamp(1.75rem,2.6vw,2.5rem)] leading-[1.05] text-fg text-balance transition-colors duration-[var(--dur)] group-hover:text-blue">{s.title}</h3>
                 <p className="mt-3 max-w-sm text-[1.0625rem] leading-relaxed text-fg-muted">{s.body}</p>
-                <Link href={s.href} className="group mt-5 inline-flex items-center gap-2 text-[0.9375rem] text-fg">
+                <Link href={s.href} className="group mt-5 inline-flex min-h-11 items-center gap-2 text-[0.9375rem] text-fg">
                   {s.cta}
                   <span aria-hidden className="h-px w-6 bg-route transition-[width] duration-[var(--dur)] group-hover:w-10" />
                 </Link>

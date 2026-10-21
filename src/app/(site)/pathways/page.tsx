@@ -130,7 +130,7 @@ export default async function PathwaysPage({ searchParams }: { searchParams: Sea
         )}
       </Section>
 
-      <ConsultationBand title="Which route is right for you?" body="Explore the universities each route leads to, or book a free consultation and we will map the options against your qualifications." primaryHref="/universities" primaryLabel="Explore universities" secondaryHref="/consultation" secondaryLabel="Book a consultation" />
+      <ConsultationBand title="Which route is right for you?" body="Explore the universities each route leads to, or book a free consultation and we will map the options against your qualifications." primaryHref="/universities" primaryLabel="Explore universities" secondaryHref="/consultation" secondaryLabel="Talk to an advisor" />
     </>
   );
 }

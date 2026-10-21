@@ -44,7 +44,7 @@ describe("<EnquiryForm>", () => {
     const alerts = await screen.findAllByRole("alert");
     const summary = alerts.find((el) => /please check the form/i.test(el.textContent ?? ""));
     expect(summary).toBeTruthy();
-    expect(summary).toHaveTextContent(/2 field\(s\) need your attention/i);
+    expect(summary).toHaveTextContent(/2 fields need your attention/i);
     const name = screen.getByLabelText(/full name/i);
     expect(name).toHaveAttribute("aria-invalid", "true");
     expect(screen.getByLabelText(/email address/i)).toHaveAttribute("aria-invalid", "true");

@@ -130,7 +130,7 @@ export function PathwayFinder({
                   <span aria-hidden className={cn("absolute left-[3px] top-[7px] size-[7px] rounded-full", state === "pending" ? "border border-line-strong" : "bg-route", state === "current" && "shadow-[0_0_10px_var(--route)]")} />
                   {i < total - 1 ? <span aria-hidden className={cn("absolute left-[6px] top-[16px] h-[calc(100%-12px)] w-px", state === "done" ? "bg-route/60" : "bg-line")} /> : null}
                   <div className="min-w-0">
-                    <p className={cn("font-mono text-[0.625rem] uppercase tracking-[0.14em]", state === "pending" ? "text-fg-subtle" : "text-brand-soft")}>{q.key.replace("-", " ")}</p>
+                    <p className={cn("font-mono text-[0.6875rem] uppercase tracking-[0.14em]", state === "pending" ? "text-fg-subtle" : "text-brand-soft")}>{q.key.replace("-", " ")}</p>
                     <p className={cn("truncate text-sm", label ? "text-fg" : "text-fg-subtle")}>{label ?? (state === "current" ? "Choosing…" : "—")}</p>
                   </div>
                 </li>

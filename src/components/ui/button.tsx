@@ -12,7 +12,7 @@ const base =
 const variants: Record<Variant, string> = {
   primary: "bg-brand text-(--on-brand) hover:bg-brand-deep border border-transparent",
   secondary: "border border-line-strong text-fg hover:border-fg hover:bg-fg/5",
-  ghost: "text-fg hover:text-brand-soft px-0 whitespace-normal text-left",
+  ghost: "min-h-11 text-fg hover:text-brand-soft px-0 whitespace-normal text-left",
   danger: "bg-danger text-white hover:bg-danger/90 border border-transparent",
 };
 

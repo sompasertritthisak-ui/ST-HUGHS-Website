@@ -21,7 +21,7 @@ export const metadata: Metadata = pageMetadata({
 export default async function ForStudentsPage() {
   const [programmes, pathways, faqs, messaging] = await Promise.all([getProgrammes(), getPathways({ featured: true }), getFaqs({ category: "PROGRAMMES" }), getMessagingSettings()]);
   const steps: RailStep[] = [
-    { title: "Find the programme that fits where you are now", body: "Finished high school? The International Foundation Year. Completed a foundation year, A Levels or IB? The International Year One. Each page explains who it is for.", href: "/programmes", linkLabel: "Explore programmes" },
+    { title: "Find the programme that fits where you are now", body: "Finished Mor 7 or high school? Look at the International Foundation Year and the 1+3 and 2+2 degree routes. Completed a foundation year, A Levels or IB? The International Year One. Need English first? Start with Intensive English.", href: "/programmes", linkLabel: "Explore programmes" },
     { title: "Check your eligibility", body: <>The Pathway Finder gives guidance in a few steps. {messaging.guidanceDisclaimer}</>, href: "/pathway-finder", linkLabel: "Check your eligibility" },
     { title: "Trace the full route", body: "Programme → transfer point → partner → degree. See where each route leads and how long it takes.", href: "/pathway-explorer", linkLabel: "Explore your pathway" },
     { title: "Talk to an advisor", body: "A free consultation, in person or online. You leave with a written next-step plan.", href: "/consultation", linkLabel: "Book a free consultation" },
@@ -29,7 +29,7 @@ export default async function ForStudentsPage() {
 
   return (
     <>
-      <PageHero media={PAGE_IMAGES["for/students"]} eyebrow="I'm a student" title={<>Start in Vientiane. <span className="italic text-brand-soft">Finish abroad.</span></>} lede="You want a degree from a university abroad and you are starting in Laos. SHV is the first year of that route: an internationally recognised programme completed close to home, then progression to a partner university." />
+      <PageHero media={PAGE_IMAGES["for/students"]} eyebrow="I'm a student" title={<>Start in Vientiane. <span className="italic text-brand-soft">Finish abroad.</span></>} lede="You want a degree from a university abroad and you are starting in Laos. SHV is where that route starts: an internationally recognised programme close to home, then progression to a partner university." />
 
       <Section eyebrow="Your four steps" title="How to move from here" layout="full">
         <StepRail steps={steps} />

@@ -149,7 +149,15 @@ export function TranslateMenu({ className, variant = "header" }: { className?: s
         )}
       >
         <Languages aria-hidden className="size-4" strokeWidth={1.5} />
-        <span>{active.native}</span>
+        {/* Header: short code until the bar has room for the full name. */}
+        {variant === "header" ? (
+          <>
+            <span className="min-[1600px]:hidden">{active.code.slice(0, 2)}</span>
+            <span className="hidden min-[1600px]:inline">{active.native}</span>
+          </>
+        ) : (
+          <span>{active.native}</span>
+        )}
         <ChevronDown aria-hidden className={cn("size-3.5 transition-transform", open && "rotate-180")} strokeWidth={1.75} />
       </button>
       {open ? (

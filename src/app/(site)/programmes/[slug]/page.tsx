@@ -52,7 +52,7 @@ export default async function ProgrammePage({ params }: { params: Params }) {
     { question: "Which programme fits?", answer: `${typeLabel}${programme.level ? ` — ${programme.level}` : ""}`, href: "#what" },
     { question: "Where can it lead?", answer: destinations.length ? destinations.map((d) => d.country).join(", ") : "Progression routes are published once confirmed.", href: "#progression" },
     { question: "Entry requirements", answer: programme.entryRequirements ? "Published below, with English requirement." : "Confirmed by the admissions team.", href: "#entry" },
-    { question: "What will you study?", answer: programme.modules.length ? `${programme.modules.length} components` : "Module structure confirmed per intake.", href: "#structure" },
+    { question: "What will you study?", answer: programme.modules.length ? `${programme.modules.length} stages and modules` : "Module structure confirmed per intake.", href: "#structure" },
     { question: "How long?", answer: programme.durationLabel ?? "Confirmed per intake.", href: "#duration" },
     { question: "What happens after SHV?", answer: programme.whatNext ?? "Confirmed by the admissions team.", href: "#after" },
     { question: "How do I apply?", answer: "Start with a free consultation.", href: "#apply" },
@@ -66,7 +66,6 @@ export default async function ProgrammePage({ params }: { params: Params }) {
           <>
             {typeLabel}
             {programme.awardingBody ? <span className="text-fg-subtle">· {programme.awardingBody}</span> : null}
-            {programme.code ? <span className="text-fg-subtle">· {programme.code}</span> : null}
           </>
         }
         title={programme.title}
@@ -108,7 +107,7 @@ export default async function ProgrammePage({ params }: { params: Params }) {
         </div>
       </Section>
 
-      <Section id="structure" eyebrow="What you study" title="Structure and modules" lede="Components of the programme as delivered at SHV. Module titles for a given intake are confirmed by the academic team.">
+      <Section id="structure" eyebrow="What you study" title="Structure and modules" lede="The programme, stage by stage. Module titles for each intake are confirmed by the academic team.">
         {programme.modules.length ? (
           <ol className="divide-y divide-line border-y border-line">
             {programme.modules.map((m, i) => (

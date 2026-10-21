@@ -34,7 +34,7 @@ export default async function AboutPage() {
     <>
       {heroBlocks.length ? <BlockRenderer blocks={heroBlocks} fallbackTitle={page?.title ?? "About"} /> : <PageHero media={PAGE_IMAGES["about"]} eyebrow="About SHV" title="St Hugh's College Vientiane" lede="A private college in Vientiane, authorised by the Lao Ministry of Education and Sports and operating as an NCUK Study Centre." />}
 
-      <Section eyebrow="Institution" title="Authorisation and standing" lede="Trust is demonstrated: dates, authorisations and relationships, each with a source.">
+      <Section eyebrow="Institution" title="Authorisation and standing" lede="Key dates, authorisations and relationships, each with its source.">
         <FactsTable
           rows={[
             { label: "Established", value: institution.established ? String(institution.established) : null },
@@ -52,7 +52,7 @@ export default async function AboutPage() {
 
       {bodyBlocks.length ? <BlockRenderer blocks={bodyBlocks} fallbackTitle={page?.title ?? "About"} /> : null}
 
-      <Section eyebrow="Vision and mission" title="What we are here to do" lede="Statements are maintained by SHV in the content management system.">
+      <Section eyebrow="Vision and mission" title="What we are here to do" lede="Our vision and mission will appear here once approved.">
         <div className="grid gap-10 sm:grid-cols-2">
           <div>
             <p className="eyebrow mb-3">Vision</p>
@@ -116,15 +116,15 @@ export default async function AboutPage() {
         <NextSteps
           items={[
             { label: "Why St Hugh's", description: "Why Laos, why SHV, why global — the evidence", href: "/why-st-hughs" },
-            { label: "Programmes", description: "NCUK International Foundation Year and International Year One", href: "/programmes" },
+            { label: "Programmes", description: "NCUK programmes, partner degree routes and Intensive English", href: "/programmes" },
             { label: "Campus", description: "The facilities in Nonsavanh Village", href: "/campus" },
-            { label: "For partners", description: "The institutional credibility layer for universities and investors", href: "/for/partners" },
+            { label: "For partners", description: "Information for universities, education partners and investors", href: "/for/partners" },
           ]}
         />
       </Section>
 
       <JsonLd data={educationalOrganizationJsonLd(contact, { established: institution.established, description: page?.seoDescription })} />
-      {ctaBlocks.length ? <BlockRenderer blocks={ctaBlocks} fallbackTitle={page?.title ?? "About"} /> : <ConsultationBand title="Talk to us about the route ahead" body="Book a free consultation with an advisor." primaryHref="/consultation" primaryLabel="Book a consultation" secondaryHref="/programmes" secondaryLabel="Explore programmes" />}
+      {ctaBlocks.length ? <BlockRenderer blocks={ctaBlocks} fallbackTitle={page?.title ?? "About"} /> : <ConsultationBand title="Talk to us about the route ahead" body="Book a free consultation with an advisor." primaryHref="/consultation" primaryLabel="Talk to an advisor" secondaryHref="/programmes" secondaryLabel="Explore programmes" />}
     </>
   );
 }

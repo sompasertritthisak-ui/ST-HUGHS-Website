@@ -33,7 +33,7 @@ export function GlobalNetwork({ destinations, universities }: { destinations: De
         {/* Departure board */}
         <div className="mt-14 overflow-x-auto lg:mt-20">
           <div className="min-w-[640px]">
-            <div className="grid grid-cols-[4rem_1fr_9rem_10rem] gap-x-6 border-b border-line-strong pb-3 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-fg-subtle md:grid-cols-[5rem_1fr_10rem_11rem]">
+            <div className="grid grid-cols-[4rem_1fr_9rem_10rem] gap-x-6 border-b border-line-strong pb-3 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-fg-subtle md:grid-cols-[5rem_1fr_10rem_11rem]">
               <span>Code</span>
               <span>Destination</span>
               <span className="text-right">Routes</span>

@@ -46,7 +46,7 @@ export default async function InternationalStudentsPage() {
         }
       />
 
-      <Section id="why-vientiane" eyebrow="Why Vientiane" title="A calm capital to begin in" lede="The first year of the route is completed here before progression abroad.">
+      <Section id="why-vientiane" eyebrow="Why Vientiane" title="A calm capital to begin in" lede="Your route starts here, in Vientiane.">
         <FactsTable
           columns={1}
           rows={[

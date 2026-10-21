@@ -80,7 +80,7 @@ export default async function ConsultationPage({ searchParams }: { searchParams:
                       <Phone aria-hidden className="mt-0.5 size-4 shrink-0 text-brand-soft" strokeWidth={1.5} />
                       <dd className="flex flex-col gap-1">
                         {contact.phones.map((p) => (
-                          <a key={p} href={`tel:${p.replace(/\s+/g, "")}`} className="text-fg hover:text-brand-soft">
+                          <a key={p} href={`tel:${p.replace(/\s+/g, "")}`} className="inline-flex min-h-11 items-center text-fg hover:text-brand-soft">
                             {p}
                           </a>
                         ))}

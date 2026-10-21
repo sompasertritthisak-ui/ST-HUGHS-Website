@@ -25,7 +25,7 @@ export default async function ForParentsPage() {
 
   return (
     <>
-      <PageHero media={PAGE_IMAGES["for/parents"]} eyebrow="I'm a parent" title={<>Reasons to <span className="italic text-brand-soft">trust</span>, not adjectives.</>} lede="You are weighing whether a degree abroad is realistic and whether this college is serious. This page sets out what can be verified today — authorisation, the awarding body, the people responsible — and what the first conversation costs: nothing." />
+      <PageHero media={PAGE_IMAGES["for/parents"]} eyebrow="I'm a parent" title={<>Facts you can <span className="italic text-brand-soft">check.</span></>} lede="You are weighing whether a degree abroad is realistic and whether this college is serious. This page sets out what can be verified today — authorisation, the awarding body, the people responsible — and what the first conversation costs: nothing." />
 
       <Section eyebrow="Trust signals" title="What is on record" lede="Each line is sourced. Where SHV has not yet published something, the line says so.">
         <FactsTable
@@ -75,11 +75,11 @@ export default async function ForParentsPage() {
         )}
       </Section>
 
-      <Section eyebrow="Next steps" title="What to do with an afternoon">
+      <Section eyebrow="Next steps" title="Your next steps">
         <NextSteps
           items={[
             { label: "Book a free consultation", description: "Come together with your child; an advisor explains the route, the requirements and the costs for the intake", href: "/consultation" },
-            { label: "Visit the campus", description: "See the classrooms, lecture halls and study spaces", href: "/consultation?type=visit" },
+            { label: "Visit the campus", description: "See the classrooms, lecture halls and study spaces", href: "/enquire?type=visit" },
             { label: "Read about the institution", description: "Authorisation, partners and leadership", href: "/about" },
             { label: "See the routes", description: "Where the programmes lead and what each step requires", href: "/pathways" },
           ]}

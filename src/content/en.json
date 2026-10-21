@@ -6,7 +6,7 @@
   "forms.country": "Country of residence",
   "forms.audience": "I am a…",
   "forms.currentQualification": "Current or most recent qualification",
-  "forms.currentQualification.hint": "For example: Grade 12, IGCSE, A Levels, Bachelor's degree.",
+  "forms.currentQualification.hint": "For example: Mor 7, Grade 12, IGCSE, A Levels, bachelor's degree.",
   "forms.programme": "Programme of interest",
   "forms.programme.any": "Not sure yet",
   "forms.destination": "Destination of interest",
@@ -27,7 +27,8 @@
   "forms.submit.consultation": "Request consultation",
   "forms.submitting": "Sending…",
   "forms.errorSummary.title": "Please check the form",
-  "forms.errorSummary.body": "{count} field(s) need your attention.",
+  "forms.errorSummary.body": "{count} fields need your attention.",
+  "forms.errorSummary.body.one": "1 field needs your attention.",
   "forms.error.network": "We couldn't send your request. Please check your connection and try again.",
   "forms.error.rateLimited": "Too many requests from this connection. Please try again in a little while, or contact us directly.",
   "forms.error.server": "Something went wrong on our side. Please try again, or contact us directly.",
@@ -65,5 +66,5 @@
   "enquire.aside.partners": "Universities and education partners exploring collaboration.",
   "enquire.aside.employers": "Employers interested in internships, projects or graduate talent.",
   "enquire.aside.consultation": "Ready to plan your route? Book a free consultation instead.",
-  "enquire.aside.consultation.cta": "Book a consultation"
+  "enquire.aside.consultation.cta": "Talk to an advisor"
 }

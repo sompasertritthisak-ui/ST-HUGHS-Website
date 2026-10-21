@@ -71,7 +71,7 @@ export function Hero({
           <div className="anim-fade-up mt-7 lg:mt-10" style={{ animationDelay: `${supportDelay + 120}ms` }}>
             <CtaTrio size="lg" />
           </div>
-          <p className="anim-fade-up mt-6 hidden font-mono text-[0.625rem] uppercase tracking-[0.16em] text-fg-subtle lg:block" style={{ animationDelay: `${supportDelay + 240}ms` }}>
+          <p className="anim-fade-up mt-6 hidden font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-fg-subtle lg:block" style={{ animationDelay: `${supportDelay + 240}ms` }}>
             Drag the globe · Click a destination
           </p>
           <span aria-hidden className="scroll-cue anim-fade-up mt-8 hidden opacity-50 lg:block" style={{ animationDelay: `${supportDelay + 400}ms`, height: "1.75rem" }} />

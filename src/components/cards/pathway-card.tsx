@@ -17,7 +17,7 @@ export function PathwayCard({ pathway, className }: { pathway: PathwayWithRelati
           <h3 className="mt-3 text-[1.25rem] font-medium leading-snug text-fg text-balance">{pathway.title}</h3>
         </div>
         {pathway.structureLabel ? (
-          <span className="shrink-0 font-display text-[2.25rem] leading-none text-brand-soft tabular">{pathway.structureLabel.replace(/\s+/g, "")}</span>
+          <span className={cn("max-w-[55%] text-right font-display leading-none text-brand-soft tabular [overflow-wrap:anywhere]", pathway.structureLabel.replace(/\s+/g, "").length > 5 ? "text-[1.375rem]" : "shrink-0 text-[2.25rem]")}>{pathway.structureLabel.replace(/\s*\+\s*/g, "+")}</span>
         ) : null}
       </div>
 
@@ -26,7 +26,7 @@ export function PathwayCard({ pathway, className }: { pathway: PathwayWithRelati
         {steps.map((s, i) => (
           <li key={s.id} className="relative flex min-w-0 flex-1 flex-col items-start">
             <span aria-hidden className={cn("relative z-10 size-[7px] rounded-full", i === 0 ? "bg-route shadow-[0_0_10px_var(--route)]" : "bg-fg-muted")} />
-            <span className="mt-2 font-mono text-[0.625rem] uppercase tracking-[0.12em] text-fg-subtle">{s.label}</span>
+            <span className="mt-2 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-fg-subtle">{s.label}</span>
             <span className="line-clamp-2 break-words text-xs leading-tight text-fg-muted">{s.location ?? s.institution ?? ""}</span>
           </li>
         ))}

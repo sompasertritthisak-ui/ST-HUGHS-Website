@@ -11,7 +11,7 @@
  *
  *  OFFICIAL SHV PROGRAMME DECKS (2026–27), supplied by SHV in September 2026 — authoritative for
  *  programmes, pathways, partners, fee estimates and contact details. Page numbers are PDF pages.
- *  [DECK 1b. BBA-EI Gen AI (SHV+NUOL) vENG.pdf]   Business Administration — Entrepreneurship & Innovation Gen AI (SHV + NUOL), 17 pp (odd pages are Lao mirrors)
+ *  [DECK 1b. BBA-EI Gen AI (SHV+NUOL) vENG.pdf]   Business Administration — Entrepreneurship & Innovation Gen AI, taught in Lao, 17 pp (odd pages are Lao mirrors)
  *  [DECK 2b. Inten Eng Recruit Deck vENG.pdf]     Intensive English Programme, 10 pp
  *  [DECK 3. BUV 2+2 vENG.pdf]                     Bachelor in International Hospitality Management 2+2 with British University Vietnam, 10 pp
  *  [DECK 4b. Assumption 1+3 Master vENG.pdf]       Bachelor's + Master's 1+3 with Assumption University (SIMBA), 10 pp
@@ -86,7 +86,7 @@ async function main() {
     institutionName: "St Hugh's College Vientiane",
     shortName: "SHV",
     addressLines: ["Nonsavanh Village", "Xaysetha District", "Vientiane Capital", "Lao PDR"],
-    phones: ["+856 20 58 814 648", "+856 20 52451711", "+856 20 59965564"],
+    phones: ["+856 20 5881 4648", "+856 20 5245 1711", "+856 20 5996 5564"],
     emails: ["admissions@sthughs.edu.la"],
     whatsapp: "",
     officeHours: ["Monday – Friday, 8:30 – 17:00 (to be confirmed)"],
@@ -113,7 +113,7 @@ async function main() {
       valueJson: JSON.stringify({
         heroLine1: "From Laos.",
         heroLine2: "To the world.",
-        heroSupport: "The first year of an international degree, taught in Vientiane. The degree, with a partner university abroad.",
+        heroSupport: "Start your international degree in Vientiane. Finish it with a partner university abroad, or here at home.",
         tagline: "Local start. Global future.",
         finalCtaTitle: "Your next chapter starts here.",
         finalCtaBody: "A free consultation checks your qualifications against the entry requirements and sets out your next step.",
@@ -128,10 +128,10 @@ async function main() {
       "St Hugh's College Vientiane received full authorisation from the Lao Ministry of Education and Sports in late 2023 to provide programmes up to Level 5.",
     authorisationSource: "[NCUK-SHV]",
     ncukStudyCentre: true,
-    ncukSince: "NCUK partnership announced 28 February 2025; NCUK programmes offered from September 2025.",
+    ncukSince: "NCUK partnership announced on 28 February 2025; programmes running since September 2025.",
     sisterInstitution: "Panyathip British International School (PBIS), Vientiane, established 2001 — SHV is part of the Panyathip group.",
     partnersNote:
-      "SHV's official 2026–27 programme decks confirm direct pathway partnerships with British University Vietnam (2+2 Bachelor in International Hospitality Management, Hanoi), Assumption University of Thailand (1+3 Bachelor's + Master's, SIMBA, Bangkok) and ESDES Business School (1+3 Bachelor in International Business, Lyon, part of UCLY), plus an academic collaboration with the National University of Laos (NUOL) for the Business Administration degree in Entrepreneurship & Innovation Gen AI taught on the SHV campus. As an NCUK Study Centre, SHV's International Foundation Year also progresses to NCUK University Partners in the UK, Australia, New Zealand, the USA, Canada, Malaysia and elsewhere.",
+      "SHV's official 2026–27 programme brochures confirm direct pathway partnerships with British University Vietnam (2+2 Bachelor in International Hospitality Management, Hanoi), Assumption University of Thailand (1+3 Bachelor's + Master's, SIMBA, Bangkok) and ESDES Business School (1+3 Bachelor in International Business, Lyon, part of UCLY), plus an academic collaboration with the National University of Laos (NUOL) for the Business Administration degree in Entrepreneurship & Innovation Gen AI taught on the SHV campus. As an NCUK Study Centre, SHV's International Foundation Year also progresses to NCUK University Partners in the UK, Australia, New Zealand, the USA, Canada, Malaysia and elsewhere.",
     vision: "",
     mission: "",
     governanceNote: "",
@@ -146,7 +146,7 @@ async function main() {
   await prisma.navigationItem.deleteMany({});
   const header: [string, string, string?][] = [
     ["About", "/about", "Who we are, our authorisation and our people"],
-    ["Programmes", "/programmes", "NCUK Foundation Year and Year One, bachelor pathways with BUV, Assumption and ESDES, the BBA with NUOL and Intensive English"],
+    ["Programmes", "/programmes", "NCUK International Foundation Year and International Year One, partner degrees in Vietnam, Thailand and France, the St Hugh's BBA taught in Lao, and Intensive English"],
     ["Pathways", "/pathways", "Routes from Vientiane to universities worldwide"],
     ["Universities", "/universities", "Partner and network universities"],
     ["Destinations", "/destinations", "Where SHV pathways can lead"],
@@ -167,8 +167,8 @@ async function main() {
     ["International students", "/international-students"],
     ["Student life", "/student-life"],
     ["Campus", "/campus"],
-    ["Careers & employability", "/careers"],
-    ["News & insights", "/news"],
+    ["Careers and employability", "/careers"],
+    ["News and insights", "/news"],
     ["Resources", "/resources"],
     ["FAQs", "/faqs"],
     ["Contact", "/contact"],
@@ -298,12 +298,12 @@ async function main() {
   }
 
   const deckMedia = [
-    { key: "ify", file: "shv-ncuk-international-foundation-year-1-plus-3-2026-27.pdf", alt: "NCUK International Foundation Year — Bachelor's degree Pathway (1+3) programme deck, 2026–27" },
-    { key: "iep", file: "shv-intensive-english-programme-2026-27.pdf", alt: "Intensive English Programme deck, 2026–27" },
-    { key: "buv", file: "shv-buv-hospitality-management-2-plus-2-2026-27.pdf", alt: "Bachelor in International Hospitality Management 2+2 with British University Vietnam programme deck, 2026–27" },
-    { key: "au", file: "shv-assumption-university-bachelor-master-1-plus-3-2026-27.pdf", alt: "Bachelor's + Master's 1+3 with Assumption University (SIMBA) programme deck, 2026–27" },
-    { key: "esdes", file: "shv-esdes-international-business-1-plus-3-2026-27.pdf", alt: "Bachelor in International Business 1+3 with ESDES Business School programme deck, 2026–27" },
-    { key: "bba", file: "shv-bba-entrepreneurship-innovation-gen-ai-nuol-2026-27.pdf", alt: "Business Administration — Entrepreneurship & Innovation Gen AI (SHV + NUOL) programme deck, 2026–27" },
+    { key: "ify", file: "shv-ncuk-international-foundation-year-1-plus-3-2026-27.pdf", alt: "NCUK International Foundation Year — Bachelor's degree Pathway (1+3) programme brochure, 2026–27" },
+    { key: "iep", file: "shv-intensive-english-programme-2026-27.pdf", alt: "Intensive English Programme brochure, 2026–27" },
+    { key: "buv", file: "shv-buv-hospitality-management-2-plus-2-2026-27.pdf", alt: "Bachelor in International Hospitality Management 2+2 with British University Vietnam programme brochure, 2026–27" },
+    { key: "au", file: "shv-assumption-university-bachelor-master-1-plus-3-2026-27.pdf", alt: "Bachelor's + Master's 1+3 with Assumption University (SIMBA) programme brochure, 2026–27" },
+    { key: "esdes", file: "shv-esdes-international-business-1-plus-3-2026-27.pdf", alt: "Bachelor in International Business 1+3 with ESDES Business School programme brochure, 2026–27" },
+    { key: "bba", file: "shv-bba-entrepreneurship-innovation-gen-ai-nuol-2026-27.pdf", alt: "Business Administration — Entrepreneurship & Innovation Gen AI, taught in Lao programme brochure, 2026–27" },
   ] as const;
   const deckMediaId: Record<string, string> = {};
   for (const m of deckMedia) {
@@ -355,7 +355,7 @@ async function main() {
       type: "UNIVERSITY",
       website: "https://www.buv.edu.vn",
       description:
-        "Academic partner for the 2+2 Bachelor in International Hospitality Management: two years at SHV, two years at BUV in Hanoi. Described in SHV's deck as a leading British-accredited university in Vietnam with British Quality Assurance accreditation.",
+        "Academic partner for the 2+2 Bachelor in International Hospitality Management: two years at SHV, two years at BUV in Hanoi. Described in SHV's programme brochure as a leading British-accredited university in Vietnam with British Quality Assurance accreditation.",
       featured: true,
       sortOrder: 2,
       ...PUB,
@@ -419,7 +419,7 @@ async function main() {
       slug: "b-you-education-center",
       name: "B-YOU Education Center",
       type: "EDUCATION",
-      description: "Chinese language training partner referenced in earlier SHV materials. Not present in the 2026–27 programme decks; levels, schedules and fees to be confirmed.",
+      description: "Chinese language training partner referenced in earlier SHV materials. Not present in the 2026–27 programme brochures; levels, schedules and fees to be confirmed.",
       featured: false,
       sortOrder: 20,
       ...REVIEW,
@@ -432,11 +432,11 @@ async function main() {
   // ── Destinations (lat/lng = representative capital/major city) ─────────────
   const ncukDestNote = `[NCUK-IFY] [NCUK-IY1] ${deck("ify", "p3")}`;
   const destinations = [
-    { slug: "united-kingdom", country: "United Kingdom", isoCode: "GB", region: "Europe", lat: 51.5074, lng: -0.1278, pathwayTypes: "NCUK IFY, NCUK IYOne", verificationStatus: "VERIFIED", featured: true, sortOrder: 0, summary: "The largest group of NCUK University Partners is in the UK. NCUK International Foundation Year and International Year One students can progress to partner universities across England, Scotland, Wales and Northern Ireland; SHV's IFY deck shows more than fifty UK partner logos, including QS World Top 100 universities.", progressionNotes: "Progression is to NCUK University Partners and is subject to meeting the published entry requirements of the chosen university and course.", officialLink: "https://www.ncuk.ac.uk/university-partners/", sourceNote: ncukDestNote },
-    { slug: "australia", country: "Australia", isoCode: "AU", region: "Oceania", lat: -33.8688, lng: 151.2093, pathwayTypes: "NCUK IFY, NCUK IYOne", verificationStatus: "VERIFIED", featured: true, sortOrder: 1, summary: "NCUK University Partners in Australia accept the International Foundation Year and, for some courses, International Year One. SHV's IFY deck shows partners including UNSW, RMIT, QUT, Swinburne, the University of Newcastle and the University of Western Australia.", progressionNotes: "Subject to the published requirements of the chosen NCUK University Partner.", officialLink: "https://www.ncuk.ac.uk/university-partners/", sourceNote: ncukDestNote },
-    { slug: "new-zealand", country: "New Zealand", isoCode: "NZ", region: "Oceania", lat: -36.8485, lng: 174.7633, pathwayTypes: "NCUK IFY, NCUK IYOne", verificationStatus: "VERIFIED", featured: false, sortOrder: 2, summary: "NCUK University Partners in New Zealand accept NCUK qualifications for undergraduate entry. SHV's IFY deck shows partners including AUT, the University of Canterbury, Lincoln University, Otago, Victoria University of Wellington and Waikato.", officialLink: "https://www.ncuk.ac.uk/university-partners/", sourceNote: ncukDestNote },
-    { slug: "united-states", country: "United States", isoCode: "US", region: "North America", lat: 40.7128, lng: -74.006, pathwayTypes: "NCUK IFY", verificationStatus: "VERIFIED", featured: false, sortOrder: 3, summary: "Selected NCUK University Partners in the USA accept the International Foundation Year. SHV's IFY deck shows partners including SUNY Oswego, Drew University, Illinois State, Suffolk University, George Mason and Oregon State.", officialLink: "https://www.ncuk.ac.uk/university-partners/", sourceNote: ncukDestNote },
-    { slug: "canada", country: "Canada", isoCode: "CA", region: "North America", lat: 43.6532, lng: -79.3832, pathwayTypes: "NCUK IFY", verificationStatus: "VERIFIED", featured: false, sortOrder: 4, summary: "Selected NCUK University Partners in Canada accept the International Foundation Year. SHV's IFY deck shows partners including the University of Alberta, Brock University, uOttawa, the University of Regina and Toronto Metropolitan University.", officialLink: "https://www.ncuk.ac.uk/university-partners/", sourceNote: ncukDestNote },
+    { slug: "united-kingdom", country: "United Kingdom", isoCode: "GB", region: "Europe", lat: 51.5074, lng: -0.1278, pathwayTypes: "NCUK International Foundation Year, NCUK International Year One", verificationStatus: "VERIFIED", featured: true, sortOrder: 0, summary: "The largest group of NCUK University Partners is in the UK. NCUK International Foundation Year and International Year One students can progress to partner universities across England, Scotland, Wales and Northern Ireland; SHV's IFY brochure shows more than fifty UK partner logos, including QS World Top 100 universities.", progressionNotes: "Progression is to NCUK University Partners and is subject to meeting the published entry requirements of the chosen university and course.", officialLink: "https://www.ncuk.ac.uk/university-partners/", sourceNote: ncukDestNote },
+    { slug: "australia", country: "Australia", isoCode: "AU", region: "Oceania", lat: -33.8688, lng: 151.2093, pathwayTypes: "NCUK International Foundation Year, NCUK International Year One", verificationStatus: "VERIFIED", featured: true, sortOrder: 1, summary: "NCUK University Partners in Australia accept the International Foundation Year and, for some courses, International Year One. SHV's IFY brochure shows partners including UNSW, RMIT, QUT, Swinburne, the University of Newcastle and the University of Western Australia.", progressionNotes: "Subject to the published requirements of the chosen NCUK University Partner.", officialLink: "https://www.ncuk.ac.uk/university-partners/", sourceNote: ncukDestNote },
+    { slug: "new-zealand", country: "New Zealand", isoCode: "NZ", region: "Oceania", lat: -36.8485, lng: 174.7633, pathwayTypes: "NCUK International Foundation Year, NCUK International Year One", verificationStatus: "VERIFIED", featured: false, sortOrder: 2, summary: "NCUK University Partners in New Zealand accept NCUK qualifications for undergraduate entry. SHV's IFY brochure shows partners including AUT, the University of Canterbury, Lincoln University, Otago, Victoria University of Wellington and Waikato.", officialLink: "https://www.ncuk.ac.uk/university-partners/", sourceNote: ncukDestNote },
+    { slug: "united-states", country: "United States", isoCode: "US", region: "North America", lat: 40.7128, lng: -74.006, pathwayTypes: "NCUK International Foundation Year", verificationStatus: "VERIFIED", featured: false, sortOrder: 3, summary: "Selected NCUK University Partners in the USA accept the International Foundation Year. SHV's IFY brochure shows partners including SUNY Oswego, Drew University, Illinois State, Suffolk University, George Mason and Oregon State.", officialLink: "https://www.ncuk.ac.uk/university-partners/", sourceNote: ncukDestNote },
+    { slug: "canada", country: "Canada", isoCode: "CA", region: "North America", lat: 43.6532, lng: -79.3832, pathwayTypes: "NCUK International Foundation Year", verificationStatus: "VERIFIED", featured: false, sortOrder: 4, summary: "Selected NCUK University Partners in Canada accept the International Foundation Year. SHV's IFY brochure shows partners including the University of Alberta, Brock University, uOttawa, the University of Regina and Toronto Metropolitan University.", officialLink: "https://www.ncuk.ac.uk/university-partners/", sourceNote: ncukDestNote },
     {
       slug: "france",
       country: "France",
@@ -444,12 +444,12 @@ async function main() {
       region: "Europe",
       lat: 45.764,
       lng: 4.8357,
-      pathwayTypes: "NCUK IFY, ESDES 1+3 Bachelor in International Business",
+      pathwayTypes: "NCUK International Foundation Year, ESDES 1+3 Bachelor in International Business",
       verificationStatus: "VERIFIED",
       featured: true,
       sortOrder: 5,
       summary:
-        "Lyon is presented in SHV's ESDES deck as a welcoming European student city where education, culture and international opportunity come together: a dynamic centre for business, innovation and international education, with thousands of international students and quality of life at a more reasonable cost than Paris. Students in France benefit from paid internships (mandatory compensation for internships longer than two months), the right to work up to 20 hours per week, student health insurance at no cost covering 60% of medical costs, and student discounts on public transport, culture and university restaurants.",
+        "Lyon is presented in SHV's ESDES brochure as a welcoming European student city where education, culture and international opportunity come together: a dynamic centre for business, innovation and international education, with thousands of international students and quality of life at a more reasonable cost than Paris. Students in France benefit from paid internships (mandatory compensation for internships longer than two months), the right to work up to 20 hours per week, student health insurance at no cost covering 60% of medical costs, and student discounts on public transport, culture and university restaurants.",
       durationNotes: "1 year in Vientiane (NCUK IFY) + 3 years at ESDES Business School, Lyon.",
       progressionNotes: "Progression to the ESDES Bachelor in International Business after the NCUK International Foundation Year at SHV. France (ESDES) also appears among the NCUK IFY progression destinations.",
       officialLink: "https://www.esdes.fr",
@@ -463,14 +463,14 @@ async function main() {
       region: "Southeast Asia",
       lat: 21.0278,
       lng: 105.8342,
-      pathwayTypes: "NCUK IFY, BUV 2+2 Bachelor in International Hospitality Management",
+      pathwayTypes: "NCUK International Foundation Year, BUV 2+2 Bachelor in International Hospitality Management",
       verificationStatus: "VERIFIED",
       featured: true,
       sortOrder: 6,
       summary:
-        "Hanoi is home to British University Vietnam (BUV), described in SHV's deck as a leading British-accredited university in Vietnam with British Quality Assurance accreditation. SHV's 2+2 route completes the Bachelor in International Hospitality Management at BUV. Vietnam also appears among the NCUK IFY progression destinations (BUV and RMIT Vietnam).",
+        "Hanoi is home to British University Vietnam (BUV), described in SHV's programme brochure as a leading British-accredited university in Vietnam with British Quality Assurance accreditation. SHV's 2+2 route completes the Bachelor in International Hospitality Management at BUV. Vietnam also appears among the NCUK IFY progression destinations (BUV and RMIT Vietnam).",
       durationNotes: "2 years in Vientiane + 2 years at BUV, Hanoi.",
-      progressionNotes: `Transfer after Year 2 at SHV into Year 3 at BUV. The deck's 2026–27 estimate shows BUV tuition of $9k and living expenses of $8k per year. ${FEE_DISCLAIMER}`,
+      progressionNotes: `Transfer after Year 2 at SHV into Year 3 at BUV. SHV's 2026–27 estimate shows BUV tuition of $9k and living expenses of $8k per year. ${FEE_DISCLAIMER}`,
       officialLink: "https://www.buv.edu.vn",
       heroMediaId: photo.buvCampus,
       sourceNote: `${deck("buv", "p1-3, p8")} ${deck("ify", "p3")}`,
@@ -482,14 +482,14 @@ async function main() {
       region: "Southeast Asia",
       lat: 13.7563,
       lng: 100.5018,
-      pathwayTypes: "NCUK IFY, Assumption University 1+3 Bachelor's + Master's (SIMBA)",
+      pathwayTypes: "NCUK International Foundation Year, Assumption University 1+3 Bachelor's + Master's (SIMBA)",
       verificationStatus: "VERIFIED",
       featured: true,
       sortOrder: 7,
       summary:
-        "Bangkok is home to Assumption University, described in SHV's deck as one of Thailand's most established private international universities, with modern campuses, an international community and global partner universities. The 1+3 route leads to a Bachelor's and a Master's degree in four years, one of them spent at home in Vientiane. Thailand (Assumption University) also appears among the NCUK IFY progression destinations.",
+        "Bangkok is home to Assumption University, described in SHV's programme brochure as one of Thailand's most established private international universities, with modern campuses, an international community and global partner universities. The 1+3 route leads to a Bachelor's and a Master's degree in four years, one of them spent at home in Vientiane. Thailand (Assumption University) also appears among the NCUK IFY progression destinations.",
       durationNotes: "1 year in Vientiane + 3 years at Assumption University, Bangkok.",
-      progressionNotes: `Transfer after Year 1 at SHV. The deck's 2026–27 estimate shows living expenses at AU of $9k per year. ${FEE_DISCLAIMER}`,
+      progressionNotes: `Transfer after Year 1 at SHV. SHV's 2026–27 estimate shows living expenses at AU of $9k per year. ${FEE_DISCLAIMER}`,
       officialLink: "https://www.au.edu",
       heroMediaId: photo.auCampus,
       sourceNote: `${deck("au", "p1, p4, p10")} ${deck("ify", "p3")}`,
@@ -501,12 +501,12 @@ async function main() {
       region: "Southeast Asia",
       lat: 3.139,
       lng: 101.6869,
-      pathwayTypes: "NCUK IFY",
+      pathwayTypes: "NCUK International Foundation Year",
       verificationStatus: "VERIFIED",
       featured: false,
       sortOrder: 8,
       summary:
-        "SHV's NCUK International Foundation Year deck shows Malaysian progression destinations including the University of Nottingham Malaysia, University of Southampton Malaysia, Newcastle University Medicine Malaysia, Swinburne University of Technology Sarawak and the University of Reading Malaysia.",
+        "SHV's NCUK International Foundation Year brochure shows Malaysian progression destinations including the University of Nottingham Malaysia, University of Southampton Malaysia, Newcastle University Medicine Malaysia, Swinburne University of Technology Sarawak and the University of Reading Malaysia.",
       progressionNotes: "Progression through NCUK, subject to the published requirements of the chosen university and course.",
       officialLink: "https://www.ncuk.ac.uk/university-partners/",
       sourceNote: deck("ify", "p2-3"),
@@ -518,14 +518,14 @@ async function main() {
       region: "Southeast Asia",
       lat: 17.9757,
       lng: 102.6331,
-      pathwayTypes: "BBA Entrepreneurship & Innovation Gen AI (3 years at SHV, awarded by NUOL), Intensive English",
+      pathwayTypes: "BBA Entrepreneurship & Innovation Gen AI (3 years at St Hugh's), Intensive English",
       verificationStatus: "VERIFIED",
       featured: false,
       sortOrder: 9,
       summary:
-        "Study entirely in Vientiane. The Business Administration degree in Entrepreneurship & Innovation Gen AI is taught in Lao on the SHV campus over three years plus a 24-week internship, with the Bachelor's degree awarded by the National University of Laos (NUOL) and the Year 3 top-up taught by NUOL professors. English runs through all three years, from beginner to a CEFR B2 target.",
+        "Study entirely in Vientiane. St Hugh's Business Administration degree in Entrepreneurship & Innovation Gen AI is taught in Lao on our campus over three years plus a 24-week internship, leading to a bachelor's degree. English runs through all three years, from beginner to a CEFR B2 target.",
       durationNotes: "3 years on the SHV campus + 24-week internship.",
-      progressionNotes: "Graduates hold a NUOL Bachelor's degree and English at B2 level, ready to apply for a master's degree domestically or internationally (specific university and country requirements vary).",
+      progressionNotes: "Graduates hold a bachelor's degree and English at B2 level, ready to apply for a master's degree in Laos or abroad (specific university and country requirements vary).",
       sourceNote: deck("bba", "p1, p4, p6, p8, p12"),
     },
   ];
@@ -539,13 +539,13 @@ async function main() {
   const universities = [
     {
       slug: "ncuk-university-partners",
-      name: "NCUK University Partners (network)",
+      name: "NCUK University Partners",
       city: "Worldwide",
       destinationId: destBySlug["united-kingdom"],
       website: "https://www.ncuk.ac.uk/university-partners/",
       partnershipType: "NCUK_NETWORK",
       summary:
-        "NCUK describes a network of 80+ University Partners in the UK, Australia, New Zealand, USA, Canada and other locations, offering 6,000+ degree courses. Students completing an NCUK qualification at SHV apply to these universities through NCUK. SHV's IFY deck maps progression destinations in the UK, Australia, New Zealand, the USA, Canada, France, Vietnam, Malaysia and Thailand.",
+        "NCUK describes a network of 80+ University Partners in the UK, Australia, New Zealand, USA, Canada and other locations, offering 6,000+ degree courses. Students completing an NCUK qualification at SHV apply to these universities through NCUK. SHV's IFY brochure maps progression destinations in the UK, Australia, New Zealand, the USA, Canada, France, Vietnam, Malaysia and Thailand.",
       progressionInfo: "NCUK states: \"Guaranteed* entry to one of 80+ NCUK University Partners worldwide\" for International Foundation Year students (*conditions apply; see NCUK).",
       transferPoint: "Year 1 (after IFY) or Year 2 (after International Year One)",
       featured: true,
@@ -562,9 +562,9 @@ async function main() {
       website: "https://www.buv.edu.vn",
       partnershipType: "DIRECT_PARTNER",
       summary:
-        "British University Vietnam (BUV, \"Home of the Lionhearted\") is described in SHV's programme deck as a leading British-accredited university in Vietnam with British Quality Assurance accreditation. SHV students on the 2+2 route complete Years 3 and 4 of the Bachelor in International Hospitality Management at BUV's Hanoi campus.",
+        "British University Vietnam (BUV, \"Home of the Lionhearted\") is described in SHV's programme brochure as a leading British-accredited university in Vietnam with British Quality Assurance accreditation. SHV students on the 2+2 route complete Years 3 and 4 of the Bachelor in International Hospitality Management at BUV's Hanoi campus.",
       programmesOffered: "Bachelor in International Hospitality Management (2+2 with SHV): Year 3 — project management, consumer behaviour, service business strategy, industry exposure; Year 4 — career development, capstone / applied project, management readiness, professional network.",
-      progressionInfo: `Progression after two years at SHV into Year 3 of the Bachelor in International Hospitality Management. BUV scholarships of 100%, 50% and 25% are advertised for the 2026 intake; award criteria are confirmed by BUV. The deck's 2026–27 estimate shows BUV tuition of $9k plus $8k living per year (exchange rate 1$ = VND 26,300). ${FEE_DISCLAIMER}`,
+      progressionInfo: `Progression after two years at SHV into Year 3 of the Bachelor in International Hospitality Management. BUV scholarships of 100%, 50% and 25% are advertised for the 2026 intake; award criteria are confirmed by BUV. SHV's 2026–27 estimate shows BUV tuition of $9k plus $8k living per year (exchange rate 1$ = VND 26,300). ${FEE_DISCLAIMER}`,
       transferPoint: "After Year 2 at SHV → Year 3 at BUV, Hanoi",
       featured: true,
       sortOrder: 1,
@@ -581,7 +581,7 @@ async function main() {
       logoMediaId: logoAssumption.id,
       partnershipType: "DIRECT_PARTNER",
       summary:
-        "Assumption University (Bangkok, since 1969) is described in SHV's programme deck as one of Thailand's most established private international universities, with modern campuses, an international community and global partner universities. On the 1+3 route it awards both the Bachelor's and the Master's degree. The deck records the partnership signing between SHV and Assumption University.",
+        "Assumption University (Bangkok, since 1969) is described in SHV's programme brochure as one of Thailand's most established private international universities, with modern campuses, an international community and global partner universities. On the 1+3 route it awards both the Bachelor's and the Master's degree. SHV's brochure records the partnership signing between SHV and Assumption University.",
       programmesOffered: "SIMBA — Smart Integration in Management & Business Analytics: Bachelor's major (management & strategy, marketing and communication, sustainable business / entrepreneurship, data analytics & applied informatics, international business projects) followed by a Master's-level year (business & advanced technology management; leadership, innovation and change; business analytics / digital transformation; research, capstone or final project; industry practice and career preparation).",
       progressionInfo: `After Year 1 at SHV, students complete the Bachelor's major (Years 2–3) and a Master's-level year (Year 4) at Assumption University — two degrees in four years, compared with 6+ years on the traditional route. Tuition of $27,000 for the AU years is payable within the three years; living expenses are estimated at $9k per year. ${FEE_DISCLAIMER}`,
       transferPoint: "After Year 1 at SHV → Assumption University, Bangkok (Years 2–4)",
@@ -602,7 +602,7 @@ async function main() {
       summary:
         "ESDES Business School (Lyon–Annecy) is part of UCLY — Université Catholique de Lyon, founded in 1875 with 12,000 students. SHV's 1+3 route leads to the Bachelor in International Business, taught 100% in English. Year 2 at ESDES includes four months abroad at a partner campus (Greece, Argentina, Morocco, Vietnam, USA, Poland, Italy, United Kingdom, Hungary, Uruguay or Brazil), and students have access to paid internships and student housing at Maison Saint-Laurent.",
       programmesOffered: "Bachelor in International Business (3 years, 100% English): Year 1 — build strong business foundations; Year 2 — expand your skills and experience the world (four months abroad); Year 3 — specialise and prepare for your career.",
-      progressionInfo: `Students who complete the NCUK International Foundation Year at SHV progress to Year 1 of the three-year Bachelor in International Business in Lyon. Merit scholarships of up to 30% for the first year at ESDES may be awarded for outstanding academic achievement (for example an NCUK IFY average of 75% or above across all modules, or Lao Mor 7 GPA 8.5–10 with strong grades in relevant subjects); a 10% early-bird discount applies to the first year when payment is made five months before the intake. The deck's 2026–27 estimate shows ESDES tuition of $10.5k plus $12k living per year (exchange rate 1€ = $1.1386). ${FEE_DISCLAIMER}`,
+      progressionInfo: `Students who complete the NCUK International Foundation Year at SHV progress to Year 1 of the three-year Bachelor in International Business in Lyon. Merit scholarships of up to 30% for the first year at ESDES may be awarded for outstanding academic achievement (for example an NCUK IFY average of 75% or above across all modules, or Lao Mor 7 GPA 8.5–10 with strong grades in relevant subjects); a 10% early-bird discount applies to the first year when payment is made five months before the intake. SHV's 2026–27 estimate shows ESDES tuition of $10.5k plus $12k living per year (exchange rate 1€ = $1.1386). ${FEE_DISCLAIMER}`,
       transferPoint: "After the NCUK IFY at SHV → Year 1 at ESDES, Lyon",
       featured: true,
       sortOrder: 3,
@@ -619,7 +619,7 @@ async function main() {
       logoMediaId: logoNottingham.id,
       partnershipType: "NCUK_NETWORK",
       summary:
-        "The University of Nottingham (UK | China | Malaysia) appears in SHV's NCUK International Foundation Year deck among the progression destinations after successful IFY completion, and the University of Nottingham Malaysia is shown among the NCUK University Partners in Malaysia. No SHV-specific programme deck exists for Nottingham; progression is through NCUK.",
+        "The University of Nottingham (UK | China | Malaysia) appears in SHV's NCUK International Foundation Year brochure among the progression destinations after successful IFY completion, and the University of Nottingham Malaysia is shown among the NCUK University Partners in Malaysia. No SHV-specific programme deck exists for Nottingham; progression is through NCUK.",
       progressionInfo: "Progression through NCUK after the International Foundation Year, subject to the published entry requirements of the chosen campus and course.",
       transferPoint: "After the NCUK IFY at SHV → Year 1",
       featured: false,
@@ -677,10 +677,10 @@ async function main() {
       awardingBody: "NCUK",
       level: "Pre-university foundation",
       summary:
-        "Bachelor's degree Pathway (1+3): Mor 7 graduates spend nine months at SHV's NCUK Study Centre in Vientiane studying at least five modules, then progress to three years of a bachelor's degree abroad at an NCUK University Partner or one of SHV's direct partners.",
+        "Bachelor's degree Pathway (1+3): Mor 7 graduates spend nine months at SHV, an NCUK Study Centre in Vientiane, studying at least five modules, then progress to three years of a bachelor's degree abroad at an NCUK University Partner or one of SHV's direct partners.",
       description: `## The 1+3 pathway at SHV
 
-**Mor 7 graduate → 1st year at St Hugh's (NCUK Study Centre) → 3 years Bachelor abroad.** Start here, then study abroad later. The NCUK International Foundation Year (IFY) is a pre-university programme that prepares students for first-year undergraduate entry at NCUK University Partners worldwide. At St Hugh's College Vientiane it is delivered in Vientiane, so students complete their foundation year close to home before progressing abroad.
+**Mor 7 graduate → foundation year at St Hugh's (NCUK Study Centre) → three-year bachelor's degree abroad.** Start here, then study abroad later. The NCUK International Foundation Year (IFY) is a pre-university programme that prepares students for first-year undergraduate entry at NCUK University Partners worldwide. At St Hugh's College Vientiane it is delivered in Vientiane, so students complete their foundation year close to home before progressing abroad.
 
 ## What you will study for 9 months in Vientiane
 
@@ -690,7 +690,7 @@ You will study at least 5 modules. For example:
 - **Economics**
 - **EAP — English for Academic Purposes**, accepted by NCUK University Partners in place of IELTS for progression
 - **Global Studies**
-- **Integrated Math**
+- **Integrated Maths**
 - **Skills-based module**
 
 Across its network NCUK lists IFY subject modules including Art & Design, Biology, Business Studies, Chemistry, Computer Science, Economics, Further Maths, Global Studies, Integrated Maths, Physics, Sociology and Technical Maths. The modules offered at SHV are confirmed each intake.
@@ -701,7 +701,7 @@ Assessment combines coursework and examinations set and quality-assured by NCUK.
 
 ## Progression destinations after successful IFY completion
 
-SHV's deck maps progression anywhere in the world*: the **United Kingdom** (more than fifty NCUK partners, including QS World Top 100 universities), **Australia**, **New Zealand**, the **United States**, **Canada**, **France** (ESDES Business School), **Vietnam** (British University Vietnam, RMIT Vietnam), **Malaysia** (University of Nottingham Malaysia, University of Southampton Malaysia, Newcastle University Medicine Malaysia, Swinburne Sarawak, University of Reading Malaysia) and **Thailand** (Assumption University).
+SHV's programme brochure maps progression anywhere in the world*: the **United Kingdom** (more than fifty NCUK partners, including QS World Top 100 universities), **Australia**, **New Zealand**, the **United States**, **Canada**, **France** (ESDES Business School), **Vietnam** (British University Vietnam, RMIT Vietnam), **Malaysia** (University of Nottingham Malaysia, University of Southampton Malaysia, Newcastle University Medicine Malaysia, Swinburne Sarawak, University of Reading Malaysia) and **Thailand** (Assumption University).
 
 NCUK states that IFY students have "Guaranteed* entry to one of 80+ NCUK University Partners worldwide" (*subject to NCUK's conditions). Students apply to universities through NCUK's dedicated support, and progression depends on meeting the published entry grades of the chosen course.
 
@@ -717,7 +717,7 @@ Fees payable: tuition fee, application fee, registration fee and uniform. Amount
 
 ## Estimated cost of study 2026–27
 
-SHV's deck compares one year of study by tuition and living cost: **Laos (SHV) $14k tuition**, against UK $25k tuition + $35k living ($60k), Singapore $20k + $35k ($57k), Australia $24k + $35k ($59k), New Zealand $24k + $30k ($54k) and Thailand $23k + $9k ($31k). Start locally, build confidence, then move to the international level.
+SHV's programme brochure compares one year of study by tuition and living cost: **Laos (SHV) $14k tuition**, against UK $25k tuition + $35k living ($60k), Singapore $20k + $35k ($57k), Australia $24k + $35k ($59k), New Zealand $24k + $30k ($54k) and Thailand $23k + $9k ($31k). Start locally, build confidence, then move to the international level.
 
 _${FEE_DISCLAIMER}_`,
       whoFor:
@@ -746,11 +746,11 @@ _${FEE_DISCLAIMER}_`,
       seoDescription: "Study the NCUK International Foundation Year at St Hugh's College Vientiane: 9 months at home, then 3 years of a bachelor's degree abroad.",
     },
     [
-      { title: "English for Academic Purposes (EAP)", kind: "ENGLISH", order: 0, description: "Academic English accepted by NCUK University Partners in lieu of IELTS for progression." },
-      { title: "Business", kind: "SUBJECT", order: 1, description: "Example subject module shown in SHV's IFY deck." },
-      { title: "Economics", kind: "SUBJECT", order: 2, description: "Example subject module shown in SHV's IFY deck." },
-      { title: "Global Studies", kind: "SUBJECT", order: 3, description: "Example subject module shown in SHV's IFY deck." },
-      { title: "Integrated Math", kind: "SUBJECT", order: 4, description: "Example subject module shown in SHV's IFY deck." },
+      { title: "English for Academic Purposes (EAP)", kind: "ENGLISH", order: 0, description: "Academic English accepted by NCUK University Partners in place of IELTS for progression." },
+      { title: "Business", kind: "SUBJECT", order: 1, description: "Example subject module." },
+      { title: "Economics", kind: "SUBJECT", order: 2, description: "Example subject module." },
+      { title: "Global Studies", kind: "SUBJECT", order: 3, description: "Example subject module." },
+      { title: "Integrated Maths", kind: "SUBJECT", order: 4, description: "Example subject module." },
       { title: "Skills-based module", kind: "SKILLS", order: 5, description: "Independent study, research and academic skills (NCUK's Skills for Success is delivered online)." },
     ],
   );
@@ -770,11 +770,11 @@ _${FEE_DISCLAIMER}_`,
 
 The NCUK International Year One (IYOne) lets students study the first year of an undergraduate degree at an NCUK Study Centre and progress directly into Year 2 of a degree at an NCUK University Partner. NCUK describes it as "a credit-bearing programme equivalent to the first year of a university undergraduate degree". The final degree certificate is the same as for students who studied all years at the university.
 
-St Hugh's College Vientiane offers the **Business Management** route from September 2025.
+St Hugh's College Vientiane has offered the **Business Management** route since September 2025.
 
 ## What you study
 
-Business Management modules at first-year undergraduate level, alongside an English for Academic Purposes module that improves academic English and is accepted by universities in lieu of IELTS.
+Business Management modules at first-year undergraduate level, alongside an English for Academic Purposes module that improves academic English and is accepted by universities in place of IELTS.
 
 ## Progression
 
@@ -815,8 +815,8 @@ Students who successfully complete the programme receive guaranteed entry to Yea
     {
       code: "SHV-BUV-IHM-2+2",
       heroMediaId: photo.buvCampus,
-      title: "Bachelor in International Hospitality Management (2+2 with British University Vietnam)",
-      shortTitle: "International Hospitality Management 2+2",
+      title: "Bachelor in International Hospitality Management (2+2, Hanoi)",
+      shortTitle: "International Hospitality Management (2+2)",
       type: "BACHELOR_PATHWAY",
       awardingBody: "British University Vietnam",
       level: "Bachelor's degree",
@@ -847,7 +847,7 @@ From first professional role to management leadership:
 
 - Age 17+
 - English: IELTS 4.5 or equivalent
-- Mor 7 (Grade 7 / M.7) certificate + transcript
+- Mor 7 (M.7) certificate + transcript
 - Students start in **September**
 
 ## Fees
@@ -873,7 +873,7 @@ _*Fees at BUV are for illustration only (exchange rate 1$ = VND 26,300). BUV res
       durationMonths: 48,
       intakesJson: JSON.stringify(["September"]),
       subjectRoutesJson: JSON.stringify(["International Hospitality Management"]),
-      entryRequirements: "Age 17+; Mor 7 (Grade 7 / M.7) certificate and transcript.",
+      entryRequirements: "Age 17+; Mor 7 (M.7) certificate and transcript.",
       englishRequirement: "IELTS 4.5 or equivalent.",
       qualification: "Bachelor in International Hospitality Management awarded by British University Vietnam (British-accredited; British Quality Assurance accreditation).",
       progression: "After two years at SHV, students progress to Years 3 and 4 at British University Vietnam in Hanoi and graduate with the BUV degree.",
@@ -903,8 +903,8 @@ _*Fees at BUV are for illustration only (exchange rate 1$ = VND 26,300). BUV res
     {
       code: "SHV-AU-SIMBA-1+3",
       heroMediaId: photo.auCampus,
-      title: "Bachelor's + Master's Pathway (1+3) with Assumption University — SIMBA",
-      shortTitle: "Bachelor's + Master's 1+3 (Assumption University)",
+      title: "Bachelor's + Master's Pathway (1+3) — SIMBA",
+      shortTitle: "Bachelor's + Master's (1+3)",
       type: "BACHELOR_PATHWAY",
       awardingBody: "Assumption University of Thailand",
       level: "Bachelor's and Master's degrees",
@@ -948,7 +948,7 @@ A business degree should open more than one door: entrepreneur, analyst, manager
 - **Year 4 — AU, Bangkok:** $9k living expenses
 - **Estimated 4-year total: $54k**
 
-_*The $27,000 tuition fee must be paid within the 3 years._ The deck's cost comparison (approximate 4-year total) shows St Hugh's × Assumption University at $27k against a UK university $120k, an Australian university $110k and a Singapore university $85k.
+_*The $27,000 tuition fee must be paid within the 3 years._ SHV's cost comparison (approximate 4-year total) shows St Hugh's × Assumption University at $27k against a UK university $120k, an Australian university $110k and a Singapore university $85k.
 
 _${FEE_DISCLAIMER}_`,
       studyLocation: "St Hugh's College Vientiane (Year 1) · Assumption University, Bangkok (Years 2–4)",
@@ -984,13 +984,13 @@ _${FEE_DISCLAIMER}_`,
     {
       code: "SHV-ESDES-BIB-1+3",
       heroMediaId: photo.esdesCampus,
-      title: "Bachelor in International Business (1+3 with ESDES Business School, Lyon)",
-      shortTitle: "Bachelor in International Business 1+3 (ESDES)",
+      title: "Bachelor in International Business (1+3, Lyon)",
+      shortTitle: "Bachelor in International Business (1+3)",
       type: "BACHELOR_PATHWAY",
       awardingBody: "ESDES Business School (UCLY)",
       level: "Bachelor's degree",
       summary:
-        "Start your Bachelor in Business in Lao PDR and finish your degree at ESDES Business School in Lyon, France: the NCUK International Foundation Year at SHV, then three years in Lyon, taught 100% in English.",
+        "Start your Bachelor in International Business in Laos and finish it at ESDES Business School in Lyon, France: the NCUK International Foundation Year at SHV, then three years in Lyon, taught 100% in English.",
       description: `## Pathway 1+3: 1 year at St Hugh's and 3 years at ESDES
 
 - **Year 1 (IFY) — St Hugh's College Vientiane:** build the skills to begin your international journey
@@ -1004,10 +1004,10 @@ The Bachelor in International Business is taught **100% in English**.
 
 ESDES Business School (Lyon–Annecy) is part of **UCLY**, founded in 1875 with 12,000 students. Lyon is a welcoming European student city where education, culture and international opportunity come together: a dynamic centre for business, innovation and international education; a diverse community with thousands of international students; and the advantages of a major French city without the lifestyle costs of Paris. Student housing is available at Maison Saint-Laurent.
 
-## Possibility of revenues during your studies
+## Earning while you study
 
-- **Fully paid internships** — for internships lasting more than two months you are entitled to mandatory compensation
-- **Student jobs** — foreign students can work up to 20 hours per week (the deck shows $13/hour for student jobs in France)
+- **Paid internships** — internships longer than two months must be paid by law
+- **Student jobs** — international students can work up to 20 hours per week (SHV's brochure shows $13/hour for student jobs in France)
 
 ## The other benefits of studying in France
 
@@ -1026,7 +1026,7 @@ ESDES Business School (Lyon–Annecy) is part of **UCLY**, founded in 1875 with 
 
 **Scholarships and discounts**
 
-- Merit scholarships might be awarded based on academic achievement**: up to 30% for the 1st year at ESDES
+- Merit scholarships may be awarded for academic achievement**: up to 30% for the 1st year at ESDES
 - Early-bird discount of 10% for the 1st year (payment 5 months before the intake)
 
 _**Students with outstanding grades, high standardised test scores, or other exceptional educational achievements — for example NCUK IFY: an average score of 75% or above across all modules; Lao Mor 7: GPA 8.5–10 with strong grades in relevant subjects._
@@ -1071,7 +1071,7 @@ _*Fees at ESDES are for illustration only (exchange rate 1€ = $1.1386). ESDES 
       title: "Intensive English Programme",
       shortTitle: "Intensive English",
       type: "LANGUAGE",
-      awardingBody: "St Hugh's College Vientiane (SHV Certificate of Completion)",
+      awardingBody: "St Hugh's College Vientiane",
       level: "CEFR A0 → lower B2 (approx. IELTS 3.0 → 5.5)",
       summary:
         "English starts here. From zero or low English to university-entry readiness: five 8-week levels, 3 hours a day, 5 days a week, with Cambridge English materials — for Mor 7 graduates and gap-year students.",
@@ -1165,13 +1165,13 @@ For a complete beginner, SHV recommends a realistic standard pathway of up to fi
     "bba-entrepreneurship-innovation-gen-ai",
     {
       code: "SHV-BBA-EI",
-      title: "Business Administration — Entrepreneurship & Innovation Gen AI (with NUOL)",
+      title: "Business Administration — Entrepreneurship & Innovation Gen AI",
       shortTitle: "BBA Entrepreneurship & Innovation Gen AI",
       type: "BACHELOR_PATHWAY",
-      awardingBody: "National University of Laos (Bachelor's degree); St Hugh's College Vientiane (Diploma and Associate degree)",
-      level: "Bachelor's degree (Diploma → Associate degree → NUOL Bachelor)",
+      awardingBody: "St Hugh's College Vientiane",
+      level: "Bachelor's degree (Diploma → Associate degree → Bachelor's)",
       summary:
-        "Your Bachelor's degree: 3 years on the SHV campus plus a 24-week internship, taught in Lao with English from zero to B2, and awarded by the National University of Laos. The Associate degree in Entrepreneurship & Innovation Gen AI is awarded by St Hugh's.",
+        "A St Hugh's degree programme taught in Lao: three years on our Vientiane campus plus a 24-week internship, with English from zero to B2. You earn a St Hugh's Diploma, then a St Hugh's Associate degree in Entrepreneurship & Innovation Gen AI, then your bachelor's degree.",
       description: `## New opportunities for Lao students
 
 A modern business degree designed for Laos, ASEAN and international progression — an international curriculum built on five pillars:
@@ -1186,17 +1186,17 @@ A modern business degree designed for Laos, ASEAN and international progression 
 
 For parents: a recognised degree route. For students: practical skills and international readiness.
 
-- **Bachelor's degree from the National University of Laos** — study at SHV with academic collaboration with the NUOL
+- **A recognised bachelor's degree** — every year is studied at St Hugh's; the degree is awarded through our academic collaboration with the National University of Laos
 - **Learn in Lao** — an international-style programme taught in Lao, suitable for Lao students and reducing language stress
 - **English to Master's readiness** — CEFR B2 target by graduation*, a foundation for employment and postgraduate study abroad
 
-## 3-year structure: 2 + 1 + internship
+## 3-year structure: 2+1 + internship
 
-Clear progression — Diploma → Associate degree → NUOL Bachelor.
+Clear progression — St Hugh's Diploma → St Hugh's Associate degree → bachelor's degree.
 
 - **Year 1 — Diploma:** foundations — management, economics, accounting, marketing. English. 6-week internship.
 - **Year 2 — Associate degree:** finance, law & tax, operations, strategy, AI. English. 8-week venture residency.
-- **Year 3+ — Top-up year taught by NUOL professors** on the St Hugh's campus. English continues.
+- **Year 3 — Bachelor's top-up year** on the St Hugh's campus, with visiting university professors. English continues.
 - **6 months — 24-week internship & report defence:** real work, real evidence, final defence → Bachelor's degree.
 
 _*The programme structure and module offerings are indicative and may be subject to change as part of the institution's academic review and quality-assurance processes._
@@ -1226,16 +1226,16 @@ Deep focus (only two core subjects per block — concentration without overload)
 - **Start your own business** — graduate with a business plan defended in front of a panel of experts, ready to launch as a founder or co-founder of an SME
 - **Lead a family business** — bring modern management and AI tools into family businesses as the next generation of leaders
 - **Build a career in various organisations** — business development · digital marketing · data analytics · banking · logistics · e-commerce · NGO · ASEAN companies
-- **Progress to a Master's degree** — a Bachelor's degree from the National University plus English at B2 level, ready to apply for a master's both domestically and internationally
+- **Progress to a master's degree** — a bachelor's degree plus English at B2 level, ready to apply for a master's in Laos or abroad
 
 ## Intake
 
-The deck includes an **example** 2026–27 Year 1 academic calendar showing orientation and the start of semester 1 in early September 2026, five 6-week teaching blocks (each pairing two BEI modules with continuing English), English assessments, and a discovery internship from late May to mid-July 2027. Confirmed intake dates are published by the admissions team.
+SHV's brochure includes an **example** 2026–27 Year 1 academic calendar showing orientation and the start of semester 1 in early September 2026, five 6-week teaching blocks (each pairing two BEI modules with continuing English), English assessments, and a discovery internship from late May to mid-July 2027. Confirmed intake dates are published by the admissions team.
 
 ## Fees
 
-Fees are not stated in the programme deck and are confirmed by the admissions team.`,
-      studyLocation: "St Hugh's College Vientiane (all three years; Year 3 top-up taught by NUOL professors on campus)",
+Fees are confirmed by the admissions team.`,
+      studyLocation: "St Hugh's College Vientiane — all three years on campus",
       whoFor: "Lao students who want a recognised business degree taught in Lao, close to home, with practical entrepreneurship, generative AI and English built in from zero.",
       durationLabel: "3 years on the SHV campus + 24-week internship (2 + 1 + internship)",
       durationMonths: 42,
@@ -1243,10 +1243,10 @@ Fees are not stated in the programme deck and are confirmed by the admissions te
       subjectRoutesJson: JSON.stringify(["Entrepreneurship & Innovation", "Generative AI"]),
       englishRequirement: "No prior English required — entry at A0/A1. English runs through all three years: four modules to B1, then B2 in Year 3 (targets ~IELTS 3.5–4.0 → 4.0–4.5 → 5.0–5.5; indicative).",
       assessment: "Block teaching in 6-week blocks: weeks 1–4 intensive teaching, week 5 group projects / business lab / coaching, week 6 integration and evaluation (editing, exams, feedback). An assessed AI task in every business subject. Final 24-week internship with report defence.",
-      qualification: "Year 1: Diploma (St Hugh's). Year 2: Associate degree in Entrepreneurship & Innovation Gen AI (St Hugh's). Year 3 + 24-week internship: Bachelor's degree awarded by the National University of Laos.",
-      progression: "Progression to a Master's degree: a Bachelor's degree from the National University plus English at B2 level, ready to apply domestically and internationally (specific university and country requirements may vary).",
+      qualification: "Year 1: St Hugh's Diploma. Year 2: St Hugh's Associate degree in Entrepreneurship & Innovation Gen AI. Year 3 + 24-week internship: bachelor's degree, awarded through St Hugh's academic collaboration with the National University of Laos.",
+      progression: "Progression to a master's degree: a bachelor's degree plus English at B2 level, ready to apply in Laos and abroad (specific university and country requirements may vary).",
       whatNext: "Start your own business; lead a family business; careers in business development, digital marketing, data analytics, banking, logistics, e-commerce, NGOs and ASEAN companies; or progress to a Master's degree.",
-      applicationNotes: "Entry requirements and fees are not stated in the programme deck and are confirmed by the admissions team. The deck's 2026–27 Year 1 calendar is marked as an example (September start shown). Programme structure and modules are indicative and may change through academic review and quality assurance.",
+      applicationNotes: "Entry requirements and fees are confirmed by the admissions team. The 2026–27 Year 1 calendar in SHV's brochure is marked as an example (September start shown). Programme structure and modules are indicative and may change through academic review and quality assurance.",
       featured: true,
       sortOrder: 6,
       ...PUB,
@@ -1255,14 +1255,14 @@ Fees are not stated in the programme deck and are confirmed by the admissions te
       ownerId: admin.id,
       effectiveDate: new Date("2026-09-01"),
       reviewDate: new Date("2027-06-01"),
-      seoTitle: "Business Administration — Entrepreneurship & Innovation Gen AI (SHV + NUOL)",
-      seoDescription: "A NUOL-awarded bachelor's degree taught in Lao on the St Hugh's campus: 3 years + 24-week internship, entrepreneurship, generative AI and English from zero to B2.",
+      seoTitle: "Business Administration — Entrepreneurship & Innovation Gen AI, taught in Lao",
+      seoDescription: "A St Hugh's bachelor's degree programme taught in Lao on our Vientiane campus: 3 years + 24-week internship, entrepreneurship, generative AI and English from zero to B2.",
     },
     [
       { title: "Year 1 — Diploma", kind: "CORE", order: 0, description: "Foundations: management, economics, accounting, marketing. English. 6-week internship." },
       { title: "Year 2 — Associate degree", kind: "CORE", order: 1, description: "Finance, law & tax, operations, strategy, AI. English. 8-week venture residency." },
-      { title: "Year 3 — Top-up year taught by NUOL professors", kind: "CORE", order: 2, description: "Delivered on the St Hugh's campus. English continues." },
-      { title: "24-week internship & report defence", kind: "CORE", order: 3, description: "Real work, real evidence, final defence — leading to the NUOL Bachelor's degree." },
+      { title: "Year 3 — Bachelor's top-up year", kind: "CORE", order: 2, description: "On the St Hugh's campus, with visiting professors from the National University of Laos. English continues." },
+      { title: "24-week internship & report defence", kind: "CORE", order: 3, description: "Real work, real evidence, final defence — leading to your bachelor's degree." },
       { title: "Generative AI", kind: "SUBJECT", order: 4, description: "Two dedicated modules plus an assessed AI task in every business subject; practical work in the AI lab." },
       { title: "Entrepreneurship", kind: "SUBJECT", order: 5, description: "Find real problems, test with real customers, decide on evidence; venture residency; business plan defended before a panel of experts." },
       { title: "English pathway (A0/A1 → B2)", kind: "ENGLISH", order: 6, description: "720 hours including 480 contact hours across three years: general English (~IELTS 3.5–4.0) → business & academic English (~4.0–4.5) → professional and academic English (~5.0–5.5). Targets indicative." },
@@ -1317,7 +1317,7 @@ Fees are not stated in the programme deck and are confirmed by the admissions te
       partnerName: "NCUK University Partners",
       qualification: "Bachelor's degree (UK)",
       field: "Business, Management, Accounting, Economics",
-      structureLabel: "1 + 3",
+      structureLabel: "1+3",
       totalDurationLabel: "About 4 years",
       transferPoint: "After the Foundation Year → Year 1",
       progressionRequirements: "Meet the IFY grade and EAP requirements published for the chosen course.",
@@ -1346,7 +1346,7 @@ Fees are not stated in the programme deck and are confirmed by the admissions te
       partnerName: "NCUK University Partners",
       qualification: "Bachelor's degree (Australia)",
       field: "Engineering, Computer Science, Sciences",
-      structureLabel: "1 + 3",
+      structureLabel: "1+3",
       totalDurationLabel: "About 4 years",
       transferPoint: "After the Foundation Year → Year 1",
       progressionRequirements: "Engineering routes require passed maths and physics modules; meet the grades published for the chosen course.",
@@ -1358,7 +1358,7 @@ Fees are not stated in the programme deck and are confirmed by the admissions te
       steps: [
         { label: "Foundation", location: "Vientiane, Lao PDR", institution: "St Hugh's College Vientiane", duration: "1 year", ...vte },
         { label: "Year 1", location: "Australia", institution: "NCUK University Partner", duration: "1 year", lat: -33.8688, lng: 151.2093 },
-        { label: "Year 2–3", location: "Australia", institution: "NCUK University Partner", duration: "2 years", lat: -33.8688, lng: 151.2093 },
+        { label: "Years 2–3", location: "Australia", institution: "NCUK University Partner", duration: "2 years", lat: -33.8688, lng: 151.2093 },
         { label: "Career", location: "Anywhere" },
       ],
     },
@@ -1373,7 +1373,7 @@ Fees are not stated in the programme deck and are confirmed by the admissions te
       universityId: ncukNet,
       partnerName: "NCUK University Partners",
       qualification: "Bachelor's degree (New Zealand)",
-      structureLabel: "1 + 3",
+      structureLabel: "1+3",
       totalDurationLabel: "About 4 years",
       transferPoint: "After the Foundation Year → Year 1",
       featured: false,
@@ -1397,7 +1397,7 @@ Fees are not stated in the programme deck and are confirmed by the admissions te
       universityId: ncukNet,
       partnerName: "NCUK University Partners",
       qualification: "Bachelor's degree (USA / Canada)",
-      structureLabel: "1 + 4",
+      structureLabel: "1+4",
       totalDurationLabel: "About 5 years",
       transferPoint: "After the Foundation Year → Year 1",
       featured: false,
@@ -1422,7 +1422,7 @@ Fees are not stated in the programme deck and are confirmed by the admissions te
       partnerName: "NCUK University Partners",
       qualification: "Bachelor's degree in a business-related subject",
       field: "Business Management",
-      structureLabel: "1 + 2",
+      structureLabel: "1+2",
       totalDurationLabel: "About 3 years",
       transferPoint: "After International Year One → Year 2",
       progressionRequirements: "Successful completion of the International Year One and the EAP requirement for the chosen course.",
@@ -1450,7 +1450,7 @@ Fees are not stated in the programme deck and are confirmed by the admissions te
       partnerName: "British University Vietnam",
       qualification: "Bachelor in International Hospitality Management (British University Vietnam)",
       field: "International hospitality management — F&B and rooms operations, hospitality marketing, service business strategy, management readiness",
-      structureLabel: "2 + 2",
+      structureLabel: "2+2",
       totalDurationLabel: "4 years",
       transferPoint: "After Year 2 at SHV → Year 3 at BUV, Hanoi",
       progressionRequirements: "Successful completion of Years 1–2 at SHV. Entry standard: age 17+, IELTS 4.5 or equivalent, Mor 7 certificate + transcript.",
@@ -1480,7 +1480,7 @@ Fees are not stated in the programme deck and are confirmed by the admissions te
       partnerName: "Assumption University of Thailand",
       qualification: "Bachelor's degree + Master's degree (Assumption University)",
       field: "SIMBA — Smart Integration in Management & Business Analytics",
-      structureLabel: "1 + 3",
+      structureLabel: "1+3",
       totalDurationLabel: "4 years — 2 degrees",
       transferPoint: "After Year 1 at SHV → Assumption University, Bangkok",
       progressionRequirements: "Successful completion of Year 1 at SHV (academic English & presentation, business foundations, digital business & AI literacy, quantitative / analytics readiness, study skills). Detailed progression criteria are confirmed by the admissions team.",
@@ -1509,7 +1509,7 @@ Fees are not stated in the programme deck and are confirmed by the admissions te
       partnerName: "ESDES Business School (UCLY)",
       qualification: "Bachelor in International Business (ESDES Business School, Lyon)",
       field: "International business",
-      structureLabel: "1 + 3",
+      structureLabel: "1+3",
       totalDurationLabel: "4 years",
       transferPoint: "After the NCUK IFY at SHV → Year 1 at ESDES, Lyon",
       progressionRequirements: "Successful completion of the NCUK International Foundation Year at SHV. Merit scholarships of up to 30% for the first ESDES year may be awarded for outstanding achievement (e.g. NCUK IFY average of 75% or above; Lao Mor 7 GPA 8.5–10 with strong grades in relevant subjects).",
@@ -1530,21 +1530,21 @@ Fees are not stated in the programme deck and are confirmed by the admissions te
     {
       slug: "bba-entrepreneurship-innovation-nuol",
       code: "BBA-EI-LA",
-      title: "Diploma → Associate degree → NUOL Bachelor's, all on the SHV campus",
-      summary: "Three years on the St Hugh's campus plus a 24-week internship, taught in Lao with English from zero to B2: a Diploma, then an Associate degree in Entrepreneurship & Innovation Gen AI, then a Bachelor's degree awarded by the National University of Laos.",
+      title: "Diploma → Associate degree → bachelor's degree, all on the St Hugh's campus",
+      summary: "Three years on the St Hugh's campus plus a 24-week internship, taught in Lao with English from zero to B2: a St Hugh's Diploma, then a St Hugh's Associate degree in Entrepreneurship & Innovation Gen AI, then your bachelor's degree.",
       programmeId: bba.id,
       subjectArea: "Business",
       destinationId: destBySlug["laos"],
       universityId: uniBySlug["national-university-of-laos"],
       partnerName: "National University of Laos",
-      qualification: "Bachelor's degree (National University of Laos); Associate degree in Entrepreneurship & Innovation Gen AI (St Hugh's)",
+      qualification: "St Hugh's Diploma and Associate degree in Entrepreneurship & Innovation Gen AI; bachelor's degree (with the National University of Laos)",
       field: "Business administration, entrepreneurship, generative AI",
-      structureLabel: "2 + 1 + internship",
+      structureLabel: "2+1 + internship",
       totalDurationLabel: "3 years + 24-week internship",
-      transferPoint: "No transfer — the Year 3 top-up is taught by NUOL professors on the St Hugh's campus",
-      progressionRequirements: "Progression through the Diploma (Year 1) and Associate degree (Year 2) to the NUOL top-up year and the 24-week internship with report defence. Structure and modules are indicative and may change through academic review and quality assurance.",
+      transferPoint: "No transfer — all three years, including the bachelor's top-up, are on the St Hugh's campus",
+      progressionRequirements: "Progression through the Diploma (Year 1) and Associate degree (Year 2) to the bachelor's top-up year and the 24-week internship with report defence. Structure and modules are indicative and may change through academic review and quality assurance.",
       careerDirections: "Founder / co-founder of an SME; next-generation leader of a family business; business development, digital marketing, data analytics, banking, logistics, e-commerce, NGOs, ASEAN companies; progression to a Master's degree",
-      applicationNotes: "Entry requirements, fees and confirmed intake dates are not stated in the programme deck and are confirmed by the admissions team.",
+      applicationNotes: "Entry requirements, fees and intake dates are confirmed by the admissions team.",
       featured: true,
       sortOrder: 8,
       verificationStatus: "VERIFIED",
@@ -1552,8 +1552,8 @@ Fees are not stated in the programme deck and are confirmed by the admissions te
       steps: [
         { label: "Year 1 — Diploma", location: "Vientiane, Lao PDR", institution: "St Hugh's College Vientiane", duration: "1 year", description: "Management, economics, accounting, marketing; English; 6-week internship", ...vte },
         { label: "Year 2 — Associate degree", location: "Vientiane, Lao PDR", institution: "St Hugh's College Vientiane", duration: "1 year", description: "Finance, law & tax, operations, strategy, AI; English; 8-week venture residency", ...vte },
-        { label: "Year 3 — NUOL top-up", location: "Vientiane, Lao PDR", institution: "National University of Laos professors on the SHV campus", duration: "1 year", description: "Top-up year taught by NUOL professors; English continues", ...vte },
-        { label: "Internship", location: "Laos", duration: "24 weeks", description: "Internship and report defence — real work, real evidence, final defence → NUOL Bachelor's degree", ...vte },
+        { label: "Year 3 — NUOL top-up", location: "Vientiane, Lao PDR", institution: "National University of Laos professors on the SHV campus", duration: "1 year", description: "Bachelor's top-up year with visiting university professors; English continues", ...vte },
+        { label: "Internship", location: "Laos", duration: "24 weeks", description: "Internship and report defence — real work, real evidence, final defence → bachelor's degree", ...vte },
         { label: "Career or Master's", location: "Laos, ASEAN and abroad", description: "Start a business, lead a family business, join an organisation, or apply for a Master's with B2 English" },
       ],
     },
@@ -1605,7 +1605,7 @@ Fees are not stated in the programme deck and are confirmed by the admissions te
       studentName: "Vanhnaphone Bounnapol",
       programmeId: ify.id,
       pathwayId: pathwayIdBySlug["bachelor-1-plus-3-esdes-lyon"],
-      journey: "Shown in SHV's ESDES pathway deck as a St Hugh's International Foundation Year graduate (2026) alongside the ESDES Business School logo. Story text, quote and progression evidence to be supplied by SHV once the student's consent is recorded.",
+      journey: "Shown in SHV's ESDES brochure as a St Hugh's International Foundation Year graduate (2026) alongside the ESDES Business School logo. Story text, quote and progression evidence to be supplied by SHV once the student's consent is recorded.",
       destinationId: destBySlug["france"],
       universityId: uniBySlug["esdes-lyon-business-school"],
       outcome: "St Hugh's International Foundation Year, 2026",
@@ -1618,7 +1618,7 @@ Fees are not stated in the programme deck and are confirmed by the admissions te
       slug: "namnueng",
       studentName: "Namnueng",
       programmeId: ify.id,
-      journey: "Video testimonial still captioned \"Namnueng\" in SHV's NCUK IFY deck (p8). Full name, programme, story and consent to be confirmed by SHV before publication.",
+      journey: "Video testimonial still captioned \"Namnueng\" in SHV's NCUK IFY brochure (p8). Full name, programme, story and consent to be confirmed by SHV before publication.",
       consentStatus: "PENDING",
       featured: false,
       status: "DRAFT",
@@ -1627,16 +1627,16 @@ Fees are not stated in the programme deck and are confirmed by the admissions te
   ];
   for (const s of stories) await prisma.studentStory.upsert({ where: { slug: s.slug }, update: s, create: s });
 
-  // ── Documents (digital prospectus — the six official 2026–27 programme decks) ──
+  // ── Documents (digital prospectus — the six official 2026–27 programme brochures) ──
   const now = new Date();
   const today = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
   const documents = [
-    { slug: "ncuk-international-foundation-year-pathway-1-plus-3-2026-27", key: "ify", title: "NCUK International Foundation Year — Bachelor's degree Pathway (1+3)", description: "Official SHV programme deck: the 1+3 pathway, what you study in 9 months in Vientiane, who can apply, progression destinations and the 2026–27 cost comparison." },
-    { slug: "intensive-english-programme-2026-27", key: "iep", title: "Intensive English Programme — English starts here", description: "Official SHV programme deck: five 8-week levels from A0 to lower B2, daily lesson structure, Cambridge-supported learning, assessment and the $995 all-inclusive level fee." },
-    { slug: "buv-international-hospitality-management-2-plus-2-2026-27", key: "buv", title: "Bachelor in International Hospitality Management — 2+2 with British University Vietnam", description: "Official SHV programme deck: year-by-year content, the hospitality career ladder, who can apply, September start and the 2026–27 estimated cost of study (with and without a 25% BUV scholarship)." },
-    { slug: "assumption-university-bachelor-master-1-plus-3-2026-27", key: "au", title: "Bachelor's + Master's Pathway (1+3) with Assumption University — SIMBA", description: "Official SHV programme deck: two degrees in four years, SIMBA (Smart Integration in Management & Business Analytics), the four-year plan and the 2026–27 estimated cost of study." },
-    { slug: "esdes-bachelor-international-business-1-plus-3-2026-27", key: "esdes", title: "Bachelor in International Business — 1+3 with ESDES Business School, Lyon", description: "Official SHV programme deck (Lao/English): the 1+3 pathway, four months abroad, paid internships and benefits of studying in France, scholarships and the 2026–27 estimated cost of study." },
-    { slug: "bba-entrepreneurship-innovation-gen-ai-nuol-2026-27", key: "bba", title: "Business Administration — Entrepreneurship & Innovation Gen AI (SHV + NUOL)", description: "Official SHV programme deck (Lao/English): the 2 + 1 + internship structure, English from beginner to B2, block teaching, graduate destinations and an example Year 1 calendar." },
+    { slug: "ncuk-international-foundation-year-pathway-1-plus-3-2026-27", key: "ify", title: "NCUK International Foundation Year — Bachelor's degree Pathway (1+3)", description: "Official SHV programme brochure: the 1+3 pathway, what you study in 9 months in Vientiane, who can apply, progression destinations and the 2026–27 cost comparison." },
+    { slug: "intensive-english-programme-2026-27", key: "iep", title: "Intensive English Programme — English starts here", description: "Official SHV programme brochure: five 8-week levels from A0 to lower B2, daily lesson structure, Cambridge-supported learning, assessment and the $995 all-inclusive level fee." },
+    { slug: "buv-international-hospitality-management-2-plus-2-2026-27", key: "buv", title: "Bachelor in International Hospitality Management — 2+2 with British University Vietnam", description: "Official SHV programme brochure: year-by-year content, the hospitality career ladder, who can apply, September start and the 2026–27 estimated cost of study (with and without a 25% BUV scholarship)." },
+    { slug: "assumption-university-bachelor-master-1-plus-3-2026-27", key: "au", title: "Bachelor's + Master's Pathway (1+3) — SIMBA", description: "Official SHV programme brochure: two degrees in four years, SIMBA (Smart Integration in Management & Business Analytics), the four-year plan and the 2026–27 estimated cost of study." },
+    { slug: "esdes-bachelor-international-business-1-plus-3-2026-27", key: "esdes", title: "Bachelor in International Business — 1+3 with ESDES Business School, Lyon", description: "Official SHV programme brochure (Lao/English): the 1+3 pathway, four months abroad, paid internships and benefits of studying in France, scholarships and the 2026–27 estimated cost of study." },
+    { slug: "bba-entrepreneurship-innovation-gen-ai-nuol-2026-27", key: "bba", title: "Business Administration — Entrepreneurship & Innovation Gen AI, taught in Lao", description: "Official SHV programme brochure (Lao/English): the 2 + 1 + internship structure, English from beginner to B2, block teaching, graduate destinations and an example Year 1 calendar." },
   ];
   for (const d of documents) {
     const data = {
@@ -1698,24 +1698,24 @@ Fees are not stated in the programme deck and are confirmed by the admissions te
   // ── FAQs ───────────────────────────────────────────────────────────────────
   await prisma.faq.deleteMany({});
   const faqs: [string, string, string, string?][] = [
-    ["PROGRAMMES", "What is the NCUK International Foundation Year?", "A pre-university programme delivered at St Hugh's College Vientiane, an NCUK Study Centre, and quality-assured by NCUK. It is SHV's Bachelor's degree Pathway (1+3): Mor 7 graduates study at least five modules (for example Business, Economics, English for Academic Purposes, Global Studies, Integrated Math and a skills-based module) for nine months in Vientiane, then progress to three years of a bachelor's degree abroad.", "ncuk-international-foundation-year"],
+    ["PROGRAMMES", "What is the NCUK International Foundation Year?", "A pre-university programme delivered at St Hugh's College Vientiane, an NCUK Study Centre, and quality-assured by NCUK. It is SHV's Bachelor's degree Pathway (1+3): Mor 7 graduates study at least five modules (for example Business, Economics, English for Academic Purposes, Global Studies, Integrated Maths and a skills-based module) for nine months in Vientiane, then progress to three years of a bachelor's degree abroad.", "ncuk-international-foundation-year"],
     ["PROGRAMMES", "What is the NCUK International Year One?", "A credit-bearing programme equivalent to the first year of a university degree. SHV offers the Business Management route. Students who complete it can progress directly into Year 2 at NCUK University Partners.", "ncuk-international-year-one-business-management"],
     ["PROGRAMMES", "What is the 2+2 route with British University Vietnam?", "The Bachelor in International Hospitality Management: two years at SHV in Vientiane (English for Higher Education, academic skills, hospitality foundations, F&B and rooms operations, hospitality marketing) followed by two years at British University Vietnam in Hanoi (project management, service business strategy, career development, capstone). BUV is British-accredited with British Quality Assurance accreditation. Entry: age 17+, IELTS 4.5 or equivalent, Mor 7 certificate and transcript; September start.", "bachelor-international-hospitality-management"],
-    ["PROGRAMMES", "Can I really get a Master's degree in 4 years?", "Yes — through the 1+3 pathway with Assumption University, Bangkok. Year 1 is taught at St Hugh's College Vientiane; Years 2–3 are the Bachelor's major and Year 4 is the Master's-level year at Assumption University, which awards both degrees. The programme is SIMBA — Smart Integration in Management & Business Analytics. The deck compares this with 6+ years on the traditional route.", "bachelor-master-pathway-assumption-university"],
+    ["PROGRAMMES", "Can I really get a Master's degree in 4 years?", "Yes — through the 1+3 pathway with Assumption University, Bangkok. Year 1 is taught at St Hugh's College Vientiane; Years 2–3 are the Bachelor's major and Year 4 is the Master's-level year at Assumption University, which awards both degrees. The programme is SIMBA — Smart Integration in Management & Business Analytics. SHV's brochure compares this with 6+ years on the traditional route.", "bachelor-master-pathway-assumption-university"],
     ["PROGRAMMES", "What are the Intensive English levels?", "Five 8-week levels of 120 hours each (3 hours a day, 5 days a week): Level 1 English Foundations (A0 → A1, ~IELTS 3.0), Level 2 Everyday English (A1 → A2, ~IELTS 3.5–4.0), Level 3 Independent English I (A2 → lower B1, ~IELTS 4.0–4.5), Level 4 Independent English II (lower B1 → B1+, ~IELTS 4.5) and Level 5 Academic English & IELTS (B1+ → lower B2, ~IELTS 5.5). Complete beginners normally need up to 40 weeks to reach IELTS 5.5 readiness.", "intensive-english-programme"],
     ["PROGRAMMES", "How do I know which Intensive English level to start at?", "Entry is based on a placement assessment, so you start at the correct level — students with some English may start above Level 1. Progress is monitored with a mid-course review, an end-level assessment and progress feedback for students and parents. Students move forward when they are academically ready.", "intensive-english-programme"],
     ["ENGLISH", "Do I need IELTS to start?", "Not for every programme. The Intensive English Programme starts from complete beginner (A0) and takes students to lower B2, ready to prepare for IELTS Academic 5.5 and begin university pathway study. The BBA in Entrepreneurship & Innovation Gen AI is taught in Lao and builds English from zero to B2 over three years. For the NCUK International Foundation Year SHV asks for IELTS 5.5 or equivalent, and for the 2+2 with British University Vietnam IELTS 4.5 or equivalent."],
-    ["ENGLISH", "What English level do I need?", "NCUK International Foundation Year at SHV: IELTS 5.5 or equivalent (NCUK's network minimum is 5.0). NCUK International Year One: IELTS 5.5 or equivalent. 2+2 with British University Vietnam: IELTS 4.5 or equivalent. Intensive English and the BBA with NUOL: no prior English required. NCUK programmes include English for Academic Purposes, which NCUK University Partners accept in place of IELTS for progression."],
+    ["ENGLISH", "What English level do I need?", "NCUK International Foundation Year at SHV: IELTS 5.5 or equivalent (NCUK's network minimum is 5.0). NCUK International Year One: IELTS 5.5 or equivalent. 2+2 with British University Vietnam: IELTS 4.5 or equivalent. Intensive English and the St Hugh's BBA: no prior English required. NCUK programmes include English for Academic Purposes, which NCUK University Partners accept in place of IELTS for progression."],
     ["PROGRESSION", "Is university progression guaranteed?", "NCUK states that International Foundation Year students have \"Guaranteed* entry to one of 80+ NCUK University Partners worldwide\", and that International Year One students receive guaranteed entry to Year 2 at NCUK University Partners. The asterisk matters: entry depends on meeting the grades and English requirements published for the specific course, and on NCUK's conditions. For the direct partner routes (BUV, Assumption University, ESDES), progression depends on successful completion of the SHV years. Our advisors will explain exactly what applies to your chosen route."],
-    ["PROGRESSION", "Where can I go after the Foundation Year?", "SHV's IFY deck maps progression destinations in the United Kingdom, Australia, New Zealand, the United States, Canada, France (ESDES Business School), Vietnam (British University Vietnam, RMIT Vietnam), Malaysia (University of Nottingham Malaysia, Southampton Malaysia, Newcastle Medicine Malaysia, Swinburne Sarawak, Reading Malaysia) and Thailand (Assumption University).", "ncuk-international-foundation-year"],
-    ["PATHWAYS", "Can I complete a whole bachelor's degree in Laos?", "Yes. The Business Administration degree in Entrepreneurship & Innovation Gen AI is taught in Lao on the SHV campus over three years plus a 24-week internship — Diploma (Year 1), Associate degree (Year 2, awarded by St Hugh's) and a top-up year taught by NUOL professors — with the Bachelor's degree awarded by the National University of Laos. Our other bachelor routes are completed with partner universities abroad through 1+3 or 2+2 structures.", "bba-entrepreneurship-innovation-gen-ai"],
+    ["PROGRESSION", "Where can I go after the Foundation Year?", "SHV's IFY brochure maps progression destinations in the United Kingdom, Australia, New Zealand, the United States, Canada, France (ESDES Business School), Vietnam (British University Vietnam, RMIT Vietnam), Malaysia (University of Nottingham Malaysia, Southampton Malaysia, Newcastle Medicine Malaysia, Swinburne Sarawak, Reading Malaysia) and Thailand (Assumption University).", "ncuk-international-foundation-year"],
+    ["PATHWAYS", "Can I complete a whole bachelor's degree in Laos?", "Yes. The Business Administration degree in Entrepreneurship & Innovation Gen AI is taught in Lao on the SHV campus over three years plus a 24-week internship — a St Hugh's Diploma (Year 1), a St Hugh's Associate degree (Year 2) and a bachelor's top-up year — with the bachelor's degree awarded through our academic collaboration with the National University of Laos. Our other bachelor routes are completed with partner universities abroad through 1+3 or 2+2 structures.", "bba-entrepreneurship-innovation-gen-ai"],
     ["ADMISSIONS", "How do I apply?", "Start with a free consultation. An advisor will check your qualifications and English level against the entry requirements, help you choose a route, and guide you through the application step by step."],
     ["ADMISSIONS", "Is the consultation free?", "Yes. There is no consultation fee. You receive programme guidance, an entry-requirement checklist and a clear next-step plan."],
     ["INTERNATIONAL", "Can students from outside Laos study at SHV?", "SHV welcomes enquiries from international students. Visa and residence requirements are set by the Lao authorities, so we link to official sources and help you understand the process rather than offering immigration advice."],
-    ["FEES", "How much does it cost?", "Each programme page publishes SHV's estimated cost of study for 2026–27 under \"Estimated cost of study 2026–27\", exactly as shown in the official programme decks: for example the Intensive English Programme is $995 per 8-week level all-inclusive; the 2+2 with British University Vietnam is estimated at $48.6k over four years ($40.9k with a 25% BUV scholarship); the 1+3 with Assumption University at $54k; and the 1+3 with ESDES at $83k. These are estimates — partner fees are for illustration only and may change — and the exact tuition, application, registration and uniform fees are confirmed by the admissions team for each intake. The programme decks can be downloaded from the Resources page."],
+    ["FEES", "How much does it cost?", "Where SHV's 2026–27 programme brochure gives an estimate, the programme page shows it under \"Estimated cost of study 2026–27\". For example: the Intensive English Programme is $995 per 8-week level all-inclusive; the 2+2 with British University Vietnam is estimated at $48.6k over four years ($40.9k with a 25% BUV scholarship); the 1+3 with Assumption University at $54k; and the 1+3 with ESDES at $83k. These are estimates — partner fees are for illustration only and may change — and the exact tuition, application, registration and uniform fees are confirmed by the admissions team for each intake. The programme brochures can be downloaded from the Resources page."],
     ["FEES", "What is included in the Intensive English fee?", "$995 per 8-week level covers 120 classroom hours, the Cambridge English Student's Book with Digital Pack, individual Cambridge One digital access, assessments and progress feedback, guided ICT-room self-study and an SHV Certificate of Completion.", "intensive-english-programme"],
     ["FEES", "Are scholarships available?", "British University Vietnam advertises scholarships of 100%, 50% and 25% for the 2026 intake of the 2+2 route. ESDES Business School may award merit scholarships of up to 30% for the first year in Lyon (for example an NCUK IFY average of 75% or above, or Lao Mor 7 GPA 8.5–10) and offers a 10% early-bird discount on the first year when payment is made five months before intake. Award criteria are set by the partner universities."],
-    ["CAMPUS", "Where is the campus?", "Nonsavanh Village, Xaysetha District, Vientiane Capital, Lao PDR. The campus has nine classrooms, two lecture halls, a library and an ICT room. Call +856 20 58 814 648 or email admissions@sthughs.edu.la."],
+    ["CAMPUS", "Where is the campus?", "Nonsavanh Village, Xaysetha District, Vientiane Capital, Lao PDR. The campus has nine classrooms, two lecture halls, a library and an ICT room. Call +856 20 5881 4648 or email admissions@sthughs.edu.la."],
     ["APPLICATIONS", "When are the intakes?", "The NCUK International Foundation Year, the International Year One and the 2+2 with British University Vietnam start in September. Intake dates for the other programmes, and start dates for each Intensive English level, are confirmed by the admissions team and shown on the programme page."],
   ];
   i = 0;
@@ -1791,9 +1791,9 @@ _Date of signing to be confirmed by SHV before publication. Source: [DECK 4b. As
 
 St Hugh's College Vientiane (SHV) is a young institution with a clear purpose: to give students in Laos a structured, internationally recognised route to university and to careers beyond borders.
 
-SHV received full authorisation from the Lao Ministry of Education and Sports in late 2023 to provide programmes up to Level 5. In February 2025 NCUK announced SHV as an NCUK Study Centre, and from September 2025 the college offers the NCUK International Foundation Year and the International Year One in Business Management.
+SHV received full authorisation from the Lao Ministry of Education and Sports in late 2023 to provide programmes up to Level 5. In February 2025 NCUK announced SHV as an NCUK Study Centre, and since September 2025 the college has offered the NCUK International Foundation Year and the International Year One in Business Management.
 
-SHV's 2026–27 programme decks add direct pathway partnerships with British University Vietnam (2+2 Bachelor in International Hospitality Management), Assumption University of Thailand (1+3 Bachelor's + Master's, SIMBA) and ESDES Business School in Lyon (1+3 Bachelor in International Business), an academic collaboration with the National University of Laos for a bachelor's degree in Entrepreneurship & Innovation Gen AI taught on the SHV campus, and an Intensive English Programme with Cambridge English materials.
+For 2026–27, SHV adds direct pathway partnerships with British University Vietnam (2+2 Bachelor in International Hospitality Management), Assumption University of Thailand (1+3 Bachelor's + Master's, SIMBA) and ESDES Business School in Lyon (1+3 Bachelor in International Business), an academic collaboration with the National University of Laos for a bachelor's degree in Entrepreneurship & Innovation Gen AI taught on the SHV campus, and an Intensive English Programme with Cambridge English materials.
 
 The founder of SHV is the principal owner of Panyathip British International School (PBIS), established in Vientiane in 2001 and a member of FOBISIA and COBIS; SHV is part of the Panyathip group. That relationship gives SHV two decades of experience in British-curriculum education in Laos to draw on.
 
@@ -1811,26 +1811,26 @@ Leadership profiles, vision and mission statements and institutional development
         { type: "HERO", data: { eyebrow: "Why St Hugh's", title: "Why Laos. Why SHV. Why global.", lede: "Evidence, not adjectives. Here is what SHV offers and where it can lead." } },
         { type: "RICH_TEXT", data: { body: `## Why Laos
 
-Start close to home. A foundation or first year in Vientiane means lower relocation cost, family proximity and time to build academic English before moving abroad. SHV's IFY deck puts one year of tuition at SHV at $14k against $54k–$60k for tuition and living in the UK, Singapore, Australia or New Zealand (2026–27 estimates, for illustration only).
+Start close to home. A foundation or first year in Vientiane means lower relocation cost, family proximity and time to build academic English before moving abroad. SHV's IFY brochure puts one year of tuition at SHV at $14k against $54k–$60k for tuition and living in the UK, Singapore, Australia or New Zealand (2026–27 estimates, for illustration only).
 
 ## Why SHV
 
 - **International programmes** — NCUK International Foundation Year and International Year One, quality-assured by NCUK.
-- **Direct partner routes** — 2+2 with British University Vietnam, 1+3 Bachelor's + Master's with Assumption University, 1+3 with ESDES Business School in Lyon, and a NUOL-awarded bachelor's degree taught on campus.
+- **Direct partner routes** — 2+2 with British University Vietnam, 1+3 Bachelor's + Master's with Assumption University, 1+3 with ESDES Business School in Lyon, and a St Hugh's bachelor's degree programme taught in Lao on our campus.
 - **Authorised** — full authorisation from the Lao Ministry of Education and Sports (late 2023) for programmes up to Level 5.
 - **Support** — small classes, personal academic mentoring, and English built into every route — from the Intensive English Programme (A0 to lower B2) to English for Academic Purposes.
 - **Employability focus** — internships, venture residencies, career ladders and capstone projects built into the programmes.
 
 ## Why global
 
-NCUK qualifications are recognised by NCUK University Partners in the UK, Australia, New Zealand, the USA, Canada and Malaysia. SHV's direct partnerships extend the map to Hanoi, Bangkok and Lyon — and the BBA with NUOL lets students complete a recognised degree without leaving Vientiane.` } },
+NCUK qualifications are recognised by NCUK University Partners in the UK, Australia, New Zealand, the USA, Canada and Malaysia. SHV's direct partnerships extend the map to Hanoi, Bangkok and Lyon — and the St Hugh's BBA lets students complete a recognised degree without leaving Vientiane.` } },
         { type: "PROGRAMME_GRID", data: { title: "Programmes", featuredOnly: true } },
         { type: "CTA", data: { title: "See where your route could lead", primaryLabel: "Explore your pathway", primaryHref: "/pathway-explorer", secondaryLabel: "Talk to an advisor", secondaryHref: "/consultation" } },
       ],
     },
     { slug: "privacy", title: "Privacy policy", seoDescription: "How St Hugh's College Vientiane handles personal data.", blocks: [{ type: "RICH_TEXT", data: { body: "## Privacy policy\n\nThis policy is maintained by SHV in the content management system. It should describe what personal data is collected through enquiry and consultation forms, how it is used, how long it is kept, and how to request access or deletion.\n\n_Draft — to be reviewed and approved by SHV before launch._" } }] },
     { slug: "cookies", title: "Cookie policy", seoDescription: "How this website uses cookies and similar technologies.", blocks: [{ type: "RICH_TEXT", data: { body: "## Cookie policy\n\nThis website uses strictly necessary cookies for staff sign-in and first-party, anonymous analytics stored in your browser's session storage. If you choose a language from the Language menu, a `googtrans` cookie stores your choice and Google Translate is loaded to translate the page; English is the official version. No third-party advertising cookies are set.\n\n_Draft — to be reviewed and approved by SHV before launch._" } }] },
-    { slug: "terms", title: "Terms of use", seoDescription: "Terms of use for the St Hugh's College Vientiane website.", blocks: [{ type: "RICH_TEXT", data: { body: "## Terms of use\n\nInformation on this website is provided for guidance. Programme availability, entry requirements, fees and partner arrangements are confirmed in writing by the admissions team. Estimated costs of study are reproduced from SHV's 2026–27 programme decks; partner fees are for illustration only and may change.\n\n_Draft — to be reviewed and approved by SHV before launch._" } }] },
+    { slug: "terms", title: "Terms of use", seoDescription: "Terms of use for the St Hugh's College Vientiane website.", blocks: [{ type: "RICH_TEXT", data: { body: "## Terms of use\n\nInformation on this website is provided for guidance. Programme availability, entry requirements, fees and partner arrangements are confirmed in writing by the admissions team. Estimated costs of study are reproduced from SHV's 2026–27 programme brochures; partner fees are for illustration only and may change.\n\n_Draft — to be reviewed and approved by SHV before launch._" } }] },
     { slug: "accessibility", title: "Accessibility statement", seoDescription: "Our commitment to an accessible website.", blocks: [{ type: "RICH_TEXT", data: { body: "## Accessibility statement\n\nWe aim to meet WCAG 2.2 AA. The site supports keyboard navigation, visible focus, screen readers and reduced-motion preferences. If you find a barrier, contact us and we will fix it.\n\n_Draft — to be reviewed and approved by SHV before launch._" } }] },
   ];
   // Seed-managed pages are replaced wholesale so a re-seed always reflects the current decks.

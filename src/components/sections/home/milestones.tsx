@@ -33,7 +33,7 @@ export async function Milestones() {
             </h2>
           </Reveal>
           <Reveal className="lg:col-span-5 lg:col-start-8" delay={80}>
-            <p className="text-lg leading-relaxed text-fg-muted text-pretty">Every date below is on the public record. Hover a milestone for the detail.</p>
+            <p className="text-lg leading-relaxed text-fg-muted text-pretty">Every date below is on the public record. Select a milestone for details.</p>
           </Reveal>
         </div>
 

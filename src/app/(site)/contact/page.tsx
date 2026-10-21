@@ -110,7 +110,7 @@ export default async function ContactPage() {
         ) : null}
       </Section>
 
-      <Section eyebrow="Find us" title="Campus map" lede="Nonsavanh Village, Saysettha District. Book a visit and an advisor will meet you at reception." layout="full">
+      <Section eyebrow="Find us" title="Campus map" lede="Nonsavanh Village, Saysettha District. Book a tour and an advisor will meet you at reception." layout="full">
         {contact.mapEmbedUrl ? (
           <div className="relative aspect-[21/9] overflow-hidden rounded-[var(--radius)] border border-line bg-bg-raised">
             <iframe src={contact.mapEmbedUrl} title="Campus map" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="absolute inset-0 h-full w-full" />
@@ -128,7 +128,7 @@ export default async function ContactPage() {
                     {contact.mapLat.toFixed(4)}, {contact.mapLng.toFixed(4)}
                   </dd>
                   <dd className="mt-3 normal-case tracking-normal">
-                    <a href={`https://www.openstreetmap.org/?mlat=${contact.mapLat}&mlon=${contact.mapLng}#map=16/${contact.mapLat}/${contact.mapLng}`} target="_blank" rel="noopener noreferrer" className="text-brand-soft underline underline-offset-4">
+                    <a href={`https://www.openstreetmap.org/?mlat=${contact.mapLat}&mlon=${contact.mapLng}#map=16/${contact.mapLat}/${contact.mapLng}`} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center text-brand-soft underline underline-offset-4">
                       Open in OpenStreetMap ↗
                     </a>
                   </dd>
@@ -146,7 +146,7 @@ export default async function ContactPage() {
           items={[
             { label: "Book a free consultation", description: "In person, online, by phone or WhatsApp — an advisor checks your options", href: "/consultation" },
             { label: "Send an enquiry", description: "Ask a question; the admissions team responds", href: "/enquire" },
-            { label: "Book a campus visit", description: "Walk the campus with an advisor", href: "/consultation?type=visit" },
+            { label: "Book a tour", description: "Walk the campus with an advisor", href: "/enquire?type=visit" },
           ]}
         />
       </Section>

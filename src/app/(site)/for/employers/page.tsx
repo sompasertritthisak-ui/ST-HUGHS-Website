@@ -50,7 +50,7 @@ export default async function ForEmployersPage() {
         />
       </Section>
 
-      <Section eyebrow="Verified" title="Internships and employment" lede="Figures are published only once verified. Empty tiles are structure awaiting evidence." layout="full">
+      <Section eyebrow="Verified" title="Internships and employment" lede="We publish figures only once they are verified." layout="full">
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-4">
           {relevant.map((m, i) => (
             <Reveal key={m.key} delay={i * 40}>

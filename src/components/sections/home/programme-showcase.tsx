@@ -92,7 +92,7 @@ export function ProgrammeShowcase({ items }: { items: ShowcaseItem[] }) {
               <span aria-hidden className={cn("absolute inset-y-3 left-0 w-[3px] origin-top bg-route transition-transform duration-[var(--dur)] ease-[var(--ease-out)]", selected ? "scale-y-100" : "scale-y-0")} />
               <span className="mt-1 w-8 shrink-0 pl-4 font-mono text-[0.6875rem] tracking-[0.14em] text-fg-subtle tabular">{String(i + 1).padStart(2, "0")}</span>
               <span className="min-w-0 flex-1">
-                <span className="block font-mono text-[0.625rem] uppercase tracking-[0.16em] text-fg-subtle">
+                <span className="block font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-fg-subtle">
                   {it.typeLabel}
                   {it.awardingBody ? <span className="text-fg-subtle/70"> · {it.awardingBody}</span> : null}
                 </span>
@@ -186,7 +186,7 @@ export function ProgrammeShowcase({ items }: { items: ShowcaseItem[] }) {
                       <span aria-hidden className="ml-1.5 size-1.5 rounded-full bg-route" />
                     )}
                     {u.label}
-                    {u.structure ? <span className="font-mono text-[0.625rem] tracking-[0.12em] opacity-60 group-hover/lead:opacity-90">{u.structure}</span> : null}
+                    {u.structure ? <span className="font-mono text-[0.6875rem] tracking-[0.12em] opacity-60 group-hover/lead:opacity-90">{u.structure}</span> : null}
                   </Link>
                 </li>
               ))}

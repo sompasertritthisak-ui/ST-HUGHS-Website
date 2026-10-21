@@ -22,7 +22,7 @@ export function DestinationsCompact({ destinations, universities }: { destinatio
             <SplitHeading id="destinations-title" text={`${destinations.length} countries.`} accent="One starting point." accentClassName="text-blue" className="font-display mt-6 text-[clamp(2.25rem,4.6vw,3.75rem)] leading-[1.02] text-fg text-balance" />
           </Reveal>
           <Reveal className="col-span-12 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-fg-subtle lg:col-span-5 lg:col-start-8 lg:text-right" delay={80}>
-            Number = published routes from Vientiane
+            Figures show routes from Vientiane
           </Reveal>
         </div>
 

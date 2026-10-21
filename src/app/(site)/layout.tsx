@@ -5,6 +5,7 @@ import { PageViewTracker } from "@/components/site/page-view-tracker";
 import { AnalyticsDelegation } from "@/components/site/analytics-delegation";
 import { SmoothScroll } from "@/components/site/smooth-scroll";
 import { EnquiryBar } from "@/components/site/enquiry-bar";
+import { SearchDialog } from "@/components/search/search-dialog";
 import { getContactSettings } from "@/lib/content";
 
 /** Public pages are CMS-driven: on-demand revalidation from admin actions plus a 5-minute safety net. */
@@ -27,6 +28,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
         {children}
       </main>
       <SiteFooter />
+      <SearchDialog />
       <EnquiryBar phone={contact.phones[0] ?? null} whatsapp={contact.whatsapp || null} />
       <PageViewTracker />
       <AnalyticsDelegation />

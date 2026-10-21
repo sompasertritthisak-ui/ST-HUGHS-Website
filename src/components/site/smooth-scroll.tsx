@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SCROLL_LOCK_EVENT } from "./scroll-lock";
 
 /**
  * Inertial smooth scrolling (Lenis) driven by GSAP's ticker so ScrollTrigger scenes stay in
@@ -21,7 +22,11 @@ export function SmoothScroll() {
     const tick = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
+    // Overlays (menu drawer, search) pause the page scroller while open.
+    const onLock = (e: Event) => ((e as CustomEvent<boolean>).detail ? lenis.stop() : lenis.start());
+    window.addEventListener(SCROLL_LOCK_EVENT, onLock);
     return () => {
+      window.removeEventListener(SCROLL_LOCK_EVENT, onLock);
       gsap.ticker.remove(tick);
       lenis.destroy();
     };

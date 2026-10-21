@@ -122,7 +122,7 @@ export function CompareTool({ programmes, pathways, disclaimer }: { programmes: 
       </h2>
 
       {/* ── Picker ── */}
-      <div className="grid gap-8 lg:grid-cols-12">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <p className="eyebrow eyebrow-rule">Pick up to three</p>
           <p className="mt-4 text-fg-muted">Choose programmes, pathways, or a mix. Your selection is saved in the link so you can share it.</p>
@@ -135,7 +135,7 @@ export function CompareTool({ programmes, pathways, disclaimer }: { programmes: 
             </button>
           ) : null}
         </div>
-        <div className="grid gap-8 lg:col-span-8 md:grid-cols-2">
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-8 lg:col-span-8 md:grid-cols-2">
           {groups.map((g) => (
             <div key={g.title}>
               <p className="mb-3 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-subtle">{g.title}</p>
@@ -159,9 +159,9 @@ export function CompareTool({ programmes, pathways, disclaimer }: { programmes: 
                         <span className="min-w-0 flex-1 truncate">{item.label}</span>
                         <span className="flex shrink-0 items-center gap-2">
                           {item.kind === "pathway" && item.pathway.structureLabel ? (
-                            <span className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-fg-subtle">{item.pathway.structureLabel}</span>
+                            <span className="font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-fg-subtle">{item.pathway.structureLabel}</span>
                           ) : item.kind === "programme" ? (
-                            <span className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-fg-subtle">{PROGRAMME_TYPE_LABELS[item.programme.type as ProgrammeType] ?? item.programme.type}</span>
+                            <span className="font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-fg-subtle">{PROGRAMME_TYPE_LABELS[item.programme.type as ProgrammeType] ?? item.programme.type}</span>
                           ) : null}
                           <span aria-hidden className={cn("size-2 rounded-full", pressed ? "bg-route shadow-[0_0_8px_var(--route)]" : "border border-line-strong")} />
                         </span>
@@ -192,7 +192,7 @@ export function CompareTool({ programmes, pathways, disclaimer }: { programmes: 
                     </th>
                     {selected.map((item) => (
                       <th key={item.slug} scope="col" className="border-b border-line-strong px-4 py-4 text-left align-bottom">
-                        <span className="block font-mono text-[0.625rem] uppercase tracking-[0.14em] text-brand-soft">{item.kind}</span>
+                        <span className="block font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-soft">{item.kind}</span>
                         <Link href={item.href} className="mt-1 block font-display text-[1.5rem] leading-tight text-fg hover:text-brand-soft">
                           {item.label}
                         </Link>
@@ -221,7 +221,7 @@ export function CompareTool({ programmes, pathways, disclaimer }: { programmes: 
             <div className="grid gap-6 md:hidden">
               {selected.map((item) => (
                 <article key={item.slug} className="surface-raised rounded-[var(--radius)] p-5">
-                  <span className="block font-mono text-[0.625rem] uppercase tracking-[0.14em] text-brand-soft">{item.kind}</span>
+                  <span className="block font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-soft">{item.kind}</span>
                   <h3 className="mt-1 font-display text-[1.75rem] leading-tight text-fg">
                     <Link href={item.href} className="hover:text-brand-soft">
                       {item.label}
@@ -246,7 +246,7 @@ export function CompareTool({ programmes, pathways, disclaimer }: { programmes: 
                 <span className="text-fg">{disclaimer}</span> Entry requirements, English levels and partner arrangements are confirmed in writing by the admissions team.
               </p>
               <Button href={`/consultation${selected[0] ? `?${selected[0].kind}=${encodeURIComponent(selected[0].slug)}` : ""}`} arrow="right" className="shrink-0">
-                Book a consultation
+                Talk to an advisor
               </Button>
             </div>
           </>
