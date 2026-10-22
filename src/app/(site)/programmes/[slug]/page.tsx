@@ -21,6 +21,7 @@ import { Plate } from "@/components/ui/plate";
 import { Reveal } from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ReadMore } from "@/components/ui/read-more";
 
 type Params = Promise<{ slug: string }>;
 
@@ -95,7 +96,9 @@ export default async function ProgrammePage({ params }: { params: Params }) {
       </section>
 
       <Section id="what" eyebrow="What it is" title="The programme">
-        <Prose text={programme.description} markdown pending="Full programme description is published when approved." />
+        <ReadMore>
+          <Prose text={programme.description} markdown pending="Full programme description is published when approved." />
+        </ReadMore>
       </Section>
 
       <Section id="who" eyebrow="Who it is for" title="Is this the right starting point?">

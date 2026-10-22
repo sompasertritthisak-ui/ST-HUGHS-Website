@@ -26,7 +26,8 @@ export function WorkWithUs() {
             </Button>
           </div>
         </Reveal>
-        <Reveal className="col-span-12 lg:col-span-6 lg:col-start-7" delay={100}>
+        {/* Hidden on phones: the same classroom already appears in Life at SHV just above. */}
+        <Reveal className="col-span-12 max-md:hidden lg:col-span-6 lg:col-start-7" delay={100}>
           <div className="group relative aspect-[4/3] overflow-hidden rounded-[var(--radius)] bg-bg-hover">
             <Image src="/media/students/shv-classroom-teacher.jpg" alt="A lecturer teaching a small class at St Hugh's College Vientiane" fill sizes="(min-width:1024px) 50vw, 100vw" className="object-cover transition-transform duration-[900ms] ease-[var(--ease-out)] group-hover:scale-[1.04]" style={{ objectPosition: "50% 40%" }} />
             <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-midnight/60 to-transparent" />

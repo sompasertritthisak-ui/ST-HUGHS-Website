@@ -63,7 +63,7 @@ function DestinationIndex({ destinations }: { destinations: { slug: string; coun
       </svg>
       <figcaption className="flex flex-wrap items-center justify-between gap-3 border-t border-line px-4 py-3 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-subtle">
         <span>Solid line: verified route · Dashed: verification pending</span>
-        <Link href="/pathway-explorer" className="text-brand-soft hover:text-fg">
+        <Link href="/pathway-explorer" className="inline-flex min-h-11 items-center text-brand-soft hover:text-fg">
           Interactive map in the Pathway Explorer →
         </Link>
       </figcaption>

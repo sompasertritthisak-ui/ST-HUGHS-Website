@@ -48,7 +48,14 @@ export async function LifeMosaic() {
           <p className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-fg-subtle">Real photographs · No stock imagery</p>
         </div>
 
-        <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-12 lg:auto-rows-[minmax(220px,auto)]">
+        {/* Phones: a swipeable row of even cards instead of a five-screen stack. */}
+        <p className="mb-3 flex items-center gap-2 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-subtle md:hidden" aria-hidden>
+          Swipe <span className="h-px w-8 bg-route" />
+        </p>
+        <ul
+          data-lenis-prevent
+          className="grid gap-4 md:grid-cols-2 lg:grid-cols-12 lg:auto-rows-[minmax(220px,auto)] max-md:-mx-[var(--gutter)] max-md:flex max-md:snap-x max-md:snap-mandatory max-md:gap-3 max-md:overflow-x-auto max-md:px-[var(--gutter)] max-md:pb-2 max-md:[scrollbar-width:none] [&>li]:max-md:aspect-[4/5] [&>li]:max-md:w-[80%] [&>li]:max-md:shrink-0 [&>li]:max-md:snap-start"
+        >
           {media.map((m, i) => (
             <Reveal key={m.id} as="li" delay={i * 60} className={cn("group relative overflow-hidden rounded-[var(--radius)] bg-bg-hover", slots[i] ?? "lg:col-span-4 aspect-[4/3]")}>
               <Image

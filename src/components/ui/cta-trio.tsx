@@ -8,8 +8,9 @@ import { cn } from "@/lib/utils";
  */
 export function CtaTrio({ size = "md", className, compact = false }: { size?: "sm" | "md" | "lg"; className?: string; compact?: boolean }) {
   return (
-    <div className={cn("flex flex-wrap items-center gap-3 [&_a]:max-sm:h-12 [&_a]:max-sm:px-5 [&_a]:max-sm:text-[0.9375rem]", className)}>
-      <Magnetic>
+    // Phones: one even, full-width stack (ragged widths read as clutter). Larger screens: a row.
+    <div className={cn("flex flex-wrap items-center gap-3 max-sm:flex-col max-sm:items-stretch max-sm:gap-2.5 [&_a]:max-sm:h-12 [&_a]:max-sm:w-full [&_a]:max-sm:px-5 [&_a]:max-sm:text-[0.9375rem] [&>div]:max-sm:w-full", className)}>
+      <Magnetic className="max-sm:m-0 max-sm:block max-sm:p-0">
         <Button href="/enquire?type=visit" size={size} arrow="right">
           Book a tour
         </Button>
@@ -18,7 +19,7 @@ export function CtaTrio({ size = "md", className, compact = false }: { size?: "s
         Explore your pathway
       </Button>
       {compact ? (
-        <Button href="/consultation" variant="ghost" arrow="right" className="text-[0.9375rem]">
+        <Button href="/consultation" variant="ghost" arrow="right" className="text-[0.9375rem] max-sm:justify-center">
           Talk to an advisor
         </Button>
       ) : (

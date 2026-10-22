@@ -12,7 +12,21 @@ export type JourneyStation = { question: string; answer: ReactNode; href: string
 export function ProgrammeJourney({ stations, className }: { stations: JourneyStation[]; className?: string }) {
   return (
     <nav aria-label="Programme journey" className={className}>
-      <ol className="relative grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Phones: a swipeable row of short answers, each jumping to its section (the full grid was ~2 screens). */}
+      <ol data-lenis-prevent className="-mx-[var(--gutter)] flex snap-x snap-mandatory gap-3 overflow-x-auto px-[var(--gutter)] pb-2 [scrollbar-width:none] sm:hidden [&::-webkit-scrollbar]:hidden">
+        {stations.map((s, i) => (
+          <li key={s.question} className="w-[72%] shrink-0 snap-start">
+            <Link href={s.href} className="flex h-full flex-col rounded-[var(--radius)] border border-line p-4 active:bg-bg-hover">
+              <span className="flex items-baseline gap-2 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-soft">
+                <span className="tabular text-fg-subtle">{String(i + 1).padStart(2, "0")}</span>
+                {s.question}
+              </span>
+              <span className="mt-2 line-clamp-3 text-[0.9375rem] leading-snug text-fg-muted">{s.answer}</span>
+            </Link>
+          </li>
+        ))}
+      </ol>
+      <ol className="relative grid gap-x-8 gap-y-10 max-sm:hidden sm:grid-cols-2 lg:grid-cols-3">
         {stations.map((s, i) => (
           <Reveal key={s.question} as="li" delay={i * 40} className="relative">
             <Link href={s.href} className="group block border-t border-line pt-5 transition-colors hover:border-route">

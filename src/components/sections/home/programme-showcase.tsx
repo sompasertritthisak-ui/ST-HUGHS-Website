@@ -41,6 +41,7 @@ export function ProgrammeShowcase({ items }: { items: ShowcaseItem[] }) {
 
   useEffect(() => {
     if (paused || reduced || items.length < 2) return;
+    if (!window.matchMedia("(min-width: 1024px)").matches) return; // the tab panel only exists on large screens
     const t = window.setTimeout(() => {
       setActive((a) => (a + 1) % items.length);
       setCycle((c) => c + 1);
@@ -66,7 +67,28 @@ export function ProgrammeShowcase({ items }: { items: ShowcaseItem[] }) {
   if (!current) return null;
 
   return (
-    <div className="grid gap-10 lg:grid-cols-12 lg:gap-8" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+    <>
+    {/* Phones and tablets: a plain list, each programme opens its own page. (The tab + panel pattern put the
+        detail panel two screens below the list, so a tap changed something the visitor could not see.) */}
+    <ol className="divide-y divide-line border-y border-line lg:hidden" aria-label="Programmes">
+      {items.map((it, i) => (
+        <li key={it.slug}>
+          <Link href={`/programmes/${it.slug}`} className="group flex items-start gap-4 py-4 active:bg-bg-hover">
+            <span className="mt-1 w-6 shrink-0 font-mono text-[0.6875rem] tracking-[0.14em] text-fg-subtle tabular">{String(i + 1).padStart(2, "0")}</span>
+            <span className="min-w-0 flex-1">
+              <span className="block font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-subtle">
+                {it.typeLabel}
+                {it.awardingBody ? <span className="text-fg-subtle/70"> · {it.awardingBody}</span> : null}
+              </span>
+              <span className="mt-1 block font-display text-[1.375rem] leading-[1.1] text-fg text-balance">{it.title}</span>
+              {it.durationLabel ? <span className="mt-1.5 block text-[0.8125rem] text-fg-muted">{it.durationLabel}</span> : null}
+            </span>
+            <ArrowRight aria-hidden className="mt-2 size-5 shrink-0 text-route transition-transform group-hover:translate-x-1" strokeWidth={1.75} />
+          </Link>
+        </li>
+      ))}
+    </ol>
+    <div className="grid gap-10 max-lg:hidden lg:grid-cols-12 lg:gap-8" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       {/* Tabs */}
       <div role="tablist" aria-orientation="vertical" aria-label="Programmes" className="lg:col-span-5" onKeyDown={onKey}>
         {items.map((it, i) => {
@@ -129,7 +151,7 @@ export function ProgrammeShowcase({ items }: { items: ShowcaseItem[] }) {
               />
             ) : (
               <div key={it.slug} aria-hidden={i !== active} className={cn("absolute inset-0 flex items-end p-5 transition-opacity duration-[600ms]", i === active ? "opacity-100" : "opacity-0")}>
-                <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-subtle">Photography plate — {it.title}</span>
+                <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-subtle">Photo coming soon · {it.title}</span>
               </div>
             ),
           )}
@@ -204,5 +226,6 @@ export function ProgrammeShowcase({ items }: { items: ShowcaseItem[] }) {
         </div>
       </div>
     </div>
+    </>
   );
 }

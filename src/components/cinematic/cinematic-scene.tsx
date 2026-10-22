@@ -173,7 +173,7 @@ export function CinematicScene({
   const number = `${String(index).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
 
   return (
-    <section ref={root} id={id} aria-labelledby={`${id}-title`} className={cn("theme-dark relative h-[190vh] bg-midnight text-white", className)}>
+    <section ref={root} id={id} aria-labelledby={`${id}-title`} className={cn("theme-dark relative h-[150vh] bg-midnight text-white lg:h-[190vh]", className)}>
       <div className="sticky top-0 h-[100dvh] overflow-hidden [perspective:1200px]" style={pan && media && !media.src ? { cursor: "grab", touchAction: "pan-y" } : undefined} {...panCtl.handlers}>
         <div data-backdrop className="absolute inset-0 will-change-transform">
           {backdrop ? <div className="absolute inset-0">{backdrop}</div> : null}

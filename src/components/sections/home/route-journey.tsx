@@ -96,7 +96,8 @@ export function RouteJourney({ destinations, counts }: { destinations: JourneyDe
             <p className="eyebrow eyebrow-rule">How it works</p>
             <SplitHeading id="journey-title" text="One year at home." accent="Then the world." accentClassName="italic text-blue" className="font-display mt-6 text-[clamp(2.5rem,5.4vw,5rem)] leading-[0.98] text-fg text-balance" />
           </div>
-          <div className="col-span-12 lg:col-span-5 lg:col-start-8">
+          {/* Desktop only: on phones the hero's buttons are one screen above and the enquiry bar is always on screen. */}
+          <div className="col-span-12 max-lg:hidden lg:col-span-5 lg:col-start-8">
             <CtaTrio compact className="lg:justify-end" />
           </div>
         </div>

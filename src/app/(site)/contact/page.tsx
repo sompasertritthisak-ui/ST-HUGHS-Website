@@ -1,3 +1,4 @@
+import { MapPin } from "lucide-react";
 import type { Metadata } from "next";
 import { getContactSettings, getFaqs } from "@/lib/content";
 import { getInstitutionSettings } from "@/lib/content-pages";
@@ -6,8 +7,7 @@ import { PageHero } from "@/components/sections/page-hero";
 import { PAGE_IMAGES } from "@/components/cinematic/placeholders";
 import { ConsultationBand } from "@/components/sections/consultation-band";
 import { JsonLd } from "@/components/site/json-ld";
-import { Section, FactsTable, PendingLine, NextSteps } from "@/components/pages";
-import { Plate } from "@/components/ui/plate";
+import { Section, FactsTable, NextSteps } from "@/components/pages";
 import { Button } from "@/components/ui/button";
 import { Accordion } from "@/components/ui/accordion";
 import { FacebookIcon, LinkedinIcon, YoutubeIcon, InstagramIcon } from "@/components/site/social-icons";
@@ -110,32 +110,38 @@ export default async function ContactPage() {
         ) : null}
       </Section>
 
-      <Section eyebrow="Find us" title="Campus map" lede="Nonsavanh Village, Saysettha District. Book a tour and an advisor will meet you at reception." layout="full">
+      <Section eyebrow="Find us" title="Campus map" lede={`${contact.addressLines.slice(0, 2).join(", ") || "Vientiane"}. Book a tour and an advisor will meet you at reception.`} layout="full">
         {contact.mapEmbedUrl ? (
           <div className="relative aspect-[21/9] overflow-hidden rounded-[var(--radius)] border border-line bg-bg-raised">
             <iframe src={contact.mapEmbedUrl} title="Campus map" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="absolute inset-0 h-full w-full" />
           </div>
         ) : (
-          <div className="grid gap-6 lg:grid-cols-12">
-            <div className="lg:col-span-8">
-              <Plate media={null} slot="Campus map" aspect="21/9" sizes="(min-width:1320px) 880px, 100vw" />
-            </div>
-            <div className="lg:col-span-4">
-              {typeof contact.mapLat === "number" && typeof contact.mapLng === "number" ? (
-                <dl className="border-t border-line pt-4 font-mono text-[0.6875rem] uppercase tracking-[0.14em]">
-                  <dt className="text-fg-subtle">Coordinates</dt>
-                  <dd className="mt-2 normal-case tracking-normal text-fg tabular">
-                    {contact.mapLat.toFixed(4)}, {contact.mapLng.toFixed(4)}
-                  </dd>
-                  <dd className="mt-3 normal-case tracking-normal">
-                    <a href={`https://www.openstreetmap.org/?mlat=${contact.mapLat}&mlon=${contact.mapLng}#map=16/${contact.mapLat}/${contact.mapLng}`} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center text-brand-soft underline underline-offset-4">
-                      Open in OpenStreetMap ↗
-                    </a>
-                  </dd>
-                </dl>
-              ) : (
-                <PendingLine>Map published when confirmed.</PendingLine>
-              )}
+          // No verified map embed yet: an address card that hands off to Google Maps by name and address
+          // (never a guessed pin). Staff can paste a Google Maps embed URL in CMS → Settings → Contact.
+          <div className="theme-dark relative overflow-hidden rounded-[var(--radius)] bg-midnight p-6 text-white sm:p-10">
+            <span aria-hidden className="absolute inset-x-0 top-0 h-[3px] bg-route" />
+            <div className="grid gap-8 sm:grid-cols-[auto_1fr] sm:items-start">
+              <span aria-hidden className="flex size-14 items-center justify-center rounded-full bg-white/10">
+                <MapPin className="size-7 text-white" strokeWidth={1.5} />
+              </span>
+              <div>
+                <p className="font-display text-[clamp(1.75rem,3vw,2.5rem)] leading-tight">{contact.institutionName}</p>
+                <address className="mt-3 not-italic text-[1.0625rem] leading-relaxed text-white/80">
+                  {contact.addressLines.map((l) => (
+                    <span key={l} className="block">
+                      {l}
+                    </span>
+                  ))}
+                </address>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <Button href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent([contact.institutionName, ...contact.addressLines].join(", "))}`} arrow="external">
+                    Get directions
+                  </Button>
+                  <Button href="/enquire?type=visit" variant="secondary" className="border-white/40 text-white hover:border-white hover:bg-white/10">
+                    Book a tour
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         )}
