@@ -3,7 +3,7 @@
 import { useActionState } from "react";
 import { Checkbox, Field, Input, Select } from "@/components/ui/field";
 import { ROLES, ROLE_LABELS, type Role } from "@/lib/enums";
-import { createUser, deactivateUser, deleteUser, resetUserPassword, updateUser } from "@/lib/admin-ops/users-actions";
+import { changeOwnPassword, createUser, deactivateUser, deleteUser, resetUserPassword, updateUser } from "@/lib/admin-ops/users-actions";
 import { initialActionState, type ActionState } from "@/lib/admin-ops/types";
 import { FormStatus, SubmitButton } from "./form-status";
 
@@ -162,6 +162,29 @@ export function DeleteUserForm({ userId, historyCount, isSelf }: { userId: strin
           </SubmitButton>
         </div>
       ) : null}
+      <FormStatus state={state} />
+    </form>
+  );
+}
+
+export function ChangeOwnPasswordForm() {
+  const [state, action] = useActionState(changeOwnPassword, initialActionState);
+  const err = state.errors ?? {};
+  // Clear the fields after a successful change by remounting the form.
+  return (
+    <form key={state.ok ? state.at : "form"} action={action} className="grid max-w-md gap-4">
+      <Field label="Current password" htmlFor="currentPassword" required error={err.currentPassword}>
+        <Input id="currentPassword" name="currentPassword" type="password" className={compact} required autoComplete="current-password" aria-invalid={Boolean(err.currentPassword)} />
+      </Field>
+      <Field label="New password" htmlFor="newPassword" required hint="At least 12 characters. A short sentence is easy to remember and hard to guess." error={err.newPassword}>
+        <Input id="newPassword" name="newPassword" type="password" className={compact} required minLength={12} maxLength={200} autoComplete="new-password" aria-invalid={Boolean(err.newPassword)} />
+      </Field>
+      <Field label="Confirm new password" htmlFor="confirmPassword" required error={err.confirmPassword}>
+        <Input id="confirmPassword" name="confirmPassword" type="password" className={compact} required maxLength={200} autoComplete="new-password" aria-invalid={Boolean(err.confirmPassword)} />
+      </Field>
+      <div>
+        <SubmitButton pendingLabel="Saving…">Change password</SubmitButton>
+      </div>
       <FormStatus state={state} />
     </form>
   );

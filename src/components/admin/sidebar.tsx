@@ -90,13 +90,13 @@ export function Sidebar({ groups, user }: { groups: NavGroup[]; user?: { name: s
         </nav>
         {user ? (
           <div className="relative border-t border-white/10 p-4">
-            <div className="flex items-center gap-3 rounded-[var(--radius)] bg-white/6 p-3">
+            <Link href="/admin/account" title="Your account and password" className="flex items-center gap-3 rounded-[var(--radius)] bg-white/6 p-3 transition-colors hover:bg-white/12">
               <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand font-mono text-[0.75rem] font-medium tracking-[0.08em] text-white">{initials}</span>
               <div className="min-w-0">
                 <p className="truncate text-sm font-semibold text-white">{user.name || user.email}</p>
-                <p className="truncate font-mono text-[0.5625rem] uppercase tracking-[0.16em] text-white/55">{user.roleLabel}</p>
+                <p className="truncate font-mono text-[0.5625rem] uppercase tracking-[0.16em] text-white/55">{user.roleLabel} · Account</p>
               </div>
-            </div>
+            </Link>
           </div>
         ) : null}
       </aside>

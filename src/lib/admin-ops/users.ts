@@ -101,3 +101,17 @@ export async function createUserRecord(actor: AdminUser, input: CreateUserInput)
   });
   return { ok: true, user, temporaryPassword };
 }
+
+/** Self-service password change: current password, a new one of at least MIN_PASSWORD characters, typed twice. */
+export const ChangeOwnPasswordSchema = z
+  .object({
+    currentPassword: z.string().min(1, "Enter your current password.").max(200),
+    newPassword: z.string().min(MIN_PASSWORD, `At least ${MIN_PASSWORD} characters.`).max(200),
+    confirmPassword: z.string().max(200),
+  })
+  .refine((v) => v.newPassword === v.confirmPassword, { path: ["confirmPassword"], message: "The two new passwords do not match." })
+  .refine((v) => v.newPassword !== v.currentPassword, { path: ["newPassword"], message: "Choose a password different from the current one." });
+
+export function verifyPassword(plain: string, hash: string) {
+  return bcrypt.compare(plain, hash);
+}

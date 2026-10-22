@@ -6,7 +6,9 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { recordAudit, createRevision } from "@/lib/audit";
 import { guard, requestIp } from "./guard";
-import { CreateUserSchema, UpdateUserSchema, checkEscalation, createUserRecord, generateTemporaryPassword, hashPassword } from "./users";
+import { ChangeOwnPasswordSchema, CreateUserSchema, UpdateUserSchema, checkEscalation, createUserRecord, generateTemporaryPassword, hashPassword, verifyPassword } from "./users";
+import { currentUser } from "@/lib/auth";
+import { rateLimit } from "@/lib/rate-limit";
 import { bool, str, zodErrors } from "./form";
 import { fail, succeed, type ActionState } from "./types";
 
@@ -100,4 +102,26 @@ export async function deleteUser(_prev: ActionState, formData: FormData): Promis
   await recordAudit({ actorId: g.user.id, action: "DELETE", entityType: "User", entityId: before.id, beforeJson: JSON.stringify({ name: before.name, email: before.email, role: before.role }), ip: await requestIp() });
   revalidatePath("/admin/users");
   redirect("/admin/users");
+}
+
+/** Any signed-in staff member can change their own password (no users.manage permission needed). */
+export async function changeOwnPassword(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  const me = await currentUser();
+  if (!me) return fail("You need to sign in.");
+  const rl = rateLimit(`pwchange:${me.id}`, 5, 15 * 60 * 1000);
+  if (!rl.ok) return fail("Too many attempts. Please wait 15 minutes and try again.");
+  const parsed = ChangeOwnPasswordSchema.safeParse({
+    currentPassword: str(formData, "currentPassword"),
+    newPassword: str(formData, "newPassword"),
+    confirmPassword: str(formData, "confirmPassword"),
+  });
+  if (!parsed.success) return fail("Please fix the highlighted fields.", zodErrors(parsed.error));
+  const user = await prisma.user.findUnique({ where: { id: me.id }, select: { id: true, passwordHash: true, isActive: true } });
+  if (!user || !user.isActive) return fail("Your account is not active.");
+  if (!(await verifyPassword(parsed.data.currentPassword, user.passwordHash))) {
+    return fail("Please fix the highlighted fields.", { currentPassword: "That is not your current password." });
+  }
+  await prisma.user.update({ where: { id: user.id }, data: { passwordHash: await hashPassword(parsed.data.newPassword) } });
+  await recordAudit({ actorId: user.id, action: "UPDATE", entityType: "User", entityId: user.id, afterJson: JSON.stringify({ passwordChanged: true }), ip: await requestIp() });
+  return succeed("Password changed. Use the new password next time you sign in.");
 }
