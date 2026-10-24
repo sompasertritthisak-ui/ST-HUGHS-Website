@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-24-dennis-feedback-b",
+  "version": "2026-10-24-partner-logos",
   "replace": [
     {
       "old": "Bachelor in International Hospitality Management (2+2 with British University Vietnam)",
@@ -605,6 +605,97 @@
       "field": "teachingLanguage",
       "old": null,
       "new": "Lao, with English from A1 to B2"
+    }
+  ],
+  "ensureMedia": [
+    {
+      "url": "/brand/ncuk-logo.svg",
+      "filename": "ncuk-logo.svg",
+      "mimeType": "image/svg+xml",
+      "width": 134,
+      "height": 49,
+      "alt": "NCUK University Pathways logo",
+      "credit": "NCUK (ncuk.ac.uk)",
+      "kind": "LOGO",
+      "usageStatus": "APPROVED",
+      "consentStatus": "NOT_REQUIRED",
+      "tagsJson": "[\"logo\", \"partner\", \"ncuk\"]"
+    },
+    {
+      "url": "/brand/buv-logo.svg",
+      "filename": "buv-logo.svg",
+      "mimeType": "image/svg+xml",
+      "width": 124,
+      "height": 72,
+      "alt": "British University Vietnam logo",
+      "credit": "British University Vietnam (buv.edu.vn)",
+      "kind": "LOGO",
+      "usageStatus": "APPROVED",
+      "consentStatus": "NOT_REQUIRED",
+      "tagsJson": "[\"logo\", \"partner\", \"british-university-vietnam\"]"
+    },
+    {
+      "url": "/brand/nuol-logo.png",
+      "filename": "nuol-logo.png",
+      "mimeType": "image/png",
+      "width": 235,
+      "height": 240,
+      "alt": "National University of Laos emblem",
+      "credit": "National University of Laos (nuol.edu.la)",
+      "kind": "LOGO",
+      "usageStatus": "APPROVED",
+      "consentStatus": "NOT_REQUIRED",
+      "tagsJson": "[\"logo\", \"partner\", \"national-university-of-laos\"]"
+    }
+  ],
+  "linkMedia": [
+    {
+      "model": "partner",
+      "where": {
+        "slug": "ncuk"
+      },
+      "field": "logoMediaId",
+      "url": "/brand/ncuk-logo.svg"
+    },
+    {
+      "model": "university",
+      "where": {
+        "slug": "ncuk-university-partners"
+      },
+      "field": "logoMediaId",
+      "url": "/brand/ncuk-logo.svg"
+    },
+    {
+      "model": "partner",
+      "where": {
+        "slug": "british-university-vietnam"
+      },
+      "field": "logoMediaId",
+      "url": "/brand/buv-logo.svg"
+    },
+    {
+      "model": "university",
+      "where": {
+        "slug": "british-university-vietnam"
+      },
+      "field": "logoMediaId",
+      "url": "/brand/buv-logo.svg"
+    },
+    {
+      "model": "partner",
+      "where": {
+        "slug": "national-university-of-laos"
+      },
+      "field": "logoMediaId",
+      "url": "/brand/nuol-logo.png"
+    },
+    {
+      "model": "university",
+      "where": {
+        "slug": "national-university-of-laos"
+      },
+      "field": "logoMediaId",
+      "url": "/brand/nuol-logo.png"
     }
   ]
 }

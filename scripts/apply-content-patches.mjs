@@ -60,6 +60,27 @@ export async function applyContentPatches(prisma, { dryRun = false, log = consol
   }
 
   let applied = 0;
+  // Media files shipped in /public (e.g. partner logos): create the record if missing, then attach it only where the
+  // record has no logo yet — a logo an editor picked in the CMS is never replaced.
+  for (const m of patch.ensureMedia ?? []) {
+    const exists = await prisma.media.findFirst({ where: { url: m.url } });
+    if (!exists) {
+      applied++;
+      log(`[content-patches] media + ${m.url}`);
+      if (!dryRun) await prisma.media.create({ data: m });
+    }
+  }
+  for (const l of patch.linkMedia ?? []) {
+    const media = await prisma.media.findFirst({ where: { url: l.url } });
+    const delegate = prisma[l.model];
+    if (!delegate || (!media && !dryRun)) continue;
+    const rows = await delegate.findMany({ where: { ...l.where, [l.field]: null } });
+    for (const row of rows) {
+      applied++;
+      log(`[content-patches] ${l.model} ${row.slug ?? row.id}: ${l.field} → ${l.url}`);
+      if (!dryRun) await delegate.update({ where: { id: row.id }, data: { [l.field]: media.id } });
+    }
+  }
   for (const model of MODELS) {
     const delegate = prisma[model];
     if (!delegate) continue;

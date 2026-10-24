@@ -24,7 +24,7 @@ export function PartnerStrip({ items }: { items: PartnerItem[] }) {
               <Link href={`/universities/${u.slug}`} className="group flex h-11 items-center gap-2.5" title={u.country ? `${u.name}, ${u.country}` : u.name}>
                 {u.logo ? (
                   // eslint-disable-next-line @next/next/no-img-element -- partner logos of mixed shapes from the CMS
-                  <img src={u.logo} alt={u.name} className="h-10 w-auto max-w-[8rem] object-contain opacity-80 grayscale transition-[filter,opacity] duration-[var(--dur)] group-hover:opacity-100 group-hover:grayscale-0" />
+                  <img src={u.logo} alt={u.name} className="h-10 w-auto max-w-[8rem] object-contain transition-[filter,opacity] duration-[var(--dur)] [@media(hover:hover)]:opacity-80 [@media(hover:hover)]:grayscale group-hover:opacity-100 group-hover:grayscale-0" />
                 ) : (
                   <span className="whitespace-nowrap font-display text-[1.125rem] leading-none text-fg/75 transition-colors group-hover:text-fg">{u.name.replace(/\s*\((network|NUOL)\)\s*/i, " ").trim()}</span>
                 )}

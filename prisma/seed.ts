@@ -228,6 +228,45 @@ async function main() {
     consentStatus: "NOT_REQUIRED",
     tags: ["logo", "partner", "assumption-university"],
   });
+  const logoNcuk = await upsertMedia({
+    kind: "LOGO",
+    url: "/brand/ncuk-logo.svg",
+    filename: "ncuk-logo.svg",
+    mimeType: "image/svg+xml",
+    width: 134,
+    height: 49,
+    alt: "NCUK University Pathways logo",
+    credit: "NCUK (ncuk.ac.uk)",
+    usageStatus: "APPROVED",
+    consentStatus: "NOT_REQUIRED",
+    tags: ["logo", "partner", "ncuk"],
+  });
+  const logoBuv = await upsertMedia({
+    kind: "LOGO",
+    url: "/brand/buv-logo.svg",
+    filename: "buv-logo.svg",
+    mimeType: "image/svg+xml",
+    width: 124,
+    height: 72,
+    alt: "British University Vietnam logo",
+    credit: "British University Vietnam (buv.edu.vn)",
+    usageStatus: "APPROVED",
+    consentStatus: "NOT_REQUIRED",
+    tags: ["logo", "partner", "british-university-vietnam"],
+  });
+  const logoNuol = await upsertMedia({
+    kind: "LOGO",
+    url: "/brand/nuol-logo.png",
+    filename: "nuol-logo.png",
+    mimeType: "image/png",
+    width: 235,
+    height: 240,
+    alt: "National University of Laos emblem",
+    credit: "National University of Laos (nuol.edu.la)",
+    usageStatus: "APPROVED",
+    consentStatus: "NOT_REQUIRED",
+    tags: ["logo", "partner", "national-university-of-laos"],
+  });
   const logoEsdes = await upsertMedia({
     kind: "LOGO",
     url: "/brand/ESDES-LOGO.png",
@@ -325,6 +364,7 @@ async function main() {
   const partners = [
     {
       slug: "ncuk",
+      logoMediaId: logoNcuk.id,
       name: "NCUK",
       type: "AWARDING_BODY",
       website: "https://www.ncuk.ac.uk",
@@ -351,6 +391,7 @@ async function main() {
     },
     {
       slug: "british-university-vietnam",
+      logoMediaId: logoBuv.id,
       name: "British University Vietnam",
       type: "UNIVERSITY",
       website: "https://www.buv.edu.vn",
@@ -392,6 +433,7 @@ async function main() {
     },
     {
       slug: "national-university-of-laos",
+      logoMediaId: logoNuol.id,
       name: "National University of Laos (NUOL)",
       type: "UNIVERSITY",
       description:
@@ -539,6 +581,7 @@ async function main() {
   const universities = [
     {
       slug: "ncuk-university-partners",
+      logoMediaId: logoNcuk.id,
       name: "NCUK University Partners",
       city: "Worldwide",
       destinationId: destBySlug["united-kingdom"],
@@ -556,6 +599,7 @@ async function main() {
     },
     {
       slug: "british-university-vietnam",
+      logoMediaId: logoBuv.id,
       name: "British University Vietnam",
       city: "Hanoi",
       destinationId: destBySlug["vietnam"],
@@ -630,6 +674,7 @@ async function main() {
     },
     {
       slug: "national-university-of-laos",
+      logoMediaId: logoNuol.id,
       name: "National University of Laos (NUOL)",
       city: "Vientiane",
       destinationId: destBySlug["laos"],
