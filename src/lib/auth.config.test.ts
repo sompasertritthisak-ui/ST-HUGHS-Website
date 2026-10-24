@@ -4,18 +4,24 @@ import type { NextRequest } from "next/server";
 import type { Session } from "next-auth";
 import { authConfig } from "./auth.config";
 
-const authorized = (pathname: string, session: Session | null) =>
+const authorized = (pathname: string, session: Session | null, headers: Record<string, string> = {}) =>
   authConfig.callbacks.authorized({
     auth: session,
-    request: { nextUrl: new URL(`http://localhost${pathname}`) } as unknown as NextRequest,
+    request: { nextUrl: new URL(`http://0.0.0.0:3000${pathname}`), headers: new Headers(headers) } as unknown as NextRequest,
   });
 
 const session = { user: { id: "u1", role: "EDITOR" }, expires: "2099-01-01" } as unknown as Session;
 
 describe("authConfig.authorized", () => {
   it("blocks /admin and /api/admin without a session", () => {
-    expect(authorized("/admin", null)).toBe(false);
-    expect(authorized("/admin/programmes/123", null)).toBe(false);
+    for (const path of ["/admin", "/admin/programmes/123"]) {
+      const res = authorized(path, null, { host: "previewsthughsdraft.up.railway.app", "x-forwarded-proto": "https" }) as Response;
+      expect(res.status).toBe(307);
+      // the public host, never the server's internal 0.0.0.0:3000, and no callbackUrl
+      expect(res.headers.get("location")).toBe("https://previewsthughsdraft.up.railway.app/admin/login");
+    }
+    const viaProxy = authorized("/admin", null, { host: "internal:8080", "x-forwarded-host": "www.sthughs.edu.la", "x-forwarded-proto": "https" }) as Response;
+    expect(viaProxy.headers.get("location")).toBe("https://www.sthughs.edu.la/admin/login");
     expect(authorized("/api/admin/users", null)).toBe(false);
   });
 
