@@ -9,7 +9,7 @@ export function DestinationCard({ destination, className }: { destination: Desti
     <Link href={`/destinations/${destination.slug}`} className={cn("group flex flex-col justify-between gap-6 border-t border-line pt-5 transition-colors hover:border-route", className)}>
       <div>
         <div className="flex items-center justify-between">
-          <span className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-brand-soft">{destination.isoCode}</span>
+          <span translate="no" className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-brand-soft">{destination.isoCode}</span>
           <span className="font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-fg-subtle">{destination.region}</span>
         </div>
         <h3 className="font-display mt-3 text-[2rem] leading-none text-fg">{destination.country}</h3>

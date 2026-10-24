@@ -159,6 +159,11 @@ function DestinationNode({
   const label = useRef<HTMLDivElement>(null);
   const [hover, setHover] = useState(false);
   const gl = useThree((s) => s.gl);
+  // Small globes (phones): tags show the country code only, the full name on hover/tap, so neighbouring
+  // South-East Asian destinations do not pile on top of each other.
+  const compact = useThree((s) => s.size.width < 420);
+  // A destination at the origin (Laos) is already named by the Vientiane label; its own tag would sit on top of it.
+  const atOrigin = angularDistance(ORIGIN.lat, ORIGIN.lng, destination.lat, destination.lng) < 0.05;
 
   useFrame(({ camera, clock }) => {
     const g = group.current;
@@ -174,7 +179,7 @@ function DestinationNode({
     }
     if (label.current) {
       const front = facing > 0.18 ? THREE.MathUtils.smoothstep(facing, 0.18, 0.45) : 0;
-      const o = appear * front * (hover ? 1 : 0.78);
+      const o = atOrigin && !hover ? 0 : appear * front * (hover ? 1 : 0.78);
       label.current.style.opacity = o.toFixed(3);
       label.current.style.visibility = o < 0.02 ? "hidden" : "visible";
     }
@@ -221,12 +226,16 @@ function DestinationNode({
       {/* drei only applies `pointerEvents` in transform mode; in screen-space mode set it via style + wrapperClass */}
       <Html position={[0, 0.03, 0]} wrapperClass="pointer-events-none" zIndexRange={[30, 10]} style={{ opacity: 0, visibility: "hidden", pointerEvents: "none" }} ref={label}>
         <div
-          className={`whitespace-nowrap rounded-full border px-2.5 py-1 font-mono text-[0.6875rem] uppercase tracking-[0.14em] backdrop-blur-sm transition-colors duration-[var(--dur-fast)] ${hover ? pal.chipHover : pal.chip}`}
+          className={`whitespace-nowrap rounded-full border ${compact && !hover ? "px-2" : "px-2.5"} py-1 font-mono text-[0.6875rem] uppercase tracking-[0.14em] backdrop-blur-sm transition-colors duration-[var(--dur-fast)] ${hover ? pal.chipHover : pal.chip}`}
           style={{ transform: "translate(-50%, -100%)" }}
         >
-          <span className={hover ? "text-white/80" : pal.code}>{destination.isoCode}</span>
-          <span className="mx-1.5 opacity-50">·</span>
-          <span>{destination.country}</span>
+          <span translate="no" className={hover ? "text-white/80" : pal.code}>{destination.isoCode}</span>
+          {compact && !hover ? null : (
+            <>
+              <span className="mx-1.5 opacity-50">·</span>
+              <span>{destination.country}</span>
+            </>
+          )}
           {hover ? (
             <span className="block pt-1 text-[0.5625rem] normal-case tracking-[0.06em] opacity-90">
               {destination.universities && destination.universities.length > 0 ? destination.universities.join(" · ") : null}

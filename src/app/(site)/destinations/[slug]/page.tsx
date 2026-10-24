@@ -37,7 +37,7 @@ export default async function DestinationPage({ params }: { params: Params }) {
       <PageHero
         eyebrow={
           <>
-            {destination.isoCode}
+            <span translate="no" className="notranslate">{destination.isoCode}</span>
             {destination.region ? <span className="text-fg-subtle">· {destination.region}</span> : null}
           </>
         }

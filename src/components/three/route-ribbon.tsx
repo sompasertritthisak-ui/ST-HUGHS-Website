@@ -139,7 +139,7 @@ function World({ center, radius, destinations, spin }: { center: THREE.Vector3; 
                 href={`/destinations/${dst.slug}`}
                 className="block whitespace-nowrap rounded-full border border-white/25 bg-[#0B1350]/75 px-3 py-1.5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-white backdrop-blur-sm transition-colors hover:border-[#FF8A85] hover:bg-[#CF1B18]"
               >
-                <span className="mr-2 text-[#FF8A85]">{dst.isoCode}</span>
+                <span translate="no" className="mr-2 text-[#FF8A85]">{dst.isoCode}</span>
                 {dst.country}
               </Link>
             </Html>

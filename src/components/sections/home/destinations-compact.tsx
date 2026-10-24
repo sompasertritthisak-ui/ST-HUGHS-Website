@@ -36,7 +36,7 @@ export function DestinationsCompact({ destinations, universities }: { destinatio
                     href={`/destinations/${d.slug}`}
                     className="group inline-flex h-12 items-center gap-3 rounded-full border border-line pl-5 pr-2 text-[1rem] text-fg transition-colors duration-[var(--dur-fast)] hover:border-blue hover:bg-blue hover:text-white"
                   >
-                    <span className="font-mono text-[0.6875rem] tracking-[0.16em] text-brand-soft group-hover:text-white/80">{d.isoCode}</span>
+                    <span translate="no" className="font-mono text-[0.6875rem] tracking-[0.16em] text-brand-soft group-hover:text-white/80">{d.isoCode}</span>
                     {d.country}
                     <span className="inline-flex h-8 min-w-8 items-center justify-center rounded-full bg-bg-hover px-2.5 font-mono text-[0.6875rem] tabular text-fg-muted transition-colors group-hover:bg-white/15 group-hover:text-white">
                       {routes > 0 ? routes : "·"}

@@ -50,7 +50,7 @@ function DestinationIndex({ destinations }: { destinations: { slug: string; coun
             <a key={d.slug} href={`/destinations/${d.slug}`} aria-label={`${d.country} — view destination`}>
               <circle cx={p.x} cy={p.y} r="3.5" fill="var(--route)" />
               <text x={p.x + (right ? 8 : -8)} y={p.y + 3.5} textAnchor={right ? "start" : "end"} fontFamily="var(--font-mono)" fontSize="10" letterSpacing="1.5" fill="var(--color-brand-soft)">
-                {d.isoCode}
+                <tspan className="notranslate">{d.isoCode}</tspan>
               </text>
             </a>
           );

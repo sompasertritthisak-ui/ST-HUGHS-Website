@@ -126,7 +126,7 @@ export function RouteMap({
                 fontFamily="var(--font-mono)"
                 fill={isSelected ? "var(--color-brand-soft)" : "var(--fg-muted)"}
               >
-                {d.isoCode}
+                <tspan className="notranslate">{d.isoCode}</tspan>
               </text>
             </g>
           );

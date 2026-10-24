@@ -531,3 +531,23 @@ font[style] {
   background: transparent !important;
   box-shadow: none !important;
 }
+
+/* ── Translated pages (language menu → Google's website translator) ─────────────────────────────────────────────
+   1. The translator wraps every phrase in <font> elements. Inside flex rows each one became its own column
+      ("ປີ 2023" split away from its sentence); display: contents lets the text flow as one run again.
+   2. Wide tracking and capitals are a Latin-label convention; in Lao, Thai, Chinese, Japanese and Korean they pull
+      letters apart.
+   3. Lao stacks vowels and tone marks above and below the line, so it needs more line height than English. */
+html.translated-ltr font,
+html.translated-rtl font {
+  display: contents;
+}
+html:is([lang="lo"], [lang="th"], [lang^="zh"], [lang="ja"], [lang="ko"]) :is(.eyebrow, .font-mono, [class*="tracking-"]) {
+  letter-spacing: normal !important;
+}
+html[lang="lo"] :is(h1, h2, h3, h4, .font-display) {
+  line-height: 1.3 !important;
+}
+html[lang="lo"] :is(p, li, dd, dt, label, blockquote) {
+  line-height: 1.75;
+}

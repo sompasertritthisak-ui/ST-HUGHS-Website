@@ -102,7 +102,7 @@ export function GlobeFallback({ destinations, className, animate = true, tone = 
                   letterSpacing="1.4"
                   fill="var(--fg-muted)"
                 >
-                  {d.isoCode}
+                  <tspan className="notranslate">{d.isoCode}</tspan>
                 </text>
               </g>
             );

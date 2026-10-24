@@ -115,7 +115,7 @@ export default async function InternationalStudentsPage() {
           {destinations.map((d) => (
             <li key={d.id}>
               <Link href={`/destinations/${d.slug}`} className="inline-flex h-11 items-center gap-3 rounded-[var(--radius-sm)] border border-line-strong px-4 text-[0.9375rem] text-fg transition-colors hover:border-route hover:text-brand-soft">
-                <span className="font-mono text-[0.6875rem] tracking-[0.14em] text-brand-soft">{d.isoCode}</span>
+                <span translate="no" className="font-mono text-[0.6875rem] tracking-[0.14em] text-brand-soft">{d.isoCode}</span>
                 {d.country}
               </Link>
             </li>
