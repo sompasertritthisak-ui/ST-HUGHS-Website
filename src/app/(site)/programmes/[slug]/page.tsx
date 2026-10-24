@@ -11,6 +11,7 @@ import { ConsultationBand } from "@/components/sections/consultation-band";
 import { ArrowLeftRight, BookOpen, CalendarDays, Clock, Coins, GraduationCap, Languages, ListChecks, MapPin, SpellCheck } from "lucide-react";
 import { FactsAtAGlance, FactLink, type FactRow } from "@/components/programme/facts-at-a-glance";
 import { CostAtAGlance, parseCostRows } from "@/components/programme/cost-at-a-glance";
+import { ScholarshipCta } from "@/components/ui/scholarship-cta";
 import { PathwayTimeline } from "@/components/sections/pathway-timeline";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { JsonLd } from "@/components/site/json-ld";
@@ -173,6 +174,7 @@ export default async function ProgrammePage({ params }: { params: Params }) {
       {costRows.length ? (
         <Section id="costs" eyebrow="Costs" title="Cost at a glance" lede="Estimated cost of study for 2026–27, year by year.">
           <CostAtAGlance rows={costRows} note={programme.costNote} disclaimer="Estimate for 2026–27; partner fees are for illustration only and may change." />
+          <ScholarshipCta tone="light" className="mt-8" note="Scholarships and discounts can lower these figures — an advisor checks yours for free." />
         </Section>
       ) : null}
 

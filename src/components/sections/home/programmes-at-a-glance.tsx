@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Media, Programme } from "@prisma/client";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Award, Check } from "lucide-react";
 import { parseStringArray } from "@/lib/utils";
 import { parseCostRows } from "@/components/programme/cost-at-a-glance";
 import { Reveal } from "@/components/ui/reveal";
@@ -88,7 +88,10 @@ export function ProgrammesAtAGlance({ programmes }: { programmes: ProgrammeWithH
                         </div>
                       ))}
                     </dl>
-                    <ul className="mt-5 grid gap-2">
+                    <Link href="/enquire?topic=scholarships" className="mt-3 inline-flex min-h-11 items-center gap-2 self-start text-[0.9375rem] font-semibold text-brand hover:text-brand-deep">
+                      <Award aria-hidden className="size-4" strokeWidth={2} /> Check scholarship eligibility <ArrowRight aria-hidden className="size-4" strokeWidth={2} />
+                    </Link>
+                    <ul className="mt-3 grid gap-2">
                       {strengths.map((s) => (
                         <li key={s} className="flex items-start gap-2.5 text-[0.9375rem] leading-snug text-fg">
                           <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-route" strokeWidth={2.25} />

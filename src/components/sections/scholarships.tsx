@@ -4,6 +4,7 @@ import { Award } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { SplitHeading } from "@/components/ui/split-heading";
 import { Button } from "@/components/ui/button";
+import { ScholarshipCta, SCHOLARSHIP_CHECK_HREF } from "@/components/ui/scholarship-cta";
 
 /**
  * Scholarships (management feedback, Dennis: "a dedicated space and a large image that catches students' attention").
@@ -35,9 +36,9 @@ export function Scholarships({ headingLevel = "h2", compact = true }: { headingL
             style={{ objectPosition: "50% 38%" }}
           />
           <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-midnight" />
-          <p className="absolute bottom-5 left-5 inline-flex items-center gap-2 rounded-full bg-brand px-4 py-2 text-[0.875rem] font-semibold text-white shadow-lg lg:bottom-8 lg:left-8">
-            <Award aria-hidden className="size-4" strokeWidth={2} /> Scholarships available
-          </p>
+          <Link href={SCHOLARSHIP_CHECK_HREF} className="absolute bottom-5 left-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-brand px-4 py-2 text-[0.875rem] font-semibold text-white shadow-lg transition-colors hover:bg-brand-deep lg:bottom-8 lg:left-8">
+            <Award aria-hidden className="size-4" strokeWidth={2} /> Scholarships available · Check yours
+          </Link>
         </div>
 
         <div className="container-x py-12 lg:col-span-7 lg:py-20 lg:pl-12">
@@ -54,25 +55,27 @@ export function Scholarships({ headingLevel = "h2", compact = true }: { headingL
             <p className="mt-5 max-w-xl text-[1.0625rem] leading-relaxed text-white/80 text-pretty">
               Scholarships and discounts can reduce the cost of your degree. An advisor checks which ones you could apply for, at no cost.
             </p>
+            <ScholarshipCta className="mt-7" />
           </Reveal>
           <ul className={`mt-8 grid gap-3 ${compact ? "grid-cols-2" : "sm:grid-cols-2"}`}>
             {SCHOLARSHIPS.map((s, i) => (
               <Reveal key={s.who} as="li" delay={i * 60}>
-                <Link href={s.href} className="group flex h-full flex-col rounded-[var(--radius)] border border-white/15 bg-white/[0.06] p-4 sm:p-5 transition-colors hover:border-brand-soft hover:bg-white/[0.1]">
+                <Link href={SCHOLARSHIP_CHECK_HREF} aria-label={`Check eligibility: ${s.who}, ${s.what}`} className="group flex h-full flex-col rounded-[var(--radius)] border border-white/15 bg-white/[0.06] p-4 sm:p-5 transition-colors hover:border-brand-soft hover:bg-white/[0.1]">
                   <span className="font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-white/65">{s.who}</span>
                   <span className="mt-2 font-display text-[clamp(1.375rem,2.6vw,2.25rem)] leading-tight text-white">{s.what}</span>
                   <span className={`mt-3 text-[0.875rem] leading-relaxed text-white/80 ${phoneHide}`}>{s.detail}</span>
                   {s.source ? <span className={`mt-auto pt-3 text-[0.75rem] text-white/50 ${phoneHide}`}>Source: {s.source}</span> : null}
+                  <span className={`inline-flex items-center gap-1.5 pt-3 text-[0.875rem] font-semibold text-brand-soft group-hover:text-white ${s.source ? "" : "mt-auto"}`}>
+                    Check eligibility <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+                  </span>
                 </Link>
               </Reveal>
             ))}
           </ul>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button href="/enquire?topic=scholarships" arrow="right" className="max-sm:w-full">
-              Check scholarship eligibility
-            </Button>
-            <Button href="/consultation" variant="secondary" className="border-white/40 text-white hover:border-white hover:bg-white/10 max-sm:w-full">
-              Talk to an advisor
+          <div className="mt-8 flex flex-wrap items-start gap-x-6 gap-y-3">
+            <ScholarshipCta note={null} />
+            <Button href="/consultation" variant="ghost" arrow="right" className="text-white hover:text-brand-soft max-sm:justify-center max-sm:w-full">
+              Or talk to an advisor
             </Button>
           </div>
           <p className="mt-5 max-w-xl text-[0.8125rem] leading-relaxed text-white/55">

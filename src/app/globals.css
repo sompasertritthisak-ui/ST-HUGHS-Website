@@ -552,3 +552,14 @@ html[lang="lo"] :is(h1, h2, h3, h4, .font-display) {
 html[lang="lo"] :is(p, li, dd, dt, label, blockquote) {
   line-height: 1.75;
 }
+
+/* Emphasised call to action (scholarship eligibility): a soft ring that pulses outward. Off under reduced motion. */
+@keyframes shv-cta-glow {
+  0% { box-shadow: 0 0 0 0 rgb(207 27 24 / 0.55), 0 18px 40px -14px rgb(207 27 24 / 0.75); }
+  70% { box-shadow: 0 0 0 14px rgb(207 27 24 / 0), 0 18px 40px -14px rgb(207 27 24 / 0.75); }
+  100% { box-shadow: 0 0 0 0 rgb(207 27 24 / 0), 0 18px 40px -14px rgb(207 27 24 / 0.75); }
+}
+.cta-glow { animation: shv-cta-glow 2.6s var(--ease-out) infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .cta-glow { animation: none; }
+}
