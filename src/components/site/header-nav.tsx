@@ -32,6 +32,17 @@ export function HeaderNav({ items, audience }: { items: NavItem[]; audience: Nav
     setAudienceOpen(false);
   }, [pathname]);
 
+  // Replay a tap made before hydration (see the inline script in header.tsx). setOpen(true), never a toggle, so a
+  // click React itself replays during hydration cannot cancel it out.
+  useEffect(() => {
+    const w = window as Window & { __shvNavReady?: boolean; __shvPending?: "menu" | "search" };
+    w.__shvNavReady = true;
+    const pending = w.__shvPending;
+    w.__shvPending = undefined;
+    if (pending === "menu") setOpen(true);
+    else if (pending === "search") window.setTimeout(() => openSearch(), 0);
+  }, []);
+
   useEffect(() => {
     if (!open) return;
     const unlock = lockScroll();
