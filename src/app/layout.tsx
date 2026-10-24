@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Noto_Sans_Lao_Looped, Noto_Serif_Lao, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { DeployGuard } from "@/components/site/deploy-guard";
 
 /* Typography
  * Display: Cormorant Garamond (headings). Text and labels: Plus Jakarta Sans, a clean modern sans that replaced
@@ -61,7 +62,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${display.variable} ${sans.variable} ${lao.variable} ${laoSerif.variable}`}>
-      <body className="min-h-dvh antialiased">{children}</body>
+      <body className="min-h-dvh antialiased">
+        {children}
+        <DeployGuard />
+      </body>
     </html>
   );
 }
