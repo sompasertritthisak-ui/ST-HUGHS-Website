@@ -113,7 +113,7 @@ async function main() {
       valueJson: JSON.stringify({
         heroLine1: "From Laos.",
         heroLine2: "To the world.",
-        heroSupport: "Start your international degree in Vientiane. Finish it with a partner university abroad, or here at home.",
+        heroSupport: "We believe learning is a lifelong journey, and our purpose is to create opportunities for every student to go further.",
         tagline: "Local start. Global future.",
         finalCtaTitle: "Your next chapter starts here.",
         finalCtaBody: "A free consultation checks your qualifications against the entry requirements and sets out your next step.",
@@ -545,8 +545,8 @@ async function main() {
       website: "https://www.ncuk.ac.uk/university-partners/",
       partnershipType: "NCUK_NETWORK",
       summary:
-        "NCUK describes a network of 80+ University Partners in the UK, Australia, New Zealand, USA, Canada and other locations, offering 6,000+ degree courses. Students completing an NCUK qualification at SHV apply to these universities through NCUK. SHV's IFY brochure maps progression destinations in the UK, Australia, New Zealand, the USA, Canada, France, Vietnam, Malaysia and Thailand.",
-      progressionInfo: "NCUK states: \"Guaranteed* entry to one of 80+ NCUK University Partners worldwide\" for International Foundation Year students (*conditions apply; see NCUK).",
+        "NCUK says students can progress to one of 100+ universities, including 11 in the QS World Top 100, in the UK, Australia, New Zealand, the USA, Canada and other destinations. Students completing an NCUK qualification at SHV apply to these universities through NCUK. SHV's IFY brochure maps progression destinations in the UK, Australia, New Zealand, the USA, Canada, France, Vietnam, Malaysia and Thailand.",
+      progressionInfo: "NCUK states that students can \"progress to one of 100+ universities – including 11 in the QS World Top 100\". Entry depends on meeting each course's published grades and English requirements.",
       transferPoint: "Year 1 (after IFY) or Year 2 (after International Year One)",
       featured: true,
       sortOrder: 0,
@@ -703,7 +703,7 @@ Assessment combines coursework and examinations set and quality-assured by NCUK.
 
 SHV's programme brochure maps progression anywhere in the world*: the **United Kingdom** (more than fifty NCUK partners, including QS World Top 100 universities), **Australia**, **New Zealand**, the **United States**, **Canada**, **France** (ESDES Business School), **Vietnam** (British University Vietnam, RMIT Vietnam), **Malaysia** (University of Nottingham Malaysia, University of Southampton Malaysia, Newcastle University Medicine Malaysia, Swinburne Sarawak, University of Reading Malaysia) and **Thailand** (Assumption University).
 
-NCUK states that IFY students have "Guaranteed* entry to one of 80+ NCUK University Partners worldwide" (*subject to NCUK's conditions). Students apply to universities through NCUK's dedicated support, and progression depends on meeting the published entry grades of the chosen course.
+NCUK states that students can "progress to one of 100+ universities – including 11 in the QS World Top 100". Students apply to universities through NCUK's dedicated support, and progression depends on meeting the published entry grades of the chosen course.
 
 ## Who can apply?
 
@@ -744,6 +744,9 @@ _${FEE_DISCLAIMER}_`,
       reviewDate: new Date("2027-06-01"),
       seoTitle: "NCUK International Foundation Year in Vientiane — Bachelor's degree Pathway (1+3)",
       seoDescription: "Study the NCUK International Foundation Year at St Hugh's College Vientiane: 9 months at home, then 3 years of a bachelor's degree abroad.",
+      teachingLanguage: "English",
+      costRowsJson: JSON.stringify(["Year 1 | St Hugh's · Vientiane | $14k | Not included | $14k"]),
+      costNote: "The years at your chosen university abroad are priced by that university. SHV's brochure compares one year abroad at $54k–$60k for tuition and living in the UK, Australia, Singapore and New Zealand.",
     },
     [
       { title: "English for Academic Purposes (EAP)", kind: "ENGLISH", order: 0, description: "Academic English accepted by NCUK University Partners in place of IELTS for progression." },
@@ -803,6 +806,7 @@ Students who successfully complete the programme receive guaranteed entry to Yea
       reviewDate: new Date("2027-06-01"),
       seoTitle: "NCUK International Year One in Business Management, Vientiane",
       seoDescription: "Start your business degree in Vientiane with the NCUK International Year One and progress to Year 2 at NCUK University Partners.",
+      teachingLanguage: "English",
     },
     [
       { title: "English for Academic Purposes", kind: "ENGLISH", order: 0 },
@@ -889,6 +893,9 @@ _*Fees at BUV are for illustration only (exchange rate 1$ = VND 26,300). BUV res
       reviewDate: new Date("2027-06-01"),
       seoTitle: "Bachelor in International Hospitality Management — 2+2 with British University Vietnam",
       seoDescription: "Two years at St Hugh's College Vientiane, two years at British University Vietnam in Hanoi. IELTS 4.5, age 17+, September start.",
+      teachingLanguage: "English",
+      costRowsJson: JSON.stringify(["Year 1 | St Hugh's · Vientiane | $5.5k | Not included | $5.5k", "Year 2 | St Hugh's · Vientiane | $9k | Not included | $9k", "Year 3 | BUV · Hanoi | $9k | $8k | $17k", "Year 4 | BUV · Hanoi | $9k | $8k | $17k"]),
+      costNote: "Brochure estimate for four years: $48.6k, or $40.9k with a 25% BUV scholarship. BUV advertises 100%, 50% and 25% scholarships for the 2026 intake. BUV fees are for illustration only.",
     },
     [
       { title: "Year 1 at SHV — foundations", kind: "CORE", order: 0, description: "English for Higher Education; academic skills; hospitality & tourism foundation; professional etiquette." },
@@ -971,6 +978,9 @@ _${FEE_DISCLAIMER}_`,
       reviewDate: new Date("2027-06-01"),
       seoTitle: "Bachelor's + Master's in 4 years — 1+3 with Assumption University, Bangkok",
       seoDescription: "One year at St Hugh's College Vientiane, three years at Assumption University. Two degrees (SIMBA — Management & Business Analytics) in four years.",
+      teachingLanguage: "English",
+      costRowsJson: JSON.stringify(["Year 1 | St Hugh's · Vientiane | $9k | Not included | $9k", "Year 2 | Assumption University · Bangkok | $9k | $9k | $18k", "Year 3 | Assumption University · Bangkok | $9k | $9k | $18k", "Year 4 | Assumption University · Bangkok | — | $9k | $9k"]),
+      costNote: "Brochure estimate for four years: $54k. The $27,000 tuition is paid within the three Assumption University years.",
     },
     [
       { title: "Year 1 at SHV — readiness year", kind: "CORE", order: 0, description: "Academic English & presentation; business foundations; digital business & AI literacy; quantitative / analytics readiness; study skills, mentoring & confidence." },
@@ -1054,6 +1064,9 @@ _*Fees at ESDES are for illustration only (exchange rate 1€ = $1.1386). ESDES 
       reviewDate: new Date("2027-06-01"),
       seoTitle: "Bachelor in International Business — 1+3 with ESDES Business School, Lyon",
       seoDescription: "One year at St Hugh's College Vientiane (NCUK IFY), three years at ESDES Business School in Lyon, France. Taught 100% in English, with four months abroad.",
+      teachingLanguage: "English",
+      costRowsJson: JSON.stringify(["Year 1 | IFY at St Hugh's · Vientiane | $14k | Not included | $14k", "Year 2 | ESDES · Lyon | $10.5k | $12k | $23k", "Year 3 | ESDES · Lyon | $10.5k | $12k | $23k", "Year 4 | ESDES · Lyon | $10.5k | $12k | $23k"]),
+      costNote: "Brochure estimate for four years: $83k. Merit scholarships of up to 30% and a 10% early-bird discount apply to the first ESDES year.",
     },
     [
       { title: "Year 1 — NCUK International Foundation Year at SHV", kind: "CORE", order: 0, description: "Build the skills to begin your international journey." },
@@ -1151,6 +1164,9 @@ For a complete beginner, SHV recommends a realistic standard pathway of up to fi
       reviewDate: new Date("2027-06-01"),
       seoTitle: "Intensive English Programme in Vientiane — from zero to IELTS 5.5 readiness",
       seoDescription: "Five 8-week levels, 3 hours a day, 5 days a week, with Cambridge English materials. $995 per level, all-inclusive, at St Hugh's College Vientiane.",
+      teachingLanguage: "English, from beginner level",
+      costRowsJson: JSON.stringify(["Each 8-week level | St Hugh's · Vientiane | $995 | Not included | $995"]),
+      costNote: "All-inclusive per level: 120 classroom hours, Cambridge English materials and digital pack, assessments and guided self-study.",
     },
     [
       { title: "Level 1 — English Foundations (A0 → A1)", kind: "ENGLISH", order: 0, description: "Essential vocabulary, pronunciation and basic communication. ~IELTS 3.0. 8 weeks · 120 hours." },
@@ -1257,6 +1273,7 @@ Fees are confirmed by the admissions team.`,
       reviewDate: new Date("2027-06-01"),
       seoTitle: "Business Administration — Entrepreneurship & Innovation Gen AI, taught in Lao",
       seoDescription: "A St Hugh's bachelor's degree programme taught in Lao on our Vientiane campus: 3 years + 24-week internship, entrepreneurship, generative AI and English from zero to B2.",
+      teachingLanguage: "Lao, with English from A1 to B2",
     },
     [
       { title: "Year 1 — Diploma", kind: "CORE", order: 0, description: "Foundations: management, economics, accounting, marketing. English. 6-week internship." },
@@ -1706,7 +1723,7 @@ Fees are confirmed by the admissions team.`,
     ["PROGRAMMES", "How do I know which Intensive English level to start at?", "Entry is based on a placement assessment, so you start at the correct level — students with some English may start above Level 1. Progress is monitored with a mid-course review, an end-level assessment and progress feedback for students and parents. Students move forward when they are academically ready.", "intensive-english-programme"],
     ["ENGLISH", "Do I need IELTS to start?", "Not for every programme. The Intensive English Programme starts from complete beginner (A0) and takes students to lower B2, ready to prepare for IELTS Academic 5.5 and begin university pathway study. The BBA in Entrepreneurship & Innovation Gen AI is taught in Lao and builds English from zero to B2 over three years. For the NCUK International Foundation Year SHV asks for IELTS 5.5 or equivalent, and for the 2+2 with British University Vietnam IELTS 4.5 or equivalent."],
     ["ENGLISH", "What English level do I need?", "NCUK International Foundation Year at SHV: IELTS 5.5 or equivalent (NCUK's network minimum is 5.0). NCUK International Year One: IELTS 5.5 or equivalent. 2+2 with British University Vietnam: IELTS 4.5 or equivalent. Intensive English and the St Hugh's BBA: no prior English required. NCUK programmes include English for Academic Purposes, which NCUK University Partners accept in place of IELTS for progression."],
-    ["PROGRESSION", "Is university progression guaranteed?", "NCUK states that International Foundation Year students have \"Guaranteed* entry to one of 80+ NCUK University Partners worldwide\", and that International Year One students receive guaranteed entry to Year 2 at NCUK University Partners. The asterisk matters: entry depends on meeting the grades and English requirements published for the specific course, and on NCUK's conditions. For the direct partner routes (BUV, Assumption University, ESDES), progression depends on successful completion of the SHV years. Our advisors will explain exactly what applies to your chosen route."],
+    ["PROGRESSION", "Is university progression guaranteed?", "NCUK states that students can \"progress to one of 100+ universities – including 11 in the QS World Top 100\", and that International Year One students receive guaranteed entry to Year 2 at NCUK University Partners. Entry depends on meeting the grades and English requirements published for the specific course, and on NCUK's conditions. For the direct partner routes (BUV, Assumption University, ESDES), progression depends on successful completion of the SHV years. Our advisors will explain exactly what applies to your chosen route."],
     ["PROGRESSION", "Where can I go after the Foundation Year?", "SHV's IFY brochure maps progression destinations in the United Kingdom, Australia, New Zealand, the United States, Canada, France (ESDES Business School), Vietnam (British University Vietnam, RMIT Vietnam), Malaysia (University of Nottingham Malaysia, Southampton Malaysia, Newcastle Medicine Malaysia, Swinburne Sarawak, Reading Malaysia) and Thailand (Assumption University).", "ncuk-international-foundation-year"],
     ["PATHWAYS", "Can I complete a whole bachelor's degree in Laos?", "Yes. The Business Administration degree in Entrepreneurship & Innovation Gen AI is taught in Lao on the SHV campus over three years plus a 24-week internship — a St Hugh's Diploma (Year 1), a St Hugh's Associate degree (Year 2) and a bachelor's top-up year — with the bachelor's degree awarded through our academic collaboration with the National University of Laos. Our other bachelor routes are completed with partner universities abroad through 1+3 or 2+2 structures.", "bba-entrepreneurship-innovation-gen-ai"],
     ["ADMISSIONS", "How do I apply?", "Start with a free consultation. An advisor will check your qualifications and English level against the entry requirements, help you choose a route, and guide you through the application step by step."],

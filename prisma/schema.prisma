@@ -152,6 +152,9 @@ model Programme {
   progression        String?
   whatNext           String?
   applicationNotes   String?
+  costRowsJson       String    @default("[]") // cost at a glance: one "Year | Where | Tuition | Living | Total" row per entry
+  costNote           String?
+  teachingLanguage   String? // shown in "All facts at a glance", e.g. "English" or "Lao, with English from A1 to B2"
   heroMediaId        String?
   heroMedia          Media?    @relation("ProgrammeHero", fields: [heroMediaId], references: [id])
   featured           Boolean   @default(false)

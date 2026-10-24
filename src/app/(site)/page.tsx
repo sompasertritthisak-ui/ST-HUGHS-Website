@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/utils";
 import { FinalCta } from "@/components/sections/final-cta";
-import { FeaturedProgrammes, Hero, LoadingSequence, RouteJourney, WhyStHughs } from "@/components/sections/home";
+import { Hero, LoadingSequence, RouteJourney, WhyStHughs } from "@/components/sections/home";
 import { getHomeData, toGlobeDestinations } from "@/components/sections/home/data";
-import { DestinationsCompact } from "@/components/sections/home/destinations-compact";
+import { PartnerStrip } from "@/components/sections/home/partner-strip";
+import { ProgrammesAtAGlance } from "@/components/sections/home/programmes-at-a-glance";
+import { ChooseYourRoute } from "@/components/sections/home/choose-your-route";
+import { Scholarships } from "@/components/sections/scholarships";
 import { LifeMosaic } from "@/components/sections/home/life-mosaic";
 import { WorkWithUs } from "@/components/sections/home/work-with-us";
 import { SectionSpine } from "@/components/site/section-spine";
@@ -27,9 +30,10 @@ export const metadata: Metadata = {
 /** The acts of the homepage, in order, for the wayfinding spine. Ids are the act headings. */
 const SPINE = [
   { id: "hero-title", label: "Origin" },
-  { id: "journey-title", label: "How it works" },
+  { id: "journey-title", label: "Your pathway" },
   { id: "programmes-title", label: "Programmes" },
-  { id: "destinations-title", label: "Destinations" },
+  { id: "routes-title", label: "Study routes" },
+  { id: "scholarships-title", label: "Scholarships" },
   { id: "life-title", label: "Life at SHV" },
   { id: "alumni-title", label: "Alumni" },
   { id: "why-title", label: "Why St Hugh's" },
@@ -43,14 +47,15 @@ const SPINE = [
  * own page. White is the ground; deep blue appears only where the cinema needs it (the hero with
  * the globe, the three chapter openers, the closing scene) and red is the stroke.
  *
- *  1. Hero              Who and where is this?            (the globe)
- *  2. How it works      One year at home, then the world  (3 steps, 4 verified numbers)
- *  3. Chapter 1 → Programmes     What would I study?       (→ /programmes)
- *  4. Chapter 2 → Destinations   Where can it take me?     (→ /destinations, /universities)
- *  5. Chapter 3 → Life at SHV    Is it a real place?       (→ /student-life, /campus)
- *  6. Alumni voices     Did it work for people like me? (consented videos → /student-stories)
- *  7. Why St Hugh's     Can I trust it? (four sourced facts → /why-st-hughs)
- *  7. Start here        The one conversion: a free consultation
+ *  1. Hero              Who and where is this?            (the globe) + partner logos
+ *  2. Your pathway      Start in Laos. Go beyond borders. (NCUK abroad | BBA in Laos, side by side, 3 stages each)
+ *  3. Chapter 1 → Programmes at a glance   BBA + NCUK flagships, every other option, short courses
+ *  4. Chapter 2 → Choose your route         six routes with partner logos (→ programme pages)
+ *  5. Scholarships      Go further, for less              (sourced figures → /scholarships)
+ *  6. Chapter 3 → Life at SHV    Is it a real place?       (→ /student-life, /campus)
+ *  7. Alumni voices     Did it work for people like me?
+ *  8. Why St Hugh's     Can I trust it?
+ *  9. Work with us · 10. Start here
  *
  * Moved to their own pages: the timeline (/about), the pathway tool (/pathway-explorer), outcomes
  * (/careers), student stories (/student-stories), news (/news), campus walk (/campus).
@@ -90,7 +95,10 @@ export default async function HomePage() {
       <LoadingSequence line1={messaging.heroLine1} line2={messaging.heroLine2} />
 
       {/* 1 — Origin */}
-      <Hero messaging={messaging} destinations={globeDestinations} routeCount={data.routeCount} established={institution.established} />
+      <Hero messaging={messaging} destinations={globeDestinations} established={institution.established} />
+      <PartnerStrip
+        items={data.universities.map((u) => ({ slug: u.slug, name: u.slug === "ncuk-university-partners" ? "NCUK" : u.name, logo: u.logo?.url ?? null, country: u.destination?.country ?? null }))}
+      />
 
       {/* 2 — How it works */}
       <RouteJourney destinations={globeDestinations} counts={data.counts} />
@@ -100,13 +108,14 @@ export default async function HomePage() {
         id="chapter-programmes"
         index={1}
         total={3}
-        eyebrow="The programmes"
-        title="Taught here."
-        accent="Recognised there."
+        eyebrow="Our programmes"
+        title="Your journey starts here."
+        accent="Your future goes further."
+        body="Discover international education pathways that connect students in Laos with opportunities at universities around the world."
         media={CINEMATIC.learning}
-        cta={{ href: "/programmes", label: "See the programmes" }}
+        cta={{ href: "/programmes", label: "Explore our programmes" }}
       />
-      <FeaturedProgrammes programmes={data.programmes} />
+      <ProgrammesAtAGlance programmes={data.programmes} />
 
       {/* 4 — Destinations */}
       <CinematicScene
@@ -120,7 +129,10 @@ export default async function HomePage() {
         cta={{ href: "/destinations", label: "Every destination" }}
         align="center"
       />
-      <DestinationsCompact destinations={data.destinations} universities={data.universities} />
+      <ChooseYourRoute logos={data.universities.map((u) => ({ slug: u.slug, logo: u.logo?.url ?? null }))} />
+
+      {/* Scholarships — a dedicated, image-led band */}
+      <Scholarships />
 
       {/* 5 — Life at SHV */}
       <CinematicScene

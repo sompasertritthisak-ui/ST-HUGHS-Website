@@ -22,6 +22,8 @@ const STATIC_PAGES: SearchDoc[] = [
   { kind: "page", title: "News", href: "/news", summary: "Announcements and insights.", keywords: "news updates announcements blog" },
   { kind: "page", title: "Frequently asked questions", href: "/faqs", summary: "Quick answers about admissions, fees and study.", keywords: "faq faqs questions help answers" },
   { kind: "page", title: "Resources and downloads", href: "/resources", summary: "Brochures, prospectus and forms.", keywords: "download brochure prospectus pdf forms documents handbook calendar" },
+  { kind: "page", title: "Scholarships", href: "/scholarships", summary: "Scholarships and discounts from NCUK partners, BUV and ESDES, and BBA payment options.", keywords: "scholarship scholarships discount financial aid funding bursary award cheaper cost help pay" },
+  { kind: "page", title: "Short courses", href: "/enquire?topic=short-courses", summary: "Bartending, barista skills, etiquette and Speak like a TED talk.", keywords: "short course courses bartending bartender barista coffee etiquette manners public speaking ted talk presentation skills" },
   { kind: "page", title: "Book a tour", href: "/enquire?type=visit", summary: "Visit the campus in Vientiane.", keywords: "tour visit campus open day appointment" },
   { kind: "page", title: "Talk to an advisor", href: "/consultation", summary: "Book a free consultation with our admissions team.", keywords: "advisor adviser consultation counselling counselor meeting appointment call help" },
   { kind: "page", title: "Contact us", href: "/contact", summary: "Phone, email, WhatsApp and address.", keywords: "contact phone email whatsapp address location map telephone" },

@@ -123,6 +123,7 @@
 
 @theme inline {
   --color-midnight: var(--color-midnight);
+  --color-blue: var(--color-blue);
   --color-obsidian: var(--color-obsidian);
   --color-navy: var(--color-navy);
   --color-navy-2: var(--color-navy-2);

@@ -3,7 +3,6 @@ export * from "./hero";
 export * from "./route-journey";
 export * from "./why-st-hughs";
 export * from "./explorer-teaser";
-export * from "./featured-programmes";
 export * from "./global-network";
 export * from "./student-experience";
 export * from "./campus-strip";

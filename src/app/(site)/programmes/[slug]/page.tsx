@@ -8,7 +8,9 @@ import { parseStringArray } from "@/lib/utils";
 import { PROGRAMME_TYPE_LABELS, type ProgrammeType } from "@/lib/enums";
 import { PageHero } from "@/components/sections/page-hero";
 import { ConsultationBand } from "@/components/sections/consultation-band";
-import { ProgrammeJourney } from "@/components/sections/programme-journey";
+import { ArrowLeftRight, BookOpen, CalendarDays, Clock, Coins, GraduationCap, Languages, ListChecks, MapPin, SpellCheck } from "lucide-react";
+import { FactsAtAGlance, FactLink, type FactRow } from "@/components/programme/facts-at-a-glance";
+import { CostAtAGlance, parseCostRows } from "@/components/programme/cost-at-a-glance";
 import { PathwayTimeline } from "@/components/sections/pathway-timeline";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { JsonLd } from "@/components/site/json-ld";
@@ -45,18 +47,30 @@ export default async function ProgrammePage({ params }: { params: Params }) {
   const typeLabel = PROGRAMME_TYPE_LABELS[programme.type as ProgrammeType] ?? programme.type;
   const pathways = programme.pathways.map((p) => ({ ...p, programme: { slug: programme.slug, title: programme.title, shortTitle: programme.shortTitle, type: programme.type } }));
   const primaryPathway = pathways.find((p) => p.featured) ?? pathways[0];
-  const destinations = Array.from(new Map(pathways.filter((p) => p.destination).map((p) => [p.destination!.slug, p.destination!])).values());
 
-  const stations = [
-    { question: "Where are you now?", answer: programme.whoFor ?? "Who this programme is for is confirmed by the admissions team.", href: "#who" },
-    { question: "What do you want to study?", answer: routes.length ? routes.join(" · ") : "Subject routes confirmed per intake.", href: "#routes" },
-    { question: "Which programme fits?", answer: `${typeLabel}${programme.level ? ` — ${programme.level}` : ""}`, href: "#what" },
-    { question: "Where can it lead?", answer: destinations.length ? destinations.map((d) => d.country).join(", ") : "Progression routes are published once confirmed.", href: "#progression" },
-    { question: "Entry requirements", answer: programme.entryRequirements ? "Published below, with English requirement." : "Confirmed by the admissions team.", href: "#entry" },
-    { question: "What will you study?", answer: programme.modules.length ? `${programme.modules.length} stages and modules` : "Module structure confirmed per intake.", href: "#structure" },
-    { question: "How long?", answer: programme.durationLabel ?? "Confirmed per intake.", href: "#duration" },
-    { question: "What happens after SHV?", answer: programme.whatNext ?? "Confirmed by the admissions team.", href: "#after" },
-    { question: "How do I apply?", answer: "Start with a free consultation.", href: "#apply" },
+  const costRows = parseCostRows(parseStringArray(programme.costRowsJson));
+  // Short facts: first sentence, without bracketed asides (a cut inside brackets read as "(British-accredited").
+  const firstSentence = (t?: string | null) =>
+    t ? (t.replace(/\s+/g, " ").replace(/\s*\([^)]*\)/g, "").match(/^.*?[.;](\s|$)/)?.[0] ?? t).replace(/\s*\([^)]*$/, "").trim().replace(/[.;]$/, "") : null;
+  const plainFirstLine = (md?: string | null) => (md ? md.split("\n").map((l) => l.replace(/^[-*#>\s]+|\*\*/g, "").trim()).find(Boolean) ?? null : null);
+  const ADMISSIONS = "Confirmed by the admissions team";
+  const facts: FactRow[] = [
+    { icon: GraduationCap, label: "Award", value: programme.qualification ? firstSentence(programme.qualification) : programme.level ?? ADMISSIONS, sub: programme.awardingBody },
+    { icon: CalendarDays, label: "Start", value: intakes.length ? intakes.join(", ") : ADMISSIONS, sub: "Ask an advisor about the next available place" },
+    { icon: BookOpen, label: "Study model", value: [typeLabel, primaryPathway?.structureLabel ? `${primaryPathway.structureLabel.replace(/\s*\+\s*/g, "+")} pathway` : null].filter(Boolean).join(" · ") },
+    { icon: Languages, label: "Language", value: programme.teachingLanguage ?? "English" },
+    { icon: Clock, label: "Duration", value: programme.durationLabel ?? ADMISSIONS },
+    { icon: ListChecks, label: "Curriculum", value: programme.modules.length ? <FactLink href="#structure">See what you study</FactLink> : ADMISSIONS, sub: programme.modules.length ? `${programme.modules.length} stages and modules` : null },
+    { icon: MapPin, label: "Location", value: programme.studyLocation },
+    { icon: SpellCheck, label: "English entry", value: firstSentence(programme.englishRequirement) ?? ADMISSIONS },
+    { icon: BookOpen, label: "Academic entry", value: plainFirstLine(programme.entryRequirements) ?? ADMISSIONS, sub: programme.entryRequirements ? <FactLink href="#entry">Full entry requirements</FactLink> : null },
+    ...(primaryPathway?.transferPoint ? [{ icon: ArrowLeftRight, label: "Transfer", value: firstSentence(primaryPathway.transferPoint) }] : []),
+    {
+      icon: Coins,
+      label: "Costs",
+      value: costRows.length ? `${costRows[0].period}: ${costRows[0].tuition} tuition` : ADMISSIONS,
+      sub: costRows.length ? <FactLink href="#costs">See the year-by-year costs</FactLink> : null,
+    },
   ];
 
   return (
@@ -88,12 +102,9 @@ export default async function ProgrammePage({ params }: { params: Params }) {
         </div>
       </PageHero>
 
-      <section aria-labelledby="journey-title" className="container-x pb-6">
-        <h2 id="journey-title" className="sr-only">
-          Your journey through this programme
-        </h2>
-        <ProgrammeJourney stations={stations} />
-      </section>
+      <div className="container-x pb-6">
+        <FactsAtAGlance rows={facts} footnote="Details come from SHV's 2026–27 programme information. Entry, transfer and fees are confirmed for your intake by the admissions team." />
+      </div>
 
       <Section id="what" eyebrow="What it is" title="The programme">
         <ReadMore>
@@ -158,6 +169,12 @@ export default async function ProgrammePage({ params }: { params: Params }) {
           ]}
         />
       </Section>
+
+      {costRows.length ? (
+        <Section id="costs" eyebrow="Costs" title="Cost at a glance" lede="Estimated cost of study for 2026–27, year by year.">
+          <CostAtAGlance rows={costRows} note={programme.costNote} disclaimer="Estimate for 2026–27; partner fees are for illustration only and may change." />
+        </Section>
+      ) : null}
 
       <Section id="entry" eyebrow="Entry requirements" title="What you need to start" lede={messaging.guidanceDisclaimer}>
         <FactsTable

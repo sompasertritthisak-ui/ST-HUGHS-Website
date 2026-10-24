@@ -28,12 +28,10 @@ function Words({ text, offset = 0, className }: { text: string; offset?: number;
 export function Hero({
   messaging,
   destinations,
-  routeCount,
   established,
 }: {
   messaging: MessagingSettings;
   destinations: GlobeDestination[];
-  routeCount: number;
   established: number;
 }) {
   const line1Words = messaging.heroLine1.split(/\s+/).filter(Boolean).length;
@@ -92,11 +90,11 @@ export function Hero({
         <div className="container-x flex flex-wrap items-center gap-x-8 gap-y-2 py-4 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-fg-muted">
           <span className="inline-flex items-center gap-2 text-fg">
             <span aria-hidden className="size-1.5 rounded-full bg-route shadow-[0_0_10px_var(--route)]" />
-            NCUK Study Centre
+            Official NCUK Study Centre in Laos
           </span>
-          <span className="hidden md:inline">Authorised by the Lao Ministry of Education and Sports</span>
-          <span>
-            {destinations.length} destination{destinations.length === 1 ? "" : "s"} · {routeCount} published route{routeCount === 1 ? "" : "s"}
+          <span className="inline-flex items-center gap-2">
+            <span aria-hidden className="size-1.5 rounded-full bg-route" />
+            100+ university partners worldwide · Global university pathways
           </span>
           <span className="ml-auto hidden text-fg lg:inline">{messaging.tagline}</span>
         </div>

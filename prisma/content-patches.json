@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-21-copy-review-b",
+  "version": "2026-10-24-dennis-feedback-b",
   "replace": [
     {
       "old": "Bachelor in International Hospitality Management (2+2 with British University Vietnam)",
@@ -340,6 +340,26 @@
     {
       "old": "NCUK Foundation Year and Year One, bachelor pathways with BUV, Assumption and ESDES, the St Hugh's BBA taught in Lao, and Intensive English",
       "new": "NCUK International Foundation Year and International Year One, partner degrees in Vietnam, Thailand and France, the St Hugh's BBA taught in Lao, and Intensive English"
+    },
+    {
+      "old": "Start your international degree in Vientiane. Finish it with a partner university abroad, or here at home.",
+      "new": "We believe learning is a lifelong journey, and our purpose is to create opportunities for every student to go further."
+    },
+    {
+      "old": "NCUK describes a network of 80+ University Partners in the UK, Australia, New Zealand, USA, Canada and other locations, offering 6,000+ degree courses.",
+      "new": "NCUK says students can progress to one of 100+ universities, including 11 in the QS World Top 100, in the UK, Australia, New Zealand, the USA, Canada and other destinations."
+    },
+    {
+      "old": "NCUK states: \"Guaranteed* entry to one of 80+ NCUK University Partners worldwide\" for International Foundation Year students (*conditions apply; see NCUK).",
+      "new": "NCUK states that students can \"progress to one of 100+ universities – including 11 in the QS World Top 100\". Entry depends on meeting each course's published grades and English requirements."
+    },
+    {
+      "old": "NCUK states that IFY students have \"Guaranteed* entry to one of 80+ NCUK University Partners worldwide\" (*subject to NCUK's conditions).",
+      "new": "NCUK states that students can \"progress to one of 100+ universities – including 11 in the QS World Top 100\"."
+    },
+    {
+      "old": "NCUK states that International Foundation Year students have \"Guaranteed* entry to one of 80+ NCUK University Partners worldwide\", and that International Year One students receive guaranteed entry to Year 2 at NCUK University Partners. The asterisk matters: entry depends",
+      "new": "NCUK states that students can \"progress to one of 100+ universities – including 11 in the QS World Top 100\", and that International Year One students receive guaranteed entry to Year 2 at NCUK University Partners. Entry depends"
     }
   ],
   "set": [
@@ -432,6 +452,159 @@
       "field": "pathwayTypes",
       "old": "NCUK IFY, Assumption University 1+3 Bachelor's + Master's (SIMBA)",
       "new": "NCUK International Foundation Year, Assumption University 1+3 Bachelor's + Master's (SIMBA)"
+    },
+    {
+      "model": "programme",
+      "where": {
+        "slug": "ncuk-international-foundation-year"
+      },
+      "field": "costRowsJson",
+      "old": "[]",
+      "new": "[\"Year 1 | St Hugh's · Vientiane | $14k | Not included | $14k\"]"
+    },
+    {
+      "model": "programme",
+      "where": {
+        "slug": "ncuk-international-foundation-year"
+      },
+      "field": "costNote",
+      "old": null,
+      "new": "The years at your chosen university abroad are priced by that university. SHV's brochure compares one year abroad at $54k–$60k for tuition and living in the UK, Australia, Singapore and New Zealand."
+    },
+    {
+      "model": "programme",
+      "where": {
+        "slug": "bachelor-international-hospitality-management"
+      },
+      "field": "costRowsJson",
+      "old": "[]",
+      "new": "[\"Year 1 | St Hugh's · Vientiane | $5.5k | Not included | $5.5k\", \"Year 2 | St Hugh's · Vientiane | $9k | Not included | $9k\", \"Year 3 | BUV · Hanoi | $9k | $8k | $17k\", \"Year 4 | BUV · Hanoi | $9k | $8k | $17k\"]"
+    },
+    {
+      "model": "programme",
+      "where": {
+        "slug": "bachelor-international-hospitality-management"
+      },
+      "field": "costNote",
+      "old": null,
+      "new": "Brochure estimate for four years: $48.6k, or $40.9k with a 25% BUV scholarship. BUV advertises 100%, 50% and 25% scholarships for the 2026 intake. BUV fees are for illustration only."
+    },
+    {
+      "model": "programme",
+      "where": {
+        "slug": "bachelor-master-pathway-assumption-university"
+      },
+      "field": "costRowsJson",
+      "old": "[]",
+      "new": "[\"Year 1 | St Hugh's · Vientiane | $9k | Not included | $9k\", \"Year 2 | Assumption University · Bangkok | $9k | $9k | $18k\", \"Year 3 | Assumption University · Bangkok | $9k | $9k | $18k\", \"Year 4 | Assumption University · Bangkok | — | $9k | $9k\"]"
+    },
+    {
+      "model": "programme",
+      "where": {
+        "slug": "bachelor-master-pathway-assumption-university"
+      },
+      "field": "costNote",
+      "old": null,
+      "new": "Brochure estimate for four years: $54k. The $27,000 tuition is paid within the three Assumption University years."
+    },
+    {
+      "model": "programme",
+      "where": {
+        "slug": "bachelor-international-business-esdes"
+      },
+      "field": "costRowsJson",
+      "old": "[]",
+      "new": "[\"Year 1 | IFY at St Hugh's · Vientiane | $14k | Not included | $14k\", \"Year 2 | ESDES · Lyon | $10.5k | $12k | $23k\", \"Year 3 | ESDES · Lyon | $10.5k | $12k | $23k\", \"Year 4 | ESDES · Lyon | $10.5k | $12k | $23k\"]"
+    },
+    {
+      "model": "programme",
+      "where": {
+        "slug": "bachelor-international-business-esdes"
+      },
+      "field": "costNote",
+      "old": null,
+      "new": "Brochure estimate for four years: $83k. Merit scholarships of up to 30% and a 10% early-bird discount apply to the first ESDES year."
+    },
+    {
+      "model": "programme",
+      "where": {
+        "slug": "intensive-english-programme"
+      },
+      "field": "costRowsJson",
+      "old": "[]",
+      "new": "[\"Each 8-week level | St Hugh's · Vientiane | $995 | Not included | $995\"]"
+    },
+    {
+      "model": "programme",
+      "where": {
+        "slug": "intensive-english-programme"
+      },
+      "field": "costNote",
+      "old": null,
+      "new": "All-inclusive per level: 120 classroom hours, Cambridge English materials and digital pack, assessments and guided self-study."
+    },
+    {
+      "model": "programme",
+      "where": {
+        "slug": "ncuk-international-foundation-year"
+      },
+      "field": "teachingLanguage",
+      "old": null,
+      "new": "English"
+    },
+    {
+      "model": "programme",
+      "where": {
+        "slug": "ncuk-international-year-one-business-management"
+      },
+      "field": "teachingLanguage",
+      "old": null,
+      "new": "English"
+    },
+    {
+      "model": "programme",
+      "where": {
+        "slug": "bachelor-international-hospitality-management"
+      },
+      "field": "teachingLanguage",
+      "old": null,
+      "new": "English"
+    },
+    {
+      "model": "programme",
+      "where": {
+        "slug": "bachelor-master-pathway-assumption-university"
+      },
+      "field": "teachingLanguage",
+      "old": null,
+      "new": "English"
+    },
+    {
+      "model": "programme",
+      "where": {
+        "slug": "bachelor-international-business-esdes"
+      },
+      "field": "teachingLanguage",
+      "old": null,
+      "new": "English"
+    },
+    {
+      "model": "programme",
+      "where": {
+        "slug": "intensive-english-programme"
+      },
+      "field": "teachingLanguage",
+      "old": null,
+      "new": "English, from beginner level"
+    },
+    {
+      "model": "programme",
+      "where": {
+        "slug": "bba-entrepreneurship-innovation-gen-ai"
+      },
+      "field": "teachingLanguage",
+      "old": null,
+      "new": "Lao, with English from A1 to B2"
     }
   ]
 }

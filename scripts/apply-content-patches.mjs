@@ -7,7 +7,8 @@
  *   • "replace": swap a phrase wherever it still appears, verbatim, in a content text field (JSON fields are walked so
  *     escaping stays valid). If an editor has already reworded that text in the CMS, the phrase is gone and nothing
  *     changes — CMS edits always win.
- *   • "set": change a short label only where the field still equals the old value exactly.
+ *   • "set": change a short label only where the field still equals the old value exactly (optionally only on the
+ *     record matching "where", e.g. { "slug": "…" }).
  * The applied version is recorded in SiteSetting "system.contentPatchVersion", so later starts skip it.
  * Usage: node scripts/apply-content-patches.mjs [--dry-run]
  */
@@ -66,9 +67,13 @@ export async function applyContentPatches(prisma, { dryRun = false, log = consol
     for (const row of rows) {
       const data = {};
       for (const [field, value] of Object.entries(row)) {
-        if (typeof value !== "string" || SKIP.test(field) || (model === "siteSetting" && row.key === VERSION_KEY)) continue;
-        let next = patchField(value, patch.replace);
-        for (const s of patch.set) if (s.model === model && s.field === field && next === s.old) next = s.new;
+        if ((typeof value !== "string" && value !== null) || SKIP.test(field) || (model === "siteSetting" && row.key === VERSION_KEY)) continue;
+        let next = value === null ? null : patchField(value, patch.replace);
+        for (const s of patch.set) {
+          if (s.model !== model || s.field !== field || next !== s.old) continue;
+          if (s.where && Object.entries(s.where).some(([k, v]) => row[k] !== v)) continue; // rule scoped to one record
+          next = s.new;
+        }
         if (next !== value) data[field] = next;
       }
       if (Object.keys(data).length) {

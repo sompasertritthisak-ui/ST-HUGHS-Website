@@ -15,11 +15,16 @@ export type EnquiryFormDefaults = {
   audience?: string;
   /** "visit" prefills a campus-visit enquiry (type=VISIT). */
   type?: string;
-  /** "alumni" opens the form as an invitation for graduates to share their story. */
+  /** "alumni", "short-courses" or "scholarships" opens the form with a context line and a starting message. */
   topic?: string;
 };
 
-const ALUMNI_MESSAGE = "I studied at St Hugh's College Vientiane and would like to share my story.";
+/** ?topic= on /enquire: a context line above the form and a starting message the visitor can edit. */
+const TOPICS: Record<string, { label: string; message: string }> = {
+  alumni: { label: "Share your alumni story", message: "I studied at St Hugh's College Vientiane and would like to share my story." },
+  "short-courses": { label: "Short courses", message: "I'm interested in a short course (bartending, barista skills, etiquette or Speak like a TED talk). Please send me the next dates and fees." },
+  scholarships: { label: "Scholarships", message: "I'd like to know which scholarships or discounts I could apply for." },
+};
 
 export type EnquiryFormProps = {
   programmes: ProgrammeOption[];
@@ -54,7 +59,7 @@ export function EnquiryForm({ programmes, destinations, defaults, whatsappHref, 
       currentQualification: "",
       programmeSlug: programmes.some((p) => p.slug === defaults?.programmeSlug) ? (defaults?.programmeSlug as string) : "",
       destinationSlug: destinations.some((d) => d.slug === defaults?.destinationSlug) ? (defaults?.destinationSlug as string) : "",
-      message: defaults?.topic === "alumni" ? ALUMNI_MESSAGE : "",
+      message: (defaults?.topic && TOPICS[defaults.topic]?.message) || "",
       consentMarketing: false,
       website: "",
       type: normaliseType(defaults?.type),
@@ -74,7 +79,7 @@ export function EnquiryForm({ programmes, destinations, defaults, whatsappHref, 
       <Honeypot form={form} />
       <input type="hidden" name="type" value={String(form.values.type ?? "ENQUIRY")} />
       {isVisit ? <p className="eyebrow eyebrow-rule">{t("forms.context.visit")}</p> : null}
-      {!isVisit && defaults?.topic === "alumni" ? <p className="eyebrow eyebrow-rule">Share your alumni story</p> : null}
+      {!isVisit && defaults?.topic && TOPICS[defaults.topic] ? <p className="eyebrow eyebrow-rule">{TOPICS[defaults.topic].label}</p> : null}
       <ErrorSummary form={form} labels={LEAD_FIELD_LABELS} />
       <FormError message={form.formError} />
       <LeadFields form={form} programmes={programmes} destinations={destinations} messageHint={t("forms.message.enquiry.hint")} />
