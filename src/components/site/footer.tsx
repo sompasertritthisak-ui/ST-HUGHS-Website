@@ -119,11 +119,6 @@ export async function SiteFooter() {
                 </Link>
               </li>
             ))}
-            <li>
-              <Link href="/admin/login" className="hover:text-fg">
-                Staff sign in
-              </Link>
-            </li>
           </ul>
         </div>
       </div>
