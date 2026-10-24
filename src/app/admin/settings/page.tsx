@@ -12,6 +12,8 @@ import { AccessDenied } from "@/components/admin-ops/access-denied";
 import { PageHeader } from "@/components/admin-ops/page-header";
 import { Panel } from "@/components/admin-ops/panel";
 import { ContactSettingsForm, InstitutionSettingsForm, MessagingSettingsForm } from "@/components/admin-ops/settings-forms";
+import { SheetsSyncForm } from "@/components/admin-ops/sheets-sync";
+import { sheetsConfigured } from "@/lib/sheets";
 
 export const metadata: Metadata = { title: "Settings · SHV CMS", description: "Site-wide contact, messaging and institution settings." };
 export const dynamic = "force-dynamic";
@@ -51,7 +53,9 @@ export default async function SettingsPage({ searchParams }: { searchParams: Pro
 async function TabContent({ tab, canEdit }: { tab: SettingsTab; canEdit: boolean }) {
   if (tab === "integrations") {
     const rows = integrationStatus();
+    const user = await currentUser();
     return (
+      <>
       <Panel title="Integrations" description="Set through environment variables on the server. Values are never shown here.">
         <ul className="divide-y divide-line">
           {rows.map((r) => (
@@ -78,6 +82,10 @@ async function TabContent({ tab, canEdit }: { tab: SettingsTab; canEdit: boolean
           CRM field mapping and webhook shape are documented in <code className="font-mono">docs/CRM_INTEGRATION.md</code>.
         </p>
       </Panel>
+      <Panel title="Google Sheets backup" description="A copy of every enquiry in the college's Google Sheet.">
+        <SheetsSyncForm configured={sheetsConfigured()} canExport={user ? can(user.role, "enquiries.export") : false} />
+      </Panel>
+      </>
     );
   }
   if (tab === "messaging") {

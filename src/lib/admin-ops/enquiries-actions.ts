@@ -9,12 +9,14 @@ import { guard, requestIp } from "./guard";
 import { ASSIGNABLE_ROLES } from "./enquiries";
 import { dateOrNull, str, zodErrors } from "./form";
 import { fail, succeed, type ActionState } from "./types";
+import { queueSheetSync } from "@/lib/sheets";
 
 const Id = z.string().min(1).max(64);
 
 function revalidate(id: string) {
   revalidatePath("/admin/enquiries");
   revalidatePath(`/admin/enquiries/${id}`);
+  queueSheetSync([id]); // keep the Google Sheet backup in step with status, assignee and follow-up changes
 }
 
 export async function updateEnquiryStatus(_prev: ActionState, formData: FormData): Promise<ActionState> {

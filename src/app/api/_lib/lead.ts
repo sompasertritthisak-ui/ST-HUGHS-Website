@@ -6,6 +6,7 @@ import { rateLimit, clientIp } from "@/lib/rate-limit";
 import { trackEvent } from "@/lib/analytics";
 import { recordAudit } from "@/lib/audit";
 import { notifyNewEnquiry, forwardToCrm, type EnquiryNotification } from "@/lib/notify";
+import { syncEnquiriesToSheet } from "@/lib/sheets";
 import { ConsultationSchema, EnquirySchema, isHoneypotTripped, toFieldErrors, type ConsultationInput, type EnquiryInput } from "@/lib/schemas/enquiry";
 import { rateLimited, readBody, validationError } from "./respond";
 
@@ -175,7 +176,7 @@ export async function handleLeadSubmission(req: Request, kind: Kind) {
     consultation,
     createdAt: enquiry.createdAt.toISOString(),
   };
-  runAfterResponse(() => Promise.allSettled([notifyNewEnquiry(notification), forwardToCrm(notification)]));
+  runAfterResponse(() => Promise.allSettled([notifyNewEnquiry(notification), forwardToCrm(notification), syncEnquiriesToSheet([enquiry.id])]));
 
   return NextResponse.json({ ok: true, id: enquiry.id }, { status: 201, headers: { "Cache-Control": "no-store" } });
 }
