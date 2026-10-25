@@ -39,7 +39,8 @@ beforeEach(async () => {
   vi.mocked(recordAudit).mockClear();
 });
 
-describe("changeOwnPassword", () => {
+// Hashing uses the production bcrypt cost (12) on purpose; under a busy parallel test run that exceeds 5 s.
+describe("changeOwnPassword", { timeout: 30_000 }, () => {
   it("changes the password when the current one is right and the new one is valid", async () => {
     const r = await changeOwnPassword(prev, form({ currentPassword: "old password 123", newPassword: "a brand new sentence", confirmPassword: "a brand new sentence" }));
     expect(r.ok).toBe(true);
