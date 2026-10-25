@@ -37,6 +37,10 @@ describe("sheet rows", () => {
     expect(row.programme).toBe("BBA");
     expect(row.assignedTo).toBe("Mr.Dennis");
     expect(row.consentMarketing).toBe("Yes");
+    expect(row.type).toBe("Consultation");
+    expect(row.status).toBe("New");
+    expect(row.audience).toBe("Student");
+    expect(row.consultationMode).toBe("Online video call");
   });
   it("has unique headers and the Enquiry ID first", () => {
     expect(new Set(SHEET_COLUMNS.map((c) => c.header)).size).toBe(SHEET_COLUMNS.length);
@@ -76,26 +80,33 @@ describe("syncEnquiriesToSheet", () => {
 
 /** Runs docs/google-sheets-backup.gs against a simulated spreadsheet, so the upsert logic is proven before setup. */
 describe("Apps Script (docs/google-sheets-backup.gs)", () => {
+  /** Chainable stand-in for Sheets calls the tests do not inspect (styling: fonts, colours, banding, widths…). */
+  const chain = (): unknown =>
+    new Proxy(function () {}, { get: (_t, k) => (k === "then" ? undefined : chain()), apply: () => chain() });
+  const styled: string[] = [];
   function fakeSheets() {
     const grid: unknown[][] = [];
     const cell = (r: number, c: number) => (grid[r - 1]?.[c - 1] ?? "");
-    const sheet = {
+    const withChain = <T extends object>(o: T) => new Proxy(o, { get: (t, k) => (k in t ? (t as Record<string | symbol, unknown>)[k] : (styled.push(String(k)), chain())) });
+    const sheet = withChain({
       getLastRow: () => grid.length,
       getLastColumn: () => Math.max(0, ...grid.map((r) => r.length)),
-      getRange: (r: number, c: number, nr: number, nc: number) => ({
-        getValues: () => Array.from({ length: nr }, (_, i) => Array.from({ length: nc }, (_, j) => cell(r + i, c + j))),
-        setValues: (vals: unknown[][]) => { vals.forEach((row, i) => { grid[r - 1 + i] ??= []; row.forEach((v, j) => (grid[r - 1 + i][c - 1 + j] = v)); }); return { setFontWeight: () => undefined }; },
-      }),
+      getMaxRows: () => 1000,
+      getBandings: () => [],
+      getRange: (r: number, c: number, nr: number, nc: number) =>
+        withChain({
+          getValues: () => Array.from({ length: nr }, (_, i) => Array.from({ length: nc }, (_, j) => cell(r + i, c + j))),
+          setValues: (vals: unknown[][]) => { vals.forEach((row, i) => { grid[r - 1 + i] ??= []; row.forEach((v, j) => (grid[r - 1 + i][c - 1 + j] = v)); }); return chain(); },
+        }),
       appendRow: (row: unknown[]) => grid.push([...row]),
-      setFrozenRows: () => undefined,
-    };
+    });
     return { grid, sheet };
   }
   function load(secret: string) {
     const { grid, sheet } = fakeSheets();
     const src = readFileSync("docs/google-sheets-backup.gs", "utf8").replace('"PASTE-A-LONG-RANDOM-PHRASE-HERE"', JSON.stringify(secret));
     const ctx = vm.createContext({
-      SpreadsheetApp: { getActiveSpreadsheet: () => ({ getSheetByName: () => null, insertSheet: () => sheet }) },
+      SpreadsheetApp: { getActiveSpreadsheet: () => ({ getSheetByName: () => null, insertSheet: () => sheet }), newConditionalFormatRule: () => chain(), BandingTheme: { BLUE: "BLUE" }, BorderStyle: { SOLID_THICK: "SOLID_THICK" }, getUi: () => chain() },
       LockService: { getScriptLock: () => ({ waitLock: () => undefined, releaseLock: () => undefined }) },
       ContentService: { createTextOutput: (t: string) => ({ setMimeType: () => JSON.parse(t) }), MimeType: { JSON: "json" } },
     });
@@ -116,16 +127,17 @@ describe("Apps Script (docs/google-sheets-backup.gs)", () => {
     expect(post({ secret: "right", columns, rows: [row(), row({ id: "enq_2", name: "Bee" })] })).toMatchObject({ ok: true, added: 2, updated: 0 });
     expect(grid[0][0]).toBe("Enquiry ID");
     expect(grid).toHaveLength(3);
-    expect(post({ secret: "right", columns, rows: [row({ status: "CONTACTED" })] })).toMatchObject({ ok: true, added: 0, updated: 1 });
+    expect(styled).toEqual(expect.arrayContaining(["setTabColor", "setFrozenRows", "applyRowBanding", "setConditionalFormatRules", "setColumnWidth"]));
+    expect(post({ secret: "right", columns, rows: [row({ status: "Contacted" })] })).toMatchObject({ ok: true, added: 0, updated: 1 });
     expect(grid).toHaveLength(3); // no duplicate
-    expect(grid[1][grid[0].indexOf("Status")]).toBe("CONTACTED");
+    expect(grid[1][grid[0].indexOf("Status")]).toBe("Contacted");
   });
   it("keeps a column staff added by hand", () => {
     const { grid, post } = load("right");
     post({ secret: "right", columns, rows: [row()] });
     grid[0].push("Staff notes"); grid[1].push("Called on Monday");
-    post({ secret: "right", columns, rows: [row({ status: "QUALIFIED" })] });
+    post({ secret: "right", columns, rows: [row({ status: "Qualified" })] });
     expect(grid[1][grid[0].indexOf("Staff notes")]).toBe("Called on Monday");
-    expect(grid[1][grid[0].indexOf("Status")]).toBe("QUALIFIED");
+    expect(grid[1][grid[0].indexOf("Status")]).toBe("Qualified");
   });
 });

@@ -1,6 +1,10 @@
 import "server-only";
 import { prisma } from "@/lib/prisma";
 import { CAMPUS_TIME_ZONE } from "@/lib/utils";
+import { AUDIENCE_LABELS, CONSULTATION_MODE_LABELS, ENQUIRY_STATUS_LABELS, type Audience, type ConsultationMode, type EnquiryStatus } from "@/lib/enums";
+
+/** The sheet shows the same readable labels as the CMS (the Apps Script colours rows by these labels). */
+export const ENQUIRY_TYPE_LABELS: Record<string, string> = { ENQUIRY: "Enquiry", CONSULTATION: "Consultation", BROCHURE: "Brochure request", VISIT: "Campus tour" };
 
 /**
  * Google Sheets backup of enquiries.
@@ -60,20 +64,20 @@ export function toSheetRow(e: EnquiryForSheet): SheetRow {
   return {
     id: sheetSafe(e.id),
     receivedAt: stamp(e.createdAt),
-    type: sheetSafe(e.type),
-    status: sheetSafe(e.status),
+    type: sheetSafe(ENQUIRY_TYPE_LABELS[e.type] ?? e.type),
+    status: sheetSafe(ENQUIRY_STATUS_LABELS[e.status as EnquiryStatus] ?? e.status),
     name: sheetSafe(e.name),
     email: sheetSafe(e.email),
     phone: sheetSafe(e.phone),
     country: sheetSafe(e.country),
-    audience: sheetSafe(e.audience),
+    audience: sheetSafe(AUDIENCE_LABELS[e.audience as Audience] ?? e.audience),
     qualification: sheetSafe(e.currentQualification),
     programme: sheetSafe(e.programme?.shortTitle ?? e.programme?.title),
     destination: sheetSafe(e.destination?.country),
     message: sheetSafe(e.message),
     consultationDate: dateOnly(e.consultation?.preferredDate),
     consultationTime: sheetSafe(e.consultation?.preferredTime),
-    consultationMode: sheetSafe(e.consultation?.mode),
+    consultationMode: sheetSafe(e.consultation?.mode ? (CONSULTATION_MODE_LABELS[e.consultation.mode as ConsultationMode] ?? e.consultation.mode) : null),
     assignedTo: sheetSafe(e.assignedTo?.name),
     followUp: stamp(e.followUpAt),
     source: sheetSafe(e.source),

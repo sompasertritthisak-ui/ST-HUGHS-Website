@@ -8,6 +8,17 @@ Every enquiry and consultation booking is copied to a Google Sheet, in addition 
 
 Rows are matched by **Enquiry ID**, so nothing is ever duplicated. Columns you add to the sheet yourself (for example your own notes) are never overwritten. Text that looks like a spreadsheet formula is stored as plain text, so a form entry can never run a formula in the sheet. If Google is unreachable the enquiry is still saved in the CMS; run "Sync all enquiries now" later to catch up.
 
+## How the sheet looks
+
+![The Enquiries tab in St Hugh's colours](./google-sheets-preview.png)
+
+The script styles the **Enquiries** tab in St Hugh's colours automatically the first time it writes: a deep-blue header
+with a red underline, alternating white and pale-blue rows, a red tab, sensible column widths and wrapped messages.
+Statuses and types use the same readable labels as the CMS and are colour-coded (red *New* needs attention, blue *in
+progress*, green *qualified / converted*, grey *closed*); the colours follow each row when you sort or filter.
+A **St Hugh's → Apply styling** menu in the spreadsheet re-applies the look at any time. Status is changed in the CMS,
+not in the sheet: the sheet is a backup and the website overwrites that column on the next sync.
+
 The sheet holds personal data (names, emails, phones). Keep it shared only with the admissions team.
 
 ## One-time setup (about 10 minutes)
