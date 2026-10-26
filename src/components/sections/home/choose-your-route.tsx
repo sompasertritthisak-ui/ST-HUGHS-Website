@@ -22,7 +22,8 @@ const ROUTES = [
 function Mark({ logo, wordmark, title }: { logo?: string | null; wordmark?: { main: string; sub: string }; title: string }) {
   if (logo) {
     // eslint-disable-next-line @next/next/no-img-element -- partner logos of mixed shapes
-    return <img src={logo} alt={`${title} logo`} className="h-14 w-auto max-w-[9rem] object-contain sm:h-20" />;
+    // Fit inside the slot: wide logos (NCUK, BUV) shrink to the slot's width instead of spilling under the title.
+    return <img src={logo} alt={`${title} logo`} className="block h-auto max-h-14 w-auto max-w-full object-contain sm:max-h-20 sm:max-w-[9rem]" />;
   }
   return (
     <span className="flex flex-col items-center leading-none" aria-label={title}>
@@ -56,7 +57,7 @@ export function ChooseYourRoute({ logos }: { logos: RouteLogo[] }) {
               <Reveal key={r.n} as="li" delay={(i % 3) * 60} className="bg-bg">
                 <Link href={r.href} className="group relative flex h-full items-center gap-4 px-5 py-4 transition-colors sm:items-stretch hover:bg-bg-hover sm:flex-col sm:gap-0 sm:p-7">
                   <span className="absolute right-5 top-4 font-display text-[1rem] text-fg-subtle tabular sm:right-7 sm:top-6">{r.n}</span>
-                  <span className="flex w-20 shrink-0 items-center justify-center sm:mb-6 sm:mt-6 sm:h-24 sm:w-full">
+                  <span className="flex w-24 min-w-0 shrink-0 items-center justify-center overflow-hidden sm:mb-6 sm:mt-6 sm:h-24 sm:w-full sm:overflow-visible">
                     <Mark logo={logo} wordmark={"wordmark" in r ? r.wordmark : undefined} title={r.title} />
                   </span>
                   <span className="min-w-0 flex-1">
