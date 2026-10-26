@@ -21,8 +21,8 @@ const ROUTES = [
 
 function Mark({ logo, wordmark, title }: { logo?: string | null; wordmark?: { main: string; sub: string }; title: string }) {
   if (logo) {
-    // eslint-disable-next-line @next/next/no-img-element -- partner logos of mixed shapes
     // Fit inside the slot: wide logos (NCUK, BUV) shrink to the slot's width instead of spilling under the title.
+    // eslint-disable-next-line @next/next/no-img-element -- partner logos of mixed shapes
     return <img src={logo} alt={`${title} logo`} className="block h-auto max-h-14 w-auto max-w-full object-contain sm:max-h-20 sm:max-w-[9rem]" />;
   }
   return (
