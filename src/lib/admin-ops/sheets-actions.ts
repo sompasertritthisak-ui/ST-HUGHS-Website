@@ -7,7 +7,10 @@ import { fail, succeed, type ActionState } from "./types";
 
 const REASONS: Record<string, string> = {
   "not-configured": "The Google Sheets backup is not set up yet (SHEETS_WEBHOOK_URL and SHEETS_WEBHOOK_SECRET).",
-  unauthorised: "The sheet rejected the secret: SHEETS_WEBHOOK_SECRET must match SECRET in the Apps Script.",
+  unauthorised:
+    "The sheet rejected the secret: SHEETS_WEBHOOK_SECRET must match SECRET in the Apps Script. If you changed SECRET after deploying, publish it: Deploy → Manage deployments → ✎ → Version: New version → Deploy.",
+  "secret-not-set":
+    "The Apps Script still has the placeholder SECRET. Set it, Save, then Deploy → Manage deployments → ✎ → Version: New version → Deploy.",
   TimeoutError: "Google did not answer in time. Try again in a minute.",
 };
 

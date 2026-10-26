@@ -108,7 +108,7 @@ export const sheetsConfigured = () => Boolean(process.env.SHEETS_WEBHOOK_URL && 
 
 async function post(rows: SheetRow[]): Promise<{ ok: boolean; reason?: string }> {
   const url = process.env.SHEETS_WEBHOOK_URL;
-  const secret = process.env.SHEETS_WEBHOOK_SECRET;
+  const secret = process.env.SHEETS_WEBHOOK_SECRET?.trim();
   if (!url || !secret) return { ok: false, reason: "not-configured" };
   try {
     const res = await fetch(url, {

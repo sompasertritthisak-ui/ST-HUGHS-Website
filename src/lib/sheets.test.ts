@@ -120,7 +120,10 @@ describe("Apps Script (docs/google-sheets-backup.gs)", () => {
   it("rejects a wrong secret and the placeholder", () => {
     expect(load("right").post({ secret: "wrong", columns, rows: [row()] })).toMatchObject({ ok: false, error: "unauthorised" });
     const { post } = load("PASTE-A-LONG-RANDOM-PHRASE-HERE");
-    expect(post({ secret: "PASTE-A-LONG-RANDOM-PHRASE-HERE", columns, rows: [row()] })).toMatchObject({ ok: false });
+    expect(post({ secret: "PASTE-A-LONG-RANDOM-PHRASE-HERE", columns, rows: [row()] })).toMatchObject({ ok: false, error: "secret-not-set" });
+  });
+  it("ignores spaces pasted around either phrase", () => {
+    expect(load(" right ").post({ secret: "right\n", columns, rows: [row()] })).toMatchObject({ ok: true, added: 1 });
   });
   it("writes headers, adds new enquiries and updates existing ones by Enquiry ID", () => {
     const { grid, post } = load("right");

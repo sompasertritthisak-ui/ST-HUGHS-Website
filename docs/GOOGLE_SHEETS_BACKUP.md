@@ -44,7 +44,8 @@ The sheet holds personal data (names, emails, phones). Keep it shared only with 
 | What the CMS says | Fix |
 | --- | --- |
 | "not set up yet" | One of the two Railway variables is missing. |
-| "rejected the secret" | `SHEETS_WEBHOOK_SECRET` and `SECRET` in the script are not identical. |
+| "rejected the secret" | `SHEETS_WEBHOOK_SECRET` and `SECRET` in the script are not identical — or `SECRET` was changed after deploying and the new version was never published (the web app runs the last *deployed* version, not the saved code): Deploy → Manage deployments → ✎ → Version: New version → Deploy. |
+| "still has the placeholder SECRET" | Set `SECRET`, Save, and publish a new version as above. |
 | "could not be updated (http-…)" or no rows appear | The deployment's access is not "Anyone", or the URL is not the `/exec` one. Redeploy: Deploy → Manage deployments → edit → New version. |
 
 **Changing the script later:** after editing it, use *Deploy → Manage deployments → ✎ → Version: New version → Deploy*, so the same URL keeps working.

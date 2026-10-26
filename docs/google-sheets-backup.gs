@@ -59,7 +59,10 @@ function doPost(e) {
   } catch (err) {
     return reply({ ok: false, error: "bad-json" });
   }
-  if (!SECRET || SECRET.indexOf("PASTE-") === 0 || body.secret !== SECRET) return reply({ ok: false, error: "unauthorised" });
+  // Spaces around either phrase (easy to paste by accident) are ignored.
+  const secret = String(SECRET || "").trim();
+  if (!secret || secret.indexOf("PASTE-") === 0) return reply({ ok: false, error: "secret-not-set" });
+  if (String(body.secret || "").trim() !== secret) return reply({ ok: false, error: "unauthorised" });
 
   const columns = body.columns || [];
   const rows = body.rows || [];
