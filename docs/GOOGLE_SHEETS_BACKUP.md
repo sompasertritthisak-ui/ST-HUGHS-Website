@@ -21,31 +21,43 @@ not in the sheet: the sheet is a backup and the website overwrites that column o
 
 The sheet holds personal data (names, emails, phones). Keep it shared only with the admissions team.
 
+## How the secret is protected
+
+The secret phrase lives only in Railway (`SHEETS_WEBHOOK_SECRET`). The Apps Script stores its **SHA-256 fingerprint**
+(`SECRET_SHA256`), never the phrase: anyone who can open the script or its version history sees only the fingerprint,
+and sending the fingerprint is rejected — the script hashes what it receives and compares. The phrase travels only
+inside the HTTPS request from the website to Google. The fingerprint is shown in **CMS → Settings → Integrations →
+Google Sheets backup** (administrators only), ready to copy.
+
 ## One-time setup (about 10 minutes)
 
-1. Open the backup spreadsheet in Google Sheets (signed in as its owner).
-2. **Extensions → Apps Script**. Delete everything in `Code.gs` and paste the contents of [`docs/google-sheets-backup.gs`](./google-sheets-backup.gs).
-3. On the `SECRET` line, replace `PASTE-A-LONG-RANDOM-PHRASE-HERE` with a long random phrase only you know (for example four or five unrelated words and some numbers). Click **Save**.
-4. **Deploy → New deployment**. Click the gear next to "Select type" and choose **Web app**.
+1. In **Railway → the ST-HUGHS-Website service → Variables**, set `SHEETS_WEBHOOK_SECRET` to a long random phrase only
+   you know (four or five unrelated words and some numbers) and deploy. You never need to type it anywhere else.
+2. Open the backup spreadsheet in Google Sheets (signed in as its owner).
+3. **Extensions → Apps Script**. Delete everything in `Code.gs` and paste the contents of [`docs/google-sheets-backup.gs`](./google-sheets-backup.gs).
+4. In the CMS, open **Settings → Integrations** and click **Copy** next to *Secret fingerprint*. In the script, replace
+   `PASTE-THE-FINGERPRINT-HERE` on the `SECRET_SHA256` line with it (keep the quote marks). Click **Save**.
+5. **Deploy → New deployment**. Click the gear next to "Select type" and choose **Web app**.
    - Description: `Enquiry backup`
    - Execute as: **Me**
    - Who has access: **Anyone** (the website is not signed in to Google; the SECRET is what protects it)
-5. Click **Deploy**, then **Authorize access** and allow it (Google warns that the app is unverified because it is your own script — choose *Advanced → Go to … (unsafe)* to continue; it only touches this spreadsheet).
-6. Copy the **Web app URL** (it ends in `/exec`). Opening it in a browser should show `{"ok":true,"service":"shv-enquiry-backup"}`.
-7. In **Railway → the ST-HUGHS-Website service → Variables**, add:
-   - `SHEETS_WEBHOOK_URL` = the web app URL
-   - `SHEETS_WEBHOOK_SECRET` = exactly the same phrase as `SECRET` in the script
-
-   Railway redeploys automatically.
-8. In the CMS: **Settings → Integrations** shows both as *configured*. Click **Sync all enquiries now** to copy the existing enquiries. A new tab called **Enquiries** appears in the spreadsheet.
+6. Click **Deploy**, then **Authorize access** and allow it (Google warns that the app is unverified because it is your own script — choose *Advanced → Go to … (unsafe)* to continue; it only touches this spreadsheet).
+7. Copy the **Web app URL** (it ends in `/exec`). Opening it in a browser should show `{"ok":true,"service":"shv-enquiry-backup"}`.
+8. In Railway, set `SHEETS_WEBHOOK_URL` to the web app URL and deploy.
+9. In the CMS: **Settings → Integrations** shows both as *configured*. Click **Sync all enquiries now** to copy the existing enquiries. A new tab called **Enquiries** appears in the spreadsheet.
 
 ## If something goes wrong
 
 | What the CMS says | Fix |
 | --- | --- |
 | "not set up yet" | One of the two Railway variables is missing. |
-| "rejected the secret" | `SHEETS_WEBHOOK_SECRET` and `SECRET` in the script are not identical — or `SECRET` was changed after deploying and the new version was never published (the web app runs the last *deployed* version, not the saved code): Deploy → Manage deployments → ✎ → Version: New version → Deploy. |
-| "still has the placeholder SECRET" | Set `SECRET`, Save, and publish a new version as above. |
+| "rejected the secret" | `SECRET_SHA256` is not the fingerprint shown in the CMS — or it was changed after deploying and the new version was never published (the web app runs the last *deployed* version, not the saved code): Deploy → Manage deployments → ✎ → Version: New version → Deploy. An older copy of the script with a `SECRET` line must be replaced with the current file. |
+| "still has the placeholder fingerprint" | Paste the fingerprint into `SECRET_SHA256`, Save, and publish a new version as above. |
+| "must be the 64-character fingerprint" | The phrase itself was pasted into `SECRET_SHA256`; paste the fingerprint from the CMS instead. |
+
+**Changing the secret:** set a new `SHEETS_WEBHOOK_SECRET` in Railway and deploy, copy the new fingerprint from the CMS
+into `SECRET_SHA256`, and publish a new version of the script. Until both are done the sheet rejects new rows (they stay
+safe in the CMS); click **Sync all enquiries now** afterwards to catch up.
 | "could not be updated (http-…)" or no rows appear | The deployment's access is not "Anyone", or the URL is not the `/exec` one. Redeploy: Deploy → Manage deployments → edit → New version. |
 
 **Changing the script later:** after editing it, use *Deploy → Manage deployments → ✎ → Version: New version → Deploy*, so the same URL keeps working.

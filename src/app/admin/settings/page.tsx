@@ -13,7 +13,7 @@ import { PageHeader } from "@/components/admin-ops/page-header";
 import { Panel } from "@/components/admin-ops/panel";
 import { ContactSettingsForm, InstitutionSettingsForm, MessagingSettingsForm } from "@/components/admin-ops/settings-forms";
 import { SheetsSyncForm } from "@/components/admin-ops/sheets-sync";
-import { sheetsConfigured } from "@/lib/sheets";
+import { sheetsConfigured, sheetsSecretFingerprint } from "@/lib/sheets";
 
 export const metadata: Metadata = { title: "Settings · SHV CMS", description: "Site-wide contact, messaging and institution settings." };
 export const dynamic = "force-dynamic";
@@ -83,7 +83,11 @@ async function TabContent({ tab, canEdit }: { tab: SettingsTab; canEdit: boolean
         </p>
       </Panel>
       <Panel title="Google Sheets backup" description="A copy of every enquiry in the college's Google Sheet.">
-        <SheetsSyncForm configured={sheetsConfigured()} canExport={user ? can(user.role, "enquiries.export") : false} />
+        <SheetsSyncForm
+          configured={sheetsConfigured()}
+          canExport={user ? can(user.role, "enquiries.export") : false}
+          fingerprint={user && can(user.role, "settings.update") ? sheetsSecretFingerprint() : null}
+        />
       </Panel>
       </>
     );

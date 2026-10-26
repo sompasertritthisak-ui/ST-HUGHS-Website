@@ -1,4 +1,5 @@
 import "server-only";
+import { createHash } from "node:crypto";
 import { prisma } from "@/lib/prisma";
 import { CAMPUS_TIME_ZONE } from "@/lib/utils";
 import { AUDIENCE_LABELS, CONSULTATION_MODE_LABELS, ENQUIRY_STATUS_LABELS, type Audience, type ConsultationMode, type EnquiryStatus } from "@/lib/enums";
@@ -13,7 +14,7 @@ export const ENQUIRY_TYPE_LABELS: Record<string, string> = { ENQUIRY: "Enquiry",
  * sheet (docs/google-sheets-backup.gs). The site sends rows; the script writes them. Nothing here can fail an
  * enquiry: it never throws, times out after 10 s, and is a no-op until both env vars are set:
  *   SHEETS_WEBHOOK_URL     the Apps Script "Web app" URL (…/exec)
- *   SHEETS_WEBHOOK_SECRET  a long random phrase, typed identically into the Apps Script
+ *   SHEETS_WEBHOOK_SECRET  a long random phrase; the Apps Script stores only its SHA-256 fingerprint
  */
 
 export const SHEET_COLUMNS = [
@@ -102,6 +103,12 @@ function loadEnquiries(where: { id?: { in: string[] } } = {}, skip = 0, take = 2
     skip,
     take,
   });
+}
+
+/** What the Apps Script stores instead of the secret (SECRET_SHA256), shown in the CMS to copy. Null when unset. */
+export function sheetsSecretFingerprint(): string | null {
+  const secret = process.env.SHEETS_WEBHOOK_SECRET?.trim();
+  return secret ? createHash("sha256").update(secret, "utf8").digest("hex") : null;
 }
 
 export const sheetsConfigured = () => Boolean(process.env.SHEETS_WEBHOOK_URL && process.env.SHEETS_WEBHOOK_SECRET);

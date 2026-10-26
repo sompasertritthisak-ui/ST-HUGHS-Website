@@ -46,7 +46,7 @@ export const INTEGRATION_ENV_VARS = [
   { key: "EMAIL_API_KEY", label: "Transactional email", note: "Enquiry confirmations and staff notifications." },
   { key: "CRM_WEBHOOK_URL", label: "CRM webhook", note: "POST {event, enquiry} to HubSpot / Salesforce / Zoho — see docs/CRM_INTEGRATION.md." },
   { key: "SHEETS_WEBHOOK_URL", label: "Google Sheets backup — web app URL", note: "Apps Script web app that writes enquiries to the backup sheet — see docs/GOOGLE_SHEETS_BACKUP.md." },
-  { key: "SHEETS_WEBHOOK_SECRET", label: "Google Sheets backup — shared secret", note: "Must match SECRET in the Apps Script." },
+  { key: "SHEETS_WEBHOOK_SECRET", label: "Google Sheets backup — shared secret", note: "Kept only in Railway; the Apps Script stores its fingerprint (shown below)." },
   { key: "WHATSAPP_NUMBER", label: "WhatsApp business number", note: "Used for the WhatsApp contact button." },
   { key: "ANALYTICS_ID", label: "External analytics ID", note: "Third-party analytics property, if used alongside first-party events." },
   { key: "MAP_API_KEY", label: "Map API key", note: "Interactive campus map on the contact page." },

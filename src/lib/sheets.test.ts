@@ -1,5 +1,6 @@
 // @vitest-environment node
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import vm from "node:vm";
 
@@ -7,7 +8,7 @@ vi.mock("server-only", () => ({}));
 const rows = vi.hoisted(() => ({ list: [] as unknown[] }));
 vi.mock("@/lib/prisma", () => ({ prisma: { enquiry: { findMany: vi.fn(async () => rows.list) } } }));
 
-import { SHEET_COLUMNS, sheetSafe, syncEnquiriesToSheet, toSheetRow } from "./sheets";
+import { SHEET_COLUMNS, sheetSafe, sheetsSecretFingerprint, syncEnquiriesToSheet, toSheetRow } from "./sheets";
 
 const enquiry = (over: Record<string, unknown> = {}) => ({
   id: "enq_1", type: "CONSULTATION", status: "NEW", name: "Noy", email: "noy@example.com", phone: "+856 20 5555 0000", country: "Laos",
@@ -78,6 +79,16 @@ describe("syncEnquiriesToSheet", () => {
   });
 });
 
+describe("sheetsSecretFingerprint", () => {
+  afterEach(() => vi.unstubAllEnvs());
+  it("is the SHA-256 of the trimmed secret, and null when unset", () => {
+    vi.stubEnv("SHEETS_WEBHOOK_SECRET", " right\n");
+    expect(sheetsSecretFingerprint()).toBe(createHash("sha256").update("right").digest("hex"));
+    vi.stubEnv("SHEETS_WEBHOOK_SECRET", "");
+    expect(sheetsSecretFingerprint()).toBeNull();
+  });
+});
+
 /** Runs docs/google-sheets-backup.gs against a simulated spreadsheet, so the upsert logic is proven before setup. */
 describe("Apps Script (docs/google-sheets-backup.gs)", () => {
   /** Chainable stand-in for Sheets calls the tests do not inspect (styling: fonts, colours, banding, widths…). */
@@ -104,9 +115,17 @@ describe("Apps Script (docs/google-sheets-backup.gs)", () => {
   }
   function load(secret: string) {
     const { grid, sheet } = fakeSheets();
-    const src = readFileSync("docs/google-sheets-backup.gs", "utf8").replace('"PASTE-A-LONG-RANDOM-PHRASE-HERE"', JSON.stringify(secret));
+    // The script stores the fingerprint; "PASTE…" and non-hex values are passed through to test the setup errors.
+    const stored = /^PASTE-|^not-hex/.test(secret) ? secret : createHash("sha256").update(secret.trim(), "utf8").digest("hex");
+    const src = readFileSync("docs/google-sheets-backup.gs", "utf8").replace('"PASTE-THE-FINGERPRINT-HERE"', JSON.stringify(stored));
     const ctx = vm.createContext({
       SpreadsheetApp: { getActiveSpreadsheet: () => ({ getSheetByName: () => null, insertSheet: () => sheet }), newConditionalFormatRule: () => chain(), BandingTheme: { BLUE: "BLUE" }, BorderStyle: { SOLID_THICK: "SOLID_THICK" }, getUi: () => chain() },
+      Utilities: {
+        // Apps Script returns signed bytes
+        computeDigest: (_alg: string, text: string) => [...createHash("sha256").update(text, "utf8").digest()].map((b) => (b > 127 ? b - 256 : b)),
+        DigestAlgorithm: { SHA_256: "SHA_256" },
+        Charset: { UTF_8: "UTF_8" },
+      },
       LockService: { getScriptLock: () => ({ waitLock: () => undefined, releaseLock: () => undefined }) },
       ContentService: { createTextOutput: (t: string) => ({ setMimeType: () => JSON.parse(t) }), MimeType: { JSON: "json" } },
     });
@@ -119,8 +138,14 @@ describe("Apps Script (docs/google-sheets-backup.gs)", () => {
 
   it("rejects a wrong secret and the placeholder", () => {
     expect(load("right").post({ secret: "wrong", columns, rows: [row()] })).toMatchObject({ ok: false, error: "unauthorised" });
-    const { post } = load("PASTE-A-LONG-RANDOM-PHRASE-HERE");
-    expect(post({ secret: "PASTE-A-LONG-RANDOM-PHRASE-HERE", columns, rows: [row()] })).toMatchObject({ ok: false, error: "secret-not-set" });
+    const { post } = load("PASTE-THE-FINGERPRINT-HERE");
+    expect(post({ secret: "PASTE-THE-FINGERPRINT-HERE", columns, rows: [row()] })).toMatchObject({ ok: false, error: "secret-not-set" });
+    // the phrase pasted where the fingerprint belongs
+    expect(load("not-hex phrase").post({ secret: "not-hex phrase", columns, rows: [row()] })).toMatchObject({ ok: false, error: "secret-not-fingerprint" });
+  });
+  it("stores only the fingerprint: the fingerprint itself is not accepted as the secret", () => {
+    const fingerprint = createHash("sha256").update("right", "utf8").digest("hex");
+    expect(load("right").post({ secret: fingerprint, columns, rows: [row()] })).toMatchObject({ ok: false, error: "unauthorised" });
   });
   it("ignores spaces pasted around either phrase", () => {
     expect(load(" right ").post({ secret: "right\n", columns, rows: [row()] })).toMatchObject({ ok: true, added: 1 });

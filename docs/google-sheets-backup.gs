@@ -2,9 +2,9 @@
  * St Hugh's College Vientiane — enquiry backup to Google Sheets.
  *
  * Where: in the backup spreadsheet, Extensions → Apps Script. Replace everything in Code.gs with this file.
- * Then: set SECRET below, Deploy → New deployment → type "Web app", Execute as "Me", Who has access "Anyone",
- * Deploy, and authorise. Put the web app URL (ends in /exec) in Railway as SHEETS_WEBHOOK_URL and the same SECRET as
- * SHEETS_WEBHOOK_SECRET. Full steps: docs/GOOGLE_SHEETS_BACKUP.md.
+ * Then: paste the secret's fingerprint into SECRET_SHA256 below, Deploy → New deployment → type "Web app", Execute as
+ * "Me", Who has access "Anyone", Deploy, and authorise. Put the web app URL (ends in /exec) in Railway as
+ * SHEETS_WEBHOOK_URL. Full steps: docs/GOOGLE_SHEETS_BACKUP.md.
  * Updating this script later: Deploy → Manage deployments → ✎ → Version "New version" → Deploy (the URL stays the same).
  *
  * What it does: the website POSTs enquiries here; each one is written to the "Enquiries" tab, matched by Enquiry ID
@@ -13,7 +13,10 @@
  * re-applies it at any time.
  */
 
-const SECRET = "PASTE-A-LONG-RANDOM-PHRASE-HERE"; // the same phrase as SHEETS_WEBHOOK_SECRET in Railway
+// The SHA-256 fingerprint of SHEETS_WEBHOOK_SECRET, never the phrase itself: anyone who can open this script (or its
+// version history) sees only the fingerprint, which cannot be used to send enquiries. Copy it from the CMS:
+// Settings → Integrations → Google Sheets backup → "Secret fingerprint".
+const SECRET_SHA256 = "PASTE-THE-FINGERPRINT-HERE";
 const SHEET_NAME = "Enquiries";
 
 // St Hugh's palette (the website's brand tokens)
@@ -59,10 +62,11 @@ function doPost(e) {
   } catch (err) {
     return reply({ ok: false, error: "bad-json" });
   }
-  // Spaces around either phrase (easy to paste by accident) are ignored.
-  const secret = String(SECRET || "").trim();
-  if (!secret || secret.indexOf("PASTE-") === 0) return reply({ ok: false, error: "secret-not-set" });
-  if (String(body.secret || "").trim() !== secret) return reply({ ok: false, error: "unauthorised" });
+  // Spaces pasted around the fingerprint or the phrase are ignored.
+  const expected = String(SECRET_SHA256 || "").trim().toLowerCase();
+  if (!expected || expected.indexOf("paste-") === 0) return reply({ ok: false, error: "secret-not-set" });
+  if (!/^[0-9a-f]{64}$/.test(expected)) return reply({ ok: false, error: "secret-not-fingerprint" });
+  if (!sameText(sha256Hex(String(body.secret || "").trim()), expected)) return reply({ ok: false, error: "unauthorised" });
 
   const columns = body.columns || [];
   const rows = body.rows || [];
@@ -203,6 +207,21 @@ function applyStyling() {
 /** Opening the web app URL in a browser shows this — a quick way to check the deployment works. */
 function doGet() {
   return reply({ ok: true, service: "shv-enquiry-backup" });
+}
+
+/** Lower-case hex SHA-256 of a UTF-8 string. */
+function sha256Hex(text) {
+  return Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, text, Utilities.Charset.UTF_8)
+    .map(function (b) { return ("0" + (b & 0xff).toString(16)).slice(-2); })
+    .join("");
+}
+
+/** Compares two equal-length strings without stopping at the first difference. */
+function sameText(a, b) {
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
 }
 
 function reply(obj) {
