@@ -152,9 +152,14 @@ export function EnquiryFilterBar({
         </div>
         <div className="flex flex-wrap items-center gap-2">
           {canExport ? (
-            <a href={exportHref} className="inline-flex h-10 items-center gap-1.5 rounded-[var(--radius-sm)] border border-line-strong px-3 text-sm text-fg hover:bg-bg-hover" download>
-              <Download aria-hidden className="size-4" strokeWidth={1.75} /> Export CSV
-            </a>
+            <>
+              <a href={exportHref} className="inline-flex h-10 items-center gap-1.5 rounded-[var(--radius-sm)] border border-line-strong px-3 text-sm text-fg hover:bg-bg-hover" download>
+                <Download aria-hidden className="size-4" strokeWidth={1.75} /> Export to Excel
+              </a>
+              <a href={`${exportHref}${exportHref.includes("?") ? "&" : "?"}format=csv`} className="inline-flex h-10 items-center px-2 text-sm text-fg-muted underline-offset-4 hover:text-fg hover:underline" download title="Plain CSV for importing into other systems">
+                CSV
+              </a>
+            </>
           ) : null}
           <nav aria-label="View" className="flex items-center gap-1">
             <Link href={toggle("board")} className={tabCls(view === "board")} aria-current={view === "board" ? "page" : undefined}>
