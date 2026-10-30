@@ -5,7 +5,9 @@ import "server-only";
  *
  * - Cloudflare Workers: files go to the R2 bucket bound as `MEDIA_BUCKET` and are
  *   served from `MEDIA_PUBLIC_URL` (the bucket's public domain, e.g.
- *   https://media.sthughs.edu.la). The returned URL is stored on the Media row.
+ *   https://media.sthughs.edu.la) or, when that is not set, by the site itself at
+ *   /files/uploads/<name> (src/app/files/[...key]/route.ts) — same origin, so no
+ *   extra domain has to be reachable. The returned URL is stored on the Media row.
  * - Local / VPS: files are written to `public/uploads` and served as `/uploads/<name>`.
  *
  * The rest of the app only uses `putObject` and `deleteObject`.
@@ -13,17 +15,21 @@ import "server-only";
 
 /** Structural subset of Cloudflare's R2Bucket so we need no global worker types. */
 type R2Like = {
+  get(key: string): Promise<{ body: ReadableStream; httpEtag: string; httpMetadata?: { contentType?: string } } | null>;
   put(key: string, value: ArrayBuffer | Uint8Array, options?: { httpMetadata?: { contentType?: string } }): Promise<unknown>;
   delete(key: string): Promise<void>;
 };
 
 const isWorkersRuntime = typeof navigator !== "undefined" && navigator.userAgent === "Cloudflare-Workers";
 
+/** Where the site serves R2 files itself when MEDIA_PUBLIC_URL is not set. */
+export const FILES_ROUTE = "/files";
+
 export function mediaPublicUrl(): string {
-  return (process.env.MEDIA_PUBLIC_URL ?? "").replace(/\/+$/, "");
+  return (process.env.MEDIA_PUBLIC_URL ?? "").replace(/\/+$/, "") || FILES_ROUTE;
 }
 
-async function r2Bucket(): Promise<R2Like | null> {
+export async function r2Bucket(): Promise<R2Like | null> {
   if (!isWorkersRuntime) return null;
   try {
     const { getCloudflareContext } = await import("@opennextjs/cloudflare");
@@ -43,7 +49,6 @@ export async function putObject(name: string, bytes: Buffer, contentType: string
   const bucket = await r2Bucket();
   if (bucket) {
     const base = mediaPublicUrl();
-    if (!base) throw new Error("MEDIA_PUBLIC_URL is not set, so uploaded files could not be served. Set it to the R2 bucket's public domain.");
     await bucket.put(`uploads/${name}`, bytes, { httpMetadata: { contentType } });
     return { url: `${base}/uploads/${name}` };
   }

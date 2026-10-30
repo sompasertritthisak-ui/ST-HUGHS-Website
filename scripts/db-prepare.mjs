@@ -9,6 +9,8 @@
  *    set SKIP_DB_PUSH=1 to skip, e.g. when you manage migrations yourself).
  * 4. Seeds ONLY when SEED_ON_BUILD=true — set it for the first deploy, then remove it,
  *    because the seed resets navigation, pathways and FAQs to the seed content.
+ * 5. Applies pending one-time copy updates (scripts/apply-content-patches.mjs). Long-running hosts also do this in
+ *    scripts/start.mjs; Cloudflare Workers has no start step, so the build does it. Set CONTENT_PATCHES=false to skip.
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
@@ -33,3 +35,15 @@ const run = (cmd) => {
 run(`pnpm exec prisma generate --schema "${schema}"`);
 if (process.env.SKIP_DB_PUSH !== "1") run(`pnpm exec prisma db push --schema "${schema}" --skip-generate`);
 if (process.env.SEED_ON_BUILD === "true") run(`pnpm exec tsx prisma/seed.ts`);
+
+if (process.env.CONTENT_PATCHES !== "false" && process.env.SKIP_DB_PUSH !== "1") {
+  try {
+    const { PrismaClient } = await import("@prisma/client");
+    const { applyContentPatches } = await import("./apply-content-patches.mjs");
+    const prisma = new PrismaClient();
+    await applyContentPatches(prisma);
+    await prisma.$disconnect();
+  } catch (err) {
+    console.warn("[db-prepare] content patches skipped:", err?.message ?? err);
+  }
+}

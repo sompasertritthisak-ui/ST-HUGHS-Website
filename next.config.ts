@@ -24,7 +24,7 @@ function mediaHost(): string | undefined {
 
 /** One id per build, inlined into the pages and /api/version, so an open tab can tell a newer deploy is live
  *  (see src/components/site/deploy-guard.tsx). */
-const BUILD_ID = process.env.NEXT_PUBLIC_BUILD_ID || `${Date.now().toString(36)}-${(process.env.RAILWAY_GIT_COMMIT_SHA ?? "local").slice(0, 7)}`;
+const BUILD_ID = process.env.NEXT_PUBLIC_BUILD_ID || `${Date.now().toString(36)}-${(process.env.WORKERS_CI_COMMIT_SHA ?? process.env.RAILWAY_GIT_COMMIT_SHA ?? "local").slice(0, 7)}`;
 
 const nextConfig: NextConfig = {
   env: { NEXT_PUBLIC_BUILD_ID: BUILD_ID },

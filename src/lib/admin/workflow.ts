@@ -22,7 +22,7 @@ export function revalidateFor(def: EntityDef, ...records: (AdminRecord | null)[]
   const paths = new Set<string>([`/admin/${def.key}`]);
   for (const r of records) if (r) for (const p of def.publicPaths(r)) paths.add(p);
   for (const p of paths) revalidatePath(p);
-  revalidateTag("search"); // site search index
+  revalidateTag("search", { expire: 0 }); // site search index: rebuild on the next search, not after a stale window
 }
 
 export function friendlyDbError(error: unknown): ActionState {
