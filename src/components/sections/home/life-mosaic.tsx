@@ -6,7 +6,9 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { SplitHeading } from "@/components/ui/split-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
-import { getMessagingSettings, getStudentStories } from "@/lib/content";
+import { getDestinations, getMessagingSettings, getStudentStories } from "@/lib/content";
+import { ORIGIN } from "@/components/three/geo";
+import { RouteLoop } from "./route-loop";
 
 /**
  * Life at SHV — an editorial mosaic of REAL photography from the media library.
@@ -26,6 +28,11 @@ export async function LifeMosaic() {
   const voices = (await getStudentStories({ featured: true, take: 3 })).filter((s) => s.quote);
   // With 4 or 5 photos the grid leaves a gap; fill it with a brand statement tile.
   const fillerSpan = media.length === 4 ? "lg:col-span-8" : media.length === 5 ? "lg:col-span-4" : null;
+  // The filler tile animates the routes from Vientiane (wide tile: map beside the text; narrow: above it).
+  const routes = fillerSpan
+    ? (await getDestinations()).filter((d) => d.isoCode !== ORIGIN.isoCode).map((d) => ({ label: d.country, lat: d.lat, lng: d.lng }))
+    : [];
+  const wideFiller = fillerSpan === "lg:col-span-8";
 
   // Layout slots on a 12-column editorial grid. First image is the anchor.
   const slots = [
@@ -89,16 +96,27 @@ export async function LifeMosaic() {
             </Reveal>
           ))}
           {fillerSpan ? (
-            <Reveal as="li" delay={media.length * 60} className={cn("relative flex flex-col justify-between overflow-hidden rounded-[var(--radius)] bg-midnight p-6 text-white aspect-[3/2] lg:aspect-auto", fillerSpan)}>
-              <span aria-hidden className="h-[3px] w-16 bg-route" />
-              <div>
-                <p className="font-display text-[clamp(1.75rem,2.6vw,2.5rem)] leading-[1.05] text-balance">{messaging.tagline}</p>
-                <p className="mt-3 max-w-md text-sm text-platinum">A foundation year at home in Vientiane, a degree with a partner university abroad, and an admissions team that checks every step with you.</p>
+            <Reveal
+              as="li"
+              delay={media.length * 60}
+              className={cn("relative flex flex-col overflow-hidden rounded-[var(--radius)] bg-midnight text-white md:aspect-auto", wideFiller && "lg:flex-row", fillerSpan)}
+            >
+              {routes.length ? (
+                <div className={cn("relative h-[132px] shrink-0 md:h-[180px]", wideFiller && "lg:order-2 lg:h-auto lg:flex-1")}>
+                  <RouteLoop origin={{ label: ORIGIN.label, lat: ORIGIN.lat, lng: ORIGIN.lng }} destinations={routes} className="absolute inset-0" />
+                </div>
+              ) : null}
+              <div className={cn("relative flex flex-1 flex-col justify-between gap-5 p-6", wideFiller && "lg:max-w-[46%] lg:flex-none lg:pr-2")}>
+                <span aria-hidden className="h-[3px] w-16 bg-route" />
+                <div>
+                  <p className="font-display text-[clamp(1.75rem,2.6vw,2.5rem)] leading-[1.05] text-balance">{messaging.tagline}</p>
+                  <p className="mt-3 max-w-md text-sm text-platinum max-md:hidden">A foundation year at home in Vientiane, a degree with a partner university abroad, and an admissions team that checks every step with you.</p>
+                </div>
+                <Link href="/enquire?type=visit" className="group inline-flex min-h-11 items-center gap-2 text-sm text-white">
+                  Book a tour
+                  <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-1" strokeWidth={1.5} />
+                </Link>
               </div>
-              <Link href="/enquire?type=visit" className="group inline-flex min-h-11 items-center gap-2 text-sm text-white">
-                Book a tour
-                <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-1" strokeWidth={1.5} />
-              </Link>
             </Reveal>
           ) : null}
         </ul>
