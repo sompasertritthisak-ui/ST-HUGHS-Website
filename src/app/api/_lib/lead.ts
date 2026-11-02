@@ -58,7 +58,7 @@ async function resolveReferences(input: { programmeSlug?: string; destinationSlu
 
 export async function handleLeadSubmission(req: Request, kind: Kind) {
   const ip = clientIp(req.headers);
-  const rl = rateLimit(`enquiry:${ip}`, LEAD_RATE_LIMIT.limit, LEAD_RATE_LIMIT.windowMs);
+  const rl = await rateLimit(`enquiry:${ip}`, LEAD_RATE_LIMIT.limit, LEAD_RATE_LIMIT.windowMs);
   if (!rl.ok) return rateLimited(rl.retryAfterMs);
 
   const raw = await readBody(req);

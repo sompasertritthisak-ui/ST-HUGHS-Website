@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { TrackEventSchema, trackEvent } from "@/lib/analytics";
-import { clientIp, rateLimit } from "@/lib/rate-limit";
+import { burstLimit, clientIp } from "@/lib/rate-limit";
 import { readBody } from "../../_lib/respond";
 
 /**
@@ -19,7 +19,7 @@ const NO_STORE = { "Cache-Control": "no-store" } as const;
 
 export async function POST(req: Request) {
   const ip = clientIp(req.headers);
-  const rl = rateLimit(`analytics:${ip}`, ANALYTICS_RATE_LIMIT.limit, ANALYTICS_RATE_LIMIT.windowMs);
+  const rl = await burstLimit("ANALYTICS_LIMITER", ip, ANALYTICS_RATE_LIMIT.limit, ANALYTICS_RATE_LIMIT.windowMs);
   // Over the limit: drop the event quietly (analytics is best-effort; a 429 would only log errors in visitors' consoles).
   if (!rl.ok) return new NextResponse(null, { status: 204, headers: NO_STORE });
 

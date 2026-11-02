@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
+import { currentUser } from "@/lib/auth";
 import { can } from "@/lib/rbac";
 import { prisma } from "@/lib/prisma";
 import { recordAudit } from "@/lib/audit";
@@ -26,8 +26,8 @@ const ALLOWED: Record<string, { ext: string; kind: string }> = {
 
 /** GET — media list for the picker. Requires media.read. */
 export async function GET(request: Request) {
-  const session = await auth();
-  if (!session?.user?.id || !can(session.user.role, "media.read")) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  const user = await currentUser();
+  if (!user || !can(user.role, "media.read")) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   const url = new URL(request.url);
   const q = (url.searchParams.get("q") ?? "").trim().slice(0, 100);
   const kinds = (url.searchParams.get("kinds") ?? "")
@@ -48,10 +48,10 @@ export async function GET(request: Request) {
 
 /** POST multipart/form-data { file } — upload one file. Requires media.upload. */
 export async function POST(request: Request) {
-  const session = await auth();
-  if (!session?.user?.id || !can(session.user.role, "media.upload")) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  const user = await currentUser();
+  if (!user || !can(user.role, "media.upload")) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   const ip = clientIp(request.headers);
-  if (!rateLimit(`upload:${session.user.id}`, 60, 10 * 60 * 1000).ok) return NextResponse.json({ error: "Too many uploads. Try again shortly." }, { status: 429 });
+  if (!(await rateLimit(`upload:${user.id}`, 60, 10 * 60 * 1000)).ok) return NextResponse.json({ error: "Too many uploads. Try again shortly." }, { status: 429 });
 
   let form: FormData;
   try {
@@ -88,7 +88,7 @@ export async function POST(request: Request) {
       consentStatus: "NOT_REQUIRED",
     },
   });
-  await recordAudit({ actorId: session.user.id, action: "UPLOAD", entityType: "Media", entityId: media.id, afterJson: JSON.stringify(media), ip });
+  await recordAudit({ actorId: user.id, action: "UPLOAD", entityType: "Media", entityId: media.id, afterJson: JSON.stringify(media), ip });
   return NextResponse.json({ id: media.id, url: media.url, filename: media.filename, kind: media.kind, alt: media.alt }, { status: 201 });
 }
 

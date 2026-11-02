@@ -1,7 +1,33 @@
 import path from "node:path";
 import type { NextConfig } from "next";
 
+/**
+ * Content-Security-Policy: what a page may load and where it may send data, so an injected script cannot pull code
+ * from or post data to another site. Inline scripts stay allowed ('unsafe-inline'): Next.js inlines its page data,
+ * and per-request nonces would make every page uncacheable. Third parties: Google Translate (header menu), YouTube /
+ * Vimeo / map embeds (iframes), and https images (Unsplash placeholders, CMS links).
+ */
+const GOOGLE_TRANSLATE = "https://translate.google.com https://translate.googleapis.com https://translate-pa.googleapis.com https://www.gstatic.com";
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  `script-src 'self' 'unsafe-inline' ${GOOGLE_TRANSLATE}`,
+  `style-src 'self' 'unsafe-inline' ${GOOGLE_TRANSLATE} https://fonts.googleapis.com`, // Translate loads a Lao font
+  "img-src 'self' data: blob: https:",
+  "font-src 'self' data: https://fonts.gstatic.com",
+  "media-src 'self' blob: https:",
+  `connect-src 'self' ${GOOGLE_TRANSLATE}`,
+  "frame-src 'self' https:",
+  "worker-src 'self' blob:",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  "upgrade-insecure-requests",
+].join("; ");
+
 const securityHeaders = [
+  { key: "Content-Security-Policy", value: contentSecurityPolicy },
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "DENY" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },

@@ -62,5 +62,11 @@ can then be removed.
   transformations enabled, set `NEXT_PUBLIC_CF_IMAGE_TRANSFORMS=1` to resize and convert them at the edge.
 - **Uploads** go to the `shv-media` bucket and are served by the site at `/files/uploads/<name>` (one origin, nothing
   else to keep reachable). To serve them from a bucket domain instead, set `MEDIA_PUBLIC_URL`.
+- **Rate limits** (sign-in, password change, enquiry forms, uploads) are counted in the `RateLimiter` Durable Object
+  (`src/workers/rate-limiter.ts`, exported from `custom-worker.js`), so every Cloudflare server shares one exact count.
+  Search and analytics use Cloudflare's built-in limiter (`ratelimits` in `wrangler.jsonc`). Both fit inside the
+  Workers Paid allowance; nothing to set up.
+- **Bill guard:** `limits.cpu_ms` in `wrangler.jsonc` stops any single request using more than 3 s of CPU. For an alert
+  before any overage, add *Notifications → Add → Usage Based Billing* in the Cloudflare dashboard.
 - **Local check of the Workers build:** `pnpm exec opennextjs-cloudflare build && pnpm exec wrangler deploy --dry-run`
   prints the bundle size without deploying.

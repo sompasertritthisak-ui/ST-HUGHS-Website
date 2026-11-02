@@ -13,6 +13,7 @@ export const authConfig = {
       if (user) {
         token.role = (user as { role?: string }).role;
         token.uid = user.id;
+        token.pwv = (user as { passwordVersion?: string }).passwordVersion;
       }
       return token;
     },
@@ -20,6 +21,7 @@ export const authConfig = {
       if (session.user) {
         session.user.role = token.role as string | undefined;
         session.user.id = (token.uid as string | undefined) ?? "";
+        session.passwordVersion = token.pwv as string | undefined;
       }
       return session;
     },

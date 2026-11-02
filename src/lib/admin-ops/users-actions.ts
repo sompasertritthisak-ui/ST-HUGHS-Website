@@ -7,7 +7,7 @@ import { prisma } from "@/lib/prisma";
 import { recordAudit, createRevision } from "@/lib/audit";
 import { guard, requestIp } from "./guard";
 import { ChangeOwnPasswordSchema, CreateUserSchema, UpdateUserSchema, checkEscalation, createUserRecord, generateTemporaryPassword, hashPassword, verifyPassword } from "./users";
-import { currentUser } from "@/lib/auth";
+import { currentUser, signOut } from "@/lib/auth";
 import { rateLimit } from "@/lib/rate-limit";
 import { bool, str, zodErrors } from "./form";
 import { fail, succeed, type ActionState } from "./types";
@@ -108,7 +108,7 @@ export async function deleteUser(_prev: ActionState, formData: FormData): Promis
 export async function changeOwnPassword(_prev: ActionState, formData: FormData): Promise<ActionState> {
   const me = await currentUser();
   if (!me) return fail("You need to sign in.");
-  const rl = rateLimit(`pwchange:${me.id}`, 5, 15 * 60 * 1000);
+  const rl = await rateLimit(`pwchange:${me.id}`, 5, 15 * 60 * 1000);
   if (!rl.ok) return fail("Too many attempts. Please wait 15 minutes and try again.");
   const parsed = ChangeOwnPasswordSchema.safeParse({
     currentPassword: str(formData, "currentPassword"),
@@ -123,5 +123,7 @@ export async function changeOwnPassword(_prev: ActionState, formData: FormData):
   }
   await prisma.user.update({ where: { id: user.id }, data: { passwordHash: await hashPassword(parsed.data.newPassword) } });
   await recordAudit({ actorId: user.id, action: "UPDATE", entityType: "User", entityId: user.id, afterJson: JSON.stringify({ passwordChanged: true }), ip: await requestIp() });
-  return succeed("Password changed. Use the new password next time you sign in.");
+  // The new hash ends every session signed in with the old password (see currentUser), this one included.
+  await signOut({ redirectTo: "/admin/login?changed=1" });
+  return succeed("Password changed. Sign in with your new password.");
 }

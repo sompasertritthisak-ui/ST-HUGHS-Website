@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "st-hughs-website",
-  "main": ".open-next/worker.js",
+  "main": "custom-worker.js",
   "compatibility_date": "2026-03-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
@@ -25,8 +25,22 @@
   "durable_objects": {
     "bindings": [
       { "name": "NEXT_CACHE_DO_QUEUE", "class_name": "DOQueueHandler" },
-      { "name": "NEXT_TAG_CACHE_DO_SHARDED", "class_name": "DOShardedTagCache" }
+      { "name": "NEXT_TAG_CACHE_DO_SHARDED", "class_name": "DOShardedTagCache" },
+      // Exact sign-in / form / upload limits shared by every Cloudflare server (src/workers/rate-limiter.ts).
+      { "name": "RATE_LIMITER", "class_name": "RateLimiter" }
     ]
   },
-  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["DOQueueHandler", "DOShardedTagCache"] }]
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["DOQueueHandler", "DOShardedTagCache"] },
+    { "tag": "v2", "new_sqlite_classes": ["RateLimiter"] }
+  ],
+  // Cloudflare's built-in limiter (no extra charge, counted per location) for the busy public endpoints.
+  // Same numbers as the burstLimit() calls in src/app/api/search and src/app/api/analytics. period: 10 or 60 seconds.
+  "ratelimits": [
+    { "name": "SEARCH_LIMITER", "namespace_id": "1001", "simple": { "limit": 120, "period": 60 } },
+    { "name": "ANALYTICS_LIMITER", "namespace_id": "1002", "simple": { "limit": 300, "period": 60 } }
+  ],
+  // Bill guard: no single request may use more than 3 s of CPU (measured: pages ~25 ms, worst cold start ~800 ms,
+  // sign-in ~270 ms). Stops a runaway or abusive request from burning CPU time that is billed per millisecond.
+  "limits": { "cpu_ms": 3000 }
 }

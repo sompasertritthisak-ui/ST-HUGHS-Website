@@ -15,7 +15,7 @@ vi.mock("@/lib/prisma", () => ({
     },
   },
 }));
-vi.mock("@/lib/auth", () => ({ currentUser: vi.fn(async () => state.me) }));
+vi.mock("@/lib/auth", () => ({ currentUser: vi.fn(async () => state.me), signOut: vi.fn(async () => undefined) }));
 vi.mock("@/lib/audit", () => ({ recordAudit: vi.fn(async () => {}), createRevision: vi.fn(async () => {}) }));
 vi.mock("./guard", () => ({ guard: vi.fn(), requestIp: vi.fn(async () => "127.0.0.1") }));
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
@@ -23,6 +23,7 @@ vi.mock("next/navigation", () => ({ redirect: vi.fn() }));
 
 import { changeOwnPassword } from "./users-actions";
 import { recordAudit } from "@/lib/audit";
+import { signOut } from "@/lib/auth";
 
 const form = (o: Record<string, string>) => {
   const f = new FormData();
@@ -45,6 +46,8 @@ describe("changeOwnPassword", { timeout: 30_000 }, () => {
     const r = await changeOwnPassword(prev, form({ currentPassword: "old password 123", newPassword: "a brand new sentence", confirmPassword: "a brand new sentence" }));
     expect(r.ok).toBe(true);
     expect(await bcrypt.compare("a brand new sentence", state.hash)).toBe(true);
+    // every session ends, this one included: sign in again with the new password
+    expect(vi.mocked(signOut)).toHaveBeenCalledWith({ redirectTo: "/admin/login?changed=1" });
     expect(recordAudit).toHaveBeenCalledTimes(1);
     expect(JSON.stringify(vi.mocked(recordAudit).mock.calls[0][0])).not.toContain("a brand new sentence");
   });

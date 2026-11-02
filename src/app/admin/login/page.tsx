@@ -6,7 +6,8 @@ import { LoginForm } from "@/components/admin/login-form";
 export const metadata: Metadata = { title: "Staff sign in" };
 export const dynamic = "force-dynamic";
 
-export default async function LoginPage() {
+export default async function LoginPage({ searchParams }: { searchParams: Promise<{ changed?: string }> }) {
+  const passwordChanged = (await searchParams).changed === "1";
   const user = await currentUser();
   if (user) redirect("/admin");
   return (
@@ -36,6 +37,11 @@ export default async function LoginPage() {
           <p className="eyebrow eyebrow-rule">Staff sign in</p>
           <h1 className="font-display mt-4 text-[2.5rem] leading-none text-fg">Welcome back.</h1>
           <p className="mb-8 mt-3 text-sm text-fg-muted">Access is limited to authorised staff. Activity is recorded in the audit log.</p>
+          {passwordChanged ? (
+            <p role="status" className="mb-6 rounded-md border border-line bg-bg-hover px-3 py-2.5 text-sm text-fg">
+              Password changed. Sign in with your new password. Every device that was signed in has been signed out.
+            </p>
+          ) : null}
           <div className="rounded-[var(--radius-lg)] border border-line bg-bg-raised p-6 shadow-[0_1px_2px_rgb(11_19_80/0.04),0_24px_48px_-28px_rgb(11_19_80/0.35)]">
             <span aria-hidden className="mb-5 block h-[3px] w-10 bg-route" />
             <LoginForm />
