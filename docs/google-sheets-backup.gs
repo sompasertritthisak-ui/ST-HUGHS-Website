@@ -3,7 +3,7 @@
  *
  * Where: in the backup spreadsheet, Extensions → Apps Script. Replace everything in Code.gs with this file.
  * Then: paste the secret's fingerprint into SECRET_SHA256 below, Deploy → New deployment → type "Web app", Execute as
- * "Me", Who has access "Anyone", Deploy, and authorise. Put the web app URL (ends in /exec) in Railway as
+ * "Me", Who has access "Anyone", Deploy, and authorise. Put the web app URL (ends in /exec) in the Cloudflare Worker settings as
  * SHEETS_WEBHOOK_URL. Full steps: docs/GOOGLE_SHEETS_BACKUP.md.
  * Updating this script later: Deploy → Manage deployments → ✎ → Version "New version" → Deploy (the URL stays the same).
  *

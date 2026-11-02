@@ -20,7 +20,7 @@ export function SheetsSyncForm({ configured, canExport, fingerprint }: { configu
           <p className="text-xs font-semibold text-fg">Secret fingerprint (SHA-256)</p>
           <p className="mt-0.5 text-xs text-fg-muted">
             Paste this into <code className="font-mono">SECRET_SHA256</code> in the Apps Script. The script keeps only this fingerprint; the
-            secret itself stays in Railway.
+            secret itself stays in the Cloudflare Worker settings.
           </p>
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <code className="min-w-0 break-all font-mono text-xs text-fg">{fingerprint}</code>
