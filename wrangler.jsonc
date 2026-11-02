@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "shv-website",
+  "name": "st-hughs-website",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-03-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
@@ -17,7 +17,7 @@
     "AUTH_TRUST_HOST": "true",
     "NEXT_PUBLIC_CF_IMAGE_TRANSFORMS": "0"
   },
-  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "shv-website" }],
+  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "st-hughs-website" }],
   "r2_buckets": [
     { "binding": "NEXT_INC_CACHE_R2_BUCKET", "bucket_name": "shv-next-cache" },
     { "binding": "MEDIA_BUCKET", "bucket_name": "shv-media" }

@@ -4,7 +4,7 @@ The site runs on Cloudflare Workers through OpenNext (`wrangler.jsonc`, `open-ne
 deploys it from GitHub on every push to `main`, the same way Railway did. The database stays on Neon and the enquiry
 backup stays on Google Sheets; nothing about them changes.
 
-The same repository serves the **draft** (a personal Cloudflare account, `shv-website.<your-subdomain>.workers.dev`) and,
+The same repository serves the **draft** (a personal Cloudflare account, `st-hughs-website.<your-subdomain>.workers.dev`) and,
 later, **production** on the college account: per-account values live in the Cloudflare dashboard, never in the code
 (`keep_vars` in `wrangler.jsonc` stops a deploy from wiping them).
 
@@ -22,15 +22,15 @@ later, **production** on the college account: per-account values live in the Clo
 2. **R2 buckets** — *R2 Object Storage* → **Create bucket** twice, names exactly `shv-next-cache` and `shv-media`
    (location: Automatic). No public access is needed: the site serves uploads itself at `/files/uploads/…`.
 3. **Import the repository** — *Workers & Pages → Create → Import a repository* → GitHub → `ST-HUGHS-Website`.
-   - Project / Worker name: **`shv-website`** (must match `name` in `wrangler.jsonc`)
+   - Project / Worker name: **`st-hughs-website`** (must match `name` in `wrangler.jsonc`)
    - Production branch: `main`
    - Build command: `pnpm cf:build`
    - Deploy command: `pnpm exec opennextjs-cloudflare deploy`
    - Root directory: `/`
    - **Build variables** (*Advanced settings → Build variables*): `DATABASE_URL` = the Neon connection string,
      marked **Secret**. The build uses it to update the database tables, apply copy updates and pre-render pages.
-4. Let the first build run (about 5–8 minutes). It deploys to `https://shv-website.<your-subdomain>.workers.dev`.
-5. **Runtime variables** — *Workers & Pages → shv-website → Settings → Variables and Secrets* → **Add**:
+4. Let the first build run (about 5–8 minutes). It deploys to `https://st-hughs-website.<your-subdomain>.workers.dev`.
+5. **Runtime variables** — *Workers & Pages → st-hughs-website → Settings → Variables and Secrets* → **Add**:
 
    | Name | Type | Value |
    | --- | --- | --- |
@@ -38,7 +38,7 @@ later, **production** on the college account: per-account values live in the Clo
    | `AUTH_SECRET` | Secret | a long random string (a new one just signs everyone out once) |
    | `SHEETS_WEBHOOK_URL` | Secret | the Apps Script web app URL (`…/exec`) |
    | `SHEETS_WEBHOOK_SECRET` | Secret | the same phrase as in Railway (the script holds its fingerprint) |
-   | `APPLICATION_URL` | Text | `https://shv-website.<your-subdomain>.workers.dev` |
+   | `APPLICATION_URL` | Text | `https://st-hughs-website.<your-subdomain>.workers.dev` |
    | `EMAIL_FROM` | Text | as in Railway, if set |
 
    `AUTH_TRUST_HOST`, `NEXTJS_ENV` and `NEXT_PUBLIC_CF_IMAGE_TRANSFORMS` are already in `wrangler.jsonc`.
@@ -46,7 +46,7 @@ later, **production** on the college account: per-account values live in the Clo
 6. Open the workers.dev address, sign in to `/admin` with your usual account, and check **Settings → Integrations**
    shows the Sheets backup as *configured*.
 
-After this, every push to `main` builds and deploys automatically. Build logs: *shv-website → Deployments*.
+After this, every push to `main` builds and deploys automatically. Build logs: *st-hughs-website → Deployments*.
 
 ## Switching off Railway
 
