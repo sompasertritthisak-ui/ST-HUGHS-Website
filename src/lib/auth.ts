@@ -6,6 +6,9 @@ import { prisma } from "./prisma";
 import { authConfig } from "./auth.config";
 import { recordAudit } from "./audit";
 
+/** "s***@pbis.edu.la": enough for the owner to recognise in server logs, never the full address. */
+const maskEmail = (email: string) => email.replace(/^(.)[^@]*/, "$1***");
+
 const CredentialsSchema = z.object({
   email: z.string().email().max(200),
   password: z.string().min(8).max(200),
@@ -26,11 +29,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const { email, password } = parsed.data;
         const user = await prisma.user.findUnique({ where: { email: email.toLowerCase() } });
         if (!user || !user.isActive) {
+          // Server log only (the form always says "Email or password is incorrect"): tells the owner which case it was.
+          console.warn(`[auth] sign-in refused for ${maskEmail(email)}: ${user ? "account is deactivated" : "no account with this email in this database"}`);
           await recordAudit({ action: "LOGIN_FAILED", entityType: "User", afterJson: JSON.stringify({ email }) });
           return null;
         }
         const ok = await bcrypt.compare(password, user.passwordHash);
         if (!ok) {
+          console.warn(`[auth] sign-in refused for ${maskEmail(email)}: password does not match`);
           await recordAudit({ actorId: user.id, action: "LOGIN_FAILED", entityType: "User", entityId: user.id });
           return null;
         }
