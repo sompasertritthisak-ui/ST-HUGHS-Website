@@ -67,8 +67,12 @@ export type RateLimiterNamespace = {
   get(id: unknown): { fetch(input: string, init?: RequestInit): Promise<Response> };
 };
 
-/** How long a request waits for the shared limiter before the local count decides instead. */
-export const SHARED_TIMEOUT_MS = 1500;
+/**
+ * How long a request waits for the shared limiter before the local count decides instead. Generous on purpose:
+ * usual answers take 15–250 ms, but on a cold start the same request is also loading the site's code, and 1.5 s
+ * timed out in production (Laos → the Durable Object's location).
+ */
+export const SHARED_TIMEOUT_MS = 4000;
 
 /**
  * One exact count per key across every Cloudflare server, kept in the RateLimiter Durable Object.
